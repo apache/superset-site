@@ -1,0 +1,343 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>superset.jinja_context &mdash; Superset&#39;s documentation  documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="Superset&#39;s documentation  documentation" href="../../index.html"/>
+        <link rel="up" title="Module code" href="../index.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Superset's documentation
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation &amp; Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial.html">Tutorial for Superset Administrators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../security.html">Security</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../sqllab.html">SQL Lab</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../visualization.html">Visualization Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../videos.html">Videos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gallery.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../druid.html">Druid</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">FAQ</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">Superset's documentation</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+      
+    <li>superset.jinja_context</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for superset.jinja_context</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Defines the templating context for SQL Lab&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">absolute_import</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">division</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">unicode_literals</span>
+
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="k">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">timedelta</span>
+<span class="kn">import</span> <span class="nn">inspect</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">uuid</span>
+
+<span class="kn">from</span> <span class="nn">jinja2.sandbox</span> <span class="k">import</span> <span class="n">SandboxedEnvironment</span>
+<span class="kn">from</span> <span class="nn">flask</span> <span class="k">import</span> <span class="n">request</span><span class="p">,</span> <span class="n">g</span>
+
+<span class="kn">from</span> <span class="nn">dateutil.relativedelta</span> <span class="k">import</span> <span class="n">relativedelta</span>
+
+<span class="kn">from</span> <span class="nn">superset</span> <span class="k">import</span> <span class="n">app</span>
+
+<span class="n">config</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">config</span>
+<span class="n">BASE_CONTEXT</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;datetime&#39;</span><span class="p">:</span> <span class="n">datetime</span><span class="p">,</span>
+    <span class="s1">&#39;random&#39;</span><span class="p">:</span> <span class="n">random</span><span class="p">,</span>
+    <span class="s1">&#39;relativedelta&#39;</span><span class="p">:</span> <span class="n">relativedelta</span><span class="p">,</span>
+    <span class="s1">&#39;time&#39;</span><span class="p">:</span> <span class="n">time</span><span class="p">,</span>
+    <span class="s1">&#39;timedelta&#39;</span><span class="p">:</span> <span class="n">timedelta</span><span class="p">,</span>
+    <span class="s1">&#39;uuid&#39;</span><span class="p">:</span> <span class="n">uuid</span><span class="p">,</span>
+<span class="p">}</span>
+<span class="n">BASE_CONTEXT</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;JINJA_CONTEXT_ADDONS&#39;</span><span class="p">,</span> <span class="p">{}))</span>
+
+
+<div class="viewcode-block" id="url_param"><a class="viewcode-back" href="../../sqllab.html#superset.jinja_context.url_param">[docs]</a><span class="k">def</span> <span class="nf">url_param</span><span class="p">(</span><span class="n">param</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Get a url paramater</span>
+
+<span class="sd">    :param param: the url parameter to lookup</span>
+<span class="sd">    :type param: str</span>
+<span class="sd">    :param default: the value to return in the absence of the parameter</span>
+<span class="sd">    :type default: str</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">args</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">request</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">param</span><span class="p">,</span> <span class="n">default</span><span class="p">)</span></div>
+
+
+<span class="k">def</span> <span class="nf">current_user_id</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;The id of the user who is currently logged in&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">g</span><span class="o">.</span><span class="n">user</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">g</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">id</span>
+
+
+<span class="k">def</span> <span class="nf">current_username</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;The username of the user who is currently logged in&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">g</span><span class="o">.</span><span class="n">user</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">g</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">username</span>
+
+
+<span class="k">class</span> <span class="nc">BaseTemplateProcessor</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;Base class for database-specific jinja context</span>
+
+<span class="sd">    There&#39;s this bit of magic in ``process_template`` that instantiates only</span>
+<span class="sd">    the database context for the active database as a ``models.Database``</span>
+<span class="sd">    object binds it to the context object, so that object methods</span>
+<span class="sd">    have access to</span>
+<span class="sd">    that context. This way, {{ hive.latest_partition(&#39;mytable&#39;) }} just</span>
+<span class="sd">    knows about the database it is operating in.</span>
+
+<span class="sd">    This means that object methods are only available for the active database</span>
+<span class="sd">    and are given access to the ``models.Database`` object and schema</span>
+<span class="sd">    name. For globally available methods use ``@classmethod``.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">engine</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">database</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">query</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">table</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">database</span> <span class="o">=</span> <span class="n">database</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">query</span> <span class="o">=</span> <span class="n">query</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">schema</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">query</span> <span class="ow">and</span> <span class="n">query</span><span class="o">.</span><span class="n">schema</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">schema</span> <span class="o">=</span> <span class="n">query</span><span class="o">.</span><span class="n">schema</span>
+        <span class="k">elif</span> <span class="n">table</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">schema</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">schema</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">context</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;url_param&#39;</span><span class="p">:</span> <span class="n">url_param</span><span class="p">,</span>
+            <span class="s1">&#39;current_user_id&#39;</span><span class="p">:</span> <span class="n">current_user_id</span><span class="p">,</span>
+            <span class="s1">&#39;current_username&#39;</span><span class="p">:</span> <span class="n">current_username</span><span class="p">,</span>
+            <span class="s1">&#39;form_data&#39;</span><span class="p">:</span> <span class="p">{},</span>
+        <span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">BASE_CONTEXT</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">engine</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">engine</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">env</span> <span class="o">=</span> <span class="n">SandboxedEnvironment</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">process_template</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sql</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Processes a sql template</span>
+
+<span class="sd">        &gt;&gt;&gt; sql = &quot;SELECT &#39;{{ datetime(2017, 1, 1).isoformat() }}&#39;&quot;</span>
+<span class="sd">        &gt;&gt;&gt; process_template(sql)</span>
+<span class="sd">        &quot;SELECT &#39;2017-01-01T00:00:00&#39;&quot;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">template</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">from_string</span><span class="p">(</span><span class="n">sql</span><span class="p">)</span>
+        <span class="n">kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">template</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="PrestoTemplateProcessor"><a class="viewcode-back" href="../../sqllab.html#superset.jinja_context.PrestoTemplateProcessor">[docs]</a><span class="k">class</span> <span class="nc">PrestoTemplateProcessor</span><span class="p">(</span><span class="n">BaseTemplateProcessor</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Presto Jinja context</span>
+
+<span class="sd">    The methods described here are namespaced under ``presto`` in the</span>
+<span class="sd">    jinja context as in ``SELECT &#39;{{ presto.some_macro_call() }}&#39;``</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">engine</span> <span class="o">=</span> <span class="s1">&#39;presto&#39;</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_schema_table</span><span class="p">(</span><span class="n">table_name</span><span class="p">,</span> <span class="n">schema</span><span class="p">):</span>
+        <span class="k">if</span> <span class="s1">&#39;.&#39;</span> <span class="ow">in</span> <span class="n">table_name</span><span class="p">:</span>
+            <span class="n">schema</span><span class="p">,</span> <span class="n">table_name</span> <span class="o">=</span> <span class="n">table_name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">table_name</span><span class="p">,</span> <span class="n">schema</span>
+
+    <span class="k">def</span> <span class="nf">latest_partition</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table_name</span><span class="p">):</span>
+        <span class="n">table_name</span><span class="p">,</span> <span class="n">schema</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_schema_table</span><span class="p">(</span><span class="n">table_name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">schema</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">database</span><span class="o">.</span><span class="n">db_engine_spec</span><span class="o">.</span><span class="n">latest_partition</span><span class="p">(</span>
+            <span class="n">table_name</span><span class="p">,</span> <span class="n">schema</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">database</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">latest_sub_partition</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table_name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">table_name</span><span class="p">,</span> <span class="n">schema</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_schema_table</span><span class="p">(</span><span class="n">table_name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">schema</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">database</span><span class="o">.</span><span class="n">db_engine_spec</span><span class="o">.</span><span class="n">latest_sub_partition</span><span class="p">(</span>
+            <span class="n">table_name</span><span class="o">=</span><span class="n">table_name</span><span class="p">,</span>
+            <span class="n">schema</span><span class="o">=</span><span class="n">schema</span><span class="p">,</span>
+            <span class="n">database</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">database</span><span class="p">,</span>
+            <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+<span class="k">class</span> <span class="nc">HiveTemplateProcessor</span><span class="p">(</span><span class="n">PrestoTemplateProcessor</span><span class="p">):</span>
+    <span class="n">engine</span> <span class="o">=</span> <span class="s1">&#39;hive&#39;</span>
+
+
+<span class="n">template_processors</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">keys</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">globals</span><span class="p">()</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+<span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">:</span>
+    <span class="n">o</span> <span class="o">=</span> <span class="nb">globals</span><span class="p">()[</span><span class="n">k</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">o</span> <span class="ow">and</span> <span class="n">inspect</span><span class="o">.</span><span class="n">isclass</span><span class="p">(</span><span class="n">o</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">BaseTemplateProcessor</span><span class="p">):</span>
+        <span class="n">template_processors</span><span class="p">[</span><span class="n">o</span><span class="o">.</span><span class="n">engine</span><span class="p">]</span> <span class="o">=</span> <span class="n">o</span>
+
+
+<span class="k">def</span> <span class="nf">get_template_processor</span><span class="p">(</span><span class="n">database</span><span class="p">,</span> <span class="n">table</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">query</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="n">TP</span> <span class="o">=</span> <span class="n">template_processors</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">database</span><span class="o">.</span><span class="n">backend</span><span class="p">,</span> <span class="n">BaseTemplateProcessor</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">TP</span><span class="p">(</span><span class="n">database</span><span class="o">=</span><span class="n">database</span><span class="p">,</span> <span class="n">table</span><span class="o">=</span><span class="n">table</span><span class="p">,</span> <span class="n">query</span><span class="o">=</span><span class="n">query</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
