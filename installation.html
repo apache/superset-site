@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Installation &amp; Configuration &mdash; Superset&#39;s documentation  documentation</title>
+  <title>Installation &amp; Configuration &mdash; Apache Superset  documentation</title>
   
 
   
@@ -33,9 +33,9 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="Superset&#39;s documentation  documentation" href="index.html"/>
+    <link rel="top" title="Apache Superset  documentation" href="index.html"/>
         <link rel="next" title="Tutorial for Superset Administrators" href="tutorial.html"/>
-        <link rel="prev" title="Superset’s documentation" href="index.html"/> 
+        <link rel="prev" title="Apache Superset (incubating)" href="index.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -53,7 +53,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home"> Superset's documentation
+            <a href="index.html" class="icon icon-home"> Apache Superset
           
 
           
@@ -125,7 +125,7 @@
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
         <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="index.html">Superset's documentation</a>
+        <a href="index.html">Apache Superset</a>
       </nav>
 
 
@@ -546,10 +546,10 @@ results</li>
 <code class="docutils literal"><span class="pre">superset_config.py</span></code>. Both the worker and web server processes should
 have the same configuration.</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">CeleryConfig</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-<span class="n">BROKER_URL</span> <span class="o">=</span> <span class="s1">&#39;redis://localhost:6379/0&#39;</span>
-        <span class="n">CELERY_IMPORTS</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;superset.sql_lab&#39;</span><span class="p">,</span> <span class="p">)</span>
-        <span class="n">CELERY_RESULT_BACKEND</span> <span class="o">=</span> <span class="s1">&#39;redis://localhost:6379/0&#39;</span>
-        <span class="n">CELERY_ANNOTATIONS</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;tasks.add&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;rate_limit&#39;</span><span class="p">:</span> <span class="s1">&#39;10/s&#39;</span><span class="p">}}</span>
+    <span class="n">BROKER_URL</span> <span class="o">=</span> <span class="s1">&#39;redis://localhost:6379/0&#39;</span>
+    <span class="n">CELERY_IMPORTS</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;superset.sql_lab&#39;</span><span class="p">,</span> <span class="p">)</span>
+    <span class="n">CELERY_RESULT_BACKEND</span> <span class="o">=</span> <span class="s1">&#39;redis://localhost:6379/0&#39;</span>
+    <span class="n">CELERY_ANNOTATIONS</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;tasks.add&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;rate_limit&#39;</span><span class="p">:</span> <span class="s1">&#39;10/s&#39;</span><span class="p">}}</span>
 
 <span class="n">CELERY_CONFIG</span> <span class="o">=</span> <span class="n">CeleryConfig</span>
 </pre></div>
@@ -561,13 +561,13 @@ Memcached, Redis, S3 (<a class="reference external" href="https://pypi.python.or
 memory or the file system (in a single server-type setup or for testing),
 or to write your own caching interface. Your <code class="docutils literal"><span class="pre">superset_config.py</span></code> may
 look something like:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>    <span class="c1"># On S3</span>
-    <span class="kn">from</span> <span class="nn">s3cache.s3cache</span> <span class="kn">import</span> <span class="n">S3Cache</span>
-    <span class="n">S3_CACHE_BUCKET</span> <span class="o">=</span> <span class="s1">&#39;foobar-superset&#39;</span>
-    <span class="n">S3_CACHE_KEY_PREFIX</span> <span class="o">=</span> <span class="s1">&#39;sql_lab_result&#39;</span>
-    <span class="n">RESULTS_BACKEND</span> <span class="o">=</span> <span class="n">S3Cache</span><span class="p">(</span><span class="n">S3_CACHE_BUCKET</span><span class="p">,</span> <span class="n">S3_CACHE_KEY_PREFIX</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># On S3</span>
+<span class="kn">from</span> <span class="nn">s3cache.s3cache</span> <span class="kn">import</span> <span class="n">S3Cache</span>
+<span class="n">S3_CACHE_BUCKET</span> <span class="o">=</span> <span class="s1">&#39;foobar-superset&#39;</span>
+<span class="n">S3_CACHE_KEY_PREFIX</span> <span class="o">=</span> <span class="s1">&#39;sql_lab_result&#39;</span>
+<span class="n">RESULTS_BACKEND</span> <span class="o">=</span> <span class="n">S3Cache</span><span class="p">(</span><span class="n">S3_CACHE_BUCKET</span><span class="p">,</span> <span class="n">S3_CACHE_KEY_PREFIX</span><span class="p">)</span>
 
-    <span class="c1"># On Redis</span>
+<span class="c1"># On Redis</span>
 <span class="kn">from</span> <span class="nn">werkzeug.contrib.cache</span> <span class="kn">import</span> <span class="n">RedisCache</span>
 <span class="n">RESULTS_BACKEND</span> <span class="o">=</span> <span class="n">RedisCache</span><span class="p">(</span>
     <span class="n">host</span><span class="o">=</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">6379</span><span class="p">,</span> <span class="n">key_prefix</span><span class="o">=</span><span class="s1">&#39;superset_results&#39;</span><span class="p">)</span>
@@ -633,7 +633,7 @@ same server.</p>
         <a href="tutorial.html" class="btn btn-neutral float-right" title="Tutorial for Superset Administrators" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="index.html" class="btn btn-neutral" title="Superset’s documentation" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="index.html" class="btn btn-neutral" title="Apache Superset (incubating)" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

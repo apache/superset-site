@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>FAQ &mdash; Superset&#39;s documentation  documentation</title>
+  <title>FAQ &mdash; Apache Superset  documentation</title>
   
 
   
@@ -33,7 +33,7 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="Superset&#39;s documentation  documentation" href="index.html"/>
+    <link rel="top" title="Apache Superset  documentation" href="index.html"/>
         <link rel="prev" title="Druid" href="druid.html"/> 
 
   
@@ -52,7 +52,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home"> Superset's documentation
+            <a href="index.html" class="icon icon-home"> Apache Superset
           
 
           
@@ -113,7 +113,7 @@
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
         <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="index.html">Superset's documentation</a>
+        <a href="index.html">Apache Superset</a>
       </nav>
 
 
@@ -180,11 +180,18 @@ visualizations.</p>
 </div>
 <div class="section" id="why-are-my-queries-timing-out">
 <h2>Why are my queries timing out?<a class="headerlink" href="#why-are-my-queries-timing-out" title="Permalink to this headline">¶</a></h2>
-<p>If you are seeing timeouts (504 Gateway Time-out) when running queries,
-it&#8217;s because the web server is timing out web requests. If you want to
-increase the default (50), you can specify the timeout when starting the
-web server with the <code class="docutils literal"><span class="pre">-t</span></code> flag, which is expressed in seconds.</p>
+<p>There are many reasons may cause long query timing out.</p>
+<ul>
+<li><p class="first">For running long query from Sql Lab, by default Superset allows it run as long as 6 hours before it being killed by celery. If you want to increase the time for running query, you can specify the timeout in configuration. For example:</p>
+<p><code class="docutils literal"><span class="pre">SQLLAB_ASYNC_TIME_LIMIT_SEC</span> <span class="pre">=</span> <span class="pre">60</span> <span class="pre">*</span> <span class="pre">60</span> <span class="pre">*</span> <span class="pre">6</span></code></p>
+</li>
+<li><p class="first">Superset is running on gunicorn web server, which may time out web requests. If you want to increase the default (50), you can specify the timeout when starting the web server with the <code class="docutils literal"><span class="pre">-t</span></code> flag, which is expressed in seconds.</p>
 <p><code class="docutils literal"><span class="pre">superset</span> <span class="pre">runserver</span> <span class="pre">-t</span> <span class="pre">300</span></code></p>
+</li>
+<li><p class="first">If you are seeing timeouts (504 Gateway Time-out) when loading dashboard or explore slice, you are probably behind gateway or proxy server (such as Nginx). If it did not receive a timely response from Superset server (which is processing long queries), these web servers will send 504 status code to clients directly. Superset has a client-side timeout limit to address this issue. If query didn&#8217;t come back within clint-side timeout (45 seconds by default), Superset will display warning message to avoid gateway timeout message. If you have a longer gateway timeout limit, you can change client-side timeout limit settings from <code class="docutils literal"><span class="pre">/superset/superset/assets/javascripts/constants.js</span></code> file and rebuild js package:</p>
+<p><code class="docutils literal"><span class="pre">export</span> <span class="pre">const</span> <span class="pre">QUERY_TIMEOUT_THRESHOLD</span> <span class="pre">=</span> <span class="pre">45000;</span></code></p>
+</li>
+</ul>
 </div>
 <div class="section" id="why-is-the-map-not-visible-in-the-mapbox-visualization">
 <h2>Why is the map not visible in the mapbox visualization?<a class="headerlink" href="#why-is-the-map-not-visible-in-the-mapbox-visualization" title="Permalink to this headline">¶</a></h2>
