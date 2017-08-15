@@ -95,9 +95,11 @@
 <li class="toctree-l2"><a class="reference internal" href="#why-are-my-queries-timing-out">Why are my queries timing out?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#why-is-the-map-not-visible-in-the-mapbox-visualization">Why is the map not visible in the mapbox visualization?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#how-to-add-dynamic-filters-to-a-dashboard">How to add dynamic filters to a dashboard?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#how-to-limit-the-timed-refresh-on-a-dashboard">How to limit the timed refresh on a dashboard?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#why-does-fabmanager-or-superset-freezed-hung-not-responding-when-started-my-home-directory-is-nfs-mounted">Why does fabmanager or superset freezed/hung/not responding when started (my home directory is NFS mounted)?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#how-do-i-add-new-columns-to-an-existing-table">How do I add new columns to an existing table</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#how-do-i-go-about-developing-a-new-visualization-type">How do I go about developing a new visualization type?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#what-database-engine-can-i-use-as-a-backend-for-superset">What database engine can I use as a backend for Superset?</a></li>
 </ul>
 </li>
 </ul>
@@ -225,7 +227,8 @@ never be affected by any dashboard level filtering.</p>
     <span class="s2">&quot;filter_immune_slice_fields&quot;</span><span class="p">:</span> <span class="p">{</span>
         <span class="s2">&quot;177&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;country_name&quot;</span><span class="p">,</span> <span class="s2">&quot;__from&quot;</span><span class="p">,</span> <span class="s2">&quot;__to&quot;</span><span class="p">],</span>
         <span class="s2">&quot;32&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;__from&quot;</span><span class="p">,</span> <span class="s2">&quot;__to&quot;</span><span class="p">]</span>
-    <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;timed_refresh_immune_slices&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">324</span><span class="p">]</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -240,11 +243,26 @@ for dealing with the time boundary filtering mentioned above.</p>
 different tables or databases? If the column name is shared, the filter will
 be applied, it&#8217;s as simple as that.</p>
 </div>
+<div class="section" id="how-to-limit-the-timed-refresh-on-a-dashboard">
+<h2>How to limit the timed refresh on a dashboard?<a class="headerlink" href="#how-to-limit-the-timed-refresh-on-a-dashboard" title="Permalink to this headline">¶</a></h2>
+<p>By default, the dashboard timed refresh feature allows you to automatically requery every slice on a dashboard according to a set schedule. Sometimes, however, you won&#8217;t want all of the slices to be refreshed - especially if some data is slow moving, or run heavy queries.
+To exclude specific slices from the timed refresh process, add the <code class="docutils literal"><span class="pre">timed_refresh_immune_slices</span></code> key to the dashboard <code class="docutils literal"><span class="pre">JSON</span> <span class="pre">Metadata</span></code> field:</p>
+<p>..code:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">{</span>
+   <span class="s2">&quot;filter_immune_slices&quot;</span><span class="p">:</span> <span class="p">[],</span>
+    <span class="s2">&quot;expanded_slices&quot;</span><span class="p">:</span> <span class="p">{},</span>
+    <span class="s2">&quot;filter_immune_slice_fields&quot;</span><span class="p">:</span> <span class="p">{},</span>
+    <span class="s2">&quot;timed_refresh_immune_slices&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">324</span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>In the example above, if a timed refresh is set for the dashboard, then every slice except 324 will be automatically requeried on schedule.</p>
+</div>
 <div class="section" id="why-does-fabmanager-or-superset-freezed-hung-not-responding-when-started-my-home-directory-is-nfs-mounted">
 <h2>Why does fabmanager or superset freezed/hung/not responding when started (my home directory is NFS mounted)?<a class="headerlink" href="#why-does-fabmanager-or-superset-freezed-hung-not-responding-when-started-my-home-directory-is-nfs-mounted" title="Permalink to this headline">¶</a></h2>
-<p>superset creates and uses an sqlite database at <code class="docutils literal"><span class="pre">~/.superset/superset.db</span></code>. Sqlite is known to <a class="reference external" href="https://www.sqlite.org/lockingv3.html">don&#8217;t work well if used on NFS</a> due to broken file locking implementation on NFS.</p>
-<p>One work around is to create a symlink from ~/.superset to a directory located on a non-NFS partition.</p>
-<p>Another work around is to change where superset stores the sqlite database by adding <code class="docutils literal"><span class="pre">SQLALCHEMY_DATABASE_URI</span> <span class="pre">=</span> <span class="pre">'sqlite:////new/localtion/superset.db'</span></code> in superset_config.py (create the file if needed), then adding the directory where superset_config.py lives to PYTHONPATH environment variable (e.g. <code class="docutils literal"><span class="pre">export</span> <span class="pre">PYTHONPATH=/opt/logs/sandbox/airbnb/</span></code>).</p>
+<p>By default, superset creates and uses an sqlite database at <code class="docutils literal"><span class="pre">~/.superset/superset.db</span></code>. Sqlite is known to <a class="reference external" href="https://www.sqlite.org/lockingv3.html">don&#8217;t work well if used on NFS</a> due to broken file locking implementation on NFS.</p>
+<p>You can override this path using the <code class="docutils literal"><span class="pre">SUPERSET_HOME</span></code> environment variable.</p>
+<p>Another work around is to change where superset stores the sqlite database by adding <code class="docutils literal"><span class="pre">SQLALCHEMY_DATABASE_URI</span> <span class="pre">=</span> <span class="pre">'sqlite:////new/location/superset.db'</span></code> in superset_config.py (create the file if needed), then adding the directory where superset_config.py lives to PYTHONPATH environment variable (e.g. <code class="docutils literal"><span class="pre">export</span> <span class="pre">PYTHONPATH=/opt/logs/sandbox/airbnb/</span></code>).</p>
 </div>
 <div class="section" id="how-do-i-add-new-columns-to-an-existing-table">
 <h2>How do I add new columns to an existing table<a class="headerlink" href="#how-do-i-add-new-columns-to-an-existing-table" title="Permalink to this headline">¶</a></h2>
@@ -263,6 +281,15 @@ appropriate boxes and save again.</p>
 <p>Here&#8217;s an example as a Github PR with comments that describe what the
 different sections of the code do:
 <a class="reference external" href="https://github.com/airbnb/superset/pull/3013">https://github.com/airbnb/superset/pull/3013</a></p>
+</div>
+<div class="section" id="what-database-engine-can-i-use-as-a-backend-for-superset">
+<h2>What database engine can I use as a backend for Superset?<a class="headerlink" href="#what-database-engine-can-i-use-as-a-backend-for-superset" title="Permalink to this headline">¶</a></h2>
+<p>To clarify, the <em>database backend</em> is an OLTP database used by Superset to store its internal
+information like your list of users, slices and dashboard definitions.</p>
+<p>Superset is tested using Mysql, Postgresql and Sqlite for its backend. It&#8217;s recommended you
+install Superset on one of these database server for production.</p>
+<p>Using a column-store, non-OLTP databases like Vertica, Redshift or Presto as a database backend simply won&#8217;t work as these databases are not designed for this type of workload. Installation on Oracle, Microsoft SQL Server, or other OLTP databases may work but isn&#8217;t tested.</p>
+<p>Please note that pretty much any databases that have a SqlAlchemy integration should work perfectly fine as a datasource for Superset, just not as the OLTP backend.</p>
 </div>
 </div>
 

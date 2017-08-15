@@ -14,7 +14,7 @@ intelligence web application
 
 .. important::
 
-    **Disclaimer**: Apache Airflow is an effort undergoing incubation at The
+    **Disclaimer**: Apache Superset is an effort undergoing incubation at The
     Apache Software Foundation (ASF), sponsored by the Apache Incubator.
     Incubation is required of all newly accepted projects until a further
     review indicates that the infrastructure, communications, and
