@@ -100,6 +100,8 @@
 <li class="toctree-l2"><a class="reference internal" href="#how-do-i-add-new-columns-to-an-existing-table">How do I add new columns to an existing table</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#how-do-i-go-about-developing-a-new-visualization-type">How do I go about developing a new visualization type?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#what-database-engine-can-i-use-as-a-backend-for-superset">What database engine can I use as a backend for Superset?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#how-can-i-configure-oauth-authentication-and-authorization">How can i configure OAuth authentication and authorization?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#how-can-i-set-a-default-filter-on-my-dashboard">How can I set a default filter on my dashboard?</a></li>
 </ul>
 </li>
 </ul>
@@ -290,6 +292,15 @@ information like your list of users, slices and dashboard definitions.</p>
 install Superset on one of these database server for production.</p>
 <p>Using a column-store, non-OLTP databases like Vertica, Redshift or Presto as a database backend simply won&#8217;t work as these databases are not designed for this type of workload. Installation on Oracle, Microsoft SQL Server, or other OLTP databases may work but isn&#8217;t tested.</p>
 <p>Please note that pretty much any databases that have a SqlAlchemy integration should work perfectly fine as a datasource for Superset, just not as the OLTP backend.</p>
+</div>
+<div class="section" id="how-can-i-configure-oauth-authentication-and-authorization">
+<h2>How can i configure OAuth authentication and authorization?<a class="headerlink" href="#how-can-i-configure-oauth-authentication-and-authorization" title="Permalink to this headline">¶</a></h2>
+<p>You can take a look at this Flask-AppBuilder <a class="reference external" href="https://github.com/dpgaspar/Flask-AppBuilder/blob/master/examples/oauth/config.py">configuration example</a>.</p>
+</div>
+<div class="section" id="how-can-i-set-a-default-filter-on-my-dashboard">
+<h2>How can I set a default filter on my dashboard?<a class="headerlink" href="#how-can-i-set-a-default-filter-on-my-dashboard" title="Permalink to this headline">¶</a></h2>
+<p>Easy. Simply apply the filter and save the dashboard while the filter
+is active.</p>
 </div>
 </div>
 

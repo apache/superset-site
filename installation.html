@@ -83,10 +83,12 @@
                 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Installation &amp; Configuration</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#getting-started">Getting Started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cloud-native">Cloud-native!</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#os-dependencies">OS dependencies</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#python-virtualenv">Python virtualenv</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#python-s-setup-tools-and-pip">Python&#8217;s setup tools and pip</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#superset-installation-and-initialization">Superset installation and initialization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#a-proper-wsgi-http-server">A proper WSGI HTTP Server</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#configuration-behind-a-load-balancer">Configuration behind a load balancer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#configuration">Configuration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#database-dependencies">Database dependencies</a></li>
@@ -94,6 +96,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#caching">Caching</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#deeper-sqlalchemy-integration">Deeper SQLAlchemy integration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#schemas-postgres-redshift">Schemas (Postgres &amp; Redshift)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#external-password-store-for-sqlalchemy-connections">External Password store for SQLAlchemy connections</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#ssl-access-to-databases">SSL Access to databases</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#druid">Druid</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#cors">CORS</a></li>
@@ -161,6 +164,30 @@
 <p>Superset is tested against Python <code class="docutils literal"><span class="pre">2.7</span></code> and Python <code class="docutils literal"><span class="pre">3.4</span></code>.
 Airbnb currently uses 2.7.* in production. We do not plan on supporting
 Python <code class="docutils literal"><span class="pre">2.6</span></code>.</p>
+</div>
+<div class="section" id="cloud-native">
+<h2>Cloud-native!<a class="headerlink" href="#cloud-native" title="Permalink to this headline">¶</a></h2>
+<p>Superset is designed to be highly available. It is
+&#8220;cloud-native&#8221; as it has been designed scale out in large,
+distributed environments, and works well inside containers.
+While you can easily
+test drive Superset on a modest setup or simply on your laptop,
+there&#8217;s virtually no limit around scaling out the platform.
+Superset is also cloud-native in the sense that it is
+flexible and lets you choose your web server (Gunicorn, Nginx, Apache),
+your metadata database engine (MySQL, Postgres, MariaDB, ...),
+your message queue (Redis, RabbitMQ, SQS, ...),
+your results backend (S3, Redis, Memcached, ...), your caching layer
+(memcached, Redis, ...), works well with services like NewRelic, StatsD and
+DataDog, and has the ability to run analytic workloads against
+most popular database technologies.</p>
+<p>Superset is battle tested in large environments with hundreds
+of concurrent users. Airbnb&#8217;s production environment runs inside
+Kubernetes and serves 600+ daily active users viewing over 100K charts a
+day.</p>
+<p>The Superset web server and the Superset Celery workers (optional)
+are stateless, so you can scale out by running on as many servers
+as needed.</p>
 </div>
 <div class="section" id="os-dependencies">
 <h2>OS dependencies<a class="headerlink" href="#os-dependencies" title="Permalink to this headline">¶</a></h2>
@@ -256,10 +283,37 @@ the credential you entered while creating the admin account, and navigate to
 <cite>Menu -&gt; Admin -&gt; Refresh Metadata</cite>. This action should bring in all of
 your datasources for Superset to be aware of, and they should show up in
 <cite>Menu -&gt; Datasources</cite>, from where you can start playing with your data!</p>
-<p>Please note that <em>gunicorn</em>, Superset default application server, does not
-work on Windows so you need to use the development web server.
-The development web server though is not intended to be used on production systems
-so better use a supported platform that can run <em>gunicorn</em>.</p>
+</div>
+<div class="section" id="a-proper-wsgi-http-server">
+<h2>A proper WSGI HTTP Server<a class="headerlink" href="#a-proper-wsgi-http-server" title="Permalink to this headline">¶</a></h2>
+<p>While you can setup Superset to run on Nginx or Apache, many use
+Gunicorn, preferably in <strong>async mode</strong>, which allows for impressive
+concurrency even and is fairly easy to install and configure. Please
+refer to the
+documentation of your preferred technology to set up this Flask WSGI
+application in a way that works well in your environment.</p>
+<p>While the <cite>superset runserver</cite> command act as an quick wrapper
+around <cite>gunicorn</cite>, it doesn&#8217;t expose all the options you may need,
+so you&#8217;ll want to craft your own <cite>gunicorn</cite> command in your production
+environment. Here&#8217;s an <strong>async</strong> setup known to work well:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">gunicorn</span> \
+        <span class="o">-</span><span class="n">w</span> <span class="mi">10</span> \
+        <span class="o">-</span><span class="n">k</span> <span class="n">gevent</span> \
+        <span class="o">--</span><span class="n">timeout</span> <span class="mi">120</span> \
+        <span class="o">-</span><span class="n">b</span>  <span class="mf">0.0</span><span class="o">.</span><span class="mf">0.0</span><span class="p">:</span><span class="mi">6666</span> \
+        <span class="o">--</span><span class="n">limit</span><span class="o">-</span><span class="n">request</span><span class="o">-</span><span class="n">line</span> <span class="mi">0</span> \
+        <span class="o">--</span><span class="n">limit</span><span class="o">-</span><span class="n">request</span><span class="o">-</span><span class="n">field_size</span> <span class="mi">0</span> \
+        <span class="o">--</span><span class="n">statsd</span><span class="o">-</span><span class="n">host</span> <span class="n">localhost</span><span class="p">:</span><span class="mi">8125</span> \
+        <span class="n">superset</span><span class="p">:</span><span class="n">app</span>
+</pre></div>
+</div>
+<p>Refer to the
+[Gunicorn documentation](<a class="reference external" href="http://docs.gunicorn.org/en/stable/design.html">http://docs.gunicorn.org/en/stable/design.html</a>)
+for more information.</p>
+<p>Note that <em>gunicorn</em> does not
+work on Windows so the <cite>superser runserver</cite> command is not expected to work
+in that context. Also note that the development web
+server (<cite>superset runserver -d</cite>) is not intended for production use.</p>
 </div>
 <div class="section" id="configuration-behind-a-load-balancer">
 <h2>Configuration behind a load balancer<a class="headerlink" href="#configuration-behind-a-load-balancer" title="Permalink to this headline">¶</a></h2>
@@ -301,6 +355,8 @@ of the parameters you can copy / paste in that configuration module:</p>
 
 <span class="c1"># Flask-WTF flag for CSRF</span>
 <span class="n">WTF_CSRF_ENABLED</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="c1"># Add endpoints that need to be exempt from CSRF protection</span>
+<span class="n">WTF_CSRF_EXEMPT_LIST</span> <span class="o">=</span> <span class="p">[]</span>
 
 <span class="c1"># Set this API key to enable Mapbox visualizations</span>
 <span class="n">MAPBOX_API_KEY</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
@@ -315,6 +371,10 @@ for more information on how to configure Superset.</p>
 <li><em>SQLALCHEMY_DATABASE_URI</em>, by default it is stored at <em>~/.superset/superset.db</em></li>
 <li><em>SECRET_KEY</em>, to a long random string</li>
 </ul>
+<p>In case you need to exempt endpoints from CSRF, e.g. you are running a custom
+auth postback endpoint, you can add them to <em>WTF_CSRF_EXEMPT_LIST</em></p>
+<blockquote>
+<div>WTF_CSRF_EXEMPT_LIST = [&#8216;&#8217;]</div></blockquote>
 </div>
 <div class="section" id="database-dependencies">
 <h2>Database dependencies<a class="headerlink" href="#database-dependencies" title="Permalink to this headline">¶</a></h2>
@@ -400,10 +460,6 @@ database you want to connect to should get you to the right place.</p>
 </div>
 <div class="section" id="aws-athena">
 <h2>(AWS) Athena<a class="headerlink" href="#aws-athena" title="Permalink to this headline">¶</a></h2>
-<p>This currently relies on an unreleased future version of <a class="reference external" href="https://github.com/laughingman7743/PyAthenaJDBC">PyAthenaJDBC</a>. If you&#8217;re adventurous or simply impatient, you can install directly from git:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">git</span><span class="o">+</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">laughingman7743</span><span class="o">/</span><span class="n">PyAthenaJDBC</span><span class="nd">@support_sqlalchemy</span>
-</pre></div>
-</div>
 <p>The connection string for Athena looks like this</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span>awsathena+jdbc://{aws_access_key_id}:{aws_secret_access_key}@athena.{region_name}.amazonaws.com/{schema_name}?s3_staging_dir={s3_staging_dir}&amp;...
 </pre></div>
@@ -450,6 +506,23 @@ while the <code class="docutils literal"><span class="pre">metadata_params</span
 use the concept of <strong>schema</strong> as a logical entity
 on top of the <strong>database</strong>. For Superset to connect to a specific schema,
 there&#8217;s a <strong>schema</strong> parameter you can set in the table form.</p>
+</div>
+<div class="section" id="external-password-store-for-sqlalchemy-connections">
+<h2>External Password store for SQLAlchemy connections<a class="headerlink" href="#external-password-store-for-sqlalchemy-connections" title="Permalink to this headline">¶</a></h2>
+<p>It is possible to use an external store for you database passwords. This is
+useful if you a running a custom secret distribution framework and do not wish
+to store secrets in Superset&#8217;s meta database.</p>
+<p>Example:
+Write a function that takes a single argument of type <code class="docutils literal"><span class="pre">sqla.engine.url</span></code> and returns
+the password for the given connection string. Then set <code class="docutils literal"><span class="pre">SQLALCHEMY_CUSTOM_PASSWORD_STORE</span></code>
+in your config file to point to that function.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">example_lookup_password</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
+    <span class="n">secret</span> <span class="o">=</span> <span class="o">&lt;&lt;</span><span class="n">get</span> <span class="n">password</span> <span class="kn">from</span> <span class="nn">external</span> <span class="n">framework</span><span class="o">&gt;&gt;</span>
+    <span class="k">return</span> <span class="s1">&#39;secret&#39;</span>
+
+<span class="n">SQLALCHEMY_CUSTOM_PASSWORD_STORE</span> <span class="o">=</span> <span class="n">example_lookup_password</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="ssl-access-to-databases">
 <h2>SSL Access to databases<a class="headerlink" href="#ssl-access-to-databases" title="Permalink to this headline">¶</a></h2>
