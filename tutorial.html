@@ -13,6 +13,8 @@
 
   
   
+  
+  
 
   
 
@@ -44,6 +46,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -80,7 +83,10 @@
           
             
             
-                <ul class="current">
+              
+            
+            
+              <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation &amp; Configuration</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Tutorial for Superset Administrators</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#connecting-to-a-new-database">Connecting to a new database</a></li>
@@ -108,8 +114,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="index.html">Apache Superset</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Apache Superset</a>
+        
       </nav>
 
 
@@ -118,21 +126,38 @@
         <div class="rst-content">
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="index.html">Docs</a> &raquo;</li>
-      
-    <li>Tutorial for Superset Administrators</li>
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Tutorial for Superset Administrators</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
+            
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -141,9 +166,9 @@
   <div class="section" id="tutorial-for-superset-administrators">
 <h1>Tutorial for Superset Administrators<a class="headerlink" href="#tutorial-for-superset-administrators" title="Permalink to this headline">¶</a></h1>
 <p>This tutorial targets a Superset administrator: someone configuring Superset
-for an organization on behalf of users. We&#8217;ll show you how to connect Superset
-to a new database and configure a table in that database for analysis. You&#8217;ll
-also explore the data you&#8217;ve exposed and add a visualization to a dashboard
+for an organization on behalf of users. We’ll show you how to connect Superset
+to a new database and configure a table in that database for analysis. You’ll
+also explore the data you’ve exposed and add a visualization to a dashboard
 so that you get a feel for the end-to-end user experience.</p>
 <div class="section" id="connecting-to-a-new-database">
 <h2>Connecting to a new database<a class="headerlink" href="#connecting-to-a-new-database" title="Permalink to this headline">¶</a></h2>
@@ -245,11 +270,11 @@ the list of available tables:</p>
 <img alt="_images/tutorial_16_datasource_chart_type.png" src="_images/tutorial_16_datasource_chart_type.png" />
 <p>Let’s walk through a basic query to get the count of all records in our table.
 First, we’ll need to change the <strong>Since</strong> filter to capture the range of our data.
-You can use simple phrases to apply these filters, like &#8220;3 years ago&#8221;:</p>
+You can use simple phrases to apply these filters, like “3 years ago”:</p>
 <img alt="_images/tutorial_17_choose_time_range.png" src="_images/tutorial_17_choose_time_range.png" />
-<p>The upper limit for time, the <strong>Until</strong> filter, defaults to &#8220;now&#8221;, which may or may
+<p>The upper limit for time, the <strong>Until</strong> filter, defaults to “now”, which may or may
 not be what you want.</p>
-<p>Look for the Metrics section under the <strong>GROUP BY</strong> header, and start typing &#8220;Count&#8221;
+<p>Look for the Metrics section under the <strong>GROUP BY</strong> header, and start typing “Count”
 - you’ll see a list of metrics matching what you type:</p>
 <img alt="_images/tutorial_18_choose_metric.png" src="_images/tutorial_18_choose_metric.png" />
 <p>Select the <em>COUNT(*)</em> metric, then click the green <strong>Query</strong> button near the top
@@ -275,7 +300,7 @@ we wanted to find its maximum value when grouped by specific fields.</p>
 <p>In our case, <em>measurement_flag</em> is the value of the measurement taken, which clearly
 depends on the type of measurement (the researchers recorded different values for
 precipitation and temperature). Therefore, we must filter our query only on records
-where the <em>weather_description</em> is equal to &#8220;Maximum temperature&#8221;, which we do in
+where the <em>weather_description</em> is equal to “Maximum temperature”, which we do in
 the <strong>Filters</strong> section at the bottom of the explore:</p>
 <img alt="_images/tutorial_25_max_temp_filter.png" src="_images/tutorial_25_max_temp_filter.png" />
 <p>Finally, since we only care about the top 10 measurements, we limit our results to
@@ -302,7 +327,7 @@ Metric &gt; SQL Expression</em>)</li>
 </ul>
 <p>For now, though, let’s create a better visualization of these data and add it to
 a dashboard.</p>
-<p>We change the Chart Type to &#8220;Distribution - Bar Chart&#8221;:</p>
+<p>We change the Chart Type to “Distribution - Bar Chart”:</p>
 <img alt="_images/tutorial_28_bar_chart.png" src="_images/tutorial_28_bar_chart.png" />
 <p>Our filter on Maximum temperature measurements was retained, but the query and
 formatting options are dependent on the chart type, so you’ll have to set the
@@ -348,15 +373,18 @@ please start exploring and creating slices and dashboards of your own.</p>
 
 
            </div>
+           <div class="articleComments">
+            
+           </div>
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="security.html" class="btn btn-neutral float-right" title="Security" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="security.html" class="btn btn-neutral float-right" title="Security" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="installation.html" class="btn btn-neutral" title="Installation &amp; Configuration" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="installation.html" class="btn btn-neutral" title="Installation &amp; Configuration" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -389,7 +417,8 @@ please start exploring and creating slices and dashboards of your own.</p>
             VERSION:'',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="_static/jquery.js"></script>

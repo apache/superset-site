@@ -13,6 +13,8 @@
 
   
   
+  
+  
 
   
 
@@ -43,6 +45,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -79,7 +82,10 @@
           
             
             
-                <ul>
+              
+            
+            
+              <ul>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation &amp; Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial for Superset Administrators</a></li>
 <li class="toctree-l1"><a class="reference internal" href="security.html">Security</a></li>
@@ -101,8 +107,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="#">Apache Superset</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">Apache Superset</a>
+        
       </nav>
 
 
@@ -111,21 +119,38 @@
         <div class="rst-content">
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="#">Docs</a> &raquo;</li>
-      
-    <li>Apache Superset (incubating)</li>
+    
+      <li><a href="#">Docs</a> &raquo;</li>
+        
+      <li>Apache Superset (incubating)</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
+            
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -191,7 +216,7 @@ to the user</li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#cloud-native">Cloud-native!</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#os-dependencies">OS dependencies</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#python-virtualenv">Python virtualenv</a></li>
-<li class="toctree-l2"><a class="reference internal" href="installation.html#python-s-setup-tools-and-pip">Python&#8217;s setup tools and pip</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#python-s-setup-tools-and-pip">Python’s setup tools and pip</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#superset-installation-and-initialization">Superset installation and initialization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#a-proper-wsgi-http-server">A proper WSGI HTTP Server</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#configuration-behind-a-load-balancer">Configuration behind a load balancer</a></li>
@@ -210,6 +235,7 @@ to the user</li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#sql-lab">SQL Lab</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#making-your-own-build">Making your own build</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#blueprints">Blueprints</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#statsd-logging">StatsD logging</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial for Superset Administrators</a><ul>
@@ -262,11 +288,12 @@ to the user</li>
 <li class="toctree-l2"><a class="reference internal" href="faq.html#how-to-add-dynamic-filters-to-a-dashboard">How to add dynamic filters to a dashboard?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="faq.html#how-to-limit-the-timed-refresh-on-a-dashboard">How to limit the timed refresh on a dashboard?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="faq.html#why-does-fabmanager-or-superset-freezed-hung-not-responding-when-started-my-home-directory-is-nfs-mounted">Why does fabmanager or superset freezed/hung/not responding when started (my home directory is NFS mounted)?</a></li>
-<li class="toctree-l2"><a class="reference internal" href="faq.html#how-do-i-add-new-columns-to-an-existing-table">How do I add new columns to an existing table</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#what-if-the-table-schema-changed">What if the table schema changed?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="faq.html#how-do-i-go-about-developing-a-new-visualization-type">How do I go about developing a new visualization type?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="faq.html#what-database-engine-can-i-use-as-a-backend-for-superset">What database engine can I use as a backend for Superset?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="faq.html#how-can-i-configure-oauth-authentication-and-authorization">How can i configure OAuth authentication and authorization?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="faq.html#how-can-i-set-a-default-filter-on-my-dashboard">How can I set a default filter on my dashboard?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#how-do-i-get-superset-to-refresh-the-schema-of-my-table">How do I get Superset to refresh the schema of my table?</a></li>
 </ul>
 </li>
 </ul>
@@ -285,12 +312,15 @@ to the user</li>
 
 
            </div>
+           <div class="articleComments">
+            
+           </div>
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="installation.html" class="btn btn-neutral float-right" title="Installation &amp; Configuration" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="installation.html" class="btn btn-neutral float-right" title="Installation &amp; Configuration" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
     </div>
@@ -324,7 +354,8 @@ to the user</li>
             VERSION:'',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="_static/jquery.js"></script>

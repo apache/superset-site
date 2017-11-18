@@ -13,6 +13,8 @@
 
   
   
+  
+  
 
   
 
@@ -44,6 +46,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -80,7 +83,10 @@
           
             
             
-                <ul class="current">
+              
+            
+            
+              <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation &amp; Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial for Superset Administrators</a></li>
 <li class="toctree-l1"><a class="reference internal" href="security.html">Security</a></li>
@@ -110,8 +116,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="index.html">Apache Superset</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Apache Superset</a>
+        
       </nav>
 
 
@@ -120,21 +128,38 @@
         <div class="rst-content">
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="index.html">Docs</a> &raquo;</li>
-      
-    <li>Druid</li>
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Druid</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
+            
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -144,7 +169,7 @@
 <h1>Druid<a class="headerlink" href="#druid" title="Permalink to this headline">¶</a></h1>
 <p>Superset works well with Druid, though currently not all
 advanced features out of Druid are covered. This page clarifies what is
-covered and what isn&#8217;t and explains how to use some of the features.</p>
+covered and what isn’t and explains how to use some of the features.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">Currently Airbnb runs against Druid <code class="docutils literal"><span class="pre">0.8.x</span></code> and previous /
@@ -156,13 +181,13 @@ following versions are not tested against.</p>
 <h3>Aggregations<a class="headerlink" href="#aggregations" title="Permalink to this headline">¶</a></h3>
 <p>Common aggregations, or Druid metrics can be defined and used in Superset.
 The first and simpler use case is to use the checkbox matrix expose in your
-datasource&#8217;s edit view (<code class="docutils literal"><span class="pre">Sources</span> <span class="pre">-&gt;</span> <span class="pre">Druid</span> <span class="pre">Datasources</span> <span class="pre">-&gt;</span>
+datasource’s edit view (<code class="docutils literal"><span class="pre">Sources</span> <span class="pre">-&gt;</span> <span class="pre">Druid</span> <span class="pre">Datasources</span> <span class="pre">-&gt;</span>
 <span class="pre">[your</span> <span class="pre">datasource]</span> <span class="pre">-&gt;</span> <span class="pre">Edit</span> <span class="pre">-&gt;</span> <span class="pre">[tab]</span> <span class="pre">List</span> <span class="pre">Druid</span> <span class="pre">Column</span></code>).
 Clicking the <code class="docutils literal"><span class="pre">GroupBy</span></code> and <code class="docutils literal"><span class="pre">Filterable</span></code> checkboxes will make the column
 appear in the related dropdowns while in explore view. Checking
 <code class="docutils literal"><span class="pre">Count</span> <span class="pre">Distinct</span></code>, <code class="docutils literal"><span class="pre">Min</span></code>, <code class="docutils literal"><span class="pre">Max</span></code> or <code class="docutils literal"><span class="pre">Sum</span></code> will result in creating
 new metrics that will appear in the <code class="docutils literal"><span class="pre">List</span> <span class="pre">Druid</span> <span class="pre">Metric</span></code> tab upon saving the
-datasource. By editing these metrics, you&#8217;ll notice that they their <code class="docutils literal"><span class="pre">json</span></code>
+datasource. By editing these metrics, you’ll notice that they their <code class="docutils literal"><span class="pre">json</span></code>
 element correspond to Druid aggregation definition. You can create your own
 aggregations manually from the <code class="docutils literal"><span class="pre">List</span> <span class="pre">Druid</span> <span class="pre">Metric</span></code> tab following Druid
 documentation.</p>
@@ -188,15 +213,18 @@ Json field.</p>
 
 
            </div>
+           <div class="articleComments">
+            
+           </div>
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="faq.html" class="btn btn-neutral float-right" title="FAQ" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="faq.html" class="btn btn-neutral float-right" title="FAQ" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="gallery.html" class="btn btn-neutral" title="Gallery" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="gallery.html" class="btn btn-neutral" title="Gallery" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -229,7 +257,8 @@ Json field.</p>
             VERSION:'',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="_static/jquery.js"></script>

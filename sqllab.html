@@ -13,6 +13,8 @@
 
   
   
+  
+  
 
   
 
@@ -44,6 +46,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -80,7 +83,10 @@
           
             
             
-                <ul class="current">
+              
+            
+            
+              <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation &amp; Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial for Superset Administrators</a></li>
 <li class="toctree-l1"><a class="reference internal" href="security.html">Security</a></li>
@@ -110,8 +116,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="index.html">Apache Superset</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Apache Superset</a>
+        
       </nav>
 
 
@@ -120,21 +128,38 @@
         <div class="rst-content">
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="index.html">Docs</a> &raquo;</li>
-      
-    <li>SQL Lab</li>
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>SQL Lab</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
+            
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -149,13 +174,13 @@
 <ul class="simple">
 <li>Connects to just about any database backend</li>
 <li>A multi-tab environment to work on multiple queries at a time</li>
-<li>A smooth flow to visualize your query results using Superset&#8217;s rich
+<li>A smooth flow to visualize your query results using Superset’s rich
 visualization capabilities</li>
 <li>Browse database metadata: tables, columns, indexes, partitions</li>
 <li>Support for long-running queries<ul>
 <li>uses the <a class="reference external" href="http://www.python.org/">Celery distributed queue</a>
 to dispatch query handling to workers</li>
-<li>supports defining a &#8220;results backend&#8221; to persist query results</li>
+<li>supports defining a “results backend” to persist query results</li>
 </ul>
 </li>
 <li>A search engine to find queries executed in the past</li>
@@ -183,15 +208,15 @@ programming language within your SQL code.</p>
 parameterized so they can be re-used easily.</p>
 <div class="section" id="available-macros">
 <h3>Available macros<a class="headerlink" href="#available-macros" title="Permalink to this headline">¶</a></h3>
-<p>We expose certain modules from Python&#8217;s standard library in
-Superset&#8217;s Jinja context:
+<p>We expose certain modules from Python’s standard library in
+Superset’s Jinja context:
 - <code class="docutils literal"><span class="pre">time</span></code>: <code class="docutils literal"><span class="pre">time</span></code>
 - <code class="docutils literal"><span class="pre">datetime</span></code>: <code class="docutils literal"><span class="pre">datetime.datetime</span></code>
 - <code class="docutils literal"><span class="pre">uuid</span></code>: <code class="docutils literal"><span class="pre">uuid</span></code>
 - <code class="docutils literal"><span class="pre">random</span></code>: <code class="docutils literal"><span class="pre">random</span></code>
 - <code class="docutils literal"><span class="pre">relativedelta</span></code>: <code class="docutils literal"><span class="pre">dateutil.relativedelta.relativedelta</span></code>
 - more to come!</p>
-<p><a class="reference external" href="http://jinja.pocoo.org/docs/dev/templates/">Jinja&#8217;s builtin filters</a> can be also be applied where needed.</p>
+<p><a class="reference external" href="http://jinja.pocoo.org/docs/dev/templates/">Jinja’s builtin filters</a> can be also be applied where needed.</p>
 <dl class="class">
 <dt id="superset.jinja_context.PrestoTemplateProcessor">
 <em class="property">class </em><code class="descclassname">superset.jinja_context.</code><code class="descname">PrestoTemplateProcessor</code><span class="sig-paren">(</span><em>database=None</em>, <em>query=None</em>, <em>table=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/superset/jinja_context.html#PrestoTemplateProcessor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#superset.jinja_context.PrestoTemplateProcessor" title="Permalink to this definition">¶</a></dt>
@@ -209,8 +234,8 @@ jinja context as in <code class="docutils literal"><span class="pre">SELECT</spa
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>param</strong> (<em>str</em>) &#8211; the url parameter to lookup</li>
-<li><strong>default</strong> (<em>str</em>) &#8211; the value to return in the absence of the parameter</li>
+<li><strong>param</strong> (<em>str</em>) – the url parameter to lookup</li>
+<li><strong>default</strong> (<em>str</em>) – the value to return in the absence of the parameter</li>
 </ul>
 </td>
 </tr>
@@ -224,15 +249,18 @@ jinja context as in <code class="docutils literal"><span class="pre">SELECT</spa
 
 
            </div>
+           <div class="articleComments">
+            
+           </div>
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="visualization.html" class="btn btn-neutral float-right" title="Visualization Tools" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="visualization.html" class="btn btn-neutral float-right" title="Visualization Tools" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="security.html" class="btn btn-neutral" title="Security" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="security.html" class="btn btn-neutral" title="Security" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -265,7 +293,8 @@ jinja context as in <code class="docutils literal"><span class="pre">SELECT</spa
             VERSION:'',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="_static/jquery.js"></script>

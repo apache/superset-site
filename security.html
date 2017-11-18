@@ -13,6 +13,8 @@
 
   
   
+  
+  
 
   
 
@@ -44,6 +46,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -80,7 +83,10 @@
           
             
             
-                <ul class="current">
+              
+            
+            
+              <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation &amp; Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial for Superset Administrators</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Security</a><ul>
@@ -119,8 +125,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="index.html">Apache Superset</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Apache Superset</a>
+        
       </nav>
 
 
@@ -129,21 +137,38 @@
         <div class="rst-content">
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="index.html">Docs</a> &raquo;</li>
-      
-    <li>Security</li>
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Security</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
+            
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -152,18 +177,18 @@
   <div class="section" id="security">
 <h1>Security<a class="headerlink" href="#security" title="Permalink to this headline">¶</a></h1>
 <p>Security in Superset is handled by Flask AppBuilder (FAB). FAB is a
-&#8220;Simple and rapid application development framework, built on top of Flask.&#8221;.
+“Simple and rapid application development framework, built on top of Flask.”.
 FAB provides authentication, user management, permissions and roles.
 Please read its <a class="reference external" href="http://flask-appbuilder.readthedocs.io/en/latest/security.html">Security documentation</a>.</p>
 <div class="section" id="provided-roles">
 <h2>Provided Roles<a class="headerlink" href="#provided-roles" title="Permalink to this headline">¶</a></h2>
 <p>Superset ships with a set of roles that are handled by Superset itself.
 You can assume that these roles will stay up-to-date as Superset evolves.
-Even though it&#8217;s possible for <code class="docutils literal"><span class="pre">Admin</span></code> usrs to do so, it is not recommended
+Even though it’s possible for <code class="docutils literal"><span class="pre">Admin</span></code> usrs to do so, it is not recommended
 that you alter these roles in any way by removing
 or adding permissions to them as these roles will be re-synchronized to
 their original values as you run your next <code class="docutils literal"><span class="pre">superset</span> <span class="pre">init</span></code> command.</p>
-<p>Since it&#8217;s not recommended to alter the roles described here, it&#8217;s right
+<p>Since it’s not recommended to alter the roles described here, it’s right
 to assume that your security strategy should be to compose user access based
 on these base roles and roles that you create. For instance you could
 create a role <code class="docutils literal"><span class="pre">Financial</span> <span class="pre">Analyst</span></code> that would be made of set of permissions
@@ -172,7 +197,7 @@ granted <code class="docutils literal"><span class="pre">Gamma</span></code>, <c
 <div class="section" id="admin">
 <h3>Admin<a class="headerlink" href="#admin" title="Permalink to this headline">¶</a></h3>
 <p>Admins have all possible rights, including granting or revoking rights from
-other users and altering other people&#8217;s slices and dashboards.</p>
+other users and altering other people’s slices and dashboards.</p>
 </div>
 <div class="section" id="alpha">
 <h3>Alpha<a class="headerlink" href="#alpha" title="Permalink to this headline">¶</a></h3>
@@ -199,7 +224,7 @@ users need to be given access on a per database basis.</p>
 </div>
 <div class="section" id="public">
 <h3>Public<a class="headerlink" href="#public" title="Permalink to this headline">¶</a></h3>
-<p>It&#8217;s possible to allow logged out users to access some Superset features.</p>
+<p>It’s possible to allow logged out users to access some Superset features.</p>
 <p>By setting <code class="docutils literal"><span class="pre">PUBLIC_ROLE_LIKE_GAMMA</span> <span class="pre">=</span> <span class="pre">True</span></code> in your <code class="docutils literal"><span class="pre">superset_config.py</span></code>,
 you grant public role the same set of permissions as for the GAMMA role.
 This is useful if one wants to enable anonymous users to view
@@ -210,7 +235,7 @@ to the role manually.</p>
 </div>
 <div class="section" id="managing-gamma-per-data-source-access">
 <h2>Managing Gamma per data source access<a class="headerlink" href="#managing-gamma-per-data-source-access" title="Permalink to this headline">¶</a></h2>
-<p>Here&#8217;s how to provide users access to only specific datasets. First make
+<p>Here’s how to provide users access to only specific datasets. First make
 sure the users with limited access have [only] the Gamma role assigned to
 them. Second, create a new role (<code class="docutils literal"><span class="pre">Menu</span> <span class="pre">-&gt;</span> <span class="pre">Security</span> <span class="pre">-&gt;</span> <span class="pre">List</span> <span class="pre">Roles</span></code>) and
 click the <code class="docutils literal"><span class="pre">+</span></code> sign.</p>
@@ -226,7 +251,7 @@ and use the typeahead to search for your table names.</p>
 <h2>Customizing<a class="headerlink" href="#customizing" title="Permalink to this headline">¶</a></h2>
 <p>The permissions exposed by FAB are very granular and allow for a great level
 of customization. FAB creates many permissions automagically for each model
-that is create (can_add, can_delete, can_show, can_edit, ...) as well as for
+that is create (can_add, can_delete, can_show, can_edit, …) as well as for
 each view. On top of that, Superset can expose more granular permissions like
 <code class="docutils literal"><span class="pre">all_datasource_access</span></code>.</p>
 <p>We do not recommend altering the 3 base roles as there
@@ -297,15 +322,18 @@ is dependent on revenue.</p>
 
 
            </div>
+           <div class="articleComments">
+            
+           </div>
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="sqllab.html" class="btn btn-neutral float-right" title="SQL Lab" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="sqllab.html" class="btn btn-neutral float-right" title="SQL Lab" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="tutorial.html" class="btn btn-neutral" title="Tutorial for Superset Administrators" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="tutorial.html" class="btn btn-neutral" title="Tutorial for Superset Administrators" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -338,7 +366,8 @@ is dependent on revenue.</p>
             VERSION:'',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="_static/jquery.js"></script>
