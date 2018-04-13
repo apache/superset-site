@@ -36,7 +36,7 @@
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="Apache Superset  documentation" href="index.html"/>
-        <link rel="next" title="Tutorial for Superset Administrators" href="tutorial.html"/>
+        <link rel="next" title="Tutorial - Creating your first dashboard" href="tutorial.html"/>
         <link rel="prev" title="Apache Superset (incubating)" href="index.html"/> 
 
   
@@ -95,6 +95,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#python-s-setup-tools-and-pip">Python’s setup tools and pip</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#superset-installation-and-initialization">Superset installation and initialization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#a-proper-wsgi-http-server">A proper WSGI HTTP Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#flask-appbuilder-permissions">Flask-AppBuilder Permissions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#configuration-behind-a-load-balancer">Configuration behind a load balancer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#configuration">Configuration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#database-dependencies">Database dependencies</a></li>
@@ -114,13 +115,12 @@
 <li class="toctree-l2"><a class="reference internal" href="#statsd-logging">StatsD logging</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial for Superset Administrators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial - Creating your first dashboard</a></li>
 <li class="toctree-l1"><a class="reference internal" href="security.html">Security</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sqllab.html">SQL Lab</a></li>
-<li class="toctree-l1"><a class="reference internal" href="visualization.html">Visualization Tools</a></li>
-<li class="toctree-l1"><a class="reference internal" href="videos.html">Videos</a></li>
-<li class="toctree-l1"><a class="reference internal" href="gallery.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gallery.html">Visualizations Gallery</a></li>
 <li class="toctree-l1"><a class="reference internal" href="druid.html">Druid</a></li>
+<li class="toctree-l1"><a class="reference internal" href="misc.html">Misc</a></li>
 <li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a></li>
 </ul>
 
@@ -229,6 +229,10 @@ the required dependencies are installed:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">build</span><span class="o">-</span><span class="n">essential</span> <span class="n">libssl</span><span class="o">-</span><span class="n">dev</span> <span class="n">libffi</span><span class="o">-</span><span class="n">dev</span> <span class="n">python</span><span class="o">-</span><span class="n">dev</span> <span class="n">python</span><span class="o">-</span><span class="n">pip</span> <span class="n">libsasl2</span><span class="o">-</span><span class="n">dev</span> <span class="n">libldap2</span><span class="o">-</span><span class="n">dev</span>
 </pre></div>
 </div>
+<p><strong>Ubuntu 16.04</strong> If you have python3.5 installed alongside with python2.7, as is default on <strong>Ubuntu 16.04 LTS</strong>, run this command also</p>
+<blockquote>
+<div>sudo apt-get install build-essential libssl-dev libffi-dev python3.5-dev python-pip libsasl2-dev libldap2-dev</div></blockquote>
+<p>otherwhise build for <code class="docutils literal"><span class="pre">cryptography</span></code> fails.</p>
 <p>For <strong>Fedora</strong> and <strong>RHEL-derivatives</strong>, the following command will ensure
 that the required dependencies are installed:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">yum</span> <span class="n">upgrade</span> <span class="n">python</span><span class="o">-</span><span class="n">setuptools</span>
@@ -296,10 +300,7 @@ and <code class="docutils literal"><span class="pre">setuptools</span></code> li
 <span class="c1"># Create default roles and permissions</span>
 <span class="n">superset</span> <span class="n">init</span>
 
-<span class="c1"># Start the web server on port 8088, use -p to bind to another port</span>
-<span class="n">superset</span> <span class="n">runserver</span>
-
-<span class="c1"># To start a development web server, use the -d switch</span>
+<span class="c1"># To start a development web server on port 8088, use -p to bind to another port</span>
 <span class="c1"># superset runserver -d</span>
 </pre></div>
 </div>
@@ -317,29 +318,47 @@ Gunicorn, preferably in <strong>async mode</strong>, which allows for impressive
 concurrency even and is fairly easy to install and configure. Please
 refer to the
 documentation of your preferred technology to set up this Flask WSGI
-application in a way that works well in your environment.</p>
-<p>While the <cite>superset runserver</cite> command act as an quick wrapper
-around <cite>gunicorn</cite>, it doesn’t expose all the options you may need,
-so you’ll want to craft your own <cite>gunicorn</cite> command in your production
-environment. Here’s an <strong>async</strong> setup known to work well:</p>
+application in a way that works well in your environment. Here’s an <strong>async</strong>
+setup known to work well in production:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">gunicorn</span> \
-        <span class="o">-</span><span class="n">w</span> <span class="mi">10</span> \
-        <span class="o">-</span><span class="n">k</span> <span class="n">gevent</span> \
-        <span class="o">--</span><span class="n">timeout</span> <span class="mi">120</span> \
-        <span class="o">-</span><span class="n">b</span>  <span class="mf">0.0</span><span class="o">.</span><span class="mf">0.0</span><span class="p">:</span><span class="mi">6666</span> \
-        <span class="o">--</span><span class="n">limit</span><span class="o">-</span><span class="n">request</span><span class="o">-</span><span class="n">line</span> <span class="mi">0</span> \
-        <span class="o">--</span><span class="n">limit</span><span class="o">-</span><span class="n">request</span><span class="o">-</span><span class="n">field_size</span> <span class="mi">0</span> \
-        <span class="o">--</span><span class="n">statsd</span><span class="o">-</span><span class="n">host</span> <span class="n">localhost</span><span class="p">:</span><span class="mi">8125</span> \
-        <span class="n">superset</span><span class="p">:</span><span class="n">app</span>
+              <span class="o">-</span><span class="n">w</span> <span class="mi">10</span> \
+              <span class="o">-</span><span class="n">k</span> <span class="n">gevent</span> \
+              <span class="o">--</span><span class="n">timeout</span> <span class="mi">120</span> \
+              <span class="o">-</span><span class="n">b</span>  <span class="mf">0.0</span><span class="o">.</span><span class="mf">0.0</span><span class="p">:</span><span class="mi">6666</span> \
+              <span class="o">--</span><span class="n">limit</span><span class="o">-</span><span class="n">request</span><span class="o">-</span><span class="n">line</span> <span class="mi">0</span> \
+              <span class="o">--</span><span class="n">limit</span><span class="o">-</span><span class="n">request</span><span class="o">-</span><span class="n">field_size</span> <span class="mi">0</span> \
+              <span class="o">--</span><span class="n">statsd</span><span class="o">-</span><span class="n">host</span> <span class="n">localhost</span><span class="p">:</span><span class="mi">8125</span> \
+              <span class="n">superset</span><span class="p">:</span><span class="n">app</span>
 </pre></div>
 </div>
 <p>Refer to the
-[Gunicorn documentation](<a class="reference external" href="http://docs.gunicorn.org/en/stable/design.html">http://docs.gunicorn.org/en/stable/design.html</a>)
+<a class="reference external" href="http://docs.gunicorn.org/en/stable/design.html">Gunicorn documentation</a>
 for more information.</p>
 <p>Note that <em>gunicorn</em> does not
 work on Windows so the <cite>superset runserver</cite> command is not expected to work
 in that context. Also note that the development web
 server (<cite>superset runserver -d</cite>) is not intended for production use.</p>
+<p>If not using gunicorn, you may want to disable the use of flask-compress
+by setting <cite>ENABLE_FLASK_COMPRESS = False</cite> in your <cite>superset_config.py</cite></p>
+</div>
+<div class="section" id="flask-appbuilder-permissions">
+<h2>Flask-AppBuilder Permissions<a class="headerlink" href="#flask-appbuilder-permissions" title="Permalink to this headline">¶</a></h2>
+<p>By default every time the Flask-AppBuilder (FAB) app is initialized the
+permissions and views are added automatically to the backend and associated with
+the ‘Admin’ role. The issue however is when you are running multiple concurrent
+workers this creates a lot of contention and race conditions when defining
+permissions and views.</p>
+<p>To alleviate this issue, the automatic updating of permissions can be disabled
+by setting the <span class="target" id="index-0"></span><code class="xref std std-envvar docutils literal"><span class="pre">SUPERSET_UPDATE_PERMS</span></code> environment variable to <cite>0</cite>.
+The value <cite>1</cite> enables it, <cite>0</cite> disables it. Note if undefined the functionality
+is enabled to maintain backwards compatibility.</p>
+<p>In a production environment initialization could take on the following form:</p>
+<blockquote>
+<div><p>export SUPERSET_UPDATE_PERMS=1
+superset init</p>
+<p>export SUPERSET_UPDATE_PERMS=0
+gunicorn -w 10 … superset:app</p>
+</div></blockquote>
 </div>
 <div class="section" id="configuration-behind-a-load-balancer">
 <h2>Configuration behind a load balancer<a class="headerlink" href="#configuration-behind-a-load-balancer" title="Permalink to this headline">¶</a></h2>
@@ -351,6 +370,12 @@ webserver is running.</p>
 <p>If the load balancer is inserting X-Forwarded-For/X-Forwarded-Proto headers, you
 should set <cite>ENABLE_PROXY_FIX = True</cite> in the superset config file to extract and use
 the headers.</p>
+<p>In case that the reverse proxy is used for providing ssl encryption,
+an explicit definition of the <cite>X-Forwarded-Proto</cite> may be required.
+For the Apache webserver this can be set as follows:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">RequestHeader</span> <span class="nb">set</span> <span class="n">X</span><span class="o">-</span><span class="n">Forwarded</span><span class="o">-</span><span class="n">Proto</span> <span class="s2">&quot;https&quot;</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="configuration">
 <h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
@@ -361,7 +386,6 @@ of the parameters you can copy / paste in that configuration module:</p>
 <span class="c1"># Superset specific config</span>
 <span class="c1">#---------------------------------------------------------</span>
 <span class="n">ROW_LIMIT</span> <span class="o">=</span> <span class="mi">5000</span>
-<span class="n">SUPERSET_WORKERS</span> <span class="o">=</span> <span class="mi">4</span>
 
 <span class="n">SUPERSET_WEBSERVER_PORT</span> <span class="o">=</span> <span class="mi">8088</span>
 <span class="c1">#---------------------------------------------------------</span>
@@ -383,16 +407,27 @@ of the parameters you can copy / paste in that configuration module:</p>
 <span class="n">WTF_CSRF_ENABLED</span> <span class="o">=</span> <span class="kc">True</span>
 <span class="c1"># Add endpoints that need to be exempt from CSRF protection</span>
 <span class="n">WTF_CSRF_EXEMPT_LIST</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="c1"># A CSRF token that expires in 1 year</span>
+<span class="n">WTF_CSRF_TIME_LIMIT</span> <span class="o">=</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">24</span> <span class="o">*</span> <span class="mi">365</span>
 
 <span class="c1"># Set this API key to enable Mapbox visualizations</span>
 <span class="n">MAPBOX_API_KEY</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
 </pre></div>
 </div>
-<p>This file also allows you to define configuration parameters used by
-Flask App Builder, the web framework used by Superset. Please consult
+<p>All the parameters and default values defined in
+<a class="reference external" href="https://github.com/apache/incubator-superset/blob/master/superset/config.py">https://github.com/apache/incubator-superset/blob/master/superset/config.py</a>
+can be altered in your local <code class="docutils literal"><span class="pre">superset_config.py</span></code> .
+Administrators will want to
+read through the file to understand what can be configured locally
+as well as the default values in place.</p>
+<p>Since <code class="docutils literal"><span class="pre">superset_config.py</span></code> acts as a Flask configuration module, it
+can be used to alter the settings Flask itself,
+as well as Flask extensions like <code class="docutils literal"><span class="pre">flask-wtf</span></code>, <code class="docutils literal"><span class="pre">flask-cache</span></code>,
+<code class="docutils literal"><span class="pre">flask-migrate</span></code>, and <code class="docutils literal"><span class="pre">flask-appbuilder</span></code>. Flask App Builder, the web
+framework used by Superset offers many configuration settings. Please consult
 the <a class="reference external" href="http://flask-appbuilder.readthedocs.org/en/latest/config.html">Flask App Builder Documentation</a>
-for more information on how to configure Superset.</p>
-<p>Please make sure to change:</p>
+for more information on how to configure it.</p>
+<p>Make sure to change:</p>
 <ul class="simple">
 <li><em>SQLALCHEMY_DATABASE_URI</em>, by default it is stored at <em>~/.superset/superset.db</em></li>
 <li><em>SECRET_KEY</em>, to a long random string</li>
@@ -445,7 +480,7 @@ connect to the databases you want to access through Superset.</p>
 </tr>
 <tr class="row-odd"><td>Redshift</td>
 <td><code class="docutils literal"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">sqlalchemy-redshift</span></code></td>
-<td><code class="docutils literal"><span class="pre">postgresql+psycopg2://</span></code></td>
+<td><code class="docutils literal"><span class="pre">redshift+psycopg2://</span></code></td>
 </tr>
 <tr class="row-even"><td>MSSQL</td>
 <td><code class="docutils literal"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">pymssql</span></code></td>
@@ -476,6 +511,10 @@ connect to the databases you want to access through Superset.</p>
 <td><code class="docutils literal"><span class="pre">pip</span> <span class="pre">install</span>
 <span class="pre">sqlalchemy-clickhouse</span></code></td>
 <td><code class="docutils literal"><span class="pre">clickhouse://</span></code></td>
+</tr>
+<tr class="row-odd"><td>Kylin</td>
+<td><code class="docutils literal"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">kylinpy</span></code></td>
+<td><code class="docutils literal"><span class="pre">kylin://</span></code></td>
 </tr>
 </tbody>
 </table>
@@ -513,6 +552,14 @@ the <a class="reference external" href="https://pypi.python.org/pypi/redis">redi
 up the “timeout searchpath”, from your slice configuration, to your
 data source’s configuration, to your database’s and ultimately falls back
 into your global default defined in <code class="docutils literal"><span class="pre">CACHE_CONFIG</span></code>.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">CACHE_CONFIG</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;CACHE_TYPE&#39;</span><span class="p">:</span> <span class="s1">&#39;redis&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;CACHE_DEFAULT_TIMEOUT&#39;</span><span class="p">:</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">24</span><span class="p">,</span> <span class="c1"># 1 day default (in secs)</span>
+        <span class="s1">&#39;CACHE_KEY_PREFIX&#39;</span><span class="p">:</span> <span class="s1">&#39;superset_results&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;CACHE_REDIS_URL&#39;</span><span class="p">:</span> <span class="s1">&#39;redis://localhost:6379/0&#39;</span><span class="p">,</span>
+    <span class="p">}</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="deeper-sqlalchemy-integration">
 <h2>Deeper SQLAlchemy integration<a class="headerlink" href="#deeper-sqlalchemy-integration" title="Permalink to this headline">¶</a></h2>
@@ -547,6 +594,16 @@ in your config file to point to that function.</p>
     <span class="k">return</span> <span class="s1">&#39;secret&#39;</span>
 
 <span class="n">SQLALCHEMY_CUSTOM_PASSWORD_STORE</span> <span class="o">=</span> <span class="n">example_lookup_password</span>
+</pre></div>
+</div>
+<p>A common pattern is to use environment variables to make secrets available.
+<code class="docutils literal"><span class="pre">SQLALCHEMY_CUSTOM_PASSWORD_STORE</span></code> can also be used for that purpose.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">example_password_as_env_var</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
+    <span class="c1"># assuming the uri looks like</span>
+    <span class="c1"># mysql://localhost?superset_user:{SUPERSET_PASSWORD}</span>
+    <span class="k">return</span> <span class="n">url</span><span class="o">.</span><span class="n">password</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">)</span>
+
+<span class="n">SQLALCHEMY_CUSTOM_PASSWORD_STORE</span> <span class="o">=</span> <span class="n">example_password_as_env_var</span>
 </pre></div>
 </div>
 </div>
@@ -634,8 +691,8 @@ execute beyond the typical web request’s timeout (30-60 seconds), it is
 necessary to configure an asynchronous backend for Superset which consist of:</p>
 <ul class="simple">
 <li>one or many Superset worker (which is implemented as a Celery worker), and
-can be started with the <code class="docutils literal"><span class="pre">superset</span> <span class="pre">worker</span></code> command, run
-<code class="docutils literal"><span class="pre">superset</span> <span class="pre">worker</span> <span class="pre">--help</span></code> to view the related options</li>
+can be started with the <code class="docutils literal"><span class="pre">celery</span> <span class="pre">worker</span></code> command, run
+<code class="docutils literal"><span class="pre">celery</span> <span class="pre">worker</span> <span class="pre">--help</span></code> to view the related options.</li>
 <li>a celery broker (message queue) for which we recommend using Redis
 or RabbitMQ</li>
 <li>a results backend that defines where the worker will persist the query
@@ -651,6 +708,10 @@ have the same configuration.</p>
     <span class="n">CELERY_ANNOTATIONS</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;tasks.add&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;rate_limit&#39;</span><span class="p">:</span> <span class="s1">&#39;10/s&#39;</span><span class="p">}}</span>
 
 <span class="n">CELERY_CONFIG</span> <span class="o">=</span> <span class="n">CeleryConfig</span>
+</pre></div>
+</div>
+<p>To start a Celery worker to leverage the configuration run:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">celery</span> <span class="n">worker</span> <span class="o">--</span><span class="n">app</span><span class="o">=</span><span class="n">superset</span><span class="o">.</span><span class="n">sql_lab</span><span class="p">:</span><span class="n">celery_app</span> <span class="o">--</span><span class="n">pool</span><span class="o">=</span><span class="n">gevent</span> <span class="o">-</span><span class="n">Ofair</span>
 </pre></div>
 </div>
 <p>To setup a result backend, you need to pass an instance of a derivative
@@ -672,6 +733,11 @@ look something like:</p>
     <span class="n">host</span><span class="o">=</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">6379</span><span class="p">,</span> <span class="n">key_prefix</span><span class="o">=</span><span class="s1">&#39;superset_results&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
+<p>Note that it’s important that all the worker nodes and web servers in
+the Superset cluster share a common metadata database.
+This means that SQLite will not work in this context since it has
+limited support for concurrency and
+typically lives on the local file system.</p>
 <p>Also note that SQL Lab supports Jinja templating in queries, and that it’s
 possible to overload
 the default Jinja context in your environment by defining the
@@ -680,6 +746,15 @@ in this dictionary are made available for users to use in their SQL.</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">JINJA_CONTEXT_ADDONS</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s1">&#39;my_crazy_macro&#39;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">*</span><span class="mi">2</span><span class="p">,</span>
 <span class="p">}</span>
+</pre></div>
+</div>
+<p>Flower is a web based tool for monitoring the Celery cluster which you can
+install from pip:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">flower</span>
+</pre></div>
+</div>
+<p>and run via:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">celery</span> <span class="n">flower</span> <span class="o">--</span><span class="n">app</span><span class="o">=</span><span class="n">superset</span><span class="o">.</span><span class="n">sql_lab</span><span class="p">:</span><span class="n">celery_app</span>
 </pre></div>
 </div>
 </div>
@@ -707,12 +782,11 @@ so, you can expect Superset to serve a page that says “OK”
 at the <code class="docutils literal"><span class="pre">/simple_page</span></code> url. This can allow you to run other things such
 as custom data visualization applications alongside Superset, on the
 same server.</p>
-<p>..code</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">flask</span> <span class="k">import</span> <span class="n">Blueprint</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Blueprint</span>
 <span class="n">simple_page</span> <span class="o">=</span> <span class="n">Blueprint</span><span class="p">(</span><span class="s1">&#39;simple_page&#39;</span><span class="p">,</span> <span class="vm">__name__</span><span class="p">,</span>
                                 <span class="n">template_folder</span><span class="o">=</span><span class="s1">&#39;templates&#39;</span><span class="p">)</span>
-<span class="nd">@simple_page</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="n">defaults</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;page&#39;</span><span class="p">:</span> <span class="s1">&#39;index&#39;</span><span class="p">})</span>
-<span class="nd">@simple_page</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/&lt;page&gt;&#39;</span><span class="p">)</span>
+<span class="nd">@simple_page.route</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="n">defaults</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;page&#39;</span><span class="p">:</span> <span class="s1">&#39;index&#39;</span><span class="p">})</span>
+<span class="nd">@simple_page.route</span><span class="p">(</span><span class="s1">&#39;/&lt;page&gt;&#39;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">show</span><span class="p">(</span><span class="n">page</span><span class="p">):</span>
     <span class="k">return</span> <span class="s2">&quot;Ok&quot;</span>
 
@@ -726,8 +800,7 @@ same server.</p>
 are logged as well as key events like query start and end in SQL Lab.</p>
 <p>To setup StatsD logging, it’s a matter of configuring the logger in your
 <code class="docutils literal"><span class="pre">superset_config.py</span></code>.</p>
-<p>..code</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">superset.stats_logger</span> <span class="k">import</span> <span class="n">StatsdStatsLogger</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">superset.stats_logger</span> <span class="kn">import</span> <span class="n">StatsdStatsLogger</span>
 <span class="n">STATS_LOGGER</span> <span class="o">=</span> <span class="n">StatsdStatsLogger</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">8125</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s1">&#39;superset&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -746,7 +819,7 @@ are logged as well as key events like query start and end in SQL Lab.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="tutorial.html" class="btn btn-neutral float-right" title="Tutorial for Superset Administrators" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="tutorial.html" class="btn btn-neutral float-right" title="Tutorial - Creating your first dashboard" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="index.html" class="btn btn-neutral" title="Apache Superset (incubating)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

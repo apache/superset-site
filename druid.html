@@ -36,8 +36,8 @@
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="Apache Superset  documentation" href="index.html"/>
-        <link rel="next" title="FAQ" href="faq.html"/>
-        <link rel="prev" title="Gallery" href="gallery.html"/> 
+        <link rel="next" title="Misc" href="misc.html"/>
+        <link rel="prev" title="Visualizations Gallery" href="gallery.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -88,21 +88,17 @@
             
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation &amp; Configuration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial for Superset Administrators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial - Creating your first dashboard</a></li>
 <li class="toctree-l1"><a class="reference internal" href="security.html">Security</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sqllab.html">SQL Lab</a></li>
-<li class="toctree-l1"><a class="reference internal" href="visualization.html">Visualization Tools</a></li>
-<li class="toctree-l1"><a class="reference internal" href="videos.html">Videos</a></li>
-<li class="toctree-l1"><a class="reference internal" href="gallery.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gallery.html">Visualizations Gallery</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Druid</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#supported">Supported</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#aggregations">Aggregations</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#post-aggregations">Post-Aggregations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#aggregations">Aggregations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#post-aggregations">Post-Aggregations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#unsupported-features">Unsupported Features</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#not-yet-supported">Not yet supported</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="misc.html">Misc</a></li>
 <li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a></li>
 </ul>
 
@@ -167,18 +163,17 @@
             
   <div class="section" id="druid">
 <h1>Druid<a class="headerlink" href="#druid" title="Permalink to this headline">¶</a></h1>
-<p>Superset works well with Druid, though currently not all
-advanced features out of Druid are covered. This page clarifies what is
-covered and what isn’t and explains how to use some of the features.</p>
+<p>Superset has a native connector to Druid, and a majority of Druid’s
+features are accessible through Superset.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">Currently Airbnb runs against Druid <code class="docutils literal"><span class="pre">0.8.x</span></code> and previous /
-following versions are not tested against.</p>
+<p class="last">Druid now supports SQL and can be accessed through Superset’s
+SQLAlchemy connector. The long term vision is to deprecate
+the Druid native REST connector and query Druid exclusively through
+the SQL interface.</p>
 </div>
-<div class="section" id="supported">
-<h2>Supported<a class="headerlink" href="#supported" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="aggregations">
-<h3>Aggregations<a class="headerlink" href="#aggregations" title="Permalink to this headline">¶</a></h3>
+<h2>Aggregations<a class="headerlink" href="#aggregations" title="Permalink to this headline">¶</a></h2>
 <p>Common aggregations, or Druid metrics can be defined and used in Superset.
 The first and simpler use case is to use the checkbox matrix expose in your
 datasource’s edit view (<code class="docutils literal"><span class="pre">Sources</span> <span class="pre">-&gt;</span> <span class="pre">Druid</span> <span class="pre">Datasources</span> <span class="pre">-&gt;</span>
@@ -194,20 +189,20 @@ documentation.</p>
 <a class="reference internal image-reference" href="_images/druid_agg.png"><img alt="_images/druid_agg.png" src="_images/druid_agg.png" style="width: 894.0px; height: 564.0px;" /></a>
 </div>
 <div class="section" id="post-aggregations">
-<h3>Post-Aggregations<a class="headerlink" href="#post-aggregations" title="Permalink to this headline">¶</a></h3>
+<h2>Post-Aggregations<a class="headerlink" href="#post-aggregations" title="Permalink to this headline">¶</a></h2>
 <p>Druid supports post aggregation and this works in Superset. All you have to
 do is creating a metric, much like you would create an aggregation manually,
 but specify <code class="docutils literal"><span class="pre">postagg</span></code> as a <code class="docutils literal"><span class="pre">Metric</span> <span class="pre">Type</span></code>. You then have to provide a valid
 json post-aggregation definition (as specified in the Druid docs) in the
 Json field.</p>
 </div>
+<div class="section" id="unsupported-features">
+<h2>Unsupported Features<a class="headerlink" href="#unsupported-features" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Unclear at this point, this section of the documentation could use
+some input.</p>
 </div>
-<div class="section" id="not-yet-supported">
-<h2>Not yet supported<a class="headerlink" href="#not-yet-supported" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li>Regex filters</li>
-<li>Lookups / joins</li>
-</ul>
 </div>
 </div>
 
@@ -221,10 +216,10 @@ Json field.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="faq.html" class="btn btn-neutral float-right" title="FAQ" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="misc.html" class="btn btn-neutral float-right" title="Misc" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="gallery.html" class="btn btn-neutral" title="Gallery" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="gallery.html" class="btn btn-neutral" title="Visualizations Gallery" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

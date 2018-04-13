@@ -36,7 +36,7 @@
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="Apache Superset  documentation" href="index.html"/>
-        <link rel="prev" title="Druid" href="druid.html"/> 
+        <link rel="prev" title="Importing and Exporting Datasources" href="import_export_datasources.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -87,17 +87,17 @@
             
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation &amp; Configuration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial for Superset Administrators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial - Creating your first dashboard</a></li>
 <li class="toctree-l1"><a class="reference internal" href="security.html">Security</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sqllab.html">SQL Lab</a></li>
-<li class="toctree-l1"><a class="reference internal" href="visualization.html">Visualization Tools</a></li>
-<li class="toctree-l1"><a class="reference internal" href="videos.html">Videos</a></li>
-<li class="toctree-l1"><a class="reference internal" href="gallery.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gallery.html">Visualizations Gallery</a></li>
 <li class="toctree-l1"><a class="reference internal" href="druid.html">Druid</a></li>
+<li class="toctree-l1"><a class="reference internal" href="misc.html">Misc</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">FAQ</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#can-i-query-join-multiple-tables-at-one-time">Can I query/join multiple tables at one time?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#how-big-can-my-data-source-be">How BIG can my data source be?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#how-do-i-create-my-own-visualization">How do I create my own visualization?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#can-i-upload-and-visualize-csv-data">Can I upload and visualize csv data?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#why-are-my-queries-timing-out">Why are my queries timing out?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#why-is-the-map-not-visible-in-the-mapbox-visualization">Why is the map not visible in the mapbox visualization?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#how-to-add-dynamic-filters-to-a-dashboard">How to add dynamic filters to a dashboard?</a></li>
@@ -109,6 +109,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#how-can-i-configure-oauth-authentication-and-authorization">How can i configure OAuth authentication and authorization?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#how-can-i-set-a-default-filter-on-my-dashboard">How can I set a default filter on my dashboard?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#how-do-i-get-superset-to-refresh-the-schema-of-my-table">How do I get Superset to refresh the schema of my table?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#is-there-a-way-to-force-the-use-specific-colors">Is there a way to force the use specific colors?</a></li>
 </ul>
 </li>
 </ul>
@@ -208,6 +209,13 @@ framework, in the meantime, we’ve tagged a few pull requests as
 visualizations.</p>
 <p><a class="reference external" href="https://github.com/airbnb/superset/issues?q=label%3Aexample+is%3Aclosed">https://github.com/airbnb/superset/issues?q=label%3Aexample+is%3Aclosed</a></p>
 </div>
+<div class="section" id="can-i-upload-and-visualize-csv-data">
+<h2>Can I upload and visualize csv data?<a class="headerlink" href="#can-i-upload-and-visualize-csv-data" title="Permalink to this headline">¶</a></h2>
+<p>Yes, using the <code class="docutils literal"><span class="pre">Upload</span> <span class="pre">a</span> <span class="pre">CSV</span></code> button under the <code class="docutils literal"><span class="pre">Sources</span></code> menu item.
+This brings up a form that allows you specify required information.
+After creating the table from CSV, it can then be loaded like any
+other on the <code class="docutils literal"><span class="pre">Sources</span> <span class="pre">-&gt;</span> <span class="pre">Tables</span></code> page.</p>
+</div>
 <div class="section" id="why-are-my-queries-timing-out">
 <h2>Why are my queries timing out?<a class="headerlink" href="#why-are-my-queries-timing-out" title="Permalink to this headline">¶</a></h2>
 <p>There are many reasons may cause long query timing out.</p>
@@ -248,15 +256,14 @@ dashboard? You can do that by editing your dashboard, and in the form,
 edit the <code class="docutils literal"><span class="pre">JSON</span> <span class="pre">Metadata</span></code> field, more specifically the
 <code class="docutils literal"><span class="pre">filter_immune_slices</span></code> key, that receives an array of sliceIds that should
 never be affected by any dashboard level filtering.</p>
-<p>..code:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">{</span>
-    <span class="s2">&quot;filter_immune_slices&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">324</span><span class="p">,</span> <span class="mi">65</span><span class="p">,</span> <span class="mi">92</span><span class="p">],</span>
-    <span class="s2">&quot;expanded_slices&quot;</span><span class="p">:</span> <span class="p">{},</span>
-    <span class="s2">&quot;filter_immune_slice_fields&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s2">&quot;177&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;country_name&quot;</span><span class="p">,</span> <span class="s2">&quot;__from&quot;</span><span class="p">,</span> <span class="s2">&quot;__to&quot;</span><span class="p">],</span>
-        <span class="s2">&quot;32&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;__from&quot;</span><span class="p">,</span> <span class="s2">&quot;__to&quot;</span><span class="p">]</span>
+<div class="highlight-json"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;filter_immune_slices&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">324</span><span class="p">,</span> <span class="mi">65</span><span class="p">,</span> <span class="mi">92</span><span class="p">],</span>
+    <span class="nt">&quot;expanded_slices&quot;</span><span class="p">:</span> <span class="p">{},</span>
+    <span class="nt">&quot;filter_immune_slice_fields&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;177&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;country_name&quot;</span><span class="p">,</span> <span class="s2">&quot;__from&quot;</span><span class="p">,</span> <span class="s2">&quot;__to&quot;</span><span class="p">],</span>
+        <span class="nt">&quot;32&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;__from&quot;</span><span class="p">,</span> <span class="s2">&quot;__to&quot;</span><span class="p">]</span>
     <span class="p">},</span>
-    <span class="s2">&quot;timed_refresh_immune_slices&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">324</span><span class="p">]</span>
+    <span class="nt">&quot;timed_refresh_immune_slices&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">324</span><span class="p">]</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -278,12 +285,11 @@ on a dashboard according to a set schedule. Sometimes, however, you won’t want
 to be refreshed - especially if some data is slow moving, or run heavy queries. To exclude specific
 slices from the timed refresh process, add the <code class="docutils literal"><span class="pre">timed_refresh_immune_slices</span></code> key to the dashboard
 <code class="docutils literal"><span class="pre">JSON</span> <span class="pre">Metadata</span></code> field:</p>
-<p>..code:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">{</span>
-   <span class="s2">&quot;filter_immune_slices&quot;</span><span class="p">:</span> <span class="p">[],</span>
-    <span class="s2">&quot;expanded_slices&quot;</span><span class="p">:</span> <span class="p">{},</span>
-    <span class="s2">&quot;filter_immune_slice_fields&quot;</span><span class="p">:</span> <span class="p">{},</span>
-    <span class="s2">&quot;timed_refresh_immune_slices&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">324</span><span class="p">]</span>
+<div class="highlight-json"><div class="highlight"><pre><span></span><span class="p">{</span>
+   <span class="nt">&quot;filter_immune_slices&quot;</span><span class="p">:</span> <span class="p">[],</span>
+    <span class="nt">&quot;expanded_slices&quot;</span><span class="p">:</span> <span class="p">{},</span>
+    <span class="nt">&quot;filter_immune_slice_fields&quot;</span><span class="p">:</span> <span class="p">{},</span>
+    <span class="nt">&quot;timed_refresh_immune_slices&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">324</span><span class="p">]</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -292,10 +298,9 @@ be automatically re-queried on schedule.</p>
 <p>Slice refresh will also be staggered over the specified period. You can turn off this staggering
 by setting the <code class="docutils literal"><span class="pre">stagger_refresh</span></code> to <code class="docutils literal"><span class="pre">false</span></code> and modify the stagger period by setting
 <code class="docutils literal"><span class="pre">stagger_time</span></code> to a value in milliseconds in the <code class="docutils literal"><span class="pre">JSON</span> <span class="pre">Metadata</span></code> field:</p>
-<p>..code:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">{</span>
-    <span class="s2">&quot;stagger_refresh&quot;</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span>
-    <span class="s2">&quot;stagger_time&quot;</span><span class="p">:</span> <span class="mi">2500</span>
+<div class="highlight-json"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;stagger_refresh&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="nt">&quot;stagger_time&quot;</span><span class="p">:</span> <span class="mi">2500</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -351,6 +356,20 @@ new columns in by using the “Refresh Metadata” action in the
 <code class="docutils literal"><span class="pre">Source</span> <span class="pre">-&gt;</span> <span class="pre">Tables</span></code> page. Simply check the box next to the tables
 you want the schema refreshed, and click <code class="docutils literal"><span class="pre">Actions</span> <span class="pre">-&gt;</span> <span class="pre">Refresh</span> <span class="pre">Metadata</span></code>.</p>
 </div>
+<div class="section" id="is-there-a-way-to-force-the-use-specific-colors">
+<h2>Is there a way to force the use specific colors?<a class="headerlink" href="#is-there-a-way-to-force-the-use-specific-colors" title="Permalink to this headline">¶</a></h2>
+<p>It is possible on a per-dashboard basis by providing a mapping of
+labels to colors in the <code class="docutils literal"><span class="pre">JSON</span> <span class="pre">Metadata</span></code> attribute using the
+<code class="docutils literal"><span class="pre">label_colors</span></code> key.</p>
+<div class="highlight-json"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;label_colors&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;Girls&quot;</span><span class="p">:</span> <span class="s2">&quot;#FF69B4&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;Boys&quot;</span><span class="p">:</span> <span class="s2">&quot;#ADD8E6&quot;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
 </div>
 
 
@@ -364,7 +383,7 @@ you want the schema refreshed, and click <code class="docutils literal"><span cl
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
       
-        <a href="druid.html" class="btn btn-neutral" title="Druid" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="import_export_datasources.html" class="btn btn-neutral" title="Importing and Exporting Datasources" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

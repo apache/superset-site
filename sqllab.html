@@ -36,7 +36,7 @@
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="Apache Superset  documentation" href="index.html"/>
-        <link rel="next" title="Visualization Tools" href="visualization.html"/>
+        <link rel="next" title="Visualizations Gallery" href="gallery.html"/>
         <link rel="prev" title="Security" href="security.html"/> 
 
   
@@ -88,21 +88,21 @@
             
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation &amp; Configuration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial for Superset Administrators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial - Creating your first dashboard</a></li>
 <li class="toctree-l1"><a class="reference internal" href="security.html">Security</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">SQL Lab</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#feature-overview">Feature Overview</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#extra-features">Extra features</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#templating-with-jinja">Templating with Jinja</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#available-macros">Available macros</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#extending-macros">Extending macros</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="visualization.html">Visualization Tools</a></li>
-<li class="toctree-l1"><a class="reference internal" href="videos.html">Videos</a></li>
-<li class="toctree-l1"><a class="reference internal" href="gallery.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gallery.html">Visualizations Gallery</a></li>
 <li class="toctree-l1"><a class="reference internal" href="druid.html">Druid</a></li>
+<li class="toctree-l1"><a class="reference internal" href="misc.html">Misc</a></li>
 <li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a></li>
 </ul>
 
@@ -169,6 +169,9 @@
 <h1>SQL Lab<a class="headerlink" href="#sql-lab" title="Permalink to this headline">¶</a></h1>
 <p>SQL Lab is a modern, feature-rich SQL IDE written in
 <a class="reference external" href="https://facebook.github.io/react/">React</a>.</p>
+<hr class="docutils" />
+<img alt="_images/sqllab.png" src="_images/sqllab.png" />
+<hr class="docutils" />
 <div class="section" id="feature-overview">
 <h2>Feature Overview<a class="headerlink" href="#feature-overview" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
@@ -209,13 +212,14 @@ parameterized so they can be re-used easily.</p>
 <div class="section" id="available-macros">
 <h3>Available macros<a class="headerlink" href="#available-macros" title="Permalink to this headline">¶</a></h3>
 <p>We expose certain modules from Python’s standard library in
-Superset’s Jinja context:
-- <code class="docutils literal"><span class="pre">time</span></code>: <code class="docutils literal"><span class="pre">time</span></code>
-- <code class="docutils literal"><span class="pre">datetime</span></code>: <code class="docutils literal"><span class="pre">datetime.datetime</span></code>
-- <code class="docutils literal"><span class="pre">uuid</span></code>: <code class="docutils literal"><span class="pre">uuid</span></code>
-- <code class="docutils literal"><span class="pre">random</span></code>: <code class="docutils literal"><span class="pre">random</span></code>
-- <code class="docutils literal"><span class="pre">relativedelta</span></code>: <code class="docutils literal"><span class="pre">dateutil.relativedelta.relativedelta</span></code>
-- more to come!</p>
+Superset’s Jinja context:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">time</span></code>: <code class="docutils literal"><span class="pre">time</span></code></li>
+<li><code class="docutils literal"><span class="pre">datetime</span></code>: <code class="docutils literal"><span class="pre">datetime.datetime</span></code></li>
+<li><code class="docutils literal"><span class="pre">uuid</span></code>: <code class="docutils literal"><span class="pre">uuid</span></code></li>
+<li><code class="docutils literal"><span class="pre">random</span></code>: <code class="docutils literal"><span class="pre">random</span></code></li>
+<li><code class="docutils literal"><span class="pre">relativedelta</span></code>: <code class="docutils literal"><span class="pre">dateutil.relativedelta.relativedelta</span></code></li>
+</ul>
 <p><a class="reference external" href="http://jinja.pocoo.org/docs/dev/templates/">Jinja’s builtin filters</a> can be also be applied where needed.</p>
 <dl class="class">
 <dt id="superset.jinja_context.PrestoTemplateProcessor">
@@ -228,13 +232,13 @@ jinja context as in <code class="docutils literal"><span class="pre">SELECT</spa
 <dl class="function">
 <dt id="superset.jinja_context.url_param">
 <code class="descclassname">superset.jinja_context.</code><code class="descname">url_param</code><span class="sig-paren">(</span><em>param</em>, <em>default=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/superset/jinja_context.html#url_param"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#superset.jinja_context.url_param" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get a url paramater</p>
+<dd><p>Get a url or post data parameter</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>param</strong> (<em>str</em>) – the url parameter to lookup</li>
+<li><strong>param</strong> (<em>str</em>) – the parameter to lookup</li>
 <li><strong>default</strong> (<em>str</em>) – the value to return in the absence of the parameter</li>
 </ul>
 </td>
@@ -243,6 +247,14 @@ jinja context as in <code class="docutils literal"><span class="pre">SELECT</spa
 </table>
 </dd></dl>
 
+</div>
+<div class="section" id="extending-macros">
+<h3>Extending macros<a class="headerlink" href="#extending-macros" title="Permalink to this headline">¶</a></h3>
+<p>As mentioned in the <a class="reference external" href="https://superset.incubator.apache.org/installation.html#installation-configuration">Installation &amp; Configuration</a> documentation,
+it’s possible for administrators to expose more more macros in their
+environment using the configuration variable <code class="docutils literal"><span class="pre">JINJA_CONTEXT_ADDONS</span></code>.
+All objects referenced in this dictionary will become available for users
+to integrate in their queries in <strong>SQL Lab</strong>.</p>
 </div>
 </div>
 </div>
@@ -257,7 +269,7 @@ jinja context as in <code class="docutils literal"><span class="pre">SELECT</spa
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="visualization.html" class="btn btn-neutral float-right" title="Visualization Tools" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="gallery.html" class="btn btn-neutral float-right" title="Visualizations Gallery" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="security.html" class="btn btn-neutral" title="Security" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

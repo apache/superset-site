@@ -87,13 +87,12 @@
             
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation &amp; Configuration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorial.html">Tutorial for Superset Administrators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial.html">Tutorial - Creating your first dashboard</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../security.html">Security</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../sqllab.html">SQL Lab</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../visualization.html">Visualization Tools</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../videos.html">Videos</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../gallery.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gallery.html">Visualizations Gallery</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../druid.html">Druid</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../misc.html">Misc</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../faq.html">FAQ</a></li>
 </ul>
 
@@ -159,7 +158,8 @@
            <div itemprop="articleBody">
             
   <h1>Source code for superset.jinja_context</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Defines the templating context for SQL Lab&quot;&quot;&quot;</span>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;Defines the templating context for SQL Lab&quot;&quot;&quot;</span>
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">absolute_import</span>
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">division</span>
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span>
@@ -167,6 +167,7 @@
 
 <span class="kn">from</span> <span class="nn">datetime</span> <span class="k">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">timedelta</span>
 <span class="kn">import</span> <span class="nn">inspect</span>
+<span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">import</span> <span class="nn">random</span>
 <span class="kn">import</span> <span class="nn">time</span>
 <span class="kn">import</span> <span class="nn">uuid</span>
@@ -190,15 +191,21 @@
 
 
 <div class="viewcode-block" id="url_param"><a class="viewcode-back" href="../../sqllab.html#superset.jinja_context.url_param">[docs]</a><span class="k">def</span> <span class="nf">url_param</span><span class="p">(</span><span class="n">param</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Get a url paramater</span>
+    <span class="sd">&quot;&quot;&quot;Get a url or post data parameter</span>
 
-<span class="sd">    :param param: the url parameter to lookup</span>
+<span class="sd">    :param param: the parameter to lookup</span>
 <span class="sd">    :type param: str</span>
 <span class="sd">    :param default: the value to return in the absence of the parameter</span>
 <span class="sd">    :type default: str</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">args</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">request</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">param</span><span class="p">,</span> <span class="n">default</span><span class="p">)</span></div>
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">param</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">request</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">param</span><span class="p">,</span> <span class="n">default</span><span class="p">)</span>
+    <span class="c1"># Supporting POST as well as get</span>
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;form_data&#39;</span><span class="p">):</span>
+        <span class="n">form_data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;form_data&#39;</span><span class="p">))</span>
+        <span class="n">url_params</span> <span class="o">=</span> <span class="n">form_data</span><span class="p">[</span><span class="s1">&#39;url_params&#39;</span><span class="p">]</span> <span class="ow">or</span> <span class="p">{}</span>
+        <span class="k">return</span> <span class="n">url_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">param</span><span class="p">,</span> <span class="n">default</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">default</span></div>
 
 
 <span class="k">def</span> <span class="nf">current_user_id</span><span class="p">():</span>

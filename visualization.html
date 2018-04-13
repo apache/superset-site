@@ -36,8 +36,9 @@
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="Apache Superset  documentation" href="index.html"/>
+        <link rel="up" title="Misc" href="misc.html"/>
         <link rel="next" title="Videos" href="videos.html"/>
-        <link rel="prev" title="SQL Lab" href="sqllab.html"/> 
+        <link rel="prev" title="Misc" href="misc.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -88,18 +89,22 @@
             
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation &amp; Configuration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial for Superset Administrators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial - Creating your first dashboard</a></li>
 <li class="toctree-l1"><a class="reference internal" href="security.html">Security</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sqllab.html">SQL Lab</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Visualization Tools</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#country-map-tools">Country Map Tools</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#list-of-countries">List of Countries</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#you-need-to-add-a-new-country">You need to add a new Country ?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gallery.html">Visualizations Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="druid.html">Druid</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="misc.html">Misc</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Visualization Tools</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#country-map-tools">Country Map Tools</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#list-of-countries">List of Countries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#you-need-to-add-a-new-country">You need to add a new Country ?</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="videos.html">Videos</a></li>
-<li class="toctree-l1"><a class="reference internal" href="gallery.html">Gallery</a></li>
-<li class="toctree-l1"><a class="reference internal" href="druid.html">Druid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="videos.html">Videos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="import_export_datasources.html">Importing and Exporting Datasources</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a></li>
 </ul>
 
@@ -145,6 +150,8 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
+          <li><a href="misc.html">Misc</a> &raquo;</li>
+        
       <li>Visualization Tools</li>
     
     
@@ -168,7 +175,7 @@
 <div class="section" id="country-map-tools">
 <h2>Country Map Tools<a class="headerlink" href="#country-map-tools" title="Permalink to this headline">¶</a></h2>
 <p>This tool is used in slices for visualization number or string by region, province or department of your countries.
-So, if you want to use tools, you need ISO 3166-2 code of region, province or departmenent.</p>
+So, if you want to use tools, you need ISO 3166-2 code of region, province or department.</p>
 <p>ISO 3166-2 is part of the ISO 3166 standard published by the International Organization for Standardization (ISO), and defines codes for identifying the principal subdivisions (e.g., provinces or states) of all countries coded in ISO 3166-1</p>
 <p>The purpose of ISO 3166-2 is to establish an international standard of short and unique alphanumeric codes to represent the relevant administrative divisions and dependent territories of all countries in a more convenient and less ambiguous form than their full names. Each complete ISO 3166-2 code consists of two parts, separated by a hyphen:[1]</p>
 <p>The first part is the ISO 3166-1 alpha-2 code of the country;
@@ -1259,8 +1266,8 @@ The second part is a string of up to three alphanumeric characters, which is usu
 </ul>
 <table border="1" class="docutils">
 <colgroup>
-<col width="17%" />
-<col width="83%" />
+<col width="19%" />
+<col width="81%" />
 </colgroup>
 <thead valign="bottom">
 <tr class="row-odd"><th class="head">ISO</th>
@@ -1495,8 +1502,8 @@ The second part is a string of up to three alphanumeric characters, which is usu
 </ul>
 <table border="1" class="docutils">
 <colgroup>
-<col width="17%" />
-<col width="83%" />
+<col width="19%" />
+<col width="81%" />
 </colgroup>
 <thead valign="bottom">
 <tr class="row-odd"><th class="head">ISO</th>
@@ -1779,8 +1786,8 @@ The second part is a string of up to three alphanumeric characters, which is usu
 </ul>
 <table border="1" class="docutils">
 <colgroup>
-<col width="17%" />
-<col width="83%" />
+<col width="19%" />
+<col width="81%" />
 </colgroup>
 <thead valign="bottom">
 <tr class="row-odd"><th class="head">ISO</th>
@@ -1951,8 +1958,8 @@ The second part is a string of up to three alphanumeric characters, which is usu
 </ul>
 <table border="1" class="docutils">
 <colgroup>
-<col width="17%" />
-<col width="83%" />
+<col width="19%" />
+<col width="81%" />
 </colgroup>
 <thead valign="bottom">
 <tr class="row-odd"><th class="head">ISO</th>
@@ -2824,11 +2831,11 @@ This action can make with ogr2ogr tools : <a class="reference external" href="ht
 <li>Add your country in component ‘select_country’
 Example :</li>
 </ol>
-<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">select_country</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nb">type</span><span class="p">:</span> <span class="s1">&#39;SelectControl&#39;</span><span class="p">,</span>
-    <span class="n">label</span><span class="p">:</span> <span class="s1">&#39;Country Name Type&#39;</span><span class="p">,</span>
-    <span class="n">default</span><span class="p">:</span> <span class="s1">&#39;France&#39;</span><span class="p">,</span>
-    <span class="n">choices</span><span class="p">:</span> <span class="p">[</span>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="nx">select_country</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;SelectControl&#39;</span><span class="p">,</span>
+    <span class="nx">label</span><span class="o">:</span> <span class="s1">&#39;Country Name Type&#39;</span><span class="p">,</span>
+    <span class="k">default</span><span class="o">:</span> <span class="s1">&#39;France&#39;</span><span class="p">,</span>
+    <span class="nx">choices</span><span class="o">:</span> <span class="p">[</span>
     <span class="s1">&#39;Belgium&#39;</span><span class="p">,</span>
     <span class="s1">&#39;Brazil&#39;</span><span class="p">,</span>
     <span class="s1">&#39;China&#39;</span><span class="p">,</span>
@@ -2843,8 +2850,8 @@ Example :</li>
     <span class="s1">&#39;Spain&#39;</span><span class="p">,</span>
     <span class="s1">&#39;Uk&#39;</span><span class="p">,</span>
     <span class="s1">&#39;Usa&#39;</span><span class="p">,</span>
-    <span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">s</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="n">s</span><span class="p">,</span> <span class="n">s</span><span class="p">]),</span>
-    <span class="n">description</span><span class="p">:</span> <span class="s1">&#39;The name of country that Superset should display&#39;</span><span class="p">,</span>
+    <span class="p">].</span><span class="nx">map</span><span class="p">(</span><span class="nx">s</span> <span class="p">=&gt;</span> <span class="p">[</span><span class="nx">s</span><span class="p">,</span> <span class="nx">s</span><span class="p">]),</span>
+    <span class="nx">description</span><span class="o">:</span> <span class="s1">&#39;The name of country that Superset should display&#39;</span><span class="p">,</span>
 <span class="p">},</span>
 </pre></div>
 </div>
@@ -2864,7 +2871,7 @@ Example :</li>
         <a href="videos.html" class="btn btn-neutral float-right" title="Videos" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="sqllab.html" class="btn btn-neutral" title="SQL Lab" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="misc.html" class="btn btn-neutral" title="Misc" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
