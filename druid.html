@@ -176,15 +176,15 @@ the SQL interface.</p>
 <h2>Aggregations<a class="headerlink" href="#aggregations" title="Permalink to this headline">¶</a></h2>
 <p>Common aggregations, or Druid metrics can be defined and used in Superset.
 The first and simpler use case is to use the checkbox matrix expose in your
-datasource’s edit view (<code class="docutils literal"><span class="pre">Sources</span> <span class="pre">-&gt;</span> <span class="pre">Druid</span> <span class="pre">Datasources</span> <span class="pre">-&gt;</span>
+datasource’s edit view (<code class="docutils literal notranslate"><span class="pre">Sources</span> <span class="pre">-&gt;</span> <span class="pre">Druid</span> <span class="pre">Datasources</span> <span class="pre">-&gt;</span>
 <span class="pre">[your</span> <span class="pre">datasource]</span> <span class="pre">-&gt;</span> <span class="pre">Edit</span> <span class="pre">-&gt;</span> <span class="pre">[tab]</span> <span class="pre">List</span> <span class="pre">Druid</span> <span class="pre">Column</span></code>).
-Clicking the <code class="docutils literal"><span class="pre">GroupBy</span></code> and <code class="docutils literal"><span class="pre">Filterable</span></code> checkboxes will make the column
+Clicking the <code class="docutils literal notranslate"><span class="pre">GroupBy</span></code> and <code class="docutils literal notranslate"><span class="pre">Filterable</span></code> checkboxes will make the column
 appear in the related dropdowns while in explore view. Checking
-<code class="docutils literal"><span class="pre">Count</span> <span class="pre">Distinct</span></code>, <code class="docutils literal"><span class="pre">Min</span></code>, <code class="docutils literal"><span class="pre">Max</span></code> or <code class="docutils literal"><span class="pre">Sum</span></code> will result in creating
-new metrics that will appear in the <code class="docutils literal"><span class="pre">List</span> <span class="pre">Druid</span> <span class="pre">Metric</span></code> tab upon saving the
-datasource. By editing these metrics, you’ll notice that they their <code class="docutils literal"><span class="pre">json</span></code>
+<code class="docutils literal notranslate"><span class="pre">Count</span> <span class="pre">Distinct</span></code>, <code class="docutils literal notranslate"><span class="pre">Min</span></code>, <code class="docutils literal notranslate"><span class="pre">Max</span></code> or <code class="docutils literal notranslate"><span class="pre">Sum</span></code> will result in creating
+new metrics that will appear in the <code class="docutils literal notranslate"><span class="pre">List</span> <span class="pre">Druid</span> <span class="pre">Metric</span></code> tab upon saving the
+datasource. By editing these metrics, you’ll notice that they their <code class="docutils literal notranslate"><span class="pre">json</span></code>
 element correspond to Druid aggregation definition. You can create your own
-aggregations manually from the <code class="docutils literal"><span class="pre">List</span> <span class="pre">Druid</span> <span class="pre">Metric</span></code> tab following Druid
+aggregations manually from the <code class="docutils literal notranslate"><span class="pre">List</span> <span class="pre">Druid</span> <span class="pre">Metric</span></code> tab following Druid
 documentation.</p>
 <a class="reference internal image-reference" href="_images/druid_agg.png"><img alt="_images/druid_agg.png" src="_images/druid_agg.png" style="width: 894.0px; height: 564.0px;" /></a>
 </div>
@@ -192,7 +192,7 @@ documentation.</p>
 <h2>Post-Aggregations<a class="headerlink" href="#post-aggregations" title="Permalink to this headline">¶</a></h2>
 <p>Druid supports post aggregation and this works in Superset. All you have to
 do is creating a metric, much like you would create an aggregation manually,
-but specify <code class="docutils literal"><span class="pre">postagg</span></code> as a <code class="docutils literal"><span class="pre">Metric</span> <span class="pre">Type</span></code>. You then have to provide a valid
+but specify <code class="docutils literal notranslate"><span class="pre">postagg</span></code> as a <code class="docutils literal notranslate"><span class="pre">Metric</span> <span class="pre">Type</span></code>. You then have to provide a valid
 json post-aggregation definition (as specified in the Druid docs) in the
 Json field.</p>
 </div>

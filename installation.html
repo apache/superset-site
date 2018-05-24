@@ -113,6 +113,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#making-your-own-build">Making your own build</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#blueprints">Blueprints</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#statsd-logging">StatsD logging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#install-superset-with-helm-in-kubernetes">Install Superset with helm in Kubernetes</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial - Creating your first dashboard</a></li>
@@ -187,9 +188,9 @@
 <h1>Installation &amp; Configuration<a class="headerlink" href="#installation-configuration" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="getting-started">
 <h2>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h2>
-<p>Superset is tested against Python <code class="docutils literal"><span class="pre">2.7</span></code> and Python <code class="docutils literal"><span class="pre">3.4</span></code>.
+<p>Superset is tested against Python <code class="docutils literal notranslate"><span class="pre">2.7</span></code> and Python <code class="docutils literal notranslate"><span class="pre">3.4</span></code>.
 Airbnb currently uses 2.7.* in production. We do not plan on supporting
-Python <code class="docutils literal"><span class="pre">2.6</span></code>.</p>
+Python <code class="docutils literal notranslate"><span class="pre">2.6</span></code>.</p>
 </div>
 <div class="section" id="cloud-native">
 <h2>Cloud-native!<a class="headerlink" href="#cloud-native" title="Permalink to this headline">¶</a></h2>
@@ -218,7 +219,7 @@ as needed.</p>
 <div class="section" id="os-dependencies">
 <h2>OS dependencies<a class="headerlink" href="#os-dependencies" title="Permalink to this headline">¶</a></h2>
 <p>Superset stores database connection information in its metadata database.
-For that purpose, we use the <code class="docutils literal"><span class="pre">cryptography</span></code> Python library to encrypt
+For that purpose, we use the <code class="docutils literal notranslate"><span class="pre">cryptography</span></code> Python library to encrypt
 connection passwords. Unfortunately this library has OS level dependencies.</p>
 <p>You may want to attempt the next step
 (“Superset installation and initialization”) and come back to this step if
@@ -226,27 +227,27 @@ you encounter an error.</p>
 <p>Here’s how to install them:</p>
 <p>For <strong>Debian</strong> and <strong>Ubuntu</strong>, the following command will ensure that
 the required dependencies are installed:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">build</span><span class="o">-</span><span class="n">essential</span> <span class="n">libssl</span><span class="o">-</span><span class="n">dev</span> <span class="n">libffi</span><span class="o">-</span><span class="n">dev</span> <span class="n">python</span><span class="o">-</span><span class="n">dev</span> <span class="n">python</span><span class="o">-</span><span class="n">pip</span> <span class="n">libsasl2</span><span class="o">-</span><span class="n">dev</span> <span class="n">libldap2</span><span class="o">-</span><span class="n">dev</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">build</span><span class="o">-</span><span class="n">essential</span> <span class="n">libssl</span><span class="o">-</span><span class="n">dev</span> <span class="n">libffi</span><span class="o">-</span><span class="n">dev</span> <span class="n">python</span><span class="o">-</span><span class="n">dev</span> <span class="n">python</span><span class="o">-</span><span class="n">pip</span> <span class="n">libsasl2</span><span class="o">-</span><span class="n">dev</span> <span class="n">libldap2</span><span class="o">-</span><span class="n">dev</span>
 </pre></div>
 </div>
 <p><strong>Ubuntu 16.04</strong> If you have python3.5 installed alongside with python2.7, as is default on <strong>Ubuntu 16.04 LTS</strong>, run this command also</p>
 <blockquote>
 <div>sudo apt-get install build-essential libssl-dev libffi-dev python3.5-dev python-pip libsasl2-dev libldap2-dev</div></blockquote>
-<p>otherwhise build for <code class="docutils literal"><span class="pre">cryptography</span></code> fails.</p>
+<p>otherwhise build for <code class="docutils literal notranslate"><span class="pre">cryptography</span></code> fails.</p>
 <p>For <strong>Fedora</strong> and <strong>RHEL-derivatives</strong>, the following command will ensure
 that the required dependencies are installed:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">yum</span> <span class="n">upgrade</span> <span class="n">python</span><span class="o">-</span><span class="n">setuptools</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">yum</span> <span class="n">upgrade</span> <span class="n">python</span><span class="o">-</span><span class="n">setuptools</span>
 <span class="n">sudo</span> <span class="n">yum</span> <span class="n">install</span> <span class="n">gcc</span> <span class="n">gcc</span><span class="o">-</span><span class="n">c</span><span class="o">++</span> <span class="n">libffi</span><span class="o">-</span><span class="n">devel</span> <span class="n">python</span><span class="o">-</span><span class="n">devel</span> <span class="n">python</span><span class="o">-</span><span class="n">pip</span> <span class="n">python</span><span class="o">-</span><span class="n">wheel</span> <span class="n">openssl</span><span class="o">-</span><span class="n">devel</span> <span class="n">libsasl2</span><span class="o">-</span><span class="n">devel</span> <span class="n">openldap</span><span class="o">-</span><span class="n">devel</span>
 </pre></div>
 </div>
 <p><strong>OSX</strong>, system python is not recommended. brew’s python also ships with pip</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">brew</span> <span class="n">install</span> <span class="n">pkg</span><span class="o">-</span><span class="n">config</span> <span class="n">libffi</span> <span class="n">openssl</span> <span class="n">python</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">brew</span> <span class="n">install</span> <span class="n">pkg</span><span class="o">-</span><span class="n">config</span> <span class="n">libffi</span> <span class="n">openssl</span> <span class="n">python</span>
 <span class="n">env</span> <span class="n">LDFLAGS</span><span class="o">=</span><span class="s2">&quot;-L$(brew --prefix openssl)/lib&quot;</span> <span class="n">CFLAGS</span><span class="o">=</span><span class="s2">&quot;-I$(brew --prefix openssl)/include&quot;</span> <span class="n">pip</span> <span class="n">install</span> <span class="n">cryptography</span><span class="o">==</span><span class="mf">1.9</span>
 </pre></div>
 </div>
 <p><strong>Windows</strong> isn’t officially supported at this point, but if you want to
-attempt it, download <a class="reference external" href="https://bootstrap.pypa.io/get-pip.py">get-pip.py</a>, and run <code class="docutils literal"><span class="pre">python</span> <span class="pre">get-pip.py</span></code> which may need admin access. Then run the following:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">C</span><span class="p">:</span>\<span class="o">&gt;</span> <span class="n">pip</span> <span class="n">install</span> <span class="n">cryptography</span>
+attempt it, download <a class="reference external" href="https://bootstrap.pypa.io/get-pip.py">get-pip.py</a>, and run <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">get-pip.py</span></code> which may need admin access. Then run the following:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">C</span><span class="p">:</span>\<span class="o">&gt;</span> <span class="n">pip</span> <span class="n">install</span> <span class="n">cryptography</span>
 
 <span class="c1"># You may also have to create C:\Temp</span>
 <span class="n">C</span><span class="p">:</span>\<span class="o">&gt;</span> <span class="n">md</span> <span class="n">C</span><span class="p">:</span>\<span class="n">Temp</span>
@@ -258,34 +259,34 @@ attempt it, download <a class="reference external" href="https://bootstrap.pypa.
 <p>It is recommended to install Superset inside a virtualenv. Python 3 already ships virtualenv, for
 Python 2 you need to install it. If it’s packaged for your operating systems install it from there
 otherwise you can install from pip:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">virtualenv</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">virtualenv</span>
 </pre></div>
 </div>
 <p>You can create and activate a virtualenv by:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># virtualenv is shipped in Python 3 as pyvenv</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># virtualenv is shipped in Python 3 as pyvenv</span>
 <span class="n">virtualenv</span> <span class="n">venv</span>
 <span class="o">.</span> <span class="o">./</span><span class="n">venv</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">activate</span>
 </pre></div>
 </div>
 <p>On windows the syntax for activating it is a bit different:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">venv</span>\<span class="n">Scripts</span>\<span class="n">activate</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">venv</span>\<span class="n">Scripts</span>\<span class="n">activate</span>
 </pre></div>
 </div>
 <p>Once you activated your virtualenv everything you are doing is confined inside the virtualenv.
-To exit a virtualenv just type <code class="docutils literal"><span class="pre">deactivate</span></code>.</p>
+To exit a virtualenv just type <code class="docutils literal notranslate"><span class="pre">deactivate</span></code>.</p>
 </div>
 <div class="section" id="python-s-setup-tools-and-pip">
 <h2>Python’s setup tools and pip<a class="headerlink" href="#python-s-setup-tools-and-pip" title="Permalink to this headline">¶</a></h2>
-<p>Put all the chances on your side by getting the very latest <code class="docutils literal"><span class="pre">pip</span></code>
-and <code class="docutils literal"><span class="pre">setuptools</span></code> libraries.:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">--</span><span class="n">upgrade</span> <span class="n">setuptools</span> <span class="n">pip</span>
+<p>Put all the chances on your side by getting the very latest <code class="docutils literal notranslate"><span class="pre">pip</span></code>
+and <code class="docutils literal notranslate"><span class="pre">setuptools</span></code> libraries.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">--</span><span class="n">upgrade</span> <span class="n">setuptools</span> <span class="n">pip</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="superset-installation-and-initialization">
 <h2>Superset installation and initialization<a class="headerlink" href="#superset-installation-and-initialization" title="Permalink to this headline">¶</a></h2>
 <p>Follow these few simple steps to install Superset.:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># Install superset</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Install superset</span>
 <span class="n">pip</span> <span class="n">install</span> <span class="n">superset</span>
 
 <span class="c1"># Create an admin user (you will be prompted to set username, first and last name before setting a password)</span>
@@ -301,7 +302,7 @@ and <code class="docutils literal"><span class="pre">setuptools</span></code> li
 <span class="n">superset</span> <span class="n">init</span>
 
 <span class="c1"># To start a development web server on port 8088, use -p to bind to another port</span>
-<span class="c1"># superset runserver -d</span>
+<span class="n">superset</span> <span class="n">runserver</span> <span class="o">-</span><span class="n">d</span>
 </pre></div>
 </div>
 <p>After installation, you should be able to point your browser to the right
@@ -320,7 +321,7 @@ refer to the
 documentation of your preferred technology to set up this Flask WSGI
 application in a way that works well in your environment. Here’s an <strong>async</strong>
 setup known to work well in production:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">gunicorn</span> \
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gunicorn</span> \
               <span class="o">-</span><span class="n">w</span> <span class="mi">10</span> \
               <span class="o">-</span><span class="n">k</span> <span class="n">gevent</span> \
               <span class="o">--</span><span class="n">timeout</span> <span class="mi">120</span> \
@@ -349,7 +350,8 @@ the ‘Admin’ role. The issue however is when you are running multiple concurr
 workers this creates a lot of contention and race conditions when defining
 permissions and views.</p>
 <p>To alleviate this issue, the automatic updating of permissions can be disabled
-by setting the <span class="target" id="index-0"></span><code class="xref std std-envvar docutils literal"><span class="pre">SUPERSET_UPDATE_PERMS</span></code> environment variable to <cite>0</cite>.
+by setting the environment variable
+<cite>SUPERSET_UPDATE_PERMS</cite> environment variable to <cite>0</cite>.
 The value <cite>1</cite> enables it, <cite>0</cite> disables it. Note if undefined the functionality
 is enabled to maintain backwards compatibility.</p>
 <p>In a production environment initialization could take on the following form:</p>
@@ -365,7 +367,7 @@ gunicorn -w 10 … superset:app</p>
 <p>If you are running superset behind a load balancer or reverse proxy (e.g. NGINX
 or ELB on AWS), you may need to utilise a healthcheck endpoint so that your
 load balancer knows if your superset instance is running. This is provided
-at <code class="docutils literal"><span class="pre">/health</span></code> which will return a 200 response containing “OK” if the
+at <code class="docutils literal notranslate"><span class="pre">/health</span></code> which will return a 200 response containing “OK” if the
 webserver is running.</p>
 <p>If the load balancer is inserting X-Forwarded-For/X-Forwarded-Proto headers, you
 should set <cite>ENABLE_PROXY_FIX = True</cite> in the superset config file to extract and use
@@ -373,16 +375,16 @@ the headers.</p>
 <p>In case that the reverse proxy is used for providing ssl encryption,
 an explicit definition of the <cite>X-Forwarded-Proto</cite> may be required.
 For the Apache webserver this can be set as follows:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">RequestHeader</span> <span class="nb">set</span> <span class="n">X</span><span class="o">-</span><span class="n">Forwarded</span><span class="o">-</span><span class="n">Proto</span> <span class="s2">&quot;https&quot;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">RequestHeader</span> <span class="nb">set</span> <span class="n">X</span><span class="o">-</span><span class="n">Forwarded</span><span class="o">-</span><span class="n">Proto</span> <span class="s2">&quot;https&quot;</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="configuration">
 <h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
 <p>To configure your application, you need to create a file (module)
-<code class="docutils literal"><span class="pre">superset_config.py</span></code> and make sure it is in your PYTHONPATH. Here are some
+<code class="docutils literal notranslate"><span class="pre">superset_config.py</span></code> and make sure it is in your PYTHONPATH. Here are some
 of the parameters you can copy / paste in that configuration module:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1">#---------------------------------------------------------</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#---------------------------------------------------------</span>
 <span class="c1"># Superset specific config</span>
 <span class="c1">#---------------------------------------------------------</span>
 <span class="n">ROW_LIMIT</span> <span class="o">=</span> <span class="mi">5000</span>
@@ -416,14 +418,14 @@ of the parameters you can copy / paste in that configuration module:</p>
 </div>
 <p>All the parameters and default values defined in
 <a class="reference external" href="https://github.com/apache/incubator-superset/blob/master/superset/config.py">https://github.com/apache/incubator-superset/blob/master/superset/config.py</a>
-can be altered in your local <code class="docutils literal"><span class="pre">superset_config.py</span></code> .
+can be altered in your local <code class="docutils literal notranslate"><span class="pre">superset_config.py</span></code> .
 Administrators will want to
 read through the file to understand what can be configured locally
 as well as the default values in place.</p>
-<p>Since <code class="docutils literal"><span class="pre">superset_config.py</span></code> acts as a Flask configuration module, it
+<p>Since <code class="docutils literal notranslate"><span class="pre">superset_config.py</span></code> acts as a Flask configuration module, it
 can be used to alter the settings Flask itself,
-as well as Flask extensions like <code class="docutils literal"><span class="pre">flask-wtf</span></code>, <code class="docutils literal"><span class="pre">flask-cache</span></code>,
-<code class="docutils literal"><span class="pre">flask-migrate</span></code>, and <code class="docutils literal"><span class="pre">flask-appbuilder</span></code>. Flask App Builder, the web
+as well as Flask extensions like <code class="docutils literal notranslate"><span class="pre">flask-wtf</span></code>, <code class="docutils literal notranslate"><span class="pre">flask-cache</span></code>,
+<code class="docutils literal notranslate"><span class="pre">flask-migrate</span></code>, and <code class="docutils literal notranslate"><span class="pre">flask-appbuilder</span></code>. Flask App Builder, the web
 framework used by Superset offers many configuration settings. Please consult
 the <a class="reference external" href="http://flask-appbuilder.readthedocs.org/en/latest/config.html">Flask App Builder Documentation</a>
 for more information on how to configure it.</p>
@@ -459,78 +461,90 @@ connect to the databases you want to access through Superset.</p>
 </thead>
 <tbody valign="top">
 <tr class="row-even"><td>MySQL</td>
-<td><code class="docutils literal"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">mysqlclient</span></code></td>
-<td><code class="docutils literal"><span class="pre">mysql://</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">mysqlclient</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">mysql://</span></code></td>
 </tr>
 <tr class="row-odd"><td>Postgres</td>
-<td><code class="docutils literal"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">psycopg2</span></code></td>
-<td><code class="docutils literal"><span class="pre">postgresql+psycopg2://</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">psycopg2</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">postgresql+psycopg2://</span></code></td>
 </tr>
 <tr class="row-even"><td>Presto</td>
-<td><code class="docutils literal"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">pyhive</span></code></td>
-<td><code class="docutils literal"><span class="pre">presto://</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">pyhive</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">presto://</span></code></td>
 </tr>
-<tr class="row-odd"><td>Oracle</td>
-<td><code class="docutils literal"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">cx_Oracle</span></code></td>
-<td><code class="docutils literal"><span class="pre">oracle://</span></code></td>
+<tr class="row-odd"><td>Hive</td>
+<td><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">pyhive</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">hive://</span></code></td>
 </tr>
-<tr class="row-even"><td>sqlite</td>
+<tr class="row-even"><td>Oracle</td>
+<td><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">cx_Oracle</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">oracle://</span></code></td>
+</tr>
+<tr class="row-odd"><td>sqlite</td>
 <td>&#160;</td>
-<td><code class="docutils literal"><span class="pre">sqlite://</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">sqlite://</span></code></td>
+</tr>
+<tr class="row-even"><td>Snowflake</td>
+<td><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">snowflake-sqlalchemy</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">snowflake://</span></code></td>
 </tr>
 <tr class="row-odd"><td>Redshift</td>
-<td><code class="docutils literal"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">sqlalchemy-redshift</span></code></td>
-<td><code class="docutils literal"><span class="pre">redshift+psycopg2://</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">sqlalchemy-redshift</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">redshift+psycopg2://</span></code></td>
 </tr>
 <tr class="row-even"><td>MSSQL</td>
-<td><code class="docutils literal"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">pymssql</span></code></td>
-<td><code class="docutils literal"><span class="pre">mssql://</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">pymssql</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">mssql://</span></code></td>
 </tr>
 <tr class="row-odd"><td>Impala</td>
-<td><code class="docutils literal"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">impyla</span></code></td>
-<td><code class="docutils literal"><span class="pre">impala://</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">impyla</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">impala://</span></code></td>
 </tr>
 <tr class="row-even"><td>SparkSQL</td>
-<td><code class="docutils literal"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">pyhive</span></code></td>
-<td><code class="docutils literal"><span class="pre">jdbc+hive://</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">pyhive</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">jdbc+hive://</span></code></td>
 </tr>
 <tr class="row-odd"><td>Greenplum</td>
-<td><code class="docutils literal"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">psycopg2</span></code></td>
-<td><code class="docutils literal"><span class="pre">postgresql+psycopg2://</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">psycopg2</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">postgresql+psycopg2://</span></code></td>
 </tr>
 <tr class="row-even"><td>Athena</td>
-<td><code class="docutils literal"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">&quot;PyAthenaJDBC&gt;1.0.9&quot;</span></code></td>
-<td><code class="docutils literal"><span class="pre">awsathena+jdbc://</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">&quot;PyAthenaJDBC&gt;1.0.9&quot;</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">awsathena+jdbc://</span></code></td>
 </tr>
 <tr class="row-odd"><td>Vertica</td>
-<td><code class="docutils literal"><span class="pre">pip</span> <span class="pre">install</span>
+<td><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span>
 <span class="pre">sqlalchemy-vertica-python</span></code></td>
-<td><code class="docutils literal"><span class="pre">vertica+vertica_python://</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">vertica+vertica_python://</span></code></td>
 </tr>
 <tr class="row-even"><td>ClickHouse</td>
-<td><code class="docutils literal"><span class="pre">pip</span> <span class="pre">install</span>
+<td><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span>
 <span class="pre">sqlalchemy-clickhouse</span></code></td>
-<td><code class="docutils literal"><span class="pre">clickhouse://</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">clickhouse://</span></code></td>
 </tr>
 <tr class="row-odd"><td>Kylin</td>
-<td><code class="docutils literal"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">kylinpy</span></code></td>
-<td><code class="docutils literal"><span class="pre">kylin://</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">kylinpy</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">kylin://</span></code></td>
+</tr>
+<tr class="row-even"><td>BigQuery</td>
+<td><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">pybigquery</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">bigquery://</span></code></td>
 </tr>
 </tbody>
 </table>
 <p>Note that many other database are supported, the main criteria being the
 existence of a functional SqlAlchemy dialect and Python driver. Googling
-the keyword <code class="docutils literal"><span class="pre">sqlalchemy</span></code> in addition of a keyword that describes the
+the keyword <code class="docutils literal notranslate"><span class="pre">sqlalchemy</span></code> in addition of a keyword that describes the
 database you want to connect to should get you to the right place.</p>
 </div>
 <div class="section" id="aws-athena">
 <h2>(AWS) Athena<a class="headerlink" href="#aws-athena" title="Permalink to this headline">¶</a></h2>
 <p>The connection string for Athena looks like this</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>awsathena+jdbc://{aws_access_key_id}:{aws_secret_access_key}@athena.{region_name}.amazonaws.com/{schema_name}?s3_staging_dir={s3_staging_dir}&amp;...
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>awsathena+jdbc://{aws_access_key_id}:{aws_secret_access_key}@athena.{region_name}.amazonaws.com/{schema_name}?s3_staging_dir={s3_staging_dir}&amp;...
 </pre></div>
 </div>
 <p>Where you need to escape/encode at least the s3_staging_dir, i.e.,</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">s3</span><span class="p">:</span><span class="o">//...</span> <span class="o">-&gt;</span> <span class="n">s3</span><span class="o">%</span><span class="mi">3</span><span class="n">A</span><span class="o">//...</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">s3</span><span class="p">:</span><span class="o">//...</span> <span class="o">-&gt;</span> <span class="n">s3</span><span class="o">%</span><span class="mi">3</span><span class="n">A</span><span class="o">//...</span>
 </pre></div>
 </div>
 </div>
@@ -538,21 +552,21 @@ database you want to connect to should get you to the right place.</p>
 <h2>Caching<a class="headerlink" href="#caching" title="Permalink to this headline">¶</a></h2>
 <p>Superset uses <a class="reference external" href="https://pythonhosted.org/Flask-Cache/">Flask-Cache</a> for
 caching purpose. Configuring your caching backend is as easy as providing
-a <code class="docutils literal"><span class="pre">CACHE_CONFIG</span></code>, constant in your <code class="docutils literal"><span class="pre">superset_config.py</span></code> that
+a <code class="docutils literal notranslate"><span class="pre">CACHE_CONFIG</span></code>, constant in your <code class="docutils literal notranslate"><span class="pre">superset_config.py</span></code> that
 complies with the Flask-Cache specifications.</p>
 <p>Flask-Cache supports multiple caching backends (Redis, Memcached,
 SimpleCache (in-memory), or the local filesystem). If you are going to use
 Memcached please use the <cite>pylibmc</cite> client library as <cite>python-memcached</cite> does
 not handle storing binary data correctly. If you use Redis, please install
 the <a class="reference external" href="https://pypi.python.org/pypi/redis">redis</a> Python package:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">redis</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">redis</span>
 </pre></div>
 </div>
 <p>For setting your timeouts, this is done in the Superset metadata and goes
 up the “timeout searchpath”, from your slice configuration, to your
 data source’s configuration, to your database’s and ultimately falls back
-into your global default defined in <code class="docutils literal"><span class="pre">CACHE_CONFIG</span></code>.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">CACHE_CONFIG</span> <span class="o">=</span> <span class="p">{</span>
+into your global default defined in <code class="docutils literal notranslate"><span class="pre">CACHE_CONFIG</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">CACHE_CONFIG</span> <span class="o">=</span> <span class="p">{</span>
         <span class="s1">&#39;CACHE_TYPE&#39;</span><span class="p">:</span> <span class="s1">&#39;redis&#39;</span><span class="p">,</span>
         <span class="s1">&#39;CACHE_DEFAULT_TIMEOUT&#39;</span><span class="p">:</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">24</span><span class="p">,</span> <span class="c1"># 1 day default (in secs)</span>
         <span class="s1">&#39;CACHE_KEY_PREFIX&#39;</span><span class="p">:</span> <span class="s1">&#39;superset_results&#39;</span><span class="p">,</span>
@@ -564,13 +578,13 @@ into your global default defined in <code class="docutils literal"><span class="
 <div class="section" id="deeper-sqlalchemy-integration">
 <h2>Deeper SQLAlchemy integration<a class="headerlink" href="#deeper-sqlalchemy-integration" title="Permalink to this headline">¶</a></h2>
 <p>It is possible to tweak the database connection information using the
-parameters exposed by SQLAlchemy. In the <code class="docutils literal"><span class="pre">Database</span></code> edit view, you will
-find an <code class="docutils literal"><span class="pre">extra</span></code> field as a <code class="docutils literal"><span class="pre">JSON</span></code> blob.</p>
+parameters exposed by SQLAlchemy. In the <code class="docutils literal notranslate"><span class="pre">Database</span></code> edit view, you will
+find an <code class="docutils literal notranslate"><span class="pre">extra</span></code> field as a <code class="docutils literal notranslate"><span class="pre">JSON</span></code> blob.</p>
 <a class="reference internal image-reference" href="_images/add_db.png"><img alt="_images/add_db.png" src="_images/add_db.png" style="width: 534.0px; height: 370.8px;" /></a>
-<p>This JSON string contains extra configuration elements. The <code class="docutils literal"><span class="pre">engine_params</span></code>
+<p>This JSON string contains extra configuration elements. The <code class="docutils literal notranslate"><span class="pre">engine_params</span></code>
 object gets unpacked into the
 <a class="reference external" href="http://docs.sqlalchemy.org/en/latest/core/engines.html#sqlalchemy.create_engine">sqlalchemy.create_engine</a> call,
-while the <code class="docutils literal"><span class="pre">metadata_params</span></code> get unpacked into the
+while the <code class="docutils literal notranslate"><span class="pre">metadata_params</span></code> get unpacked into the
 <a class="reference external" href="http://docs.sqlalchemy.org/en/rel_1_0/core/metadata.html#sqlalchemy.schema.MetaData">sqlalchemy.MetaData</a> call. Refer to the SQLAlchemy docs for more information.</p>
 </div>
 <div class="section" id="schemas-postgres-redshift">
@@ -586,10 +600,10 @@ there’s a <strong>schema</strong> parameter you can set in the table form.</p>
 useful if you a running a custom secret distribution framework and do not wish
 to store secrets in Superset’s meta database.</p>
 <p>Example:
-Write a function that takes a single argument of type <code class="docutils literal"><span class="pre">sqla.engine.url</span></code> and returns
-the password for the given connection string. Then set <code class="docutils literal"><span class="pre">SQLALCHEMY_CUSTOM_PASSWORD_STORE</span></code>
+Write a function that takes a single argument of type <code class="docutils literal notranslate"><span class="pre">sqla.engine.url</span></code> and returns
+the password for the given connection string. Then set <code class="docutils literal notranslate"><span class="pre">SQLALCHEMY_CUSTOM_PASSWORD_STORE</span></code>
 in your config file to point to that function.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">example_lookup_password</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">example_lookup_password</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
     <span class="n">secret</span> <span class="o">=</span> <span class="o">&lt;&lt;</span><span class="n">get</span> <span class="n">password</span> <span class="kn">from</span> <span class="nn">external</span> <span class="n">framework</span><span class="o">&gt;&gt;</span>
     <span class="k">return</span> <span class="s1">&#39;secret&#39;</span>
 
@@ -597,8 +611,8 @@ in your config file to point to that function.</p>
 </pre></div>
 </div>
 <p>A common pattern is to use environment variables to make secrets available.
-<code class="docutils literal"><span class="pre">SQLALCHEMY_CUSTOM_PASSWORD_STORE</span></code> can also be used for that purpose.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">example_password_as_env_var</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
+<code class="docutils literal notranslate"><span class="pre">SQLALCHEMY_CUSTOM_PASSWORD_STORE</span></code> can also be used for that purpose.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">example_password_as_env_var</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
     <span class="c1"># assuming the uri looks like</span>
     <span class="c1"># mysql://localhost?superset_user:{SUPERSET_PASSWORD}</span>
     <span class="k">return</span> <span class="n">url</span><span class="o">.</span><span class="n">password</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">)</span>
@@ -610,9 +624,9 @@ in your config file to point to that function.</p>
 <div class="section" id="ssl-access-to-databases">
 <h2>SSL Access to databases<a class="headerlink" href="#ssl-access-to-databases" title="Permalink to this headline">¶</a></h2>
 <p>This example worked with a MySQL database that requires SSL. The configuration
-may differ with other backends. This is what was put in the <code class="docutils literal"><span class="pre">extra</span></code>
+may differ with other backends. This is what was put in the <code class="docutils literal notranslate"><span class="pre">extra</span></code>
 parameter</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">{</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;metadata_params&quot;</span><span class="p">:</span> <span class="p">{},</span>
     <span class="s2">&quot;engine_params&quot;</span><span class="p">:</span> <span class="p">{</span>
           <span class="s2">&quot;connect_args&quot;</span><span class="p">:{</span>
@@ -633,7 +647,7 @@ parameter</p>
 <cite>Sources -&gt; Refresh Druid Metadata</cite> menu item to populate</li>
 <li>Navigate to your datasources</li>
 </ul>
-<p>Note that you can run the <code class="docutils literal"><span class="pre">superset</span> <span class="pre">refresh_druid</span></code> command to refresh the
+<p>Note that you can run the <code class="docutils literal notranslate"><span class="pre">superset</span> <span class="pre">refresh_druid</span></code> command to refresh the
 metadata from your Druid cluster(s)</p>
 </div>
 <div class="section" id="cors">
@@ -643,18 +657,18 @@ metadata from your Druid cluster(s)</p>
 <div>superset[cors]</div></blockquote>
 <p>The following keys in <cite>superset_config.py</cite> can be specified to configure CORS:</p>
 <ul class="simple">
-<li><code class="docutils literal"><span class="pre">ENABLE_CORS</span></code>: Must be set to True in order to enable CORS</li>
-<li><code class="docutils literal"><span class="pre">CORS_OPTIONS</span></code>: options passed to Flask-CORS (<cite>documentation &lt;http://flask-cors.corydolphin.com/en/latest/api.html#extension&gt;</cite>)</li>
+<li><code class="docutils literal notranslate"><span class="pre">ENABLE_CORS</span></code>: Must be set to True in order to enable CORS</li>
+<li><code class="docutils literal notranslate"><span class="pre">CORS_OPTIONS</span></code>: options passed to Flask-CORS (<cite>documentation &lt;http://flask-cors.corydolphin.com/en/latest/api.html#extension&gt;</cite>)</li>
 </ul>
 </div>
 <div class="section" id="middleware">
 <h2>MIDDLEWARE<a class="headerlink" href="#middleware" title="Permalink to this headline">¶</a></h2>
-<p>Superset allows you to add your own middleware. To add your own middleware, update the <code class="docutils literal"><span class="pre">ADDITIONAL_MIDDLEWARE</span></code> key in
-your <cite>superset_config.py</cite>. <code class="docutils literal"><span class="pre">ADDITIONAL_MIDDLEWARE</span></code> should be a list of your additional middleware classes.</p>
+<p>Superset allows you to add your own middleware. To add your own middleware, update the <code class="docutils literal notranslate"><span class="pre">ADDITIONAL_MIDDLEWARE</span></code> key in
+your <cite>superset_config.py</cite>. <code class="docutils literal notranslate"><span class="pre">ADDITIONAL_MIDDLEWARE</span></code> should be a list of your additional middleware classes.</p>
 <p>For example, to use AUTH_REMOTE_USER from behind a proxy server like nginx, you have to add a simple middleware class to
-add the value of <code class="docutils literal"><span class="pre">HTTP_X_PROXY_REMOTE_USER</span></code> (or any other custom header from the proxy) to Gunicorn’s <code class="docutils literal"><span class="pre">REMOTE_USER</span></code>
+add the value of <code class="docutils literal notranslate"><span class="pre">HTTP_X_PROXY_REMOTE_USER</span></code> (or any other custom header from the proxy) to Gunicorn’s <code class="docutils literal notranslate"><span class="pre">REMOTE_USER</span></code>
 environment variable:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">RemoteUserMiddleware</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">RemoteUserMiddleware</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">app</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">app</span> <span class="o">=</span> <span class="n">app</span>
     <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">environ</span><span class="p">,</span> <span class="n">start_response</span><span class="p">):</span>
@@ -670,7 +684,7 @@ environment variable:</p>
 <div class="section" id="upgrading">
 <h2>Upgrading<a class="headerlink" href="#upgrading" title="Permalink to this headline">¶</a></h2>
 <p>Upgrading should be as straightforward as running:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">superset</span> <span class="o">--</span><span class="n">upgrade</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">superset</span> <span class="o">--</span><span class="n">upgrade</span>
 <span class="n">superset</span> <span class="n">db</span> <span class="n">upgrade</span>
 <span class="n">superset</span> <span class="n">init</span>
 </pre></div>
@@ -691,17 +705,17 @@ execute beyond the typical web request’s timeout (30-60 seconds), it is
 necessary to configure an asynchronous backend for Superset which consist of:</p>
 <ul class="simple">
 <li>one or many Superset worker (which is implemented as a Celery worker), and
-can be started with the <code class="docutils literal"><span class="pre">celery</span> <span class="pre">worker</span></code> command, run
-<code class="docutils literal"><span class="pre">celery</span> <span class="pre">worker</span> <span class="pre">--help</span></code> to view the related options.</li>
+can be started with the <code class="docutils literal notranslate"><span class="pre">celery</span> <span class="pre">worker</span></code> command, run
+<code class="docutils literal notranslate"><span class="pre">celery</span> <span class="pre">worker</span> <span class="pre">--help</span></code> to view the related options.</li>
 <li>a celery broker (message queue) for which we recommend using Redis
 or RabbitMQ</li>
 <li>a results backend that defines where the worker will persist the query
 results</li>
 </ul>
-<p>Configuring Celery requires defining a <code class="docutils literal"><span class="pre">CELERY_CONFIG</span></code> in your
-<code class="docutils literal"><span class="pre">superset_config.py</span></code>. Both the worker and web server processes should
+<p>Configuring Celery requires defining a <code class="docutils literal notranslate"><span class="pre">CELERY_CONFIG</span></code> in your
+<code class="docutils literal notranslate"><span class="pre">superset_config.py</span></code>. Both the worker and web server processes should
 have the same configuration.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">CeleryConfig</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">CeleryConfig</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="n">BROKER_URL</span> <span class="o">=</span> <span class="s1">&#39;redis://localhost:6379/0&#39;</span>
     <span class="n">CELERY_IMPORTS</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;superset.sql_lab&#39;</span><span class="p">,</span> <span class="p">)</span>
     <span class="n">CELERY_RESULT_BACKEND</span> <span class="o">=</span> <span class="s1">&#39;redis://localhost:6379/0&#39;</span>
@@ -711,17 +725,17 @@ have the same configuration.</p>
 </pre></div>
 </div>
 <p>To start a Celery worker to leverage the configuration run:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">celery</span> <span class="n">worker</span> <span class="o">--</span><span class="n">app</span><span class="o">=</span><span class="n">superset</span><span class="o">.</span><span class="n">sql_lab</span><span class="p">:</span><span class="n">celery_app</span> <span class="o">--</span><span class="n">pool</span><span class="o">=</span><span class="n">gevent</span> <span class="o">-</span><span class="n">Ofair</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">celery</span> <span class="n">worker</span> <span class="o">--</span><span class="n">app</span><span class="o">=</span><span class="n">superset</span><span class="o">.</span><span class="n">sql_lab</span><span class="p">:</span><span class="n">celery_app</span> <span class="o">--</span><span class="n">pool</span><span class="o">=</span><span class="n">gevent</span> <span class="o">-</span><span class="n">Ofair</span>
 </pre></div>
 </div>
 <p>To setup a result backend, you need to pass an instance of a derivative
-of <code class="docutils literal"><span class="pre">werkzeug.contrib.cache.BaseCache</span></code> to the <code class="docutils literal"><span class="pre">RESULTS_BACKEND</span></code>
-configuration key in your <code class="docutils literal"><span class="pre">superset_config.py</span></code>. It’s possible to use
+of <code class="docutils literal notranslate"><span class="pre">werkzeug.contrib.cache.BaseCache</span></code> to the <code class="docutils literal notranslate"><span class="pre">RESULTS_BACKEND</span></code>
+configuration key in your <code class="docutils literal notranslate"><span class="pre">superset_config.py</span></code>. It’s possible to use
 Memcached, Redis, S3 (<a class="reference external" href="https://pypi.python.org/pypi/s3werkzeugcache">https://pypi.python.org/pypi/s3werkzeugcache</a>),
 memory or the file system (in a single server-type setup or for testing),
-or to write your own caching interface. Your <code class="docutils literal"><span class="pre">superset_config.py</span></code> may
+or to write your own caching interface. Your <code class="docutils literal notranslate"><span class="pre">superset_config.py</span></code> may
 look something like:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># On S3</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># On S3</span>
 <span class="kn">from</span> <span class="nn">s3cache.s3cache</span> <span class="kn">import</span> <span class="n">S3Cache</span>
 <span class="n">S3_CACHE_BUCKET</span> <span class="o">=</span> <span class="s1">&#39;foobar-superset&#39;</span>
 <span class="n">S3_CACHE_KEY_PREFIX</span> <span class="o">=</span> <span class="s1">&#39;sql_lab_result&#39;</span>
@@ -741,20 +755,20 @@ typically lives on the local file system.</p>
 <p>Also note that SQL Lab supports Jinja templating in queries, and that it’s
 possible to overload
 the default Jinja context in your environment by defining the
-<code class="docutils literal"><span class="pre">JINJA_CONTEXT_ADDONS</span></code> in your superset configuration. Objects referenced
+<code class="docutils literal notranslate"><span class="pre">JINJA_CONTEXT_ADDONS</span></code> in your superset configuration. Objects referenced
 in this dictionary are made available for users to use in their SQL.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">JINJA_CONTEXT_ADDONS</span> <span class="o">=</span> <span class="p">{</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">JINJA_CONTEXT_ADDONS</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s1">&#39;my_crazy_macro&#39;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">*</span><span class="mi">2</span><span class="p">,</span>
 <span class="p">}</span>
 </pre></div>
 </div>
 <p>Flower is a web based tool for monitoring the Celery cluster which you can
 install from pip:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">flower</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">flower</span>
 </pre></div>
 </div>
 <p>and run via:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">celery</span> <span class="n">flower</span> <span class="o">--</span><span class="n">app</span><span class="o">=</span><span class="n">superset</span><span class="o">.</span><span class="n">sql_lab</span><span class="p">:</span><span class="n">celery_app</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">celery</span> <span class="n">flower</span> <span class="o">--</span><span class="n">app</span><span class="o">=</span><span class="n">superset</span><span class="o">.</span><span class="n">sql_lab</span><span class="p">:</span><span class="n">celery_app</span>
 </pre></div>
 </div>
 </div>
@@ -763,7 +777,7 @@ install from pip:</p>
 <p>For more advanced users, you may want to build Superset from sources. That
 would be the case if you fork the project to add features specific to
 your environment.:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span># assuming $SUPERSET_HOME as the root of the repo
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span># assuming $SUPERSET_HOME as the root of the repo
 cd $SUPERSET_HOME/superset/assets
 yarn
 yarn run build
@@ -776,13 +790,13 @@ python setup.py install
 <h2>Blueprints<a class="headerlink" href="#blueprints" title="Permalink to this headline">¶</a></h2>
 <p><a class="reference external" href="http://flask.pocoo.org/docs/0.12/blueprints/">Blueprints are Flask’s reusable apps</a>.
 Superset allows you to specify an array of Blueprints
-in your <code class="docutils literal"><span class="pre">superset_config</span></code> module. Here’s
+in your <code class="docutils literal notranslate"><span class="pre">superset_config</span></code> module. Here’s
 an example on how this can work with a simple Blueprint. By doing
 so, you can expect Superset to serve a page that says “OK”
-at the <code class="docutils literal"><span class="pre">/simple_page</span></code> url. This can allow you to run other things such
+at the <code class="docutils literal notranslate"><span class="pre">/simple_page</span></code> url. This can allow you to run other things such
 as custom data visualization applications alongside Superset, on the
 same server.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Blueprint</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Blueprint</span>
 <span class="n">simple_page</span> <span class="o">=</span> <span class="n">Blueprint</span><span class="p">(</span><span class="s1">&#39;simple_page&#39;</span><span class="p">,</span> <span class="vm">__name__</span><span class="p">,</span>
                                 <span class="n">template_folder</span><span class="o">=</span><span class="s1">&#39;templates&#39;</span><span class="p">)</span>
 <span class="nd">@simple_page.route</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="n">defaults</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;page&#39;</span><span class="p">:</span> <span class="s1">&#39;index&#39;</span><span class="p">})</span>
@@ -799,13 +813,23 @@ same server.</p>
 <p>Superset is instrumented to log events to StatsD if desired. Most endpoints hit
 are logged as well as key events like query start and end in SQL Lab.</p>
 <p>To setup StatsD logging, it’s a matter of configuring the logger in your
-<code class="docutils literal"><span class="pre">superset_config.py</span></code>.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">superset.stats_logger</span> <span class="kn">import</span> <span class="n">StatsdStatsLogger</span>
+<code class="docutils literal notranslate"><span class="pre">superset_config.py</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">superset.stats_logger</span> <span class="kn">import</span> <span class="n">StatsdStatsLogger</span>
 <span class="n">STATS_LOGGER</span> <span class="o">=</span> <span class="n">StatsdStatsLogger</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">8125</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s1">&#39;superset&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Note that it’s also possible to implement you own logger by deriving
-<code class="docutils literal"><span class="pre">superset.stats_logger.BaseStatsLogger</span></code>.</p>
+<code class="docutils literal notranslate"><span class="pre">superset.stats_logger.BaseStatsLogger</span></code>.</p>
+</div>
+<div class="section" id="install-superset-with-helm-in-kubernetes">
+<h2>Install Superset with helm in Kubernetes<a class="headerlink" href="#install-superset-with-helm-in-kubernetes" title="Permalink to this headline">¶</a></h2>
+<p>You can install Superset into Kubernetes with Helm &lt;<a class="reference external" href="https://helm.sh/">https://helm.sh/</a>&gt;. The chart is
+located in <code class="docutils literal notranslate"><span class="pre">install/helm</span></code>.</p>
+<p>To install Superset into your Kubernetes:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>helm upgrade --install superset ./install/helm/superset
+</pre></div>
+</div>
+<p>Note that the above command will install Superset into <code class="docutils literal notranslate"><span class="pre">default</span></code> namespace of your Kubernetes cluster.</p>
 </div>
 </div>
 

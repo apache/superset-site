@@ -195,12 +195,12 @@ which allows for using macros in your SQL code</li>
 <div class="section" id="extra-features">
 <h2>Extra features<a class="headerlink" href="#extra-features" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Hit <code class="docutils literal"><span class="pre">alt</span> <span class="pre">+</span> <span class="pre">enter</span></code> as a keyboard shortcut to run your query</li>
+<li>Hit <code class="docutils literal notranslate"><span class="pre">alt</span> <span class="pre">+</span> <span class="pre">enter</span></code> as a keyboard shortcut to run your query</li>
 </ul>
 </div>
 <div class="section" id="templating-with-jinja">
 <h2>Templating with Jinja<a class="headerlink" href="#templating-with-jinja" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-sql"><div class="highlight"><pre><span></span><span class="k">SELECT</span> <span class="o">*</span>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">SELECT</span> <span class="o">*</span>
 <span class="k">FROM</span> <span class="n">some_table</span>
 <span class="k">WHERE</span> <span class="n">partition_key</span> <span class="o">=</span> <span class="s1">&#39;{{ presto.latest_partition(&#39;</span><span class="n">some_table</span><span class="s1">&#39;) }}&#39;</span>
 </pre></div>
@@ -214,19 +214,19 @@ parameterized so they can be re-used easily.</p>
 <p>We expose certain modules from Python’s standard library in
 Superset’s Jinja context:</p>
 <ul class="simple">
-<li><code class="docutils literal"><span class="pre">time</span></code>: <code class="docutils literal"><span class="pre">time</span></code></li>
-<li><code class="docutils literal"><span class="pre">datetime</span></code>: <code class="docutils literal"><span class="pre">datetime.datetime</span></code></li>
-<li><code class="docutils literal"><span class="pre">uuid</span></code>: <code class="docutils literal"><span class="pre">uuid</span></code></li>
-<li><code class="docutils literal"><span class="pre">random</span></code>: <code class="docutils literal"><span class="pre">random</span></code></li>
-<li><code class="docutils literal"><span class="pre">relativedelta</span></code>: <code class="docutils literal"><span class="pre">dateutil.relativedelta.relativedelta</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">time</span></code>: <code class="docutils literal notranslate"><span class="pre">time</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">datetime</span></code>: <code class="docutils literal notranslate"><span class="pre">datetime.datetime</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">uuid</span></code>: <code class="docutils literal notranslate"><span class="pre">uuid</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">random</span></code>: <code class="docutils literal notranslate"><span class="pre">random</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">relativedelta</span></code>: <code class="docutils literal notranslate"><span class="pre">dateutil.relativedelta.relativedelta</span></code></li>
 </ul>
 <p><a class="reference external" href="http://jinja.pocoo.org/docs/dev/templates/">Jinja’s builtin filters</a> can be also be applied where needed.</p>
 <dl class="class">
 <dt id="superset.jinja_context.PrestoTemplateProcessor">
 <em class="property">class </em><code class="descclassname">superset.jinja_context.</code><code class="descname">PrestoTemplateProcessor</code><span class="sig-paren">(</span><em>database=None</em>, <em>query=None</em>, <em>table=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/superset/jinja_context.html#PrestoTemplateProcessor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#superset.jinja_context.PrestoTemplateProcessor" title="Permalink to this definition">¶</a></dt>
 <dd><p>Presto Jinja context</p>
-<p>The methods described here are namespaced under <code class="docutils literal"><span class="pre">presto</span></code> in the
-jinja context as in <code class="docutils literal"><span class="pre">SELECT</span> <span class="pre">'{{</span> <span class="pre">presto.some_macro_call()</span> <span class="pre">}}'</span></code></p>
+<p>The methods described here are namespaced under <code class="docutils literal notranslate"><span class="pre">presto</span></code> in the
+jinja context as in <code class="docutils literal notranslate"><span class="pre">SELECT</span> <span class="pre">'{{</span> <span class="pre">presto.some_macro_call()</span> <span class="pre">}}'</span></code></p>
 </dd></dl>
 
 <dl class="function">
@@ -252,7 +252,7 @@ jinja context as in <code class="docutils literal"><span class="pre">SELECT</spa
 <h3>Extending macros<a class="headerlink" href="#extending-macros" title="Permalink to this headline">¶</a></h3>
 <p>As mentioned in the <a class="reference external" href="https://superset.incubator.apache.org/installation.html#installation-configuration">Installation &amp; Configuration</a> documentation,
 it’s possible for administrators to expose more more macros in their
-environment using the configuration variable <code class="docutils literal"><span class="pre">JINJA_CONTEXT_ADDONS</span></code>.
+environment using the configuration variable <code class="docutils literal notranslate"><span class="pre">JINJA_CONTEXT_ADDONS</span></code>.
 All objects referenced in this dictionary will become available for users
 to integrate in their queries in <strong>SQL Lab</strong>.</p>
 </div>

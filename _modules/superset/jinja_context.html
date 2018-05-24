@@ -159,6 +159,7 @@
             
   <h1>Source code for superset.jinja_context</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1"># pylint: disable=C,R,W</span>
 <span class="sd">&quot;&quot;&quot;Defines the templating context for SQL Lab&quot;&quot;&quot;</span>
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">absolute_import</span>
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">division</span>
@@ -204,8 +205,8 @@
     <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;form_data&#39;</span><span class="p">):</span>
         <span class="n">form_data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;form_data&#39;</span><span class="p">))</span>
         <span class="n">url_params</span> <span class="o">=</span> <span class="n">form_data</span><span class="p">[</span><span class="s1">&#39;url_params&#39;</span><span class="p">]</span> <span class="ow">or</span> <span class="p">{}</span>
-        <span class="k">return</span> <span class="n">url_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">param</span><span class="p">,</span> <span class="n">default</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">default</span></div>
+        <span class="k">return</span> <span class="n">url_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">param</span><span class="p">,</span> <span class="n">default</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">default</span>
 
 
 <span class="k">def</span> <span class="nf">current_user_id</span><span class="p">():</span>
@@ -293,8 +294,8 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">database</span><span class="o">.</span><span class="n">db_engine_spec</span><span class="o">.</span><span class="n">latest_sub_partition</span><span class="p">(</span>
             <span class="n">table_name</span><span class="o">=</span><span class="n">table_name</span><span class="p">,</span>
             <span class="n">schema</span><span class="o">=</span><span class="n">schema</span><span class="p">,</span>
-            <span class="n">database</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">database</span><span class="p">,</span>
-            <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+            <span class="n">database</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">database</span><span class="p">,</span></div>
+            <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
 
 <span class="k">class</span> <span class="nc">HiveTemplateProcessor</span><span class="p">(</span><span class="n">PrestoTemplateProcessor</span><span class="p">):</span>

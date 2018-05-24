@@ -188,7 +188,7 @@ to apply some transformation using arbitrary SQL expressions. The limitation
 there is your database performance as Superset effectively will run a query
 on top of your query (view). A good practice may be to limit yourself to
 joining your main large table to one or many small tables only, and avoid
-using <code class="docutils literal"><span class="pre">GROUP</span> <span class="pre">BY</span></code> where possible as Superset will do its own <code class="docutils literal"><span class="pre">GROUP</span> <span class="pre">BY</span></code> and
+using <code class="docutils literal notranslate"><span class="pre">GROUP</span> <span class="pre">BY</span></code> where possible as Superset will do its own <code class="docutils literal notranslate"><span class="pre">GROUP</span> <span class="pre">BY</span></code> and
 doing the work twice might slow down performance.</p>
 <p>Whether you use a table or a view, the important factor is whether your
 database is fast enough to serve it in an interactive fashion to provide
@@ -205,58 +205,58 @@ queries that scan through terabytes in an interactive fashion.</p>
 <h2>How do I create my own visualization?<a class="headerlink" href="#how-do-i-create-my-own-visualization" title="Permalink to this headline">¶</a></h2>
 <p>We are planning on making it easier to add new visualizations to the
 framework, in the meantime, we’ve tagged a few pull requests as
-<code class="docutils literal"><span class="pre">example</span></code> to give people examples of how to contribute new
+<code class="docutils literal notranslate"><span class="pre">example</span></code> to give people examples of how to contribute new
 visualizations.</p>
 <p><a class="reference external" href="https://github.com/airbnb/superset/issues?q=label%3Aexample+is%3Aclosed">https://github.com/airbnb/superset/issues?q=label%3Aexample+is%3Aclosed</a></p>
 </div>
 <div class="section" id="can-i-upload-and-visualize-csv-data">
 <h2>Can I upload and visualize csv data?<a class="headerlink" href="#can-i-upload-and-visualize-csv-data" title="Permalink to this headline">¶</a></h2>
-<p>Yes, using the <code class="docutils literal"><span class="pre">Upload</span> <span class="pre">a</span> <span class="pre">CSV</span></code> button under the <code class="docutils literal"><span class="pre">Sources</span></code> menu item.
+<p>Yes, using the <code class="docutils literal notranslate"><span class="pre">Upload</span> <span class="pre">a</span> <span class="pre">CSV</span></code> button under the <code class="docutils literal notranslate"><span class="pre">Sources</span></code> menu item.
 This brings up a form that allows you specify required information.
 After creating the table from CSV, it can then be loaded like any
-other on the <code class="docutils literal"><span class="pre">Sources</span> <span class="pre">-&gt;</span> <span class="pre">Tables</span></code> page.</p>
+other on the <code class="docutils literal notranslate"><span class="pre">Sources</span> <span class="pre">-&gt;</span> <span class="pre">Tables</span></code> page.</p>
 </div>
 <div class="section" id="why-are-my-queries-timing-out">
 <h2>Why are my queries timing out?<a class="headerlink" href="#why-are-my-queries-timing-out" title="Permalink to this headline">¶</a></h2>
 <p>There are many reasons may cause long query timing out.</p>
 <ul>
 <li><p class="first">For running long query from Sql Lab, by default Superset allows it run as long as 6 hours before it being killed by celery. If you want to increase the time for running query, you can specify the timeout in configuration. For example:</p>
-<p><code class="docutils literal"><span class="pre">SQLLAB_ASYNC_TIME_LIMIT_SEC</span> <span class="pre">=</span> <span class="pre">60</span> <span class="pre">*</span> <span class="pre">60</span> <span class="pre">*</span> <span class="pre">6</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">SQLLAB_ASYNC_TIME_LIMIT_SEC</span> <span class="pre">=</span> <span class="pre">60</span> <span class="pre">*</span> <span class="pre">60</span> <span class="pre">*</span> <span class="pre">6</span></code></p>
 </li>
-<li><p class="first">Superset is running on gunicorn web server, which may time out web requests. If you want to increase the default (50), you can specify the timeout when starting the web server with the <code class="docutils literal"><span class="pre">-t</span></code> flag, which is expressed in seconds.</p>
-<p><code class="docutils literal"><span class="pre">superset</span> <span class="pre">runserver</span> <span class="pre">-t</span> <span class="pre">300</span></code></p>
+<li><p class="first">Superset is running on gunicorn web server, which may time out web requests. If you want to increase the default (50), you can specify the timeout when starting the web server with the <code class="docutils literal notranslate"><span class="pre">-t</span></code> flag, which is expressed in seconds.</p>
+<p><code class="docutils literal notranslate"><span class="pre">superset</span> <span class="pre">runserver</span> <span class="pre">-t</span> <span class="pre">300</span></code></p>
 </li>
-<li><p class="first">If you are seeing timeouts (504 Gateway Time-out) when loading dashboard or explore slice, you are probably behind gateway or proxy server (such as Nginx). If it did not receive a timely response from Superset server (which is processing long queries), these web servers will send 504 status code to clients directly. Superset has a client-side timeout limit to address this issue. If query didn’t come back within clint-side timeout (60 seconds by default), Superset will display warning message to avoid gateway timeout message. If you have a longer gateway timeout limit, you can change the timeout settings in <code class="docutils literal"><span class="pre">superset_config.py</span></code>:</p>
-<p><code class="docutils literal"><span class="pre">SUPERSET_WEBSERVER_TIMEOUT</span> <span class="pre">=</span> <span class="pre">60</span></code></p>
+<li><p class="first">If you are seeing timeouts (504 Gateway Time-out) when loading dashboard or explore slice, you are probably behind gateway or proxy server (such as Nginx). If it did not receive a timely response from Superset server (which is processing long queries), these web servers will send 504 status code to clients directly. Superset has a client-side timeout limit to address this issue. If query didn’t come back within clint-side timeout (60 seconds by default), Superset will display warning message to avoid gateway timeout message. If you have a longer gateway timeout limit, you can change the timeout settings in <code class="docutils literal notranslate"><span class="pre">superset_config.py</span></code>:</p>
+<p><code class="docutils literal notranslate"><span class="pre">SUPERSET_WEBSERVER_TIMEOUT</span> <span class="pre">=</span> <span class="pre">60</span></code></p>
 </li>
 </ul>
 </div>
 <div class="section" id="why-is-the-map-not-visible-in-the-mapbox-visualization">
 <h2>Why is the map not visible in the mapbox visualization?<a class="headerlink" href="#why-is-the-map-not-visible-in-the-mapbox-visualization" title="Permalink to this headline">¶</a></h2>
 <p>You need to register to mapbox.com, get an API key and configure it as
-<code class="docutils literal"><span class="pre">MAPBOX_API_KEY</span></code> in <code class="docutils literal"><span class="pre">superset_config.py</span></code>.</p>
+<code class="docutils literal notranslate"><span class="pre">MAPBOX_API_KEY</span></code> in <code class="docutils literal notranslate"><span class="pre">superset_config.py</span></code>.</p>
 </div>
 <div class="section" id="how-to-add-dynamic-filters-to-a-dashboard">
 <h2>How to add dynamic filters to a dashboard?<a class="headerlink" href="#how-to-add-dynamic-filters-to-a-dashboard" title="Permalink to this headline">¶</a></h2>
-<p>It’s easy: use the <code class="docutils literal"><span class="pre">Filter</span> <span class="pre">Box</span></code> widget, build a slice, and add it to your
+<p>It’s easy: use the <code class="docutils literal notranslate"><span class="pre">Filter</span> <span class="pre">Box</span></code> widget, build a slice, and add it to your
 dashboard.</p>
-<p>The <code class="docutils literal"><span class="pre">Filter</span> <span class="pre">Box</span></code> widget allows you to define a query to populate dropdowns
+<p>The <code class="docutils literal notranslate"><span class="pre">Filter</span> <span class="pre">Box</span></code> widget allows you to define a query to populate dropdowns
 that can be use for filtering. To build the list of distinct values, we
 run a query, and sort the result by the metric you provide, sorting
 descending.</p>
-<p>The widget also has a checkbox <code class="docutils literal"><span class="pre">Date</span> <span class="pre">Filter</span></code>, which enables time filtering
+<p>The widget also has a checkbox <code class="docutils literal notranslate"><span class="pre">Date</span> <span class="pre">Filter</span></code>, which enables time filtering
 capabilities to your dashboard. After checking the box and refreshing, you’ll
-see a <code class="docutils literal"><span class="pre">from</span></code> and a <code class="docutils literal"><span class="pre">to</span></code> dropdown show up.</p>
+see a <code class="docutils literal notranslate"><span class="pre">from</span></code> and a <code class="docutils literal notranslate"><span class="pre">to</span></code> dropdown show up.</p>
 <p>By default, the filtering will be applied to all the slices that are built
 on top of a datasource that shares the column name that the filter is based
 on. It’s also a requirement for that column to be checked as “filterable”
 in the column tab of the table editor.</p>
 <p>But what about if you don’t want certain widgets to get filtered on your
 dashboard? You can do that by editing your dashboard, and in the form,
-edit the <code class="docutils literal"><span class="pre">JSON</span> <span class="pre">Metadata</span></code> field, more specifically the
-<code class="docutils literal"><span class="pre">filter_immune_slices</span></code> key, that receives an array of sliceIds that should
+edit the <code class="docutils literal notranslate"><span class="pre">JSON</span> <span class="pre">Metadata</span></code> field, more specifically the
+<code class="docutils literal notranslate"><span class="pre">filter_immune_slices</span></code> key, that receives an array of sliceIds that should
 never be affected by any dashboard level filtering.</p>
-<div class="highlight-json"><div class="highlight"><pre><span></span><span class="p">{</span>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="nt">&quot;filter_immune_slices&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">324</span><span class="p">,</span> <span class="mi">65</span><span class="p">,</span> <span class="mi">92</span><span class="p">],</span>
     <span class="nt">&quot;expanded_slices&quot;</span><span class="p">:</span> <span class="p">{},</span>
     <span class="nt">&quot;filter_immune_slice_fields&quot;</span><span class="p">:</span> <span class="p">{</span>
@@ -269,10 +269,10 @@ never be affected by any dashboard level filtering.</p>
 </div>
 <p>In the json blob above, slices 324, 65 and 92 won’t be affected by any
 dashboard level filtering.</p>
-<p>Now note the <code class="docutils literal"><span class="pre">filter_immune_slice_fields</span></code> key. This one allows you to
+<p>Now note the <code class="docutils literal notranslate"><span class="pre">filter_immune_slice_fields</span></code> key. This one allows you to
 be more specific and define for a specific slice_id, which filter fields
 should be disregarded.</p>
-<p>Note the use of the <code class="docutils literal"><span class="pre">__from</span></code> and <code class="docutils literal"><span class="pre">__to</span></code> keywords, those are reserved
+<p>Note the use of the <code class="docutils literal notranslate"><span class="pre">__from</span></code> and <code class="docutils literal notranslate"><span class="pre">__to</span></code> keywords, those are reserved
 for dealing with the time boundary filtering mentioned above.</p>
 <p>But what happens with filtering when dealing with slices coming from
 different tables or databases? If the column name is shared, the filter will
@@ -283,9 +283,9 @@ be applied, it’s as simple as that.</p>
 <p>By default, the dashboard timed refresh feature allows you to automatically re-query every slice
 on a dashboard according to a set schedule. Sometimes, however, you won’t want all of the slices
 to be refreshed - especially if some data is slow moving, or run heavy queries. To exclude specific
-slices from the timed refresh process, add the <code class="docutils literal"><span class="pre">timed_refresh_immune_slices</span></code> key to the dashboard
-<code class="docutils literal"><span class="pre">JSON</span> <span class="pre">Metadata</span></code> field:</p>
-<div class="highlight-json"><div class="highlight"><pre><span></span><span class="p">{</span>
+slices from the timed refresh process, add the <code class="docutils literal notranslate"><span class="pre">timed_refresh_immune_slices</span></code> key to the dashboard
+<code class="docutils literal notranslate"><span class="pre">JSON</span> <span class="pre">Metadata</span></code> field:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
    <span class="nt">&quot;filter_immune_slices&quot;</span><span class="p">:</span> <span class="p">[],</span>
     <span class="nt">&quot;expanded_slices&quot;</span><span class="p">:</span> <span class="p">{},</span>
     <span class="nt">&quot;filter_immune_slice_fields&quot;</span><span class="p">:</span> <span class="p">{},</span>
@@ -296,9 +296,9 @@ slices from the timed refresh process, add the <code class="docutils literal"><s
 <p>In the example above, if a timed refresh is set for the dashboard, then every slice except 324 will
 be automatically re-queried on schedule.</p>
 <p>Slice refresh will also be staggered over the specified period. You can turn off this staggering
-by setting the <code class="docutils literal"><span class="pre">stagger_refresh</span></code> to <code class="docutils literal"><span class="pre">false</span></code> and modify the stagger period by setting
-<code class="docutils literal"><span class="pre">stagger_time</span></code> to a value in milliseconds in the <code class="docutils literal"><span class="pre">JSON</span> <span class="pre">Metadata</span></code> field:</p>
-<div class="highlight-json"><div class="highlight"><pre><span></span><span class="p">{</span>
+by setting the <code class="docutils literal notranslate"><span class="pre">stagger_refresh</span></code> to <code class="docutils literal notranslate"><span class="pre">false</span></code> and modify the stagger period by setting
+<code class="docutils literal notranslate"><span class="pre">stagger_time</span></code> to a value in milliseconds in the <code class="docutils literal notranslate"><span class="pre">JSON</span> <span class="pre">Metadata</span></code> field:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="nt">&quot;stagger_refresh&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
     <span class="nt">&quot;stagger_time&quot;</span><span class="p">:</span> <span class="mi">2500</span>
 <span class="p">}</span>
@@ -309,20 +309,20 @@ by setting the <code class="docutils literal"><span class="pre">stagger_refresh<
 </div>
 <div class="section" id="why-does-fabmanager-or-superset-freezed-hung-not-responding-when-started-my-home-directory-is-nfs-mounted">
 <h2>Why does fabmanager or superset freezed/hung/not responding when started (my home directory is NFS mounted)?<a class="headerlink" href="#why-does-fabmanager-or-superset-freezed-hung-not-responding-when-started-my-home-directory-is-nfs-mounted" title="Permalink to this headline">¶</a></h2>
-<p>By default, superset creates and uses an sqlite database at <code class="docutils literal"><span class="pre">~/.superset/superset.db</span></code>. Sqlite is known to <a class="reference external" href="https://www.sqlite.org/lockingv3.html">don’t work well if used on NFS</a> due to broken file locking implementation on NFS.</p>
-<p>You can override this path using the <code class="docutils literal"><span class="pre">SUPERSET_HOME</span></code> environment variable.</p>
-<p>Another work around is to change where superset stores the sqlite database by adding <code class="docutils literal"><span class="pre">SQLALCHEMY_DATABASE_URI</span> <span class="pre">=</span> <span class="pre">'sqlite:////new/location/superset.db'</span></code> in superset_config.py (create the file if needed), then adding the directory where superset_config.py lives to PYTHONPATH environment variable (e.g. <code class="docutils literal"><span class="pre">export</span> <span class="pre">PYTHONPATH=/opt/logs/sandbox/airbnb/</span></code>).</p>
+<p>By default, superset creates and uses an sqlite database at <code class="docutils literal notranslate"><span class="pre">~/.superset/superset.db</span></code>. Sqlite is known to <a class="reference external" href="https://www.sqlite.org/lockingv3.html">don’t work well if used on NFS</a> due to broken file locking implementation on NFS.</p>
+<p>You can override this path using the <code class="docutils literal notranslate"><span class="pre">SUPERSET_HOME</span></code> environment variable.</p>
+<p>Another work around is to change where superset stores the sqlite database by adding <code class="docutils literal notranslate"><span class="pre">SQLALCHEMY_DATABASE_URI</span> <span class="pre">=</span> <span class="pre">'sqlite:////new/location/superset.db'</span></code> in superset_config.py (create the file if needed), then adding the directory where superset_config.py lives to PYTHONPATH environment variable (e.g. <code class="docutils literal notranslate"><span class="pre">export</span> <span class="pre">PYTHONPATH=/opt/logs/sandbox/airbnb/</span></code>).</p>
 </div>
 <div class="section" id="what-if-the-table-schema-changed">
 <h2>What if the table schema changed?<a class="headerlink" href="#what-if-the-table-schema-changed" title="Permalink to this headline">¶</a></h2>
 <p>Table schemas evolve, and Superset needs to reflect that. It’s pretty common
 in the life cycle of a dashboard to want to add a new dimension or metric.
 To get Superset to discover your new columns, all you have to do is to
-go to <code class="docutils literal"><span class="pre">Menu</span> <span class="pre">-&gt;</span> <span class="pre">Sources</span> <span class="pre">-&gt;</span> <span class="pre">Tables</span></code>, click the <code class="docutils literal"><span class="pre">edit</span></code> icon next to the
-table who’s schema has changed, and hit <code class="docutils literal"><span class="pre">Save</span></code> from the <code class="docutils literal"><span class="pre">Detail</span></code> tab.
+go to <code class="docutils literal notranslate"><span class="pre">Menu</span> <span class="pre">-&gt;</span> <span class="pre">Sources</span> <span class="pre">-&gt;</span> <span class="pre">Tables</span></code>, click the <code class="docutils literal notranslate"><span class="pre">edit</span></code> icon next to the
+table who’s schema has changed, and hit <code class="docutils literal notranslate"><span class="pre">Save</span></code> from the <code class="docutils literal notranslate"><span class="pre">Detail</span></code> tab.
 Behind the scene, the new columns will get merged it. Following this,
 you may want to
-re-edit the table afterwards to configure the <code class="docutils literal"><span class="pre">Column</span></code> tab, check the
+re-edit the table afterwards to configure the <code class="docutils literal notranslate"><span class="pre">Column</span></code> tab, check the
 appropriate boxes and save again.</p>
 </div>
 <div class="section" id="how-do-i-go-about-developing-a-new-visualization-type">
@@ -353,15 +353,15 @@ is active.</p>
 <h2>How do I get Superset to refresh the schema of my table?<a class="headerlink" href="#how-do-i-get-superset-to-refresh-the-schema-of-my-table" title="Permalink to this headline">¶</a></h2>
 <p>When adding columns to a table, you can have Superset detect and merge the
 new columns in by using the “Refresh Metadata” action in the
-<code class="docutils literal"><span class="pre">Source</span> <span class="pre">-&gt;</span> <span class="pre">Tables</span></code> page. Simply check the box next to the tables
-you want the schema refreshed, and click <code class="docutils literal"><span class="pre">Actions</span> <span class="pre">-&gt;</span> <span class="pre">Refresh</span> <span class="pre">Metadata</span></code>.</p>
+<code class="docutils literal notranslate"><span class="pre">Source</span> <span class="pre">-&gt;</span> <span class="pre">Tables</span></code> page. Simply check the box next to the tables
+you want the schema refreshed, and click <code class="docutils literal notranslate"><span class="pre">Actions</span> <span class="pre">-&gt;</span> <span class="pre">Refresh</span> <span class="pre">Metadata</span></code>.</p>
 </div>
 <div class="section" id="is-there-a-way-to-force-the-use-specific-colors">
 <h2>Is there a way to force the use specific colors?<a class="headerlink" href="#is-there-a-way-to-force-the-use-specific-colors" title="Permalink to this headline">¶</a></h2>
 <p>It is possible on a per-dashboard basis by providing a mapping of
-labels to colors in the <code class="docutils literal"><span class="pre">JSON</span> <span class="pre">Metadata</span></code> attribute using the
-<code class="docutils literal"><span class="pre">label_colors</span></code> key.</p>
-<div class="highlight-json"><div class="highlight"><pre><span></span><span class="p">{</span>
+labels to colors in the <code class="docutils literal notranslate"><span class="pre">JSON</span> <span class="pre">Metadata</span></code> attribute using the
+<code class="docutils literal notranslate"><span class="pre">label_colors</span></code> key.</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="nt">&quot;label_colors&quot;</span><span class="p">:</span> <span class="p">{</span>
         <span class="nt">&quot;Girls&quot;</span><span class="p">:</span> <span class="s2">&quot;#FF69B4&quot;</span><span class="p">,</span>
         <span class="nt">&quot;Boys&quot;</span><span class="p">:</span> <span class="s2">&quot;#ADD8E6&quot;</span>

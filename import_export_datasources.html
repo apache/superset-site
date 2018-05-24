@@ -173,7 +173,7 @@
 <h1>Importing and Exporting Datasources<a class="headerlink" href="#importing-and-exporting-datasources" title="Permalink to this headline">¶</a></h1>
 <p>The superset cli allows you to import and export datasources from and to YAML.
 Datasources include both databases and druid clusters. The data is expected to be organized in the following hierarchy:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>.
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>.
 ├──databases
 |  ├──database_1
 |  |  ├──table_1
@@ -205,16 +205,16 @@ Datasources include both databases and druid clusters. The data is expected to b
 <div class="section" id="exporting-datasources-to-yaml">
 <h2>Exporting Datasources to YAML<a class="headerlink" href="#exporting-datasources-to-yaml" title="Permalink to this headline">¶</a></h2>
 <p>You can print your current datasources to stdout by running:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">superset</span> <span class="n">export_datasources</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">superset</span> <span class="n">export_datasources</span>
 </pre></div>
 </div>
 <p>To save your datasources to a file run:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">superset</span> <span class="n">export_datasources</span> <span class="o">-</span><span class="n">f</span> <span class="o">&lt;</span><span class="n">filename</span><span class="o">&gt;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">superset</span> <span class="n">export_datasources</span> <span class="o">-</span><span class="n">f</span> <span class="o">&lt;</span><span class="n">filename</span><span class="o">&gt;</span>
 </pre></div>
 </div>
-<p>By default, default (null) values will be omitted. Use the <code class="docutils literal"><span class="pre">-d</span></code> flag to include them.
+<p>By default, default (null) values will be omitted. Use the <code class="docutils literal notranslate"><span class="pre">-d</span></code> flag to include them.
 If you want back references to be included (e.g. a column to include the table id
-it belongs to) use the <code class="docutils literal"><span class="pre">-b</span></code> flag.</p>
+it belongs to) use the <code class="docutils literal notranslate"><span class="pre">-b</span></code> flag.</p>
 <p>Alternatively you can export datasources using the UI:</p>
 <ol class="arabic simple">
 <li>Open <strong>Sources</strong> -&gt; <strong>Databases</strong> to export all tables associated to a
@@ -231,35 +231,35 @@ nested inside a <cite>database</cite> element.</li>
 <div class="section" id="exporting-the-complete-supported-yaml-schema">
 <h2>Exporting the complete supported YAML schema<a class="headerlink" href="#exporting-the-complete-supported-yaml-schema" title="Permalink to this headline">¶</a></h2>
 <p>In order to obtain an exhaustive list of all fields you can import using the YAML import run:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">superset</span> <span class="n">export_datasource_schema</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">superset</span> <span class="n">export_datasource_schema</span>
 </pre></div>
 </div>
-<p>Again, you can use the <code class="docutils literal"><span class="pre">-b</span></code> flag to include back references.</p>
+<p>Again, you can use the <code class="docutils literal notranslate"><span class="pre">-b</span></code> flag to include back references.</p>
 </div>
 <div class="section" id="importing-datasources-from-yaml">
 <h2>Importing Datasources from YAML<a class="headerlink" href="#importing-datasources-from-yaml" title="Permalink to this headline">¶</a></h2>
 <p>In order to import datasources from a YAML file(s), run:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">superset</span> <span class="n">import_datasources</span> <span class="o">-</span><span class="n">p</span> <span class="o">&lt;</span><span class="n">path</span> <span class="ow">or</span> <span class="n">filename</span><span class="o">&gt;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">superset</span> <span class="n">import_datasources</span> <span class="o">-</span><span class="n">p</span> <span class="o">&lt;</span><span class="n">path</span> <span class="ow">or</span> <span class="n">filename</span><span class="o">&gt;</span>
 </pre></div>
 </div>
-<p>If you supply a path all files ending with <code class="docutils literal"><span class="pre">*.yaml</span></code> or <code class="docutils literal"><span class="pre">*.yml</span></code> will be parsed.
+<p>If you supply a path all files ending with <code class="docutils literal notranslate"><span class="pre">*.yaml</span></code> or <code class="docutils literal notranslate"><span class="pre">*.yml</span></code> will be parsed.
 You can apply additional flags e.g.:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">superset</span> <span class="n">import_datasources</span> <span class="o">-</span><span class="n">p</span> <span class="o">&lt;</span><span class="n">path</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">r</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">superset</span> <span class="n">import_datasources</span> <span class="o">-</span><span class="n">p</span> <span class="o">&lt;</span><span class="n">path</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">r</span>
 </pre></div>
 </div>
 <p>Will search the supplied path recursively.</p>
-<p>The sync flag <code class="docutils literal"><span class="pre">-s</span></code> takes parameters in order to sync the supplied elements with
+<p>The sync flag <code class="docutils literal notranslate"><span class="pre">-s</span></code> takes parameters in order to sync the supplied elements with
 your file. Be careful this can delete the contents of your meta database. Example:</p>
 <blockquote>
 <div>superset import_datasources -p &lt;path / filename&gt; -s columns,metrics</div></blockquote>
-<p>This will sync all <code class="docutils literal"><span class="pre">metrics</span></code> and <code class="docutils literal"><span class="pre">columns</span></code> for all datasources found in the
-<code class="docutils literal"><span class="pre">&lt;path</span> <span class="pre">/</span> <span class="pre">filename&gt;</span></code> in the Superset meta database. This means columns and metrics
-not specified in YAML will be deleted. If you would add <code class="docutils literal"><span class="pre">tables</span></code> to <code class="docutils literal"><span class="pre">columns,metrics</span></code>
+<p>This will sync all <code class="docutils literal notranslate"><span class="pre">metrics</span></code> and <code class="docutils literal notranslate"><span class="pre">columns</span></code> for all datasources found in the
+<code class="docutils literal notranslate"><span class="pre">&lt;path</span> <span class="pre">/</span> <span class="pre">filename&gt;</span></code> in the Superset meta database. This means columns and metrics
+not specified in YAML will be deleted. If you would add <code class="docutils literal notranslate"><span class="pre">tables</span></code> to <code class="docutils literal notranslate"><span class="pre">columns,metrics</span></code>
 those would be synchronised as well.</p>
-<p>If you don’t supply the sync flag (<code class="docutils literal"><span class="pre">-s</span></code>) importing will only add and update (override) fields.
-E.g. you can add a <code class="docutils literal"><span class="pre">verbose_name</span></code> to the the column <code class="docutils literal"><span class="pre">ds</span></code> in the table <code class="docutils literal"><span class="pre">random_time_series</span></code> from the example datasets
-by saving the following YAML to file and then running the <code class="docutils literal"><span class="pre">import_datasources</span></code> command.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">databases</span><span class="p">:</span>
+<p>If you don’t supply the sync flag (<code class="docutils literal notranslate"><span class="pre">-s</span></code>) importing will only add and update (override) fields.
+E.g. you can add a <code class="docutils literal notranslate"><span class="pre">verbose_name</span></code> to the the column <code class="docutils literal notranslate"><span class="pre">ds</span></code> in the table <code class="docutils literal notranslate"><span class="pre">random_time_series</span></code> from the example datasets
+by saving the following YAML to file and then running the <code class="docutils literal notranslate"><span class="pre">import_datasources</span></code> command.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">databases</span><span class="p">:</span>
 <span class="o">-</span> <span class="n">database_name</span><span class="p">:</span> <span class="n">main</span>
   <span class="n">tables</span><span class="p">:</span>
   <span class="o">-</span> <span class="n">table_name</span><span class="p">:</span> <span class="n">random_time_series</span>
