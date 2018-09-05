@@ -110,6 +110,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#how-can-i-set-a-default-filter-on-my-dashboard">How can I set a default filter on my dashboard?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#how-do-i-get-superset-to-refresh-the-schema-of-my-table">How do I get Superset to refresh the schema of my table?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#is-there-a-way-to-force-the-use-specific-colors">Is there a way to force the use specific colors?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#does-superset-work-with-insert-database-engine-here">Does Superset work with [insert database engine here]?</a></li>
 </ul>
 </li>
 </ul>
@@ -260,8 +261,8 @@ never be affected by any dashboard level filtering.</p>
     <span class="nt">&quot;filter_immune_slices&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">324</span><span class="p">,</span> <span class="mi">65</span><span class="p">,</span> <span class="mi">92</span><span class="p">],</span>
     <span class="nt">&quot;expanded_slices&quot;</span><span class="p">:</span> <span class="p">{},</span>
     <span class="nt">&quot;filter_immune_slice_fields&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;177&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;country_name&quot;</span><span class="p">,</span> <span class="s2">&quot;__from&quot;</span><span class="p">,</span> <span class="s2">&quot;__to&quot;</span><span class="p">],</span>
-        <span class="nt">&quot;32&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;__from&quot;</span><span class="p">,</span> <span class="s2">&quot;__to&quot;</span><span class="p">]</span>
+        <span class="nt">&quot;177&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;country_name&quot;</span><span class="p">,</span> <span class="s2">&quot;__time_range&quot;</span><span class="p">],</span>
+        <span class="nt">&quot;32&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;__time_range&quot;</span><span class="p">]</span>
     <span class="p">},</span>
     <span class="nt">&quot;timed_refresh_immune_slices&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">324</span><span class="p">]</span>
 <span class="p">}</span>
@@ -272,8 +273,8 @@ dashboard level filtering.</p>
 <p>Now note the <code class="docutils literal notranslate"><span class="pre">filter_immune_slice_fields</span></code> key. This one allows you to
 be more specific and define for a specific slice_id, which filter fields
 should be disregarded.</p>
-<p>Note the use of the <code class="docutils literal notranslate"><span class="pre">__from</span></code> and <code class="docutils literal notranslate"><span class="pre">__to</span></code> keywords, those are reserved
-for dealing with the time boundary filtering mentioned above.</p>
+<p>Note the use of the <code class="docutils literal notranslate"><span class="pre">__time_range</span></code> keyword, which is reserved for dealing
+with the time boundary filtering mentioned above.</p>
 <p>But what happens with filtering when dealing with slices coming from
 different tables or databases? If the column name is shared, the filter will
 be applied, it’s as simple as that.</p>
@@ -369,6 +370,51 @@ labels to colors in the <code class="docutils literal notranslate"><span class="
 <span class="p">}</span>
 </pre></div>
 </div>
+</div>
+<div class="section" id="does-superset-work-with-insert-database-engine-here">
+<h2>Does Superset work with [insert database engine here]?<a class="headerlink" href="#does-superset-work-with-insert-database-engine-here" title="Permalink to this headline">¶</a></h2>
+<p>The community over time has curated a list of databases that work well with
+Superset in the <a class="reference internal" href="installation.html#ref-database-deps"><span class="std std-ref">Database dependencies</span></a> section of the docs. Database
+engines not listed in this page may work too. We rely on the
+community to contribute to this knowledge base.</p>
+<p>For a database engine to be supported in Superset through the
+SQLAlchemy connector, it requires having a Python compliant
+<a class="reference external" href="http://docs.sqlalchemy.org/en/latest/dialects/">SQLAlchemy dialect</a> as well as a
+<a class="reference external" href="https://www.python.org/dev/peps/pep-0249/">DBAPI driver</a> defined.
+Database that have limited SQL support may
+work as well. For instance it’s possible to connect
+to Druid through the SQLAlchemy connector even though Druid does not support
+joins and subqueries. Another key element for a database to be supported is through
+the Superset <a class="reference external" href="https://github.com/apache/incubator-superset/blob/master/superset/db_engine_specs.py">Database Engine Specification</a>
+interface. This interface allows for defining database-specific configurations
+and logic
+that go beyond the SQLAlchemy and DBAPI scope. This includes features like:</p>
+<ul class="simple">
+<li>date-related SQL function that allow Superset to fetch different
+time granularities when running time-series queries</li>
+<li>whether the engine supports subqueries. If false, Superset may run 2-phase
+queries to compensate for the limitation</li>
+<li>methods around processing logs and inferring the percentage of completion
+of a query</li>
+<li>technicalities as to how to handle cursors and connections if the driver
+is not standard DBAPI</li>
+<li>more, read the code for more details</li>
+</ul>
+<p>Beyond the SQLAlchemy connector, it’s also possible, though much more
+involved, to extend Superset and write
+your own connector. The only example of this at the moment is the Druid
+connector, which is getting superseded by Druid’s growing SQL support and
+the recent availability of a DBAPI and SQLAlchemy driver. If the database
+you are considering integrating has any kind of of SQL support, it’s probably
+preferable to go the SQLAlchemy route. Note that for a native connector to
+be possible the database needs to have support for running OLAP-type queries
+and should be able to things that are typical in basic SQL:</p>
+<ul class="simple">
+<li>aggregate data</li>
+<li>apply filters (==, !=, &gt;, &lt;, &gt;=, &lt;=, IN, …)</li>
+<li>apply HAVING-type filters</li>
+<li>be schema-aware, expose columns and types</li>
+</ul>
 </div>
 </div>
 

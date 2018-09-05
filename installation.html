@@ -90,6 +90,7 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Installation &amp; Configuration</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#getting-started">Getting Started</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#cloud-native">Cloud-native!</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#start-with-docker">Start with Docker</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#os-dependencies">OS dependencies</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#python-virtualenv">Python virtualenv</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#python-s-setup-tools-and-pip">Python’s setup tools and pip</a></li>
@@ -100,6 +101,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#configuration">Configuration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#database-dependencies">Database dependencies</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#aws-athena">(AWS) Athena</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#snowflake">Snowflake</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#caching">Caching</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#deeper-sqlalchemy-integration">Deeper SQLAlchemy integration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#schemas-postgres-redshift">Schemas (Postgres &amp; Redshift)</a></li>
@@ -114,6 +116,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#blueprints">Blueprints</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#statsd-logging">StatsD logging</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#install-superset-with-helm-in-kubernetes">Install Superset with helm in Kubernetes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#custom-oauth2-configuration">Custom OAuth2 configuration</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial - Creating your first dashboard</a></li>
@@ -188,7 +191,7 @@
 <h1>Installation &amp; Configuration<a class="headerlink" href="#installation-configuration" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="getting-started">
 <h2>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h2>
-<p>Superset is tested against Python <code class="docutils literal notranslate"><span class="pre">2.7</span></code> and Python <code class="docutils literal notranslate"><span class="pre">3.4</span></code>.
+<p>Superset is tested against Python <code class="docutils literal notranslate"><span class="pre">2.7</span></code> and Python <code class="docutils literal notranslate"><span class="pre">3.6</span></code>.
 Airbnb currently uses 2.7.* in production. We do not plan on supporting
 Python <code class="docutils literal notranslate"><span class="pre">2.6</span></code>.</p>
 </div>
@@ -216,6 +219,27 @@ day.</p>
 are stateless, so you can scale out by running on as many servers
 as needed.</p>
 </div>
+<div class="section" id="start-with-docker">
+<h2>Start with Docker<a class="headerlink" href="#start-with-docker" title="Permalink to this headline">¶</a></h2>
+<p>If you know docker, then you’re lucky, we have shortcut road for you to
+initialize development environment:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">apache</span><span class="o">/</span><span class="n">incubator</span><span class="o">-</span><span class="n">superset</span><span class="o">/</span>
+<span class="n">cd</span> <span class="n">incubator</span><span class="o">-</span><span class="n">superset</span>
+<span class="n">cp</span> <span class="n">contrib</span><span class="o">/</span><span class="n">docker</span><span class="o">/</span><span class="p">{</span><span class="n">docker</span><span class="o">-</span><span class="n">build</span><span class="o">.</span><span class="n">sh</span><span class="p">,</span><span class="n">docker</span><span class="o">-</span><span class="n">compose</span><span class="o">.</span><span class="n">yml</span><span class="p">,</span><span class="n">docker</span><span class="o">-</span><span class="n">entrypoint</span><span class="o">.</span><span class="n">sh</span><span class="p">,</span><span class="n">docker</span><span class="o">-</span><span class="n">init</span><span class="o">.</span><span class="n">sh</span><span class="p">,</span><span class="n">Dockerfile</span><span class="p">}</span> <span class="o">.</span>
+<span class="n">cp</span> <span class="n">contrib</span><span class="o">/</span><span class="n">docker</span><span class="o">/</span><span class="n">superset_config</span><span class="o">.</span><span class="n">py</span> <span class="n">superset</span><span class="o">/</span>
+<span class="n">bash</span> <span class="o">-</span><span class="n">x</span> <span class="n">docker</span><span class="o">-</span><span class="n">build</span><span class="o">.</span><span class="n">sh</span>
+<span class="n">docker</span><span class="o">-</span><span class="n">compose</span> <span class="n">up</span> <span class="o">-</span><span class="n">d</span>
+<span class="n">docker</span><span class="o">-</span><span class="n">compose</span> <span class="n">exec</span> <span class="n">superset</span> <span class="n">bash</span>
+<span class="n">bash</span> <span class="n">docker</span><span class="o">-</span><span class="n">init</span><span class="o">.</span><span class="n">sh</span>
+</pre></div>
+</div>
+<p>After several minutes for superset initialization to finish, you can open
+a browser and view <cite>http://localhost:8088</cite> to start your journey.</p>
+<p>If you are attempting to build on a Mac and it exits with 137 you need to increase your docker resources.
+OSX instructions: <a class="reference external" href="https://docs.docker.com/docker-for-mac/#advanced">https://docs.docker.com/docker-for-mac/#advanced</a> (Search for memory)</p>
+<p>Or if you’re curious and want to install superset from bottom up, then go
+ahead.</p>
+</div>
 <div class="section" id="os-dependencies">
 <h2>OS dependencies<a class="headerlink" href="#os-dependencies" title="Permalink to this headline">¶</a></h2>
 <p>Superset stores database connection information in its metadata database.
@@ -230,9 +254,10 @@ the required dependencies are installed:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">build</span><span class="o">-</span><span class="n">essential</span> <span class="n">libssl</span><span class="o">-</span><span class="n">dev</span> <span class="n">libffi</span><span class="o">-</span><span class="n">dev</span> <span class="n">python</span><span class="o">-</span><span class="n">dev</span> <span class="n">python</span><span class="o">-</span><span class="n">pip</span> <span class="n">libsasl2</span><span class="o">-</span><span class="n">dev</span> <span class="n">libldap2</span><span class="o">-</span><span class="n">dev</span>
 </pre></div>
 </div>
-<p><strong>Ubuntu 16.04</strong> If you have python3.5 installed alongside with python2.7, as is default on <strong>Ubuntu 16.04 LTS</strong>, run this command also</p>
-<blockquote>
-<div>sudo apt-get install build-essential libssl-dev libffi-dev python3.5-dev python-pip libsasl2-dev libldap2-dev</div></blockquote>
+<p><strong>Ubuntu 16.04</strong> If you have python3.5 installed alongside with python2.7, as is default on <strong>Ubuntu 16.04 LTS</strong>, run this command also:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">build</span><span class="o">-</span><span class="n">essential</span> <span class="n">libssl</span><span class="o">-</span><span class="n">dev</span> <span class="n">libffi</span><span class="o">-</span><span class="n">dev</span> <span class="n">python3</span><span class="o">.</span><span class="mi">5</span><span class="o">-</span><span class="n">dev</span> <span class="n">python</span><span class="o">-</span><span class="n">pip</span> <span class="n">libsasl2</span><span class="o">-</span><span class="n">dev</span> <span class="n">libldap2</span><span class="o">-</span><span class="n">dev</span>
+</pre></div>
+</div>
 <p>otherwhise build for <code class="docutils literal notranslate"><span class="pre">cryptography</span></code> fails.</p>
 <p>For <strong>Fedora</strong> and <strong>RHEL-derivatives</strong>, the following command will ensure
 that the required dependencies are installed:</p>
@@ -440,7 +465,7 @@ auth postback endpoint, you can add them to <em>WTF_CSRF_EXEMPT_LIST</em></p>
 <div>WTF_CSRF_EXEMPT_LIST = [‘’]</div></blockquote>
 </div>
 <div class="section" id="database-dependencies">
-<h2>Database dependencies<a class="headerlink" href="#database-dependencies" title="Permalink to this headline">¶</a></h2>
+<span id="ref-database-deps"></span><h2>Database dependencies<a class="headerlink" href="#database-dependencies" title="Permalink to this headline">¶</a></h2>
 <p>Superset does not ship bundled with connectivity to databases, except
 for Sqlite, which is part of the Python standard library.
 You’ll need to install the required packages for the database you
@@ -512,21 +537,25 @@ connect to the databases you want to access through Superset.</p>
 <td><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">&quot;PyAthenaJDBC&gt;1.0.9&quot;</span></code></td>
 <td><code class="docutils literal notranslate"><span class="pre">awsathena+jdbc://</span></code></td>
 </tr>
-<tr class="row-odd"><td>Vertica</td>
+<tr class="row-odd"><td>Athena</td>
+<td><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">&quot;PyAthena&gt;1.2.0&quot;</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">awsathena+rest://</span></code></td>
+</tr>
+<tr class="row-even"><td>Vertica</td>
 <td><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span>
 <span class="pre">sqlalchemy-vertica-python</span></code></td>
 <td><code class="docutils literal notranslate"><span class="pre">vertica+vertica_python://</span></code></td>
 </tr>
-<tr class="row-even"><td>ClickHouse</td>
+<tr class="row-odd"><td>ClickHouse</td>
 <td><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span>
 <span class="pre">sqlalchemy-clickhouse</span></code></td>
 <td><code class="docutils literal notranslate"><span class="pre">clickhouse://</span></code></td>
 </tr>
-<tr class="row-odd"><td>Kylin</td>
+<tr class="row-even"><td>Kylin</td>
 <td><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">kylinpy</span></code></td>
 <td><code class="docutils literal notranslate"><span class="pre">kylin://</span></code></td>
 </tr>
-<tr class="row-even"><td>BigQuery</td>
+<tr class="row-odd"><td>BigQuery</td>
 <td><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">pybigquery</span></code></td>
 <td><code class="docutils literal notranslate"><span class="pre">bigquery://</span></code></td>
 </tr>
@@ -547,6 +576,29 @@ database you want to connect to should get you to the right place.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">s3</span><span class="p">:</span><span class="o">//...</span> <span class="o">-&gt;</span> <span class="n">s3</span><span class="o">%</span><span class="mi">3</span><span class="n">A</span><span class="o">//...</span>
 </pre></div>
 </div>
+<p>You can also use <cite>PyAthena</cite> library(no java required) like this</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>awsathena+rest://{aws_access_key_id}:{aws_secret_access_key}@athena.{region_name}.amazonaws.com/{schema_name}?s3_staging_dir={s3_staging_dir}&amp;...
+</pre></div>
+</div>
+<p>See <a class="reference external" href="https://github.com/laughingman7743/PyAthena#sqlalchemy">PyAthena</a>.</p>
+</div>
+<div class="section" id="snowflake">
+<h2>Snowflake<a class="headerlink" href="#snowflake" title="Permalink to this headline">¶</a></h2>
+<p>The connection string for Snowflake looks like this</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>snowflake://{user}:{password}@{account}.{region}/{database}?role={role}&amp;warehouse={warehouse}
+</pre></div>
+</div>
+<p>The schema is not necessary in the connection string, as it is defined per table/query.
+The role and warehouse can be omitted if defaults are defined for the user, i.e.</p>
+<blockquote>
+<div>snowflake://{user}:{password}&#64;{account}.{region}/{database}</div></blockquote>
+<p>Make sure the user has privileges to access and use all required
+databases/schemas/tables/views/warehouses, as the Snowflake SQLAlchemy engine does
+not test for user rights during engine creation.</p>
+<p><em>Note</em>: At the time of writing, there is a regression in the current stable version (1.1.2) of
+snowflake-sqlalchemy package that causes problems when used with Superset. It is recommended to
+use version 1.1.0 or try a newer version.</p>
+<p>See <a class="reference external" href="https://github.com/snowflakedb/snowflake-sqlalchemy">Snowflake SQLAlchemy</a>.</p>
 </div>
 <div class="section" id="caching">
 <h2>Caching<a class="headerlink" href="#caching" title="Permalink to this headline">¶</a></h2>
@@ -830,6 +882,65 @@ located in <code class="docutils literal notranslate"><span class="pre">install/
 </pre></div>
 </div>
 <p>Note that the above command will install Superset into <code class="docutils literal notranslate"><span class="pre">default</span></code> namespace of your Kubernetes cluster.</p>
+</div>
+<div class="section" id="custom-oauth2-configuration">
+<h2>Custom OAuth2 configuration<a class="headerlink" href="#custom-oauth2-configuration" title="Permalink to this headline">¶</a></h2>
+<p>Beyond FAB supported providers (github, twitter, linkedin, google, azure), its easy to connect Superset with other OAuth2 Authorization Server implementations that supports “code” authorization.</p>
+<p>The first step: Configure authorization in Superset <code class="docutils literal notranslate"><span class="pre">superset_config.py</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">AUTH_TYPE</span> <span class="o">=</span> <span class="n">AUTH_OAUTH</span>
+<span class="n">OAUTH_PROVIDERS</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span>   <span class="s1">&#39;name&#39;</span><span class="p">:</span><span class="s1">&#39;egaSSO&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;token_key&#39;</span><span class="p">:</span><span class="s1">&#39;access_token&#39;</span><span class="p">,</span> <span class="c1"># Name of the token in the response of access_token_url</span>
+        <span class="s1">&#39;icon&#39;</span><span class="p">:</span><span class="s1">&#39;fa-address-card&#39;</span><span class="p">,</span>   <span class="c1"># Icon for the provider</span>
+        <span class="s1">&#39;remote_app&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;consumer_key&#39;</span><span class="p">:</span><span class="s1">&#39;myClientId&#39;</span><span class="p">,</span>  <span class="c1"># Client Id (Identify Superset application)</span>
+            <span class="s1">&#39;consumer_secret&#39;</span><span class="p">:</span><span class="s1">&#39;MySecret&#39;</span><span class="p">,</span> <span class="c1"># Secret for this Client Id (Identify Superset application)</span>
+            <span class="s1">&#39;request_token_params&#39;</span><span class="p">:{</span>
+                <span class="s1">&#39;scope&#39;</span><span class="p">:</span> <span class="s1">&#39;read&#39;</span>               <span class="c1"># Scope for the Authorization</span>
+            <span class="p">},</span>
+            <span class="s1">&#39;access_token_method&#39;</span><span class="p">:</span><span class="s1">&#39;POST&#39;</span><span class="p">,</span>   <span class="c1"># HTTP Method to call access_token_url</span>
+            <span class="s1">&#39;access_token_params&#39;</span><span class="p">:{</span>         <span class="c1"># Additional parameters for calls to access_token_url</span>
+                <span class="s1">&#39;client_id&#39;</span><span class="p">:</span><span class="s1">&#39;myClientId&#39;</span>
+            <span class="p">},</span>
+            <span class="s1">&#39;access_token_headers&#39;</span><span class="p">:{</span>        <span class="c1"># Additional headers for calls to access_token_url</span>
+                <span class="s1">&#39;Authorization&#39;</span><span class="p">:</span> <span class="s1">&#39;Basic Base64EncodedClientIdAndSecret&#39;</span>
+            <span class="p">},</span>
+            <span class="s1">&#39;base_url&#39;</span><span class="p">:</span><span class="s1">&#39;https://myAuthorizationServer/oauth2AuthorizationServer/&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;access_token_url&#39;</span><span class="p">:</span><span class="s1">&#39;https://myAuthorizationServer/oauth2AuthorizationServer/token&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;authorize_url&#39;</span><span class="p">:</span><span class="s1">&#39;https://myAuthorizationServer/oauth2AuthorizationServer/authorize&#39;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">]</span>
+
+<span class="c1"># Will allow user self registration, allowing to create Flask users from Authorized User</span>
+<span class="n">AUTH_USER_REGISTRATION</span> <span class="o">=</span> <span class="bp">True</span>
+
+<span class="c1"># The default user self registration role</span>
+<span class="n">AUTH_USER_REGISTRATION_ROLE</span> <span class="o">=</span> <span class="s2">&quot;Public&quot;</span>
+</pre></div>
+</div>
+<p>Second step: Create a <cite>CustomSsoSecurityManager</cite> that extends <cite>SupersetSecurityManager</cite> and overrides <cite>oauth_user_info</cite>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">superset.security</span> <span class="kn">import</span> <span class="n">SupersetSecurityManager</span>
+
+<span class="k">class</span> <span class="nc">CustomSsoSecurityManager</span><span class="p">(</span><span class="n">SupersetSecurityManager</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">oauth_user_info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">provider</span><span class="p">,</span> <span class="n">response</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Oauth2 provider: {0}.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">provider</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">provider</span> <span class="o">==</span> <span class="s1">&#39;egaSSO&#39;</span><span class="p">:</span>
+            <span class="c1"># As example, this line request a GET to base_url + &#39;/&#39; + userDetails with Bearer  Authentication,</span>
+            <span class="c1"># and expects that authorization server checks the token, and response with user details</span>
+            <span class="n">me</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">appbuilder</span><span class="o">.</span><span class="n">sm</span><span class="o">.</span><span class="n">oauth_remotes</span><span class="p">[</span><span class="n">provider</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;userDetails&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">data</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;user_data: {0}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">me</span><span class="p">))</span>
+            <span class="k">return</span> <span class="p">{</span> <span class="s1">&#39;name&#39;</span> <span class="p">:</span> <span class="n">me</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">],</span> <span class="s1">&#39;email&#39;</span> <span class="p">:</span> <span class="n">me</span><span class="p">[</span><span class="s1">&#39;email&#39;</span><span class="p">],</span> <span class="s1">&#39;id&#39;</span> <span class="p">:</span> <span class="n">me</span><span class="p">[</span><span class="s1">&#39;user_name&#39;</span><span class="p">],</span> <span class="s1">&#39;username&#39;</span> <span class="p">:</span> <span class="n">me</span><span class="p">[</span><span class="s1">&#39;user_name&#39;</span><span class="p">],</span> <span class="s1">&#39;first_name&#39;</span><span class="p">:</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;last_name&#39;</span><span class="p">:</span><span class="s1">&#39;&#39;</span><span class="p">}</span>
+        <span class="o">...</span>
+</pre></div>
+</div>
+<p>This file must be located at the same directory than <code class="docutils literal notranslate"><span class="pre">superset_config.py</span></code> with the name <code class="docutils literal notranslate"><span class="pre">custom_sso_security_manager.py</span></code>.</p>
+<p>Then we can add this two lines to <code class="docutils literal notranslate"><span class="pre">superset_config.py</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">custom_sso_security_manager</span> <span class="kn">import</span> <span class="n">CustomSsoSecurityManager</span>
+<span class="n">CUSTOM_SECURITY_MANAGER</span> <span class="o">=</span> <span class="n">CustomSsoSecurityManager</span>
+</pre></div>
+</div>
 </div>
 </div>
 
