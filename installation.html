@@ -60,6 +60,9 @@
           
 
           
+            
+            <img src="_static/s.png" class="logo" />
+          
           </a>
 
           
@@ -102,6 +105,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#database-dependencies">Database dependencies</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#aws-athena">(AWS) Athena</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#snowflake">Snowflake</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#teradata">Teradata</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#caching">Caching</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#deeper-sqlalchemy-integration">Deeper SQLAlchemy integration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#schemas-postgres-redshift">Schemas (Postgres &amp; Redshift)</a></li>
@@ -191,9 +195,9 @@
 <h1>Installation &amp; Configuration<a class="headerlink" href="#installation-configuration" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="getting-started">
 <h2>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h2>
-<p>Superset is tested against Python <code class="docutils literal notranslate"><span class="pre">2.7</span></code> and Python <code class="docutils literal notranslate"><span class="pre">3.6</span></code>.
-Airbnb currently uses 2.7.* in production. We do not plan on supporting
-Python <code class="docutils literal notranslate"><span class="pre">2.6</span></code>.</p>
+<p>Superset is currently tested against Python <code class="docutils literal notranslate"><span class="pre">2.7</span></code> and Python <code class="docutils literal notranslate"><span class="pre">3.6</span></code>.
+Python 3.6 is preferred. Support for Python <code class="docutils literal notranslate"><span class="pre">&lt;=3.6</span></code> is planned to get
+phased out.</p>
 </div>
 <div class="section" id="cloud-native">
 <h2>Cloud-native!<a class="headerlink" href="#cloud-native" title="Permalink to this headline">¶</a></h2>
@@ -559,6 +563,10 @@ connect to the databases you want to access through Superset.</p>
 <td><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">pybigquery</span></code></td>
 <td><code class="docutils literal notranslate"><span class="pre">bigquery://</span></code></td>
 </tr>
+<tr class="row-even"><td>Teradata</td>
+<td><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">sqlalchemy-teradata</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">teradata://</span></code></td>
+</tr>
 </tbody>
 </table>
 <p>Note that many other database are supported, the main criteria being the
@@ -599,6 +607,20 @@ not test for user rights during engine creation.</p>
 snowflake-sqlalchemy package that causes problems when used with Superset. It is recommended to
 use version 1.1.0 or try a newer version.</p>
 <p>See <a class="reference external" href="https://github.com/snowflakedb/snowflake-sqlalchemy">Snowflake SQLAlchemy</a>.</p>
+</div>
+<div class="section" id="teradata">
+<h2>Teradata<a class="headerlink" href="#teradata" title="Permalink to this headline">¶</a></h2>
+<p>The connection string for Teradata looks like this</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">teradata</span><span class="p">:</span><span class="o">//</span><span class="p">{</span><span class="n">user</span><span class="p">}:{</span><span class="n">password</span><span class="p">}</span><span class="o">@</span><span class="p">{</span><span class="n">host</span><span class="p">}</span>
+</pre></div>
+</div>
+<p><em>Note</em>: Its required to have Teradata ODBC drivers installed and environment variables configured for proper work of sqlalchemy dialect. Teradata ODBC Drivers available here: <a class="reference external" href="https://downloads.teradata.com/download/connectivity/odbc-driver/linux">https://downloads.teradata.com/download/connectivity/odbc-driver/linux</a></p>
+<p>Required environment variables:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">export</span> <span class="n">ODBCINI</span><span class="o">=/.../</span><span class="n">teradata</span><span class="o">/</span><span class="n">client</span><span class="o">/</span><span class="n">ODBC_64</span><span class="o">/</span><span class="n">odbc</span><span class="o">.</span><span class="n">ini</span>
+<span class="n">export</span> <span class="n">ODBCINST</span><span class="o">=/.../</span><span class="n">teradata</span><span class="o">/</span><span class="n">client</span><span class="o">/</span><span class="n">ODBC_64</span><span class="o">/</span><span class="n">odbcinst</span><span class="o">.</span><span class="n">ini</span>
+</pre></div>
+</div>
+<p>See <a class="reference external" href="https://github.com/Teradata/sqlalchemy-teradata">Teradata SQLAlchemy</a>.</p>
 </div>
 <div class="section" id="caching">
 <h2>Caching<a class="headerlink" href="#caching" title="Permalink to this headline">¶</a></h2>
@@ -966,10 +988,10 @@ located in <code class="docutils literal notranslate"><span class="pre">install/
 
   <div role="contentinfo">
     <p>
+        &copy; Copyright Copyright © 2018 The Apache Software Foundation, Licensed under the Apache License, Version 2.0..
 
     </p>
-  </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  </div> 
 
 </footer>
 

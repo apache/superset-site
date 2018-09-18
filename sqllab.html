@@ -60,6 +60,9 @@
           
 
           
+            
+            <img src="_static/s.png" class="logo" />
+          
           </a>
 
           
@@ -247,6 +250,47 @@ jinja context as in <code class="docutils literal notranslate"><span class="pre"
 </table>
 </dd></dl>
 
+<dl class="function">
+<dt id="superset.jinja_context.filter_values">
+<code class="descclassname">superset.jinja_context.</code><code class="descname">filter_values</code><span class="sig-paren">(</span><em>column</em>, <em>default=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/superset/jinja_context.html#filter_values"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#superset.jinja_context.filter_values" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets a values for a particular filter as a list</p>
+<dl class="docutils">
+<dt>This is useful if:</dt>
+<dd><ul class="first last simple">
+<li>you want to use a filter box to filter a query where the name of filter box
+column doesn’t match the one in the select statement</li>
+<li>you want to have the ability for filter inside the main query for speed purposes</li>
+</ul>
+</dd>
+</dl>
+<p>This searches for “filters” and “extra_filters” in form_data for a match</p>
+<dl class="docutils">
+<dt>Usage example:</dt>
+<dd>SELECT action, count(*) as times
+FROM logs
+WHERE action in ( {{ “’” + “’,’”.join(filter_values(‘action_type’)) + “’” )
+GROUP BY 1</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>column</strong> (<em>str</em>) – column/filter name to lookup</li>
+<li><strong>default</strong> (<em>str</em>) – default value to return if there’s no matching columns</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">returns a list of filter values</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><p class="first last">list</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 </div>
 <div class="section" id="extending-macros">
 <h3>Extending macros<a class="headerlink" href="#extending-macros" title="Permalink to this headline">¶</a></h3>
@@ -281,10 +325,10 @@ to integrate in their queries in <strong>SQL Lab</strong>.</p>
 
   <div role="contentinfo">
     <p>
+        &copy; Copyright Copyright © 2018 The Apache Software Foundation, Licensed under the Apache License, Version 2.0..
 
     </p>
-  </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  </div> 
 
 </footer>
 

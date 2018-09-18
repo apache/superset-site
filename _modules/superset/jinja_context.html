@@ -59,6 +59,9 @@
           
 
           
+            
+            <img src="../../_static/s.png" class="logo" />
+          
           </a>
 
           
@@ -221,8 +224,50 @@
         <span class="k">return</span> <span class="n">g</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">username</span>
 
 
-<span class="k">class</span> <span class="nc">BaseTemplateProcessor</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="filter_values"><a class="viewcode-back" href="../../sqllab.html#superset.jinja_context.filter_values">[docs]</a><span class="k">def</span> <span class="nf">filter_values</span><span class="p">(</span><span class="n">column</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Gets a values for a particular filter as a list</span>
 
+<span class="sd">    This is useful if:</span>
+<span class="sd">        - you want to use a filter box to filter a query where the name of filter box</span>
+<span class="sd">          column doesn&#39;t match the one in the select statement</span>
+<span class="sd">        - you want to have the ability for filter inside the main query for speed purposes</span>
+
+<span class="sd">    This searches for &quot;filters&quot; and &quot;extra_filters&quot; in form_data for a match</span>
+
+<span class="sd">    Usage example:</span>
+<span class="sd">        SELECT action, count(*) as times</span>
+<span class="sd">        FROM logs</span>
+<span class="sd">        WHERE action in ( {{ &quot;&#39;&quot; + &quot;&#39;,&#39;&quot;.join(filter_values(&#39;action_type&#39;)) + &quot;&#39;&quot; )</span>
+<span class="sd">        GROUP BY 1</span>
+
+<span class="sd">    :param column: column/filter name to lookup</span>
+<span class="sd">    :type column: str</span>
+<span class="sd">    :param default: default value to return if there&#39;s no matching columns</span>
+<span class="sd">    :type default: str</span>
+<span class="sd">    :return: returns a list of filter values</span>
+<span class="sd">    :type: list</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">form_data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;form_data&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">&#39;</span><span class="p">))</span>
+    <span class="n">return_val</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">filter_type</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;filters&#39;</span><span class="p">,</span> <span class="s1">&#39;extra_filters&#39;</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="n">filter_type</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">form_data</span><span class="p">:</span>
+            <span class="k">continue</span>
+
+        <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">form_data</span><span class="p">[</span><span class="n">filter_type</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="n">f</span><span class="p">[</span><span class="s1">&#39;col&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">column</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">f</span><span class="p">[</span><span class="s1">&#39;val&#39;</span><span class="p">]:</span>
+                    <span class="n">return_val</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">return_val</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">return_val</span>
+
+    <span class="k">if</span> <span class="n">default</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">default</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span></div>
+        <span class="k">return</span> <span class="p">[]</span>
+
+
+<span class="k">class</span> <span class="nc">BaseTemplateProcessor</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Base class for database-specific jinja context</span>
 
 <span class="sd">    There&#39;s this bit of magic in ``process_template`` that instantiates only</span>
@@ -250,6 +295,7 @@
             <span class="s1">&#39;url_param&#39;</span><span class="p">:</span> <span class="n">url_param</span><span class="p">,</span>
             <span class="s1">&#39;current_user_id&#39;</span><span class="p">:</span> <span class="n">current_user_id</span><span class="p">,</span>
             <span class="s1">&#39;current_username&#39;</span><span class="p">:</span> <span class="n">current_username</span><span class="p">,</span>
+            <span class="s1">&#39;filter_values&#39;</span><span class="p">:</span> <span class="n">filter_values</span><span class="p">,</span>
             <span class="s1">&#39;form_data&#39;</span><span class="p">:</span> <span class="p">{},</span>
         <span class="p">}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
@@ -327,10 +373,10 @@
 
   <div role="contentinfo">
     <p>
+        &copy; Copyright Copyright © 2018 The Apache Software Foundation, Licensed under the Apache License, Version 2.0..
 
     </p>
-  </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  </div> 
 
 </footer>
 
