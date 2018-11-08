@@ -25,27 +25,19 @@
   
 
   
-  
     <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  
-
-  
-
-  
-        <link rel="index" title="Index"
-              href="genindex.html"/>
-        <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="Apache Superset  documentation" href="index.html"/>
-        <link rel="up" title="Misc" href="misc.html"/>
-        <link rel="next" title="FAQ" href="faq.html"/>
-        <link rel="prev" title="Videos" href="videos.html"/> 
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="FAQ" href="faq.html" />
+    <link rel="prev" title="Videos" href="videos.html" /> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
@@ -117,7 +109,7 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+      <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="index.html">Apache Superset</a>
@@ -125,9 +117,10 @@
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
 
@@ -215,7 +208,7 @@ Datasources include both databases and druid clusters. The data is expected to b
 <p>By default, default (null) values will be omitted. Use the <code class="docutils literal notranslate"><span class="pre">-d</span></code> flag to include them.
 If you want back references to be included (e.g. a column to include the table id
 it belongs to) use the <code class="docutils literal notranslate"><span class="pre">-b</span></code> flag.</p>
-<p>Alternatively you can export datasources using the UI:</p>
+<p>Alternatively, you can export datasources using the UI:</p>
 <ol class="arabic simple">
 <li>Open <strong>Sources</strong> -&gt; <strong>Databases</strong> to export all tables associated to a
 single or multiple databases. (<strong>Tables</strong> for one or more tables,
@@ -257,7 +250,7 @@ your file. Be careful this can delete the contents of your meta database. Exampl
 not specified in YAML will be deleted. If you would add <code class="docutils literal notranslate"><span class="pre">tables</span></code> to <code class="docutils literal notranslate"><span class="pre">columns,metrics</span></code>
 those would be synchronised as well.</p>
 <p>If you don’t supply the sync flag (<code class="docutils literal notranslate"><span class="pre">-s</span></code>) importing will only add and update (override) fields.
-E.g. you can add a <code class="docutils literal notranslate"><span class="pre">verbose_name</span></code> to the the column <code class="docutils literal notranslate"><span class="pre">ds</span></code> in the table <code class="docutils literal notranslate"><span class="pre">random_time_series</span></code> from the example datasets
+E.g. you can add a <code class="docutils literal notranslate"><span class="pre">verbose_name</span></code> to the column <code class="docutils literal notranslate"><span class="pre">ds</span></code> in the table <code class="docutils literal notranslate"><span class="pre">random_time_series</span></code> from the example datasets
 by saving the following YAML to file and then running the <code class="docutils literal notranslate"><span class="pre">import_datasources</span></code> command.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">databases</span><span class="p">:</span>
 <span class="o">-</span> <span class="n">database_name</span><span class="p">:</span> <span class="n">main</span>
@@ -273,9 +266,7 @@ by saving the following YAML to file and then running the <code class="docutils 
 
 
            </div>
-           <div class="articleComments">
-            
-           </div>
+           
           </div>
           <footer>
   
@@ -315,6 +306,7 @@ by saving the following YAML to file and then running the <code class="docutils 
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
             VERSION:'',
+            LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,
@@ -324,6 +316,7 @@ by saving the following YAML to file and then running the <code class="docutils 
       <script type="text/javascript" src="_static/jquery.js"></script>
       <script type="text/javascript" src="_static/underscore.js"></script>
       <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 
@@ -332,14 +325,11 @@ by saving the following YAML to file and then running the <code class="docutils 
     <script type="text/javascript" src="_static/js/theme.js"></script>
   
 
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-   
+  </script> 
 
 </body>
 </html>

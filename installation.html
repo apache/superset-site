@@ -25,26 +25,19 @@
   
 
   
-  
     <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  
-
-  
-
-  
-        <link rel="index" title="Index"
-              href="genindex.html"/>
-        <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="Apache Superset  documentation" href="index.html"/>
-        <link rel="next" title="Tutorial - Creating your first dashboard" href="tutorial.html"/>
-        <link rel="prev" title="Apache Superset (incubating)" href="index.html"/> 
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Tutorial - Creating your first dashboard" href="tutorial.html" />
+    <link rel="prev" title="Apache Superset (incubating)" href="index.html" /> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
@@ -113,7 +106,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#middleware">MIDDLEWARE</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#upgrading">Upgrading</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#sql-lab">SQL Lab</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#making-your-own-build">Making your own build</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#building-from-source">Building from source</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#blueprints">Blueprints</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#statsd-logging">StatsD logging</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#install-superset-with-helm-in-kubernetes">Install Superset with helm in Kubernetes</a></li>
@@ -138,7 +131,7 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+      <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="index.html">Apache Superset</a>
@@ -146,9 +139,10 @@
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
 
@@ -192,9 +186,10 @@
 <h1>Installation &amp; Configuration<a class="headerlink" href="#installation-configuration" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="getting-started">
 <h2>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h2>
-<p>Superset is currently tested against Python <code class="docutils literal notranslate"><span class="pre">2.7</span></code> and Python <code class="docutils literal notranslate"><span class="pre">3.6</span></code>.
-Python 3.6 is preferred. Support for Python <code class="docutils literal notranslate"><span class="pre">&lt;=3.6</span></code> is planned to get
-phased out.</p>
+<p>Superset has deprecated support for Python <code class="docutils literal notranslate"><span class="pre">2.*</span></code> and supports
+only <code class="docutils literal notranslate"><span class="pre">~=3.6</span></code> to take advantage of the newer Python features and reduce
+the burden of supporting previous versions. We run our test suite
+against <code class="docutils literal notranslate"><span class="pre">3.6</span></code>, but running on <code class="docutils literal notranslate"><span class="pre">3.7</span></code> <strong>should</strong> work as well.</p>
 </div>
 <div class="section" id="cloud-native">
 <h2>Cloud-native!<a class="headerlink" href="#cloud-native" title="Permalink to this headline">¶</a></h2>
@@ -209,7 +204,7 @@ flexible and lets you choose your web server (Gunicorn, Nginx, Apache),
 your metadata database engine (MySQL, Postgres, MariaDB, …),
 your message queue (Redis, RabbitMQ, SQS, …),
 your results backend (S3, Redis, Memcached, …), your caching layer
-(memcached, Redis, …), works well with services like NewRelic, StatsD and
+(Memcached, Redis, …), works well with services like NewRelic, StatsD and
 DataDog, and has the ability to run analytic workloads against
 most popular database technologies.</p>
 <p>Superset is battle tested in large environments with hundreds
@@ -245,7 +240,7 @@ ahead.</p>
 <h2>OS dependencies<a class="headerlink" href="#os-dependencies" title="Permalink to this headline">¶</a></h2>
 <p>Superset stores database connection information in its metadata database.
 For that purpose, we use the <code class="docutils literal notranslate"><span class="pre">cryptography</span></code> Python library to encrypt
-connection passwords. Unfortunately this library has OS level dependencies.</p>
+connection passwords. Unfortunately, this library has OS level dependencies.</p>
 <p>You may want to attempt the next step
 (“Superset installation and initialization”) and come back to this step if
 you encounter an error.</p>
@@ -259,7 +254,7 @@ the required dependencies are installed:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">build</span><span class="o">-</span><span class="n">essential</span> <span class="n">libssl</span><span class="o">-</span><span class="n">dev</span> <span class="n">libffi</span><span class="o">-</span><span class="n">dev</span> <span class="n">python3</span><span class="o">.</span><span class="mi">5</span><span class="o">-</span><span class="n">dev</span> <span class="n">python</span><span class="o">-</span><span class="n">pip</span> <span class="n">libsasl2</span><span class="o">-</span><span class="n">dev</span> <span class="n">libldap2</span><span class="o">-</span><span class="n">dev</span>
 </pre></div>
 </div>
-<p>otherwhise build for <code class="docutils literal notranslate"><span class="pre">cryptography</span></code> fails.</p>
+<p>otherwise build for <code class="docutils literal notranslate"><span class="pre">cryptography</span></code> fails.</p>
 <p>For <strong>Fedora</strong> and <strong>RHEL-derivatives</strong>, the following command will ensure
 that the required dependencies are installed:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">yum</span> <span class="n">upgrade</span> <span class="n">python</span><span class="o">-</span><span class="n">setuptools</span>
@@ -315,7 +310,7 @@ and <code class="docutils literal notranslate"><span class="pre">setuptools</spa
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Install superset</span>
 <span class="n">pip</span> <span class="n">install</span> <span class="n">superset</span>
 
-<span class="c1"># Create an admin user (you will be prompted to set username, first and last name before setting a password)</span>
+<span class="c1"># Create an admin user (you will be prompted to set a username, first and last name before setting a password)</span>
 <span class="n">fabmanager</span> <span class="n">create</span><span class="o">-</span><span class="n">admin</span> <span class="o">--</span><span class="n">app</span> <span class="n">superset</span>
 
 <span class="c1"># Initialize the database</span>
@@ -348,14 +343,14 @@ documentation of your preferred technology to set up this Flask WSGI
 application in a way that works well in your environment. Here’s an <strong>async</strong>
 setup known to work well in production:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gunicorn</span> \
-              <span class="o">-</span><span class="n">w</span> <span class="mi">10</span> \
-              <span class="o">-</span><span class="n">k</span> <span class="n">gevent</span> \
-              <span class="o">--</span><span class="n">timeout</span> <span class="mi">120</span> \
-              <span class="o">-</span><span class="n">b</span>  <span class="mf">0.0</span><span class="o">.</span><span class="mf">0.0</span><span class="p">:</span><span class="mi">6666</span> \
-              <span class="o">--</span><span class="n">limit</span><span class="o">-</span><span class="n">request</span><span class="o">-</span><span class="n">line</span> <span class="mi">0</span> \
-              <span class="o">--</span><span class="n">limit</span><span class="o">-</span><span class="n">request</span><span class="o">-</span><span class="n">field_size</span> <span class="mi">0</span> \
-              <span class="o">--</span><span class="n">statsd</span><span class="o">-</span><span class="n">host</span> <span class="n">localhost</span><span class="p">:</span><span class="mi">8125</span> \
-              <span class="n">superset</span><span class="p">:</span><span class="n">app</span>
+      <span class="o">-</span><span class="n">w</span> <span class="mi">10</span> \
+      <span class="o">-</span><span class="n">k</span> <span class="n">gevent</span> \
+      <span class="o">--</span><span class="n">timeout</span> <span class="mi">120</span> \
+      <span class="o">-</span><span class="n">b</span>  <span class="mf">0.0</span><span class="o">.</span><span class="mf">0.0</span><span class="p">:</span><span class="mi">6666</span> \
+      <span class="o">--</span><span class="n">limit</span><span class="o">-</span><span class="n">request</span><span class="o">-</span><span class="n">line</span> <span class="mi">0</span> \
+      <span class="o">--</span><span class="n">limit</span><span class="o">-</span><span class="n">request</span><span class="o">-</span><span class="n">field_size</span> <span class="mi">0</span> \
+      <span class="o">--</span><span class="n">statsd</span><span class="o">-</span><span class="n">host</span> <span class="n">localhost</span><span class="p">:</span><span class="mi">8125</span> \
+      <span class="n">superset</span><span class="p">:</span><span class="n">app</span>
 </pre></div>
 </div>
 <p>Refer to the
@@ -363,16 +358,16 @@ setup known to work well in production:</p>
 for more information.</p>
 <p>Note that <em>gunicorn</em> does not
 work on Windows so the <cite>superset runserver</cite> command is not expected to work
-in that context. Also note that the development web
+in that context. Also, note that the development web
 server (<cite>superset runserver -d</cite>) is not intended for production use.</p>
 <p>If not using gunicorn, you may want to disable the use of flask-compress
 by setting <cite>ENABLE_FLASK_COMPRESS = False</cite> in your <cite>superset_config.py</cite></p>
 </div>
 <div class="section" id="flask-appbuilder-permissions">
 <h2>Flask-AppBuilder Permissions<a class="headerlink" href="#flask-appbuilder-permissions" title="Permalink to this headline">¶</a></h2>
-<p>By default every time the Flask-AppBuilder (FAB) app is initialized the
+<p>By default, every time the Flask-AppBuilder (FAB) app is initialized the
 permissions and views are added automatically to the backend and associated with
-the ‘Admin’ role. The issue however is when you are running multiple concurrent
+the ‘Admin’ role. The issue, however, is when you are running multiple concurrent
 workers this creates a lot of contention and race conditions when defining
 permissions and views.</p>
 <p>To alleviate this issue, the automatic updating of permissions can be disabled
@@ -394,7 +389,7 @@ gunicorn -w 10 … superset:app</p>
 or ELB on AWS), you may need to utilise a healthcheck endpoint so that your
 load balancer knows if your superset instance is running. This is provided
 at <code class="docutils literal notranslate"><span class="pre">/health</span></code> which will return a 200 response containing “OK” if the
-webserver is running.</p>
+the webserver is running.</p>
 <p>If the load balancer is inserting X-Forwarded-For/X-Forwarded-Proto headers, you
 should set <cite>ENABLE_PROXY_FIX = True</cite> in the superset config file to extract and use
 the headers.</p>
@@ -566,7 +561,7 @@ connect to the databases you want to access through Superset.</p>
 </tr>
 </tbody>
 </table>
-<p>Note that many other database are supported, the main criteria being the
+<p>Note that many other databases are supported, the main criteria being the
 existence of a functional SqlAlchemy dialect and Python driver. Googling
 the keyword <code class="docutils literal notranslate"><span class="pre">sqlalchemy</span></code> in addition of a keyword that describes the
 database you want to connect to should get you to the right place.</p>
@@ -638,11 +633,11 @@ up the “timeout searchpath”, from your slice configuration, to your
 data source’s configuration, to your database’s and ultimately falls back
 into your global default defined in <code class="docutils literal notranslate"><span class="pre">CACHE_CONFIG</span></code>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">CACHE_CONFIG</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s1">&#39;CACHE_TYPE&#39;</span><span class="p">:</span> <span class="s1">&#39;redis&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;CACHE_DEFAULT_TIMEOUT&#39;</span><span class="p">:</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">24</span><span class="p">,</span> <span class="c1"># 1 day default (in secs)</span>
-        <span class="s1">&#39;CACHE_KEY_PREFIX&#39;</span><span class="p">:</span> <span class="s1">&#39;superset_results&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;CACHE_REDIS_URL&#39;</span><span class="p">:</span> <span class="s1">&#39;redis://localhost:6379/0&#39;</span><span class="p">,</span>
-    <span class="p">}</span>
+    <span class="s1">&#39;CACHE_TYPE&#39;</span><span class="p">:</span> <span class="s1">&#39;redis&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;CACHE_DEFAULT_TIMEOUT&#39;</span><span class="p">:</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">24</span><span class="p">,</span> <span class="c1"># 1 day default (in secs)</span>
+    <span class="s1">&#39;CACHE_KEY_PREFIX&#39;</span><span class="p">:</span> <span class="s1">&#39;superset_results&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;CACHE_REDIS_URL&#39;</span><span class="p">:</span> <span class="s1">&#39;redis://localhost:6379/0&#39;</span><span class="p">,</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </div>
@@ -660,7 +655,7 @@ while the <code class="docutils literal notranslate"><span class="pre">metadata_
 </div>
 <div class="section" id="schemas-postgres-redshift">
 <h2>Schemas (Postgres &amp; Redshift)<a class="headerlink" href="#schemas-postgres-redshift" title="Permalink to this headline">¶</a></h2>
-<p>Postgres and Redshift, as well as other database,
+<p>Postgres and Redshift, as well as other databases,
 use the concept of <strong>schema</strong> as a logical entity
 on top of the <strong>database</strong>. For Superset to connect to a specific schema,
 there’s a <strong>schema</strong> parameter you can set in the table form.</p>
@@ -773,9 +768,9 @@ server itself.</p>
 execute for minutes or hours.
 To enable support for long running queries that
 execute beyond the typical web request’s timeout (30-60 seconds), it is
-necessary to configure an asynchronous backend for Superset which consist of:</p>
+necessary to configure an asynchronous backend for Superset which consists of:</p>
 <ul class="simple">
-<li>one or many Superset worker (which is implemented as a Celery worker), and
+<li>one or many Superset workers (which is implemented as a Celery worker), and
 can be started with the <code class="docutils literal notranslate"><span class="pre">celery</span> <span class="pre">worker</span></code> command, run
 <code class="docutils literal notranslate"><span class="pre">celery</span> <span class="pre">worker</span> <span class="pre">--help</span></code> to view the related options.</li>
 <li>a celery broker (message queue) for which we recommend using Redis
@@ -823,7 +818,7 @@ the Superset cluster share a common metadata database.
 This means that SQLite will not work in this context since it has
 limited support for concurrency and
 typically lives on the local file system.</p>
-<p>Also note that SQL Lab supports Jinja templating in queries, and that it’s
+<p>Also note that SQL Lab supports Jinja templating in queries and that it’s
 possible to overload
 the default Jinja context in your environment by defining the
 <code class="docutils literal notranslate"><span class="pre">JINJA_CONTEXT_ADDONS</span></code> in your superset configuration. Objects referenced
@@ -843,26 +838,18 @@ install from pip:</p>
 </pre></div>
 </div>
 </div>
-<div class="section" id="making-your-own-build">
-<h2>Making your own build<a class="headerlink" href="#making-your-own-build" title="Permalink to this headline">¶</a></h2>
-<p>For more advanced users, you may want to build Superset from sources. That
+<div class="section" id="building-from-source">
+<h2>Building from source<a class="headerlink" href="#building-from-source" title="Permalink to this headline">¶</a></h2>
+<p>More advanced users may want to build Superset from sources. That
 would be the case if you fork the project to add features specific to
-your environment.:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span># assuming $SUPERSET_HOME as the root of the repo
-cd $SUPERSET_HOME/superset/assets
-yarn
-yarn run build
-cd $SUPERSET_HOME
-python setup.py install
-</pre></div>
-</div>
+your environment. See <a class="reference external" href="https://github.com/apache/incubator-superset/blob/master/CONTRIBUTING.md#local-development">CONTRIBUTING.md</a>.</p>
 </div>
 <div class="section" id="blueprints">
 <h2>Blueprints<a class="headerlink" href="#blueprints" title="Permalink to this headline">¶</a></h2>
 <p><a class="reference external" href="http://flask.pocoo.org/docs/0.12/blueprints/">Blueprints are Flask’s reusable apps</a>.
 Superset allows you to specify an array of Blueprints
 in your <code class="docutils literal notranslate"><span class="pre">superset_config</span></code> module. Here’s
-an example on how this can work with a simple Blueprint. By doing
+an example of how this can work with a simple Blueprint. By doing
 so, you can expect Superset to serve a page that says “OK”
 at the <code class="docutils literal notranslate"><span class="pre">/simple_page</span></code> url. This can allow you to run other things such
 as custom data visualization applications alongside Superset, on the
@@ -904,7 +891,7 @@ located in <code class="docutils literal notranslate"><span class="pre">install/
 </div>
 <div class="section" id="custom-oauth2-configuration">
 <h2>Custom OAuth2 configuration<a class="headerlink" href="#custom-oauth2-configuration" title="Permalink to this headline">¶</a></h2>
-<p>Beyond FAB supported providers (github, twitter, linkedin, google, azure), its easy to connect Superset with other OAuth2 Authorization Server implementations that supports “code” authorization.</p>
+<p>Beyond FAB supported providers (github, twitter, linkedin, google, azure), its easy to connect Superset with other OAuth2 Authorization Server implementations that support “code” authorization.</p>
 <p>The first step: Configure authorization in Superset <code class="docutils literal notranslate"><span class="pre">superset_config.py</span></code>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">AUTH_TYPE</span> <span class="o">=</span> <span class="n">AUTH_OAUTH</span>
 <span class="n">OAUTH_PROVIDERS</span> <span class="o">=</span> <span class="p">[</span>
@@ -917,11 +904,11 @@ located in <code class="docutils literal notranslate"><span class="pre">install/
             <span class="s1">&#39;request_token_params&#39;</span><span class="p">:{</span>
                 <span class="s1">&#39;scope&#39;</span><span class="p">:</span> <span class="s1">&#39;read&#39;</span>               <span class="c1"># Scope for the Authorization</span>
             <span class="p">},</span>
-            <span class="s1">&#39;access_token_method&#39;</span><span class="p">:</span><span class="s1">&#39;POST&#39;</span><span class="p">,</span>   <span class="c1"># HTTP Method to call access_token_url</span>
-            <span class="s1">&#39;access_token_params&#39;</span><span class="p">:{</span>         <span class="c1"># Additional parameters for calls to access_token_url</span>
+            <span class="s1">&#39;access_token_method&#39;</span><span class="p">:</span><span class="s1">&#39;POST&#39;</span><span class="p">,</span>    <span class="c1"># HTTP Method to call access_token_url</span>
+            <span class="s1">&#39;access_token_params&#39;</span><span class="p">:{</span>        <span class="c1"># Additional parameters for calls to access_token_url</span>
                 <span class="s1">&#39;client_id&#39;</span><span class="p">:</span><span class="s1">&#39;myClientId&#39;</span>
             <span class="p">},</span>
-            <span class="s1">&#39;access_token_headers&#39;</span><span class="p">:{</span>        <span class="c1"># Additional headers for calls to access_token_url</span>
+            <span class="s1">&#39;access_token_headers&#39;</span><span class="p">:{</span>    <span class="c1"># Additional headers for calls to access_token_url</span>
                 <span class="s1">&#39;Authorization&#39;</span><span class="p">:</span> <span class="s1">&#39;Basic Base64EncodedClientIdAndSecret&#39;</span>
             <span class="p">},</span>
             <span class="s1">&#39;base_url&#39;</span><span class="p">:</span><span class="s1">&#39;https://myAuthorizationServer/oauth2AuthorizationServer/&#39;</span><span class="p">,</span>
@@ -947,11 +934,11 @@ located in <code class="docutils literal notranslate"><span class="pre">install/
         <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Oauth2 provider: {0}.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">provider</span><span class="p">))</span>
         <span class="k">if</span> <span class="n">provider</span> <span class="o">==</span> <span class="s1">&#39;egaSSO&#39;</span><span class="p">:</span>
             <span class="c1"># As example, this line request a GET to base_url + &#39;/&#39; + userDetails with Bearer  Authentication,</span>
-            <span class="c1"># and expects that authorization server checks the token, and response with user details</span>
+    <span class="c1"># and expects that authorization server checks the token, and response with user details</span>
             <span class="n">me</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">appbuilder</span><span class="o">.</span><span class="n">sm</span><span class="o">.</span><span class="n">oauth_remotes</span><span class="p">[</span><span class="n">provider</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;userDetails&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">data</span>
             <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;user_data: {0}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">me</span><span class="p">))</span>
             <span class="k">return</span> <span class="p">{</span> <span class="s1">&#39;name&#39;</span> <span class="p">:</span> <span class="n">me</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">],</span> <span class="s1">&#39;email&#39;</span> <span class="p">:</span> <span class="n">me</span><span class="p">[</span><span class="s1">&#39;email&#39;</span><span class="p">],</span> <span class="s1">&#39;id&#39;</span> <span class="p">:</span> <span class="n">me</span><span class="p">[</span><span class="s1">&#39;user_name&#39;</span><span class="p">],</span> <span class="s1">&#39;username&#39;</span> <span class="p">:</span> <span class="n">me</span><span class="p">[</span><span class="s1">&#39;user_name&#39;</span><span class="p">],</span> <span class="s1">&#39;first_name&#39;</span><span class="p">:</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;last_name&#39;</span><span class="p">:</span><span class="s1">&#39;&#39;</span><span class="p">}</span>
-        <span class="o">...</span>
+    <span class="o">...</span>
 </pre></div>
 </div>
 <p>This file must be located at the same directory than <code class="docutils literal notranslate"><span class="pre">superset_config.py</span></code> with the name <code class="docutils literal notranslate"><span class="pre">custom_sso_security_manager.py</span></code>.</p>
@@ -965,9 +952,7 @@ located in <code class="docutils literal notranslate"><span class="pre">install/
 
 
            </div>
-           <div class="articleComments">
-            
-           </div>
+           
           </div>
           <footer>
   
@@ -1007,6 +992,7 @@ located in <code class="docutils literal notranslate"><span class="pre">install/
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
             VERSION:'',
+            LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,
@@ -1016,6 +1002,7 @@ located in <code class="docutils literal notranslate"><span class="pre">install/
       <script type="text/javascript" src="_static/jquery.js"></script>
       <script type="text/javascript" src="_static/underscore.js"></script>
       <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 
@@ -1024,14 +1011,11 @@ located in <code class="docutils literal notranslate"><span class="pre">install/
     <script type="text/javascript" src="_static/js/theme.js"></script>
   
 
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-   
+  </script> 
 
 </body>
 </html>

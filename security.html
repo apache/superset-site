@@ -25,26 +25,19 @@
   
 
   
-  
     <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  
-
-  
-
-  
-        <link rel="index" title="Index"
-              href="genindex.html"/>
-        <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="Apache Superset  documentation" href="index.html"/>
-        <link rel="next" title="SQL Lab" href="sqllab.html"/>
-        <link rel="prev" title="Tutorial - Creating your first dashboard" href="tutorial.html"/> 
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="SQL Lab" href="sqllab.html" />
+    <link rel="prev" title="Tutorial - Creating your first dashboard" href="tutorial.html" /> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
@@ -123,7 +116,7 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+      <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="index.html">Apache Superset</a>
@@ -131,9 +124,10 @@
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
 
@@ -190,7 +184,7 @@ their original values as you run your next <code class="docutils literal notrans
 <p>Since it’s not recommended to alter the roles described here, it’s right
 to assume that your security strategy should be to compose user access based
 on these base roles and roles that you create. For instance you could
-create a role <code class="docutils literal notranslate"><span class="pre">Financial</span> <span class="pre">Analyst</span></code> that would be made of set of permissions
+create a role <code class="docutils literal notranslate"><span class="pre">Financial</span> <span class="pre">Analyst</span></code> that would be made of a set of permissions
 to a set of data sources (tables) and/or databases. Users would then be
 granted <code class="docutils literal notranslate"><span class="pre">Gamma</span></code>, <code class="docutils literal notranslate"><span class="pre">Financial</span> <span class="pre">Analyst</span></code>, and perhaps <code class="docutils literal notranslate"><span class="pre">sql_lab</span></code>.</p>
 <div class="section" id="admin">
@@ -200,13 +194,13 @@ other users and altering other people’s slices and dashboards.</p>
 </div>
 <div class="section" id="alpha">
 <h3>Alpha<a class="headerlink" href="#alpha" title="Permalink to this headline">¶</a></h3>
-<p>Alpha have access to all data sources, but they cannot grant or revoke access
+<p>Alpha users have access to all data sources, but they cannot grant or revoke access
 from other users. They are also limited to altering the objects that they
 own. Alpha users can add and alter data sources.</p>
 </div>
 <div class="section" id="gamma">
 <h3>Gamma<a class="headerlink" href="#gamma" title="Permalink to this headline">¶</a></h3>
-<p>Gamma have limited access. They can only consume data coming from data sources
+<p>Gamma users have limited access. They can only consume data coming from data sources
 they have been given access to through another complementary role.
 They only have access to view the slices and
 dashboards made from data sources that they have access to. Currently Gamma
@@ -241,7 +235,7 @@ click the <code class="docutils literal notranslate"><span class="pre">+</span><
 <a class="reference internal image-reference" href="_images/create_role.png"><img alt="_images/create_role.png" src="_images/create_role.png" style="width: 591.5px; height: 309.5px;" /></a>
 <p>This new window allows you to give this new role a name, attribute it to users
 and select the tables in the <code class="docutils literal notranslate"><span class="pre">Permissions</span></code> dropdown. To select the data
-sources you want to associate with this role, simply click in the dropdown
+sources you want to associate with this role, simply click on the dropdown
 and use the typeahead to search for your table names.</p>
 <p>You can then confirm with your Gamma users that they see the objects
 (dashboards and slices) associated with the tables related to their roles.</p>
@@ -250,11 +244,11 @@ and use the typeahead to search for your table names.</p>
 <h2>Customizing<a class="headerlink" href="#customizing" title="Permalink to this headline">¶</a></h2>
 <p>The permissions exposed by FAB are very granular and allow for a great level
 of customization. FAB creates many permissions automagically for each model
-that is create (can_add, can_delete, can_show, can_edit, …) as well as for
+that is created (can_add, can_delete, can_show, can_edit, …) as well as for
 each view. On top of that, Superset can expose more granular permissions like
 <code class="docutils literal notranslate"><span class="pre">all_datasource_access</span></code>.</p>
 <p>We do not recommend altering the 3 base roles as there
-are a set of assumptions that Superset build upon. It is possible though for
+are a set of assumptions that Superset is built upon. It is possible though for
 you to create your own roles, and union them to existing ones.</p>
 <div class="section" id="permissions">
 <h3>Permissions<a class="headerlink" href="#permissions" title="Permalink to this headline">¶</a></h3>
@@ -267,8 +261,7 @@ of permissions. Here are the different categories of permissions:</p>
 so on. By adding <code class="docutils literal notranslate"><span class="pre">can_delete</span> <span class="pre">on</span> <span class="pre">Dashboard</span></code> to a role, and granting that
 role to a user, this user will be able to delete dashboards.</li>
 <li><strong>Views</strong>: views are individual web pages, like the <code class="docutils literal notranslate"><span class="pre">explore</span></code> view or the
-<code class="docutils literal notranslate"><span class="pre">SQL</span> <span class="pre">Lab</span></code> view. When granted to a user, he/she will see that view in
-the its menu items, and be able to load that page.</li>
+<code class="docutils literal notranslate"><span class="pre">SQL</span> <span class="pre">Lab</span></code> view. When granted to a user, he/she will see that view in its menu items, and be able to load that page.</li>
 <li><strong>Data source</strong>: For each data source, a permission is created. If the user
 does not have the <code class="docutils literal notranslate"><span class="pre">all_datasource_access</span></code> permission granted, the user
 will only be able to see Slices or explore the data sources that are granted
@@ -321,9 +314,7 @@ is dependent on revenue.</p>
 
 
            </div>
-           <div class="articleComments">
-            
-           </div>
+           
           </div>
           <footer>
   
@@ -363,6 +354,7 @@ is dependent on revenue.</p>
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
             VERSION:'',
+            LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,
@@ -372,6 +364,7 @@ is dependent on revenue.</p>
       <script type="text/javascript" src="_static/jquery.js"></script>
       <script type="text/javascript" src="_static/underscore.js"></script>
       <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 
@@ -380,14 +373,11 @@ is dependent on revenue.</p>
     <script type="text/javascript" src="_static/js/theme.js"></script>
   
 
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-   
+  </script> 
 
 </body>
 </html>

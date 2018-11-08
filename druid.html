@@ -25,26 +25,19 @@
   
 
   
-  
     <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  
-
-  
-
-  
-        <link rel="index" title="Index"
-              href="genindex.html"/>
-        <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="Apache Superset  documentation" href="index.html"/>
-        <link rel="next" title="Misc" href="misc.html"/>
-        <link rel="prev" title="Visualizations Gallery" href="gallery.html"/> 
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Misc" href="misc.html" />
+    <link rel="prev" title="Visualizations Gallery" href="gallery.html" /> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
@@ -111,7 +104,7 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+      <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="index.html">Apache Superset</a>
@@ -119,9 +112,10 @@
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
 
@@ -163,18 +157,18 @@
             
   <div class="section" id="druid">
 <h1>Druid<a class="headerlink" href="#druid" title="Permalink to this headline">¶</a></h1>
-<p>Superset has a native connector to Druid, and a majority of Druid’s
+<p>Superset has a native connector to Druid and a majority of Druid’s
 features are accessible through Superset.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">Druid now supports SQL and can be accessed through Superset’s
-SQLAlchemy connector. The long term vision is to deprecate
+SQLAlchemy connector. The long-term vision is to deprecate
 the Druid native REST connector and query Druid exclusively through
 the SQL interface.</p>
 </div>
 <div class="section" id="aggregations">
 <h2>Aggregations<a class="headerlink" href="#aggregations" title="Permalink to this headline">¶</a></h2>
-<p>Common aggregations, or Druid metrics can be defined and used in Superset.
+<p>Common aggregations or Druid metrics can be defined and used in Superset.
 The first and simpler use case is to use the checkbox matrix expose in your
 datasource’s edit view (<code class="docutils literal notranslate"><span class="pre">Sources</span> <span class="pre">-&gt;</span> <span class="pre">Druid</span> <span class="pre">Datasources</span> <span class="pre">-&gt;</span>
 <span class="pre">[your</span> <span class="pre">datasource]</span> <span class="pre">-&gt;</span> <span class="pre">Edit</span> <span class="pre">-&gt;</span> <span class="pre">[tab]</span> <span class="pre">List</span> <span class="pre">Druid</span> <span class="pre">Column</span></code>).
@@ -182,8 +176,8 @@ Clicking the <code class="docutils literal notranslate"><span class="pre">GroupB
 appear in the related dropdowns while in explore view. Checking
 <code class="docutils literal notranslate"><span class="pre">Count</span> <span class="pre">Distinct</span></code>, <code class="docutils literal notranslate"><span class="pre">Min</span></code>, <code class="docutils literal notranslate"><span class="pre">Max</span></code> or <code class="docutils literal notranslate"><span class="pre">Sum</span></code> will result in creating
 new metrics that will appear in the <code class="docutils literal notranslate"><span class="pre">List</span> <span class="pre">Druid</span> <span class="pre">Metric</span></code> tab upon saving the
-datasource. By editing these metrics, you’ll notice that they their <code class="docutils literal notranslate"><span class="pre">json</span></code>
-element correspond to Druid aggregation definition. You can create your own
+datasource. By editing these metrics, you’ll notice that their <code class="docutils literal notranslate"><span class="pre">json</span></code>
+element corresponds to Druid aggregation definition. You can create your own
 aggregations manually from the <code class="docutils literal notranslate"><span class="pre">List</span> <span class="pre">Druid</span> <span class="pre">Metric</span></code> tab following Druid
 documentation.</p>
 <a class="reference internal image-reference" href="_images/druid_agg.png"><img alt="_images/druid_agg.png" src="_images/druid_agg.png" style="width: 894.0px; height: 564.0px;" /></a>
@@ -208,9 +202,7 @@ some input.</p>
 
 
            </div>
-           <div class="articleComments">
-            
-           </div>
+           
           </div>
           <footer>
   
@@ -250,6 +242,7 @@ some input.</p>
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
             VERSION:'',
+            LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,
@@ -259,6 +252,7 @@ some input.</p>
       <script type="text/javascript" src="_static/jquery.js"></script>
       <script type="text/javascript" src="_static/underscore.js"></script>
       <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 
@@ -267,14 +261,11 @@ some input.</p>
     <script type="text/javascript" src="_static/js/theme.js"></script>
   
 
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-   
+  </script> 
 
 </body>
 </html>

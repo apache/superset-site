@@ -25,27 +25,19 @@
   
 
   
-  
     <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  
-
-  
-
-  
-        <link rel="index" title="Index"
-              href="genindex.html"/>
-        <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="Apache Superset  documentation" href="index.html"/>
-        <link rel="up" title="Misc" href="misc.html"/>
-        <link rel="next" title="Videos" href="videos.html"/>
-        <link rel="prev" title="Misc" href="misc.html"/> 
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Videos" href="videos.html" />
+    <link rel="prev" title="Misc" href="misc.html" /> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
@@ -98,7 +90,7 @@
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Visualization Tools</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#country-map-tools">Country Map Tools</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#list-of-countries">List of Countries</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#you-need-to-add-a-new-country">You need to add a new Country ?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#need-to-add-a-new-country">Need to add a new Country?</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="videos.html">Videos</a></li>
@@ -117,7 +109,7 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+      <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="index.html">Apache Superset</a>
@@ -125,9 +117,10 @@
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
 
@@ -2442,7 +2435,7 @@ The second part is a string of up to three alphanumeric characters, which is usu
 <td>Moray</td>
 </tr>
 <tr class="row-even"><td>GB-NAY</td>
-<td>North Ayshire</td>
+<td>North Ayrshire</td>
 </tr>
 <tr class="row-odd"><td>GB-NLK</td>
 <td>North Lanarkshire</td>
@@ -2815,18 +2808,18 @@ The second part is a string of up to three alphanumeric characters, which is usu
 </tbody>
 </table>
 </div>
-<div class="section" id="you-need-to-add-a-new-country">
-<h2>You need to add a new Country ?<a class="headerlink" href="#you-need-to-add-a-new-country" title="Permalink to this headline">¶</a></h2>
-<p>To add a new country in country map tools, we need follow next steps :</p>
+<div class="section" id="need-to-add-a-new-country">
+<h2>Need to add a new Country?<a class="headerlink" href="#need-to-add-a-new-country" title="Permalink to this headline">¶</a></h2>
+<p>To add a new country in country map tools, we need to follow the following steps :</p>
 <ol class="arabic simple">
-<li>You need shapfiles why contains data of your map.
-You can get this file in this site : <a class="reference external" href="http://www.diva-gis.org/gdata">http://www.diva-gis.org/gdata</a></li>
+<li>You need shapefiles which contain data of your map.
+You can get this file on this site: <a class="reference external" href="http://www.diva-gis.org/gdata">http://www.diva-gis.org/gdata</a></li>
 <li>You need to add ISO 3166-2 with column name ISO for all record in your file.
-It’s important because, it’s a norm for mapping your data with geojson file</li>
-<li>You need to convert shapfile to geojson file.
-This action can make with ogr2ogr tools : <a class="reference external" href="http://www.gdal.org/ogr2ogr.html">http://www.gdal.org/ogr2ogr.html</a></li>
+It’s important because it’s a norm for mapping your data with geojson file</li>
+<li>You need to convert shapefile to geojson file.
+This action can make with ogr2ogr tools: <a class="reference external" href="http://www.gdal.org/ogr2ogr.html">http://www.gdal.org/ogr2ogr.html</a></li>
 <li>Put your geojson file in next folder : superset/assets/visualizations/countries with the next name : nameofyourcountries.geojson</li>
-<li>You can to reduce size of geojson file ont this site : <a class="reference external" href="http://mapshaper.org/">http://mapshaper.org/</a></li>
+<li>You can to reduce size of geojson file on this site: <a class="reference external" href="http://mapshaper.org/">http://mapshaper.org/</a></li>
 <li>Go in file superset/assets/javascripts/explorev2/stores/controls.jsx</li>
 <li>Add your country in component ‘select_country’
 Example :</li>
@@ -2860,9 +2853,7 @@ Example :</li>
 
 
            </div>
-           <div class="articleComments">
-            
-           </div>
+           
           </div>
           <footer>
   
@@ -2902,6 +2893,7 @@ Example :</li>
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
             VERSION:'',
+            LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,
@@ -2911,6 +2903,7 @@ Example :</li>
       <script type="text/javascript" src="_static/jquery.js"></script>
       <script type="text/javascript" src="_static/underscore.js"></script>
       <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 
@@ -2919,14 +2912,11 @@ Example :</li>
     <script type="text/javascript" src="_static/js/theme.js"></script>
   
 
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-   
+  </script> 
 
 </body>
 </html>
