@@ -1255,6 +1255,163 @@ The second part is a string of up to three alphanumeric characters, which is usu
 </tbody>
 </table>
 <ul class="simple">
+<li>Japan</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="30%" />
+<col width="70%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">ISO</th>
+<th class="head">Name of region</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>JP-01</td>
+<td>Hokkaido</td>
+</tr>
+<tr class="row-odd"><td>JP-02</td>
+<td>Aomori</td>
+</tr>
+<tr class="row-even"><td>JP-03</td>
+<td>Iwate</td>
+</tr>
+<tr class="row-odd"><td>JP-04</td>
+<td>Miyagi</td>
+</tr>
+<tr class="row-even"><td>JP-05</td>
+<td>Akita</td>
+</tr>
+<tr class="row-odd"><td>JP-06</td>
+<td>Yamagata</td>
+</tr>
+<tr class="row-even"><td>JP-07</td>
+<td>Fukushima</td>
+</tr>
+<tr class="row-odd"><td>JP-08</td>
+<td>Ibaraki</td>
+</tr>
+<tr class="row-even"><td>JP-09</td>
+<td>Tochigi</td>
+</tr>
+<tr class="row-odd"><td>JP-10</td>
+<td>Gunma</td>
+</tr>
+<tr class="row-even"><td>JP-11</td>
+<td>Saitama</td>
+</tr>
+<tr class="row-odd"><td>JP-12</td>
+<td>Chiba</td>
+</tr>
+<tr class="row-even"><td>JP-13</td>
+<td>Tokyo</td>
+</tr>
+<tr class="row-odd"><td>JP-14</td>
+<td>Kanagawa</td>
+</tr>
+<tr class="row-even"><td>JP-15</td>
+<td>Niigata</td>
+</tr>
+<tr class="row-odd"><td>JP-16</td>
+<td>Toyama</td>
+</tr>
+<tr class="row-even"><td>JP-17</td>
+<td>Ishikawa</td>
+</tr>
+<tr class="row-odd"><td>JP-18</td>
+<td>Fukui</td>
+</tr>
+<tr class="row-even"><td>JP-19</td>
+<td>Yamanashi</td>
+</tr>
+<tr class="row-odd"><td>JP-20</td>
+<td>Nagano</td>
+</tr>
+<tr class="row-even"><td>JP-21</td>
+<td>Gifu</td>
+</tr>
+<tr class="row-odd"><td>JP-22</td>
+<td>Shizuoka</td>
+</tr>
+<tr class="row-even"><td>JP-23</td>
+<td>Aichi</td>
+</tr>
+<tr class="row-odd"><td>JP-24</td>
+<td>Mie</td>
+</tr>
+<tr class="row-even"><td>JP-25</td>
+<td>Shiga</td>
+</tr>
+<tr class="row-odd"><td>JP-26</td>
+<td>Kyoto</td>
+</tr>
+<tr class="row-even"><td>JP-27</td>
+<td>Osaka</td>
+</tr>
+<tr class="row-odd"><td>JP-28</td>
+<td>Hyogo</td>
+</tr>
+<tr class="row-even"><td>JP-29</td>
+<td>Nara</td>
+</tr>
+<tr class="row-odd"><td>JP-30</td>
+<td>Wakayama</td>
+</tr>
+<tr class="row-even"><td>JP-31</td>
+<td>Tottori</td>
+</tr>
+<tr class="row-odd"><td>JP-32</td>
+<td>Shimane</td>
+</tr>
+<tr class="row-even"><td>JP-33</td>
+<td>Okayama</td>
+</tr>
+<tr class="row-odd"><td>JP-34</td>
+<td>Hiroshima</td>
+</tr>
+<tr class="row-even"><td>JP-35</td>
+<td>Yamaguchi</td>
+</tr>
+<tr class="row-odd"><td>JP-36</td>
+<td>Tokushima</td>
+</tr>
+<tr class="row-even"><td>JP-37</td>
+<td>Kagawa</td>
+</tr>
+<tr class="row-odd"><td>JP-38</td>
+<td>Ehime</td>
+</tr>
+<tr class="row-even"><td>JP-39</td>
+<td>Kochi</td>
+</tr>
+<tr class="row-odd"><td>JP-40</td>
+<td>Fukuoka</td>
+</tr>
+<tr class="row-even"><td>JP-41</td>
+<td>Saga</td>
+</tr>
+<tr class="row-odd"><td>JP-42</td>
+<td>Nagasaki</td>
+</tr>
+<tr class="row-even"><td>JP-43</td>
+<td>Kumamoto</td>
+</tr>
+<tr class="row-odd"><td>JP-44</td>
+<td>Oita</td>
+</tr>
+<tr class="row-even"><td>JP-45</td>
+<td>Miyazaki</td>
+</tr>
+<tr class="row-odd"><td>JP-46</td>
+<td>Kagoshima</td>
+</tr>
+<tr class="row-even"><td>JP-47</td>
+<td>Okinawa</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
 <li>Morocco</li>
 </ul>
 <table border="1" class="docutils">
@@ -2818,9 +2975,9 @@ You can get this file on this site: <a class="reference external" href="http://w
 It’s important because it’s a norm for mapping your data with geojson file</li>
 <li>You need to convert shapefile to geojson file.
 This action can make with ogr2ogr tools: <a class="reference external" href="http://www.gdal.org/ogr2ogr.html">http://www.gdal.org/ogr2ogr.html</a></li>
-<li>Put your geojson file in next folder : superset/assets/visualizations/countries with the next name : nameofyourcountries.geojson</li>
+<li>Put your geojson file in next folder : superset/assets/src/visualizations/CountryMap/countries with the next name : nameofyourcountries.geojson</li>
 <li>You can to reduce size of geojson file on this site: <a class="reference external" href="http://mapshaper.org/">http://mapshaper.org/</a></li>
-<li>Go in file superset/assets/javascripts/explorev2/stores/controls.jsx</li>
+<li>Go in file superset/assets/src/explore/controls.jsx</li>
 <li>Add your country in component ‘select_country’
 Example :</li>
 </ol>
@@ -2836,6 +2993,7 @@ Example :</li>
     <span class="s1">&#39;France&#39;</span><span class="p">,</span>
     <span class="s1">&#39;Germany&#39;</span><span class="p">,</span>
     <span class="s1">&#39;Italy&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Japan&#39;</span><span class="p">,</span>
     <span class="s1">&#39;Morocco&#39;</span><span class="p">,</span>
     <span class="s1">&#39;Netherlands&#39;</span><span class="p">,</span>
     <span class="s1">&#39;Russia&#39;</span><span class="p">,</span>

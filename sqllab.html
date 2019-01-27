@@ -175,7 +175,7 @@
 visualization capabilities</li>
 <li>Browse database metadata: tables, columns, indexes, partitions</li>
 <li>Support for long-running queries<ul>
-<li>uses the <a class="reference external" href="http://www.python.org/">Celery distributed queue</a>
+<li>uses the <a class="reference external" href="http://www.celeryproject.org/">Celery distributed queue</a>
 to dispatch query handling to workers</li>
 <li>supports defining a “results backend” to persist query results</li>
 </ul>
@@ -226,7 +226,16 @@ jinja context as in <code class="docutils literal notranslate"><span class="pre"
 <dl class="function">
 <dt id="superset.jinja_context.url_param">
 <code class="descclassname">superset.jinja_context.</code><code class="descname">url_param</code><span class="sig-paren">(</span><em>param</em>, <em>default=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/superset/jinja_context.html#url_param"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#superset.jinja_context.url_param" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get a url or post data parameter</p>
+<dd><p>Read a url or post parameter and use it in your SQL Lab query</p>
+<p>When in SQL Lab, it’s possible to add arbitrary URL “query string”
+parameters, and use those in your SQL code. For instance you can
+alter your url and add <cite>?foo=bar</cite>, as in
+<cite>{domain}/superset/sqllab?foo=bar</cite>. Then if your query is something like
+SELECT * FROM foo = ‘{{ url_param(‘foo’) }}’, it will be parsed at
+runtime and replaced by the value in the URL.</p>
+<p>As you create a visualization form this SQL Lab query, you can pass
+parameters in the explore view as well as from the dashboard, and
+it should carry through to your queries.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -259,7 +268,7 @@ column doesn’t match the one in the select statement</li>
 <dt>Usage example:</dt>
 <dd>SELECT action, count(*) as times
 FROM logs
-WHERE action in ( {{ “’” + “’,’”.join(filter_values(‘action_type’)) + “’” )
+WHERE action in ( {{ “’” + “’,’”.join(filter_values(‘action_type’)) + “’” }} )
 GROUP BY 1</dd>
 </dl>
 <table class="docutils field-list" frame="void" rules="none">

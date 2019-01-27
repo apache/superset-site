@@ -103,9 +103,13 @@
 <li class="toctree-l2"><a class="reference internal" href="#ssl-access-to-databases">SSL Access to databases</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#druid">Druid</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#cors">CORS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#domain-sharding">DOMAIN SHARDING</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#middleware">MIDDLEWARE</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#upgrading">Upgrading</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#celery-tasks">Celery Tasks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#email-reports">Email Reports</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#sql-lab">SQL Lab</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#celery-flower">Celery Flower</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#building-from-source">Building from source</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#blueprints">Blueprints</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#statsd-logging">StatsD logging</a></li>
@@ -220,21 +224,25 @@ as needed.</p>
 <p>If you know docker, then you’re lucky, we have shortcut road for you to
 initialize development environment:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">apache</span><span class="o">/</span><span class="n">incubator</span><span class="o">-</span><span class="n">superset</span><span class="o">/</span>
-<span class="n">cd</span> <span class="n">incubator</span><span class="o">-</span><span class="n">superset</span>
-<span class="n">cp</span> <span class="n">contrib</span><span class="o">/</span><span class="n">docker</span><span class="o">/</span><span class="p">{</span><span class="n">docker</span><span class="o">-</span><span class="n">build</span><span class="o">.</span><span class="n">sh</span><span class="p">,</span><span class="n">docker</span><span class="o">-</span><span class="n">compose</span><span class="o">.</span><span class="n">yml</span><span class="p">,</span><span class="n">docker</span><span class="o">-</span><span class="n">entrypoint</span><span class="o">.</span><span class="n">sh</span><span class="p">,</span><span class="n">docker</span><span class="o">-</span><span class="n">init</span><span class="o">.</span><span class="n">sh</span><span class="p">,</span><span class="n">Dockerfile</span><span class="p">}</span> <span class="o">.</span>
-<span class="n">cp</span> <span class="n">contrib</span><span class="o">/</span><span class="n">docker</span><span class="o">/</span><span class="n">superset_config</span><span class="o">.</span><span class="n">py</span> <span class="n">superset</span><span class="o">/</span>
-<span class="n">bash</span> <span class="o">-</span><span class="n">x</span> <span class="n">docker</span><span class="o">-</span><span class="n">build</span><span class="o">.</span><span class="n">sh</span>
-<span class="n">docker</span><span class="o">-</span><span class="n">compose</span> <span class="n">up</span> <span class="o">-</span><span class="n">d</span>
-<span class="n">docker</span><span class="o">-</span><span class="n">compose</span> <span class="n">exec</span> <span class="n">superset</span> <span class="n">bash</span>
-<span class="n">bash</span> <span class="n">docker</span><span class="o">-</span><span class="n">init</span><span class="o">.</span><span class="n">sh</span>
+<span class="n">cd</span> <span class="n">incubator</span><span class="o">-</span><span class="n">superset</span><span class="o">/</span><span class="n">contrib</span><span class="o">/</span><span class="n">docker</span>
+<span class="c1"># prefix with SUPERSET_LOAD_EXAMPLES=yes to load examples:</span>
+<span class="n">docker</span><span class="o">-</span><span class="n">compose</span> <span class="n">run</span> <span class="o">--</span><span class="n">rm</span> <span class="n">superset</span> <span class="o">./</span><span class="n">docker</span><span class="o">-</span><span class="n">init</span><span class="o">.</span><span class="n">sh</span>
+<span class="c1"># you can run this command everytime you need to start superset now:</span>
+<span class="n">docker</span><span class="o">-</span><span class="n">compose</span> <span class="n">up</span>
 </pre></div>
 </div>
 <p>After several minutes for superset initialization to finish, you can open
 a browser and view <cite>http://localhost:8088</cite> to start your journey.</p>
+<p>From there, the container server will reload on modification of the superset python
+and javascript source code.
+Don’t forget to reload the page to take the new frontend into account though.</p>
+<p>See also <a class="reference external" href="https://github.com/apache/incubator-superset/blob/master/CONTRIBUTING.md#webpack-dev-server">CONTRIBUTING.md</a>,
+for alternative way of serving the frontend.</p>
+<p>It is also possible to run Superset in non-development mode: in the <cite>docker-compose.yml</cite> file remove
+the volumes needed for development and change the variable <cite>SUPERSET_ENV</cite> to <cite>production</cite>.</p>
 <p>If you are attempting to build on a Mac and it exits with 137 you need to increase your docker resources.
 OSX instructions: <a class="reference external" href="https://docs.docker.com/docker-for-mac/#advanced">https://docs.docker.com/docker-for-mac/#advanced</a> (Search for memory)</p>
-<p>Or if you’re curious and want to install superset from bottom up, then go
-ahead.</p>
+<p>Or if you’re curious and want to install superset from bottom up, then go ahead.</p>
 </div>
 <div class="section" id="os-dependencies">
 <h2>OS dependencies<a class="headerlink" href="#os-dependencies" title="Permalink to this headline">¶</a></h2>
@@ -250,8 +258,8 @@ the required dependencies are installed:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">build</span><span class="o">-</span><span class="n">essential</span> <span class="n">libssl</span><span class="o">-</span><span class="n">dev</span> <span class="n">libffi</span><span class="o">-</span><span class="n">dev</span> <span class="n">python</span><span class="o">-</span><span class="n">dev</span> <span class="n">python</span><span class="o">-</span><span class="n">pip</span> <span class="n">libsasl2</span><span class="o">-</span><span class="n">dev</span> <span class="n">libldap2</span><span class="o">-</span><span class="n">dev</span>
 </pre></div>
 </div>
-<p><strong>Ubuntu 16.04</strong> If you have python3.5 installed alongside with python2.7, as is default on <strong>Ubuntu 16.04 LTS</strong>, run this command also:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">build</span><span class="o">-</span><span class="n">essential</span> <span class="n">libssl</span><span class="o">-</span><span class="n">dev</span> <span class="n">libffi</span><span class="o">-</span><span class="n">dev</span> <span class="n">python3</span><span class="o">.</span><span class="mi">5</span><span class="o">-</span><span class="n">dev</span> <span class="n">python</span><span class="o">-</span><span class="n">pip</span> <span class="n">libsasl2</span><span class="o">-</span><span class="n">dev</span> <span class="n">libldap2</span><span class="o">-</span><span class="n">dev</span>
+<p><strong>Ubuntu 18.04</strong> If you have python3.6 installed alongside with python2.7, as is default on <strong>Ubuntu 18.04 LTS</strong>, run this command also:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">build</span><span class="o">-</span><span class="n">essential</span> <span class="n">libssl</span><span class="o">-</span><span class="n">dev</span> <span class="n">libffi</span><span class="o">-</span><span class="n">dev</span> <span class="n">python3</span><span class="o">.</span><span class="mi">6</span><span class="o">-</span><span class="n">dev</span> <span class="n">python</span><span class="o">-</span><span class="n">pip</span> <span class="n">libsasl2</span><span class="o">-</span><span class="n">dev</span> <span class="n">libldap2</span><span class="o">-</span><span class="n">dev</span>
 </pre></div>
 </div>
 <p>otherwise build for <code class="docutils literal notranslate"><span class="pre">cryptography</span></code> fails.</p>
@@ -263,7 +271,7 @@ that the required dependencies are installed:</p>
 </div>
 <p><strong>OSX</strong>, system python is not recommended. brew’s python also ships with pip</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">brew</span> <span class="n">install</span> <span class="n">pkg</span><span class="o">-</span><span class="n">config</span> <span class="n">libffi</span> <span class="n">openssl</span> <span class="n">python</span>
-<span class="n">env</span> <span class="n">LDFLAGS</span><span class="o">=</span><span class="s2">&quot;-L$(brew --prefix openssl)/lib&quot;</span> <span class="n">CFLAGS</span><span class="o">=</span><span class="s2">&quot;-I$(brew --prefix openssl)/include&quot;</span> <span class="n">pip</span> <span class="n">install</span> <span class="n">cryptography</span><span class="o">==</span><span class="mf">1.9</span>
+<span class="n">env</span> <span class="n">LDFLAGS</span><span class="o">=</span><span class="s2">&quot;-L$(brew --prefix openssl)/lib&quot;</span> <span class="n">CFLAGS</span><span class="o">=</span><span class="s2">&quot;-I$(brew --prefix openssl)/include&quot;</span> <span class="n">pip</span> <span class="n">install</span> <span class="n">cryptography</span><span class="o">==</span><span class="mf">2.4</span><span class="o">.</span><span class="mi">2</span>
 </pre></div>
 </div>
 <p><strong>Windows</strong> isn’t officially supported at this point, but if you want to
@@ -277,16 +285,17 @@ attempt it, download <a class="reference external" href="https://bootstrap.pypa.
 </div>
 <div class="section" id="python-virtualenv">
 <h2>Python virtualenv<a class="headerlink" href="#python-virtualenv" title="Permalink to this headline">¶</a></h2>
-<p>It is recommended to install Superset inside a virtualenv. Python 3 already ships virtualenv, for
-Python 2 you need to install it. If it’s packaged for your operating systems install it from there
-otherwise you can install from pip:</p>
+<p>It is recommended to install Superset inside a virtualenv. Python 3 already ships virtualenv.
+But if it’s not installed in your environment for some reason, you can install it
+via the package for your operating systems, otherwise you can install from pip:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">virtualenv</span>
 </pre></div>
 </div>
 <p>You can create and activate a virtualenv by:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># virtualenv is shipped in Python 3 as pyvenv</span>
-<span class="n">virtualenv</span> <span class="n">venv</span>
-<span class="o">.</span> <span class="o">./</span><span class="n">venv</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">activate</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># virtualenv is shipped in Python 3.6+ as venv instead of pyvenv.</span>
+<span class="c1"># See https://docs.python.org/3.6/library/venv.html</span>
+<span class="n">python3</span> <span class="o">-</span><span class="n">m</span> <span class="n">venv</span> <span class="n">venv</span>
+<span class="o">.</span> <span class="n">venv</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">activate</span>
 </pre></div>
 </div>
 <p>On windows the syntax for activating it is a bit different:</p>
@@ -595,9 +604,6 @@ The role and warehouse can be omitted if defaults are defined for the user, i.e.
 <p>Make sure the user has privileges to access and use all required
 databases/schemas/tables/views/warehouses, as the Snowflake SQLAlchemy engine does
 not test for user rights during engine creation.</p>
-<p><em>Note</em>: At the time of writing, there is a regression in the current stable version (1.1.2) of
-snowflake-sqlalchemy package that causes problems when used with Superset. It is recommended to
-use version 1.1.0 or try a newer version.</p>
 <p>See <a class="reference external" href="https://github.com/snowflakedb/snowflake-sqlalchemy">Snowflake SQLAlchemy</a>.</p>
 </div>
 <div class="section" id="teradata">
@@ -727,6 +733,15 @@ metadata from your Druid cluster(s)</p>
 <li><code class="docutils literal notranslate"><span class="pre">CORS_OPTIONS</span></code>: options passed to Flask-CORS (<cite>documentation &lt;http://flask-cors.corydolphin.com/en/latest/api.html#extension&gt;</cite>)</li>
 </ul>
 </div>
+<div class="section" id="domain-sharding">
+<h2>DOMAIN SHARDING<a class="headerlink" href="#domain-sharding" title="Permalink to this headline">¶</a></h2>
+<p>Chrome allows up to 6 open connections per domain at a time. When there are more
+than 6 slices in dashboard, a lot of time fetch requests are queued up and wait for
+next available socket. PR (<cite>#5039 &lt;https://github.com/apache/incubator-superset/pull/5039&gt;</cite>) adds domain sharding to Superset,
+and this feature will be enabled by configuration only (by default Superset
+doesn’t allow cross-domain request).</p>
+<p><a href="#id1"><span class="problematic" id="id2">*</span></a><code class="docutils literal notranslate"><span class="pre">SUPERSET_WEBSERVER_DOMAINS</span></code>: list of allowed hostnames for domain sharding feature. default <cite>None</cite></p>
+</div>
 <div class="section" id="middleware">
 <h2>MIDDLEWARE<a class="headerlink" href="#middleware" title="Permalink to this headline">¶</a></h2>
 <p>Superset allows you to add your own middleware. To add your own middleware, update the <code class="docutils literal notranslate"><span class="pre">ADDITIONAL_MIDDLEWARE</span></code> key in
@@ -756,14 +771,12 @@ environment variable:</p>
 </pre></div>
 </div>
 </div>
-<div class="section" id="sql-lab">
-<h2>SQL Lab<a class="headerlink" href="#sql-lab" title="Permalink to this headline">¶</a></h2>
-<p>SQL Lab is a powerful SQL IDE that works with all SQLAlchemy compatible
-databases. By default, queries are executed in the scope of a web
-request so they
-may eventually timeout as queries exceed the maximum duration of a web
-request in your environment, whether it’d be a reverse proxy or the Superset
-server itself.</p>
+<div class="section" id="celery-tasks">
+<h2>Celery Tasks<a class="headerlink" href="#celery-tasks" title="Permalink to this headline">¶</a></h2>
+<p>On large analytic databases, it’s common to run background jobs, reports
+and/or queries that execute for minutes or hours. In certain cases, we need
+to support long running tasks that execute beyond the typical web request’s
+timeout (30-60 seconds).</p>
 <p>On large analytic databases, it’s common to run queries that
 execute for minutes or hours.
 To enable support for long running queries that
@@ -783,17 +796,47 @@ results</li>
 have the same configuration.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">CeleryConfig</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="n">BROKER_URL</span> <span class="o">=</span> <span class="s1">&#39;redis://localhost:6379/0&#39;</span>
-    <span class="n">CELERY_IMPORTS</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;superset.sql_lab&#39;</span><span class="p">,</span> <span class="p">)</span>
+    <span class="n">CELERY_IMPORTS</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="s1">&#39;superset.sql_lab&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;superset.tasks&#39;</span><span class="p">,</span>
+    <span class="p">)</span>
     <span class="n">CELERY_RESULT_BACKEND</span> <span class="o">=</span> <span class="s1">&#39;redis://localhost:6379/0&#39;</span>
-    <span class="n">CELERY_ANNOTATIONS</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;tasks.add&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;rate_limit&#39;</span><span class="p">:</span> <span class="s1">&#39;10/s&#39;</span><span class="p">}}</span>
+    <span class="n">CELERYD_LOG_LEVEL</span> <span class="o">=</span> <span class="s1">&#39;DEBUG&#39;</span>
+    <span class="n">CELERYD_PREFETCH_MULTIPLIER</span> <span class="o">=</span> <span class="mi">10</span>
+    <span class="n">CELERY_ACKS_LATE</span> <span class="o">=</span> <span class="bp">True</span>
+    <span class="n">CELERY_ANNOTATIONS</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;sql_lab.get_sql_results&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;rate_limit&#39;</span><span class="p">:</span> <span class="s1">&#39;100/s&#39;</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="s1">&#39;email_reports.send&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;rate_limit&#39;</span><span class="p">:</span> <span class="s1">&#39;1/s&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;time_limit&#39;</span><span class="p">:</span> <span class="mi">120</span><span class="p">,</span>
+            <span class="s1">&#39;soft_time_limit&#39;</span><span class="p">:</span> <span class="mi">150</span><span class="p">,</span>
+            <span class="s1">&#39;ignore_result&#39;</span><span class="p">:</span> <span class="bp">True</span><span class="p">,</span>
+        <span class="p">},</span>
+    <span class="p">}</span>
+    <span class="n">CELERYBEAT_SCHEDULE</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;email_reports.schedule_hourly&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;task&#39;</span><span class="p">:</span> <span class="s1">&#39;email_reports.schedule_hourly&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;schedule&#39;</span><span class="p">:</span> <span class="n">crontab</span><span class="p">(</span><span class="n">minute</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">hour</span><span class="o">=</span><span class="s1">&#39;*&#39;</span><span class="p">),</span>
+        <span class="p">},</span>
+    <span class="p">}</span>
 
 <span class="n">CELERY_CONFIG</span> <span class="o">=</span> <span class="n">CeleryConfig</span>
 </pre></div>
 </div>
-<p>To start a Celery worker to leverage the configuration run:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">celery</span> <span class="n">worker</span> <span class="o">--</span><span class="n">app</span><span class="o">=</span><span class="n">superset</span><span class="o">.</span><span class="n">sql_lab</span><span class="p">:</span><span class="n">celery_app</span> <span class="o">--</span><span class="n">pool</span><span class="o">=</span><span class="n">gevent</span> <span class="o">-</span><span class="n">Ofair</span>
+<ul>
+<li><p class="first">To start a Celery worker to leverage the configuration run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">celery</span> <span class="n">worker</span> <span class="o">--</span><span class="n">app</span><span class="o">=</span><span class="n">superset</span><span class="o">.</span><span class="n">tasks</span><span class="o">.</span><span class="n">celery_app</span><span class="p">:</span><span class="n">app</span> <span class="o">--</span><span class="n">pool</span><span class="o">=</span><span class="n">prefork</span> <span class="o">-</span><span class="n">Ofair</span> <span class="o">-</span><span class="n">c</span> <span class="mi">4</span>
 </pre></div>
 </div>
+</li>
+<li><p class="first">To start a job which schedules periodic background jobs, run</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">celery</span> <span class="n">beat</span> <span class="o">--</span><span class="n">app</span><span class="o">=</span><span class="n">superset</span><span class="o">.</span><span class="n">tasks</span><span class="o">.</span><span class="n">celery_app</span><span class="p">:</span><span class="n">app</span>
+</pre></div>
+</div>
+</li>
+</ul>
 <p>To setup a result backend, you need to pass an instance of a derivative
 of <code class="docutils literal notranslate"><span class="pre">werkzeug.contrib.cache.BaseCache</span></code> to the <code class="docutils literal notranslate"><span class="pre">RESULTS_BACKEND</span></code>
 configuration key in your <code class="docutils literal notranslate"><span class="pre">superset_config.py</span></code>. It’s possible to use
@@ -813,11 +856,70 @@ look something like:</p>
     <span class="n">host</span><span class="o">=</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">6379</span><span class="p">,</span> <span class="n">key_prefix</span><span class="o">=</span><span class="s1">&#39;superset_results&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Note that it’s important that all the worker nodes and web servers in
+<p><strong>Important notes</strong></p>
+<ul class="simple">
+<li>It is important that all the worker nodes and web servers in
 the Superset cluster share a common metadata database.
 This means that SQLite will not work in this context since it has
 limited support for concurrency and
-typically lives on the local file system.</p>
+typically lives on the local file system.</li>
+<li>There should only be one instance of <code class="docutils literal notranslate"><span class="pre">celery</span> <span class="pre">beat</span></code> running in your
+entire setup. If not, background jobs can get scheduled multiple times
+resulting in weird behaviors like duplicate delivery of reports,
+higher than expected load / traffic etc.</li>
+</ul>
+</div>
+<div class="section" id="email-reports">
+<h2>Email Reports<a class="headerlink" href="#email-reports" title="Permalink to this headline">¶</a></h2>
+<p>Email reports allow users to schedule email reports for</p>
+<ul class="simple">
+<li>slice and dashboard visualization (Attachment or inline)</li>
+<li>slice data (CSV attachment on inline table)</li>
+</ul>
+<p>Schedules are defined in crontab format and each schedule
+can have a list of recipients (all of them can receive a single mail,
+or separate mails). For audit purposes, all outgoing mails can have a
+mandatory bcc.</p>
+<p><strong>Requirements</strong></p>
+<ul>
+<li><p class="first">A selenium compatible driver &amp; headless browser</p>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/mozilla/geckodriver">geckodriver</a> and Firefox is preferred</li>
+<li><a class="reference external" href="http://chromedriver.chromium.org/">chromedriver</a> is a good option too</li>
+</ul>
+</li>
+<li><p class="first">Run <cite>celery worker</cite> and <cite>celery beat</cite> as follows</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">celery</span> <span class="n">worker</span> <span class="o">--</span><span class="n">app</span><span class="o">=</span><span class="n">superset</span><span class="o">.</span><span class="n">tasks</span><span class="o">.</span><span class="n">celery_app</span><span class="p">:</span><span class="n">app</span> <span class="o">--</span><span class="n">pool</span><span class="o">=</span><span class="n">prefork</span> <span class="o">-</span><span class="n">Ofair</span> <span class="o">-</span><span class="n">c</span> <span class="mi">4</span>
+<span class="n">celery</span> <span class="n">beat</span> <span class="o">--</span><span class="n">app</span><span class="o">=</span><span class="n">superset</span><span class="o">.</span><span class="n">tasks</span><span class="o">.</span><span class="n">celery_app</span><span class="p">:</span><span class="n">app</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<p><strong>Important notes</strong></p>
+<ul>
+<li><p class="first">Be mindful of the concurrency setting for celery (using <code class="docutils literal notranslate"><span class="pre">-c</span> <span class="pre">4</span></code>).
+Selenium/webdriver instances can consume a lot of CPU / memory on your servers.</p>
+</li>
+<li><p class="first">In some cases, if you notice a lot of leaked <code class="docutils literal notranslate"><span class="pre">geckodriver</span></code> processes, try running
+your celery processes with</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">celery</span> <span class="n">worker</span> <span class="o">--</span><span class="n">pool</span><span class="o">=</span><span class="n">prefork</span> <span class="o">--</span><span class="nb">max</span><span class="o">-</span><span class="n">tasks</span><span class="o">-</span><span class="n">per</span><span class="o">-</span><span class="n">child</span><span class="o">=</span><span class="mi">128</span> <span class="o">...</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">It is recommended to run separate workers for <code class="docutils literal notranslate"><span class="pre">sql_lab</span></code> and
+<code class="docutils literal notranslate"><span class="pre">email_reports</span></code> tasks. Can be done by using <code class="docutils literal notranslate"><span class="pre">queue</span></code> field in <code class="docutils literal notranslate"><span class="pre">CELERY_ANNOTATIONS</span></code></p>
+</li>
+</ul>
+</div>
+<div class="section" id="sql-lab">
+<h2>SQL Lab<a class="headerlink" href="#sql-lab" title="Permalink to this headline">¶</a></h2>
+<p>SQL Lab is a powerful SQL IDE that works with all SQLAlchemy compatible
+databases. By default, queries are executed in the scope of a web
+request so they may eventually timeout as queries exceed the maximum duration of a web
+request in your environment, whether it’d be a reverse proxy or the Superset
+server itself. In such cases, it is preferred to use <code class="docutils literal notranslate"><span class="pre">celery</span></code> to run the queries
+in the background. Please follow the examples/notes mentioned above to get your
+celery setup working.</p>
 <p>Also note that SQL Lab supports Jinja templating in queries and that it’s
 possible to overload
 the default Jinja context in your environment by defining the
@@ -828,13 +930,16 @@ in this dictionary are made available for users to use in their SQL.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
+</div>
+<div class="section" id="celery-flower">
+<h2>Celery Flower<a class="headerlink" href="#celery-flower" title="Permalink to this headline">¶</a></h2>
 <p>Flower is a web based tool for monitoring the Celery cluster which you can
 install from pip:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">flower</span>
 </pre></div>
 </div>
 <p>and run via:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">celery</span> <span class="n">flower</span> <span class="o">--</span><span class="n">app</span><span class="o">=</span><span class="n">superset</span><span class="o">.</span><span class="n">sql_lab</span><span class="p">:</span><span class="n">celery_app</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">celery</span> <span class="n">flower</span> <span class="o">--</span><span class="n">app</span><span class="o">=</span><span class="n">superset</span><span class="o">.</span><span class="n">tasks</span><span class="o">.</span><span class="n">celery_app</span><span class="p">:</span><span class="n">app</span>
 </pre></div>
 </div>
 </div>
