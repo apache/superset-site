@@ -94,6 +94,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#configuration">Configuration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#database-dependencies">Database dependencies</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#aws-athena">(AWS) Athena</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#mssql">MSSQL</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#snowflake">Snowflake</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#teradata">Teradata</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#caching">Caching</a></li>
@@ -221,6 +222,14 @@ as needed.</p>
 </div>
 <div class="section" id="start-with-docker">
 <h2>Start with Docker<a class="headerlink" href="#start-with-docker" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The Docker-related files and documentation has been
+community-contributed and
+is not actively maintained and managed by the core committers working on
+the project. Some issues have been reported as of 2019-01.
+Help and contributions around Docker are welcomed!</p>
+</div>
 <p>If you know docker, then you’re lucky, we have shortcut road for you to
 initialize development environment:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">apache</span><span class="o">/</span><span class="n">incubator</span><span class="o">-</span><span class="n">superset</span><span class="o">/</span>
@@ -236,7 +245,7 @@ a browser and view <cite>http://localhost:8088</cite> to start your journey.</p>
 <p>From there, the container server will reload on modification of the superset python
 and javascript source code.
 Don’t forget to reload the page to take the new frontend into account though.</p>
-<p>See also <a class="reference external" href="https://github.com/apache/incubator-superset/blob/master/CONTRIBUTING.md#webpack-dev-server">CONTRIBUTING.md</a>,
+<p>See also <a class="reference external" href="https://github.com/apache/incubator-superset/blob/master/CONTRIBUTING.md#building">CONTRIBUTING.md#building</a>,
 for alternative way of serving the frontend.</p>
 <p>It is also possible to run Superset in non-development mode: in the <cite>docker-compose.yml</cite> file remove
 the volumes needed for development and change the variable <cite>SUPERSET_ENV</cite> to <cite>production</cite>.</p>
@@ -568,6 +577,11 @@ connect to the databases you want to access through Superset.</p>
 <td><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">sqlalchemy-teradata</span></code></td>
 <td><code class="docutils literal notranslate"><span class="pre">teradata://</span></code></td>
 </tr>
+<tr class="row-odd"><td>Pinot</td>
+<td><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">pinotdb</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">pinot+http://controller:5436/</span></code>
+<code class="docutils literal notranslate"><span class="pre">query?server=http://controller:5983/</span></code></td>
+</tr>
 </tbody>
 </table>
 <p>Note that many other databases are supported, the main criteria being the
@@ -590,6 +604,10 @@ database you want to connect to should get you to the right place.</p>
 </pre></div>
 </div>
 <p>See <a class="reference external" href="https://github.com/laughingman7743/PyAthena#sqlalchemy">PyAthena</a>.</p>
+</div>
+<div class="section" id="mssql">
+<h2>MSSQL<a class="headerlink" href="#mssql" title="Permalink to this headline">¶</a></h2>
+<p>Full Unicode support requires SQLAlchemy 1.3 or later.</p>
 </div>
 <div class="section" id="snowflake">
 <h2>Snowflake<a class="headerlink" href="#snowflake" title="Permalink to this headline">¶</a></h2>
@@ -740,7 +758,9 @@ than 6 slices in dashboard, a lot of time fetch requests are queued up and wait 
 next available socket. PR (<cite>#5039 &lt;https://github.com/apache/incubator-superset/pull/5039&gt;</cite>) adds domain sharding to Superset,
 and this feature will be enabled by configuration only (by default Superset
 doesn’t allow cross-domain request).</p>
-<p><a href="#id1"><span class="problematic" id="id2">*</span></a><code class="docutils literal notranslate"><span class="pre">SUPERSET_WEBSERVER_DOMAINS</span></code>: list of allowed hostnames for domain sharding feature. default <cite>None</cite></p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">SUPERSET_WEBSERVER_DOMAINS</span></code>: list of allowed hostnames for domain sharding feature. default <cite>None</cite></li>
+</ul>
 </div>
 <div class="section" id="middleware">
 <h2>MIDDLEWARE<a class="headerlink" href="#middleware" title="Permalink to this headline">¶</a></h2>
@@ -769,6 +789,17 @@ environment variable:</p>
 <span class="n">superset</span> <span class="n">db</span> <span class="n">upgrade</span>
 <span class="n">superset</span> <span class="n">init</span>
 </pre></div>
+</div>
+<p>We recommend to follow standard best practices when upgrading Superset, such
+as taking a database backup prior to the upgrade, upgrading a staging
+environment prior to upgrading production, and upgrading production while less
+users are active on the platform.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Some upgrades may contain backward-incompatible changes, or require
+scheduling downtime, when that is the case, contributors attach notes in
+<code class="docutils literal notranslate"><span class="pre">UPDATING.md</span></code> in the repository. It’s recommended to review this
+file prior to running an upgrade.</p>
 </div>
 </div>
 <div class="section" id="celery-tasks">
@@ -947,7 +978,7 @@ install from pip:</p>
 <h2>Building from source<a class="headerlink" href="#building-from-source" title="Permalink to this headline">¶</a></h2>
 <p>More advanced users may want to build Superset from sources. That
 would be the case if you fork the project to add features specific to
-your environment. See <a class="reference external" href="https://github.com/apache/incubator-superset/blob/master/CONTRIBUTING.md#local-development">CONTRIBUTING.md</a>.</p>
+your environment. See <a class="reference external" href="https://github.com/apache/incubator-superset/blob/master/CONTRIBUTING.md#setup-local-environment-for-development">CONTRIBUTING.md#setup-local-environment-for-development</a>.</p>
 </div>
 <div class="section" id="blueprints">
 <h2>Blueprints<a class="headerlink" href="#blueprints" title="Permalink to this headline">¶</a></h2>
