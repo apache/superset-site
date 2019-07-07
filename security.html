@@ -17,35 +17,36 @@
   
 
   
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
-  
-    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="SQL Lab" href="sqllab.html" />
     <link rel="prev" title="Tutorial - Creating your first dashboard" href="tutorial.html" /> 
-
-  
-  <script src="_static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -172,7 +173,7 @@
 <p>Security in Superset is handled by Flask AppBuilder (FAB). FAB is a
 “Simple and rapid application development framework, built on top of Flask.”.
 FAB provides authentication, user management, permissions and roles.
-Please read its <a class="reference external" href="http://flask-appbuilder.readthedocs.io/en/latest/security.html">Security documentation</a>.</p>
+Please read its <a class="reference external" href="https://flask-appbuilder.readthedocs.io/en/latest/security.html">Security documentation</a>.</p>
 <div class="section" id="provided-roles">
 <h2>Provided Roles<a class="headerlink" href="#provided-roles" title="Permalink to this headline">¶</a></h2>
 <p>Superset ships with a set of roles that are handled by Superset itself.
@@ -255,21 +256,21 @@ you to create your own roles, and union them to existing ones.</p>
 <p>Roles are composed of a set of permissions, and Superset has many categories
 of permissions. Here are the different categories of permissions:</p>
 <ul class="simple">
-<li><strong>Model &amp; action</strong>: models are entities like <code class="docutils literal notranslate"><span class="pre">Dashboard</span></code>,
+<li><p><strong>Model &amp; action</strong>: models are entities like <code class="docutils literal notranslate"><span class="pre">Dashboard</span></code>,
 <code class="docutils literal notranslate"><span class="pre">Slice</span></code>, or <code class="docutils literal notranslate"><span class="pre">User</span></code>. Each model has a fixed set of permissions, like
 <code class="docutils literal notranslate"><span class="pre">can_edit</span></code>, <code class="docutils literal notranslate"><span class="pre">can_show</span></code>, <code class="docutils literal notranslate"><span class="pre">can_delete</span></code>, <code class="docutils literal notranslate"><span class="pre">can_list</span></code>, <code class="docutils literal notranslate"><span class="pre">can_add</span></code>, and
 so on. By adding <code class="docutils literal notranslate"><span class="pre">can_delete</span> <span class="pre">on</span> <span class="pre">Dashboard</span></code> to a role, and granting that
-role to a user, this user will be able to delete dashboards.</li>
-<li><strong>Views</strong>: views are individual web pages, like the <code class="docutils literal notranslate"><span class="pre">explore</span></code> view or the
-<code class="docutils literal notranslate"><span class="pre">SQL</span> <span class="pre">Lab</span></code> view. When granted to a user, he/she will see that view in its menu items, and be able to load that page.</li>
-<li><strong>Data source</strong>: For each data source, a permission is created. If the user
+role to a user, this user will be able to delete dashboards.</p></li>
+<li><p><strong>Views</strong>: views are individual web pages, like the <code class="docutils literal notranslate"><span class="pre">explore</span></code> view or the
+<code class="docutils literal notranslate"><span class="pre">SQL</span> <span class="pre">Lab</span></code> view. When granted to a user, he/she will see that view in its menu items, and be able to load that page.</p></li>
+<li><p><strong>Data source</strong>: For each data source, a permission is created. If the user
 does not have the <code class="docutils literal notranslate"><span class="pre">all_datasource_access</span></code> permission granted, the user
 will only be able to see Slices or explore the data sources that are granted
-to them</li>
-<li><strong>Database</strong>: Granting access to a database allows for the user to access
+to them</p></li>
+<li><p><strong>Database</strong>: Granting access to a database allows for the user to access
 all data sources within that database, and will enable the user to query
 that database in SQL Lab, provided that the SQL Lab specific permission
-have been granted to the user</li>
+have been granted to the user</p></li>
 </ul>
 </div>
 <div class="section" id="restricting-access-to-a-subset-of-data-sources">
@@ -296,13 +297,13 @@ We may want to restrict those metrics to only a few roles.
 For example, assumed there is a metric <code class="docutils literal notranslate"><span class="pre">[cluster1].[datasource1].[revenue]</span></code>
 and only Admin users are allowed to see it. Here’s how to restrict the access.</p>
 <ol class="arabic simple">
-<li>Edit the datasource (<code class="docutils literal notranslate"><span class="pre">Menu</span> <span class="pre">-&gt;</span> <span class="pre">Source</span> <span class="pre">-&gt;</span> <span class="pre">Druid</span> <span class="pre">datasources</span> <span class="pre">-&gt;</span> <span class="pre">edit</span> <span class="pre">the</span>
+<li><p>Edit the datasource (<code class="docutils literal notranslate"><span class="pre">Menu</span> <span class="pre">-&gt;</span> <span class="pre">Source</span> <span class="pre">-&gt;</span> <span class="pre">Druid</span> <span class="pre">datasources</span> <span class="pre">-&gt;</span> <span class="pre">edit</span> <span class="pre">the</span>
 <span class="pre">record</span> <span class="pre">&quot;datasource1&quot;</span></code>) and go to the tab <code class="docutils literal notranslate"><span class="pre">List</span> <span class="pre">Druid</span> <span class="pre">Metric</span></code>. Check
-the checkbox <code class="docutils literal notranslate"><span class="pre">Is</span> <span class="pre">Restricted</span></code> in the row of the metric <code class="docutils literal notranslate"><span class="pre">revenue</span></code>.</li>
-<li>Edit the role (<code class="docutils literal notranslate"><span class="pre">Menu</span> <span class="pre">-&gt;</span> <span class="pre">Security</span> <span class="pre">-&gt;</span> <span class="pre">List</span> <span class="pre">Roles</span> <span class="pre">-&gt;</span> <span class="pre">edit</span> <span class="pre">the</span> <span class="pre">record</span>
+the checkbox <code class="docutils literal notranslate"><span class="pre">Is</span> <span class="pre">Restricted</span></code> in the row of the metric <code class="docutils literal notranslate"><span class="pre">revenue</span></code>.</p></li>
+<li><p>Edit the role (<code class="docutils literal notranslate"><span class="pre">Menu</span> <span class="pre">-&gt;</span> <span class="pre">Security</span> <span class="pre">-&gt;</span> <span class="pre">List</span> <span class="pre">Roles</span> <span class="pre">-&gt;</span> <span class="pre">edit</span> <span class="pre">the</span> <span class="pre">record</span>
 <span class="pre">“Admin”</span></code>), in the permissions field, type-and-search the permission
 <code class="docutils literal notranslate"><span class="pre">metric</span> <span class="pre">access</span> <span class="pre">on</span> <span class="pre">[cluster1].[datasource1].[revenue]</span> <span class="pre">(id:</span> <span class="pre">1)</span></code>, then
-click the Save button on the bottom of the page.</li>
+click the Save button on the bottom of the page.</p></li>
 </ol>
 <p>Any users without the permission will see the error message
 <em>Access to the metrics denied: revenue (Status: 500)</em> in the slices.
@@ -323,7 +324,7 @@ is dependent on revenue.</p>
         <a href="sqllab.html" class="btn btn-neutral float-right" title="SQL Lab" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="tutorial.html" class="btn btn-neutral" title="Tutorial - Creating your first dashboard" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="tutorial.html" class="btn btn-neutral float-left" title="Tutorial - Creating your first dashboard" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -332,7 +333,6 @@ is dependent on revenue.</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright Copyright © 2018 The Apache Software Foundation, Licensed under the Apache License, Version 2.0..
 
     </p>
   </div> 
@@ -348,36 +348,16 @@ is dependent on revenue.</p>
   
 
 
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'./',
-            VERSION:'',
-            LANGUAGE:'None',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="_static/jquery.js"></script>
-      <script type="text/javascript" src="_static/underscore.js"></script>
-      <script type="text/javascript" src="_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-
-  
-
-  
-  
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-  
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

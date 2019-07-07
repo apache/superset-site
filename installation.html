@@ -17,35 +17,36 @@
   
 
   
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
-  
-    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Tutorial - Creating your first dashboard" href="tutorial.html" />
     <link rel="prev" title="Apache Superset (incubating)" href="index.html" /> 
-
-  
-  <script src="_static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -94,9 +95,10 @@
 <li class="toctree-l2"><a class="reference internal" href="#configuration">Configuration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#database-dependencies">Database dependencies</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#aws-athena">(AWS) Athena</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#mssql">MSSQL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#google-bigquery">(Google) BigQuery</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#snowflake">Snowflake</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#teradata">Teradata</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#apache-drill">Apache Drill</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#caching">Caching</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#deeper-sqlalchemy-integration">Deeper SQLAlchemy integration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#schemas-postgres-redshift">Schemas (Postgres &amp; Redshift)</a></li>
@@ -223,8 +225,8 @@ as needed.</p>
 <div class="section" id="start-with-docker">
 <h2>Start with Docker<a class="headerlink" href="#start-with-docker" title="Permalink to this headline">¶</a></h2>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">The Docker-related files and documentation has been
+<p class="admonition-title">Note</p>
+<p>The Docker-related files and documentation has been
 community-contributed and
 is not actively maintained and managed by the core committers working on
 the project. Some issues have been reported as of 2019-01.
@@ -252,6 +254,7 @@ the volumes needed for development and change the variable <cite>SUPERSET_ENV</c
 <p>If you are attempting to build on a Mac and it exits with 137 you need to increase your docker resources.
 OSX instructions: <a class="reference external" href="https://docs.docker.com/docker-for-mac/#advanced">https://docs.docker.com/docker-for-mac/#advanced</a> (Search for memory)</p>
 <p>Or if you’re curious and want to install superset from bottom up, then go ahead.</p>
+<p>See also <a class="reference external" href="https://github.com/apache/incubator-superset/blob/master/contrib/docker/README.md">contrib/docker/README.md</a></p>
 </div>
 <div class="section" id="os-dependencies">
 <h2>OS dependencies<a class="headerlink" href="#os-dependencies" title="Permalink to this headline">¶</a></h2>
@@ -278,7 +281,13 @@ that the required dependencies are installed:</p>
 <span class="n">sudo</span> <span class="n">yum</span> <span class="n">install</span> <span class="n">gcc</span> <span class="n">gcc</span><span class="o">-</span><span class="n">c</span><span class="o">++</span> <span class="n">libffi</span><span class="o">-</span><span class="n">devel</span> <span class="n">python</span><span class="o">-</span><span class="n">devel</span> <span class="n">python</span><span class="o">-</span><span class="n">pip</span> <span class="n">python</span><span class="o">-</span><span class="n">wheel</span> <span class="n">openssl</span><span class="o">-</span><span class="n">devel</span> <span class="n">libsasl2</span><span class="o">-</span><span class="n">devel</span> <span class="n">openldap</span><span class="o">-</span><span class="n">devel</span>
 </pre></div>
 </div>
-<p><strong>OSX</strong>, system python is not recommended. brew’s python also ships with pip</p>
+<p><strong>Mac OS X</strong> If possible, you should upgrade to the latest version of OS X as issues are more likely to be resolved for that version.
+You <em>will likely need</em> the latest version of XCode available for your installed version of OS X. You should also install
+the XCode command line tools:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">xcode</span><span class="o">-</span><span class="n">select</span> <span class="o">--</span><span class="n">install</span>
+</pre></div>
+</div>
+<p>System python is not recommended. Homebrew’s python also ships with pip:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">brew</span> <span class="n">install</span> <span class="n">pkg</span><span class="o">-</span><span class="n">config</span> <span class="n">libffi</span> <span class="n">openssl</span> <span class="n">python</span>
 <span class="n">env</span> <span class="n">LDFLAGS</span><span class="o">=</span><span class="s2">&quot;-L$(brew --prefix openssl)/lib&quot;</span> <span class="n">CFLAGS</span><span class="o">=</span><span class="s2">&quot;-I$(brew --prefix openssl)/include&quot;</span> <span class="n">pip</span> <span class="n">install</span> <span class="n">cryptography</span><span class="o">==</span><span class="mf">2.4</span><span class="o">.</span><span class="mi">2</span>
 </pre></div>
@@ -325,23 +334,24 @@ and <code class="docutils literal notranslate"><span class="pre">setuptools</spa
 <div class="section" id="superset-installation-and-initialization">
 <h2>Superset installation and initialization<a class="headerlink" href="#superset-installation-and-initialization" title="Permalink to this headline">¶</a></h2>
 <p>Follow these few simple steps to install Superset.:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Install superset</span>
-<span class="n">pip</span> <span class="n">install</span> <span class="n">superset</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span># Install superset
+pip install superset
 
-<span class="c1"># Create an admin user (you will be prompted to set a username, first and last name before setting a password)</span>
-<span class="n">fabmanager</span> <span class="n">create</span><span class="o">-</span><span class="n">admin</span> <span class="o">--</span><span class="n">app</span> <span class="n">superset</span>
+# Initialize the database
+superset db upgrade
 
-<span class="c1"># Initialize the database</span>
-<span class="n">superset</span> <span class="n">db</span> <span class="n">upgrade</span>
+# Create an admin user (you will be prompted to set a username, first and last name before setting a password)
+$ export FLASK_APP=superset
+flask fab create-admin
 
-<span class="c1"># Load some data to play with</span>
-<span class="n">superset</span> <span class="n">load_examples</span>
+# Load some data to play with
+superset load_examples
 
-<span class="c1"># Create default roles and permissions</span>
-<span class="n">superset</span> <span class="n">init</span>
+# Create default roles and permissions
+superset init
 
-<span class="c1"># To start a development web server on port 8088, use -p to bind to another port</span>
-<span class="n">superset</span> <span class="n">runserver</span> <span class="o">-</span><span class="n">d</span>
+# To start a development web server on port 8088, use -p to bind to another port
+superset run -p 8080 --with-threads --reload --debugger
 </pre></div>
 </div>
 <p>After installation, you should be able to point your browser to the right
@@ -372,12 +382,10 @@ setup known to work well in production:</p>
 </pre></div>
 </div>
 <p>Refer to the
-<a class="reference external" href="http://docs.gunicorn.org/en/stable/design.html">Gunicorn documentation</a>
+<a class="reference external" href="https://docs.gunicorn.org/en/stable/design.html">Gunicorn documentation</a>
 for more information.</p>
-<p>Note that <em>gunicorn</em> does not
-work on Windows so the <cite>superset runserver</cite> command is not expected to work
-in that context. Also, note that the development web
-server (<cite>superset runserver -d</cite>) is not intended for production use.</p>
+<p>Note that the development web
+server (<cite>superset run</cite> or <cite>flask run</cite>) is not intended for production use.</p>
 <p>If not using gunicorn, you may want to disable the use of flask-compress
 by setting <cite>ENABLE_FLASK_COMPRESS = False</cite> in your <cite>superset_config.py</cite></p>
 </div>
@@ -389,15 +397,10 @@ the ‘Admin’ role. The issue, however, is when you are running multiple concu
 workers this creates a lot of contention and race conditions when defining
 permissions and views.</p>
 <p>To alleviate this issue, the automatic updating of permissions can be disabled
-by setting the environment variable
-<cite>SUPERSET_UPDATE_PERMS</cite> environment variable to <cite>0</cite>.
-The value <cite>1</cite> enables it, <cite>0</cite> disables it. Note if undefined the functionality
-is enabled to maintain backwards compatibility.</p>
+by setting <cite>FAB_UPDATE_PERMS = False</cite> (defaults to True).</p>
 <p>In a production environment initialization could take on the following form:</p>
 <blockquote>
-<div><p>export SUPERSET_UPDATE_PERMS=1
-superset init</p>
-<p>export SUPERSET_UPDATE_PERMS=0
+<div><p>superset init
 gunicorn -w 10 … superset:app</p>
 </div></blockquote>
 </div>
@@ -466,17 +469,18 @@ can be used to alter the settings Flask itself,
 as well as Flask extensions like <code class="docutils literal notranslate"><span class="pre">flask-wtf</span></code>, <code class="docutils literal notranslate"><span class="pre">flask-cache</span></code>,
 <code class="docutils literal notranslate"><span class="pre">flask-migrate</span></code>, and <code class="docutils literal notranslate"><span class="pre">flask-appbuilder</span></code>. Flask App Builder, the web
 framework used by Superset offers many configuration settings. Please consult
-the <a class="reference external" href="http://flask-appbuilder.readthedocs.org/en/latest/config.html">Flask App Builder Documentation</a>
+the <a class="reference external" href="https://flask-appbuilder.readthedocs.org/en/latest/config.html">Flask App Builder Documentation</a>
 for more information on how to configure it.</p>
 <p>Make sure to change:</p>
 <ul class="simple">
-<li><em>SQLALCHEMY_DATABASE_URI</em>, by default it is stored at <em>~/.superset/superset.db</em></li>
-<li><em>SECRET_KEY</em>, to a long random string</li>
+<li><p><em>SQLALCHEMY_DATABASE_URI</em>, by default it is stored at <em>~/.superset/superset.db</em></p></li>
+<li><p><em>SECRET_KEY</em>, to a long random string</p></li>
 </ul>
 <p>In case you need to exempt endpoints from CSRF, e.g. you are running a custom
 auth postback endpoint, you can add them to <em>WTF_CSRF_EXEMPT_LIST</em></p>
 <blockquote>
-<div>WTF_CSRF_EXEMPT_LIST = [‘’]</div></blockquote>
+<div><p>WTF_CSRF_EXEMPT_LIST = [‘’]</p>
+</div></blockquote>
 </div>
 <div class="section" id="database-dependencies">
 <span id="ref-database-deps"></span><h2>Database dependencies<a class="headerlink" href="#database-dependencies" title="Permalink to this headline">¶</a></h2>
@@ -486,101 +490,115 @@ You’ll need to install the required packages for the database you
 want to use as your metadata database as well as the packages needed to
 connect to the databases you want to access through Superset.</p>
 <p>Here’s a list of some of the recommended packages.</p>
-<table border="1" class="docutils">
+<table class="docutils align-default">
 <colgroup>
-<col width="15%" />
-<col width="37%" />
-<col width="49%" />
+<col style="width: 17%" />
+<col style="width: 37%" />
+<col style="width: 46%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">database</th>
-<th class="head">pypi package</th>
-<th class="head">SQLAlchemy URI prefix</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>database</p></th>
+<th class="head"><p>pypi package</p></th>
+<th class="head"><p>SQLAlchemy URI prefix</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>MySQL</td>
-<td><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">mysqlclient</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">mysql://</span></code></td>
+<tbody>
+<tr class="row-even"><td><p>Amazon Athena</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">&quot;PyAthenaJDBC&gt;1.0.9&quot;</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">awsathena+jdbc://</span></code></p></td>
 </tr>
-<tr class="row-odd"><td>Postgres</td>
-<td><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">psycopg2</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">postgresql+psycopg2://</span></code></td>
+<tr class="row-odd"><td><p>Amazon Athena</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">&quot;PyAthena&gt;1.2.0&quot;</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">awsathena+rest://</span></code></p></td>
 </tr>
-<tr class="row-even"><td>Presto</td>
-<td><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">pyhive</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">presto://</span></code></td>
+<tr class="row-even"><td><p>Amazon Redshift</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">sqlalchemy-redshift</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">redshift+psycopg2://</span></code></p></td>
 </tr>
-<tr class="row-odd"><td>Hive</td>
-<td><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">pyhive</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">hive://</span></code></td>
+<tr class="row-odd"><td><p>Apache Drill</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">sqlalchemy-drill</span></code></p></td>
+<td><p>For the REST API:``
+<code class="docutils literal notranslate"><span class="pre">drill+sadrill://</span></code>
+For JDBC
+<code class="docutils literal notranslate"><span class="pre">drill+jdbc://</span></code></p></td>
 </tr>
-<tr class="row-even"><td>Oracle</td>
-<td><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">cx_Oracle</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">oracle://</span></code></td>
+<tr class="row-even"><td><p>Apache Druid</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">pyduid</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">druid://</span></code></p></td>
 </tr>
-<tr class="row-odd"><td>sqlite</td>
-<td>&#160;</td>
-<td><code class="docutils literal notranslate"><span class="pre">sqlite://</span></code></td>
+<tr class="row-odd"><td><p>Apache Hive</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">pyhive</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">hive://</span></code></p></td>
 </tr>
-<tr class="row-even"><td>Snowflake</td>
-<td><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">snowflake-sqlalchemy</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">snowflake://</span></code></td>
+<tr class="row-even"><td><p>Apache Impala</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">impyla</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">impala://</span></code></p></td>
 </tr>
-<tr class="row-odd"><td>Redshift</td>
-<td><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">sqlalchemy-redshift</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">redshift+psycopg2://</span></code></td>
+<tr class="row-odd"><td><p>Apache Kylin</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">kylinpy</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">kylin://</span></code></p></td>
 </tr>
-<tr class="row-even"><td>MSSQL</td>
-<td><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">pymssql</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">mssql://</span></code></td>
+<tr class="row-even"><td><p>Apache Pinot</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">pinotdb</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">pinot+http://CONTROLLER:5436/</span></code>
+<code class="docutils literal notranslate"><span class="pre">query?server=http://CONTROLLER:5983/</span></code></p></td>
 </tr>
-<tr class="row-odd"><td>Impala</td>
-<td><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">impyla</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">impala://</span></code></td>
+<tr class="row-odd"><td><p>Apache Spark SQL</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">pyhive</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">jdbc+hive://</span></code></p></td>
 </tr>
-<tr class="row-even"><td>SparkSQL</td>
-<td><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">pyhive</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">jdbc+hive://</span></code></td>
+<tr class="row-even"><td><p>BigQuery</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">pybigquery</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bigquery://</span></code></p></td>
 </tr>
-<tr class="row-odd"><td>Greenplum</td>
-<td><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">psycopg2</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">postgresql+psycopg2://</span></code></td>
+<tr class="row-odd"><td><p>ClickHouse</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">sqlalchemy-clickhouse</span></code></p></td>
+<td></td>
 </tr>
-<tr class="row-even"><td>Athena</td>
-<td><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">&quot;PyAthenaJDBC&gt;1.0.9&quot;</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">awsathena+jdbc://</span></code></td>
+<tr class="row-even"><td><p>Google Sheets</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">gsheetsdb</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">gsheets://</span></code></p></td>
 </tr>
-<tr class="row-odd"><td>Athena</td>
-<td><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">&quot;PyAthena&gt;1.2.0&quot;</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">awsathena+rest://</span></code></td>
+<tr class="row-odd"><td><p>IBM Db2</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">ibm_db_sa</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">db2+ibm_db://</span></code></p></td>
 </tr>
-<tr class="row-even"><td>Vertica</td>
-<td><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span>
-<span class="pre">sqlalchemy-vertica-python</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">vertica+vertica_python://</span></code></td>
+<tr class="row-even"><td><p>MySQL</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">mysqlclient</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">mysql://</span></code></p></td>
 </tr>
-<tr class="row-odd"><td>ClickHouse</td>
-<td><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span>
-<span class="pre">sqlalchemy-clickhouse</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">clickhouse://</span></code></td>
+<tr class="row-odd"><td><p>Oracle</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">cx_Oracle</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">oracle://</span></code></p></td>
 </tr>
-<tr class="row-even"><td>Kylin</td>
-<td><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">kylinpy</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">kylin://</span></code></td>
+<tr class="row-even"><td><p>PostgreSQL</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">psycopg2</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">postgresql+psycopg2://</span></code></p></td>
 </tr>
-<tr class="row-odd"><td>BigQuery</td>
-<td><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">pybigquery</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">bigquery://</span></code></td>
+<tr class="row-odd"><td><p>Presto</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">pyhive</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">presto://</span></code></p></td>
 </tr>
-<tr class="row-even"><td>Teradata</td>
-<td><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">sqlalchemy-teradata</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">teradata://</span></code></td>
+<tr class="row-even"><td><p>Snowflake</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">snowflake-sqlalchemy</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">snowflake://</span></code></p></td>
 </tr>
-<tr class="row-odd"><td>Pinot</td>
-<td><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">pinotdb</span></code></td>
-<td><code class="docutils literal notranslate"><span class="pre">pinot+http://controller:5436/</span></code>
-<code class="docutils literal notranslate"><span class="pre">query?server=http://controller:5983/</span></code></td>
+<tr class="row-odd"><td><p>SQLite</p></td>
+<td></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">sqlite://</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>SQL Server</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">pymssql</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">mssql://</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Teradata</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">sqlalchemy-teradata</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">teradata://</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Vertica</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span>
+<span class="pre">sqlalchemy-vertica-python</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">vertica+vertica_python://</span></code></p></td>
 </tr>
 </tbody>
 </table>
@@ -605,9 +623,13 @@ database you want to connect to should get you to the right place.</p>
 </div>
 <p>See <a class="reference external" href="https://github.com/laughingman7743/PyAthena#sqlalchemy">PyAthena</a>.</p>
 </div>
-<div class="section" id="mssql">
-<h2>MSSQL<a class="headerlink" href="#mssql" title="Permalink to this headline">¶</a></h2>
-<p>Full Unicode support requires SQLAlchemy 1.3 or later.</p>
+<div class="section" id="google-bigquery">
+<h2>(Google) BigQuery<a class="headerlink" href="#google-bigquery" title="Permalink to this headline">¶</a></h2>
+<p>The connection string for BigQuery looks like this</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">bigquery</span><span class="p">:</span><span class="o">//</span><span class="p">{</span><span class="n">project_id</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>To be able to upload data, e.g. sample data, the python library <cite>pandas_gbq</cite> is required.</p>
 </div>
 <div class="section" id="snowflake">
 <h2>Snowflake<a class="headerlink" href="#snowflake" title="Permalink to this headline">¶</a></h2>
@@ -618,7 +640,8 @@ database you want to connect to should get you to the right place.</p>
 <p>The schema is not necessary in the connection string, as it is defined per table/query.
 The role and warehouse can be omitted if defaults are defined for the user, i.e.</p>
 <blockquote>
-<div>snowflake://{user}:{password}&#64;{account}.{region}/{database}</div></blockquote>
+<div><p>snowflake://{user}:{password}&#64;{account}.{region}/{database}</p>
+</div></blockquote>
 <p>Make sure the user has privileges to access and use all required
 databases/schemas/tables/views/warehouses, as the Snowflake SQLAlchemy engine does
 not test for user rights during engine creation.</p>
@@ -637,6 +660,29 @@ not test for user rights during engine creation.</p>
 </pre></div>
 </div>
 <p>See <a class="reference external" href="https://github.com/Teradata/sqlalchemy-teradata">Teradata SQLAlchemy</a>.</p>
+</div>
+<div class="section" id="apache-drill">
+<h2>Apache Drill<a class="headerlink" href="#apache-drill" title="Permalink to this headline">¶</a></h2>
+<p>At the time of writing, the SQLAlchemy Dialect is not available on pypi and must be downloaded here:
+<a class="reference external" href="https://github.com/JohnOmernik/sqlalchemy-drill">SQLAlchemy Drill</a></p>
+<p>Alternatively, you can install it completely from the command line as follows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">JohnOmernik</span><span class="o">/</span><span class="n">sqlalchemy</span><span class="o">-</span><span class="n">drill</span>
+<span class="n">cd</span> <span class="n">sqlalchemy</span><span class="o">-</span><span class="n">drill</span>
+<span class="n">python3</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">install</span>
+</pre></div>
+</div>
+<p>Once that is done, you can connect to Drill in two ways, either via the REST interface or by JDBC.  If you are connecting via JDBC, you must have the
+Drill JDBC Driver installed.</p>
+<p>The basic connection string for Drill looks like this</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>drill+sadrill://{username}:{password}@{host}:{port}/{storage_plugin}?use_ssl=True
+</pre></div>
+</div>
+<p>If you are using JDBC to connect to Drill, the connection string looks like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">drill</span><span class="o">+</span><span class="n">jdbc</span><span class="p">:</span><span class="o">//</span><span class="p">{</span><span class="n">username</span><span class="p">}:{</span><span class="n">password</span><span class="p">}</span><span class="o">@</span><span class="p">{</span><span class="n">host</span><span class="p">}:{</span><span class="n">port</span><span class="p">}</span><span class="o">/</span><span class="p">{</span><span class="n">storage_plugin</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>For a complete tutorial about how to use Apache Drill with Superset, see this tutorial:
+<a class="reference external" href="http://thedataist.com/visualize-anything-with-superset-and-drill/">Visualize Anything with Superset and Drill</a></p>
 </div>
 <div class="section" id="caching">
 <h2>Caching<a class="headerlink" href="#caching" title="Permalink to this headline">¶</a></h2>
@@ -664,6 +710,24 @@ into your global default defined in <code class="docutils literal notranslate"><
 <span class="p">}</span>
 </pre></div>
 </div>
+<p>Superset has a Celery task that will periodically warm up the cache based on
+different strategies. To use it, add the following to the <cite>CELERYBEAT_SCHEDULE</cite>
+section in <cite>config.py</cite>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">CELERYBEAT_SCHEDULE</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;cache-warmup-hourly&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;task&#39;</span><span class="p">:</span> <span class="s1">&#39;cache-warmup&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;schedule&#39;</span><span class="p">:</span> <span class="n">crontab</span><span class="p">(</span><span class="n">minute</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">hour</span><span class="o">=</span><span class="s1">&#39;*&#39;</span><span class="p">),</span>  <span class="c1"># hourly</span>
+        <span class="s1">&#39;kwargs&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;strategy_name&#39;</span><span class="p">:</span> <span class="s1">&#39;top_n_dashboards&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;top_n&#39;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+            <span class="s1">&#39;since&#39;</span><span class="p">:</span> <span class="s1">&#39;7 days ago&#39;</span><span class="p">,</span>
+        <span class="p">},</span>
+    <span class="p">},</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>This will cache all the charts in the top 5 most popular dashboards every hour.
+For other strategies, check the <cite>superset/tasks/cache.py</cite> file.</p>
 </div>
 <div class="section" id="deeper-sqlalchemy-integration">
 <h2>Deeper SQLAlchemy integration<a class="headerlink" href="#deeper-sqlalchemy-integration" title="Permalink to this headline">¶</a></h2>
@@ -673,9 +737,9 @@ find an <code class="docutils literal notranslate"><span class="pre">extra</span
 <a class="reference internal image-reference" href="_images/add_db.png"><img alt="_images/add_db.png" src="_images/add_db.png" style="width: 534.0px; height: 370.8px;" /></a>
 <p>This JSON string contains extra configuration elements. The <code class="docutils literal notranslate"><span class="pre">engine_params</span></code>
 object gets unpacked into the
-<a class="reference external" href="http://docs.sqlalchemy.org/en/latest/core/engines.html#sqlalchemy.create_engine">sqlalchemy.create_engine</a> call,
+<a class="reference external" href="https://docs.sqlalchemy.org/en/latest/core/engines.html#sqlalchemy.create_engine">sqlalchemy.create_engine</a> call,
 while the <code class="docutils literal notranslate"><span class="pre">metadata_params</span></code> get unpacked into the
-<a class="reference external" href="http://docs.sqlalchemy.org/en/rel_1_0/core/metadata.html#sqlalchemy.schema.MetaData">sqlalchemy.MetaData</a> call. Refer to the SQLAlchemy docs for more information.</p>
+<a class="reference external" href="https://docs.sqlalchemy.org/en/rel_1_2/core/metadata.html#sqlalchemy.schema.MetaData">sqlalchemy.MetaData</a> call. Refer to the SQLAlchemy docs for more information.</p>
 </div>
 <div class="section" id="schemas-postgres-redshift">
 <h2>Schemas (Postgres &amp; Redshift)<a class="headerlink" href="#schemas-postgres-redshift" title="Permalink to this headline">¶</a></h2>
@@ -731,11 +795,11 @@ parameter</p>
 <div class="section" id="druid">
 <h2>Druid<a class="headerlink" href="#druid" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>From the UI, enter the information about your clusters in the
-<cite>Sources -&gt; Druid Clusters</cite> menu by hitting the + sign.</li>
-<li>Once the Druid cluster connection information is entered, hit the
-<cite>Sources -&gt; Refresh Druid Metadata</cite> menu item to populate</li>
-<li>Navigate to your datasources</li>
+<li><p>From the UI, enter the information about your clusters in the
+<cite>Sources -&gt; Druid Clusters</cite> menu by hitting the + sign.</p></li>
+<li><p>Once the Druid cluster connection information is entered, hit the
+<cite>Sources -&gt; Refresh Druid Metadata</cite> menu item to populate</p></li>
+<li><p>Navigate to your datasources</p></li>
 </ul>
 <p>Note that you can run the <code class="docutils literal notranslate"><span class="pre">superset</span> <span class="pre">refresh_druid</span></code> command to refresh the
 metadata from your Druid cluster(s)</p>
@@ -744,11 +808,12 @@ metadata from your Druid cluster(s)</p>
 <h2>CORS<a class="headerlink" href="#cors" title="Permalink to this headline">¶</a></h2>
 <p>The extra CORS Dependency must be installed:</p>
 <blockquote>
-<div>superset[cors]</div></blockquote>
+<div><p>superset[cors]</p>
+</div></blockquote>
 <p>The following keys in <cite>superset_config.py</cite> can be specified to configure CORS:</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">ENABLE_CORS</span></code>: Must be set to True in order to enable CORS</li>
-<li><code class="docutils literal notranslate"><span class="pre">CORS_OPTIONS</span></code>: options passed to Flask-CORS (<cite>documentation &lt;http://flask-cors.corydolphin.com/en/latest/api.html#extension&gt;</cite>)</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ENABLE_CORS</span></code>: Must be set to True in order to enable CORS</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CORS_OPTIONS</span></code>: options passed to Flask-CORS (<cite>documentation &lt;https://flask-cors.corydolphin.com/en/latest/api.html#extension&gt;</cite>)</p></li>
 </ul>
 </div>
 <div class="section" id="domain-sharding">
@@ -759,7 +824,7 @@ next available socket. PR (<cite>#5039 &lt;https://github.com/apache/incubator-s
 and this feature will be enabled by configuration only (by default Superset
 doesn’t allow cross-domain request).</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">SUPERSET_WEBSERVER_DOMAINS</span></code>: list of allowed hostnames for domain sharding feature. default <cite>None</cite></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SUPERSET_WEBSERVER_DOMAINS</span></code>: list of allowed hostnames for domain sharding feature. default <cite>None</cite></p></li>
 </ul>
 </div>
 <div class="section" id="middleware">
@@ -795,8 +860,8 @@ as taking a database backup prior to the upgrade, upgrading a staging
 environment prior to upgrading production, and upgrading production while less
 users are active on the platform.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Some upgrades may contain backward-incompatible changes, or require
+<p class="admonition-title">Note</p>
+<p>Some upgrades may contain backward-incompatible changes, or require
 scheduling downtime, when that is the case, contributors attach notes in
 <code class="docutils literal notranslate"><span class="pre">UPDATING.md</span></code> in the repository. It’s recommended to review this
 file prior to running an upgrade.</p>
@@ -804,23 +869,19 @@ file prior to running an upgrade.</p>
 </div>
 <div class="section" id="celery-tasks">
 <h2>Celery Tasks<a class="headerlink" href="#celery-tasks" title="Permalink to this headline">¶</a></h2>
-<p>On large analytic databases, it’s common to run background jobs, reports
-and/or queries that execute for minutes or hours. In certain cases, we need
-to support long running tasks that execute beyond the typical web request’s
-timeout (30-60 seconds).</p>
 <p>On large analytic databases, it’s common to run queries that
 execute for minutes or hours.
 To enable support for long running queries that
 execute beyond the typical web request’s timeout (30-60 seconds), it is
 necessary to configure an asynchronous backend for Superset which consists of:</p>
 <ul class="simple">
-<li>one or many Superset workers (which is implemented as a Celery worker), and
+<li><p>one or many Superset workers (which is implemented as a Celery worker), and
 can be started with the <code class="docutils literal notranslate"><span class="pre">celery</span> <span class="pre">worker</span></code> command, run
-<code class="docutils literal notranslate"><span class="pre">celery</span> <span class="pre">worker</span> <span class="pre">--help</span></code> to view the related options.</li>
-<li>a celery broker (message queue) for which we recommend using Redis
-or RabbitMQ</li>
-<li>a results backend that defines where the worker will persist the query
-results</li>
+<code class="docutils literal notranslate"><span class="pre">celery</span> <span class="pre">worker</span> <span class="pre">--help</span></code> to view the related options.</p></li>
+<li><p>a celery broker (message queue) for which we recommend using Redis
+or RabbitMQ</p></li>
+<li><p>a results backend that defines where the worker will persist the query
+results</p></li>
 </ul>
 <p>Configuring Celery requires defining a <code class="docutils literal notranslate"><span class="pre">CELERY_CONFIG</span></code> in your
 <code class="docutils literal notranslate"><span class="pre">superset_config.py</span></code>. Both the worker and web server processes should
@@ -857,12 +918,12 @@ have the same configuration.</p>
 </pre></div>
 </div>
 <ul>
-<li><p class="first">To start a Celery worker to leverage the configuration run:</p>
+<li><p>To start a Celery worker to leverage the configuration run:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">celery</span> <span class="n">worker</span> <span class="o">--</span><span class="n">app</span><span class="o">=</span><span class="n">superset</span><span class="o">.</span><span class="n">tasks</span><span class="o">.</span><span class="n">celery_app</span><span class="p">:</span><span class="n">app</span> <span class="o">--</span><span class="n">pool</span><span class="o">=</span><span class="n">prefork</span> <span class="o">-</span><span class="n">Ofair</span> <span class="o">-</span><span class="n">c</span> <span class="mi">4</span>
 </pre></div>
 </div>
 </li>
-<li><p class="first">To start a job which schedules periodic background jobs, run</p>
+<li><p>To start a job which schedules periodic background jobs, run</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">celery</span> <span class="n">beat</span> <span class="o">--</span><span class="n">app</span><span class="o">=</span><span class="n">superset</span><span class="o">.</span><span class="n">tasks</span><span class="o">.</span><span class="n">celery_app</span><span class="p">:</span><span class="n">app</span>
 </pre></div>
 </div>
@@ -889,23 +950,23 @@ look something like:</p>
 </div>
 <p><strong>Important notes</strong></p>
 <ul class="simple">
-<li>It is important that all the worker nodes and web servers in
+<li><p>It is important that all the worker nodes and web servers in
 the Superset cluster share a common metadata database.
 This means that SQLite will not work in this context since it has
 limited support for concurrency and
-typically lives on the local file system.</li>
-<li>There should only be one instance of <code class="docutils literal notranslate"><span class="pre">celery</span> <span class="pre">beat</span></code> running in your
+typically lives on the local file system.</p></li>
+<li><p>There should only be one instance of <code class="docutils literal notranslate"><span class="pre">celery</span> <span class="pre">beat</span></code> running in your
 entire setup. If not, background jobs can get scheduled multiple times
 resulting in weird behaviors like duplicate delivery of reports,
-higher than expected load / traffic etc.</li>
+higher than expected load / traffic etc.</p></li>
 </ul>
 </div>
 <div class="section" id="email-reports">
 <h2>Email Reports<a class="headerlink" href="#email-reports" title="Permalink to this headline">¶</a></h2>
 <p>Email reports allow users to schedule email reports for</p>
 <ul class="simple">
-<li>slice and dashboard visualization (Attachment or inline)</li>
-<li>slice data (CSV attachment on inline table)</li>
+<li><p>slice and dashboard visualization (Attachment or inline)</p></li>
+<li><p>slice data (CSV attachment on inline table)</p></li>
 </ul>
 <p>Schedules are defined in crontab format and each schedule
 can have a list of recipients (all of them can receive a single mail,
@@ -913,13 +974,13 @@ or separate mails). For audit purposes, all outgoing mails can have a
 mandatory bcc.</p>
 <p><strong>Requirements</strong></p>
 <ul>
-<li><p class="first">A selenium compatible driver &amp; headless browser</p>
+<li><p>A selenium compatible driver &amp; headless browser</p>
 <ul class="simple">
-<li><a class="reference external" href="https://github.com/mozilla/geckodriver">geckodriver</a> and Firefox is preferred</li>
-<li><a class="reference external" href="http://chromedriver.chromium.org/">chromedriver</a> is a good option too</li>
+<li><p><a class="reference external" href="https://github.com/mozilla/geckodriver">geckodriver</a> and Firefox is preferred</p></li>
+<li><p><a class="reference external" href="http://chromedriver.chromium.org/">chromedriver</a> is a good option too</p></li>
 </ul>
 </li>
-<li><p class="first">Run <cite>celery worker</cite> and <cite>celery beat</cite> as follows</p>
+<li><p>Run <cite>celery worker</cite> and <cite>celery beat</cite> as follows</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">celery</span> <span class="n">worker</span> <span class="o">--</span><span class="n">app</span><span class="o">=</span><span class="n">superset</span><span class="o">.</span><span class="n">tasks</span><span class="o">.</span><span class="n">celery_app</span><span class="p">:</span><span class="n">app</span> <span class="o">--</span><span class="n">pool</span><span class="o">=</span><span class="n">prefork</span> <span class="o">-</span><span class="n">Ofair</span> <span class="o">-</span><span class="n">c</span> <span class="mi">4</span>
 <span class="n">celery</span> <span class="n">beat</span> <span class="o">--</span><span class="n">app</span><span class="o">=</span><span class="n">superset</span><span class="o">.</span><span class="n">tasks</span><span class="o">.</span><span class="n">celery_app</span><span class="p">:</span><span class="n">app</span>
 </pre></div>
@@ -928,18 +989,16 @@ mandatory bcc.</p>
 </ul>
 <p><strong>Important notes</strong></p>
 <ul>
-<li><p class="first">Be mindful of the concurrency setting for celery (using <code class="docutils literal notranslate"><span class="pre">-c</span> <span class="pre">4</span></code>).
-Selenium/webdriver instances can consume a lot of CPU / memory on your servers.</p>
-</li>
-<li><p class="first">In some cases, if you notice a lot of leaked <code class="docutils literal notranslate"><span class="pre">geckodriver</span></code> processes, try running
+<li><p>Be mindful of the concurrency setting for celery (using <code class="docutils literal notranslate"><span class="pre">-c</span> <span class="pre">4</span></code>).
+Selenium/webdriver instances can consume a lot of CPU / memory on your servers.</p></li>
+<li><p>In some cases, if you notice a lot of leaked <code class="docutils literal notranslate"><span class="pre">geckodriver</span></code> processes, try running
 your celery processes with</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">celery</span> <span class="n">worker</span> <span class="o">--</span><span class="n">pool</span><span class="o">=</span><span class="n">prefork</span> <span class="o">--</span><span class="nb">max</span><span class="o">-</span><span class="n">tasks</span><span class="o">-</span><span class="n">per</span><span class="o">-</span><span class="n">child</span><span class="o">=</span><span class="mi">128</span> <span class="o">...</span>
 </pre></div>
 </div>
 </li>
-<li><p class="first">It is recommended to run separate workers for <code class="docutils literal notranslate"><span class="pre">sql_lab</span></code> and
-<code class="docutils literal notranslate"><span class="pre">email_reports</span></code> tasks. Can be done by using <code class="docutils literal notranslate"><span class="pre">queue</span></code> field in <code class="docutils literal notranslate"><span class="pre">CELERY_ANNOTATIONS</span></code></p>
-</li>
+<li><p>It is recommended to run separate workers for <code class="docutils literal notranslate"><span class="pre">sql_lab</span></code> and
+<code class="docutils literal notranslate"><span class="pre">email_reports</span></code> tasks. Can be done by using <code class="docutils literal notranslate"><span class="pre">queue</span></code> field in <code class="docutils literal notranslate"><span class="pre">CELERY_ANNOTATIONS</span></code></p></li>
 </ul>
 </div>
 <div class="section" id="sql-lab">
@@ -961,6 +1020,112 @@ in this dictionary are made available for users to use in their SQL.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
+<p>SQL Lab also includes a live query validation feature with pluggable backends.
+You can configure which validation implementation is used with which database
+engine by adding a block like the following to your config.py:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">FEATURE_FLAGS</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;SQL_VALIDATORS_BY_ENGINE&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;presto&#39;</span><span class="p">:</span> <span class="s1">&#39;PrestoDBSQLValidator&#39;</span><span class="p">,</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The available validators and names can be found in <cite>sql_validators/</cite>.</p>
+<p><strong>Scheduling queries</strong></p>
+<p>You can optionally allow your users to schedule queries directly in SQL Lab.
+This is done by addding extra metadata to saved queries, which are then picked
+up by an external scheduled (like [Apache Airflow](<a class="reference external" href="https://airflow.apache.org/">https://airflow.apache.org/</a>)).</p>
+<p>To allow scheduled queries, add the following to your <cite>config.py</cite>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">FEATURE_FLAGS</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="c1"># Configuration for scheduling queries from SQL Lab. This information is</span>
+    <span class="c1"># collected when the user clicks &quot;Schedule query&quot;, and saved into the `extra`</span>
+    <span class="c1"># field of saved queries.</span>
+    <span class="c1"># See: https://github.com/mozilla-services/react-jsonschema-form</span>
+    <span class="s1">&#39;SCHEDULED_QUERIES&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;JSONSCHEMA&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="s1">&#39;Schedule&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="p">(</span>
+                <span class="s1">&#39;In order to schedule a query, you need to specify when it &#39;</span>
+                <span class="s1">&#39;should start running, when it should stop running, and how &#39;</span>
+                <span class="s1">&#39;often it should run. You can also optionally specify &#39;</span>
+                <span class="s1">&#39;dependencies that should be met before the query is &#39;</span>
+                <span class="s1">&#39;executed. Please read the documentation for best practices &#39;</span>
+                <span class="s1">&#39;and more information on how to specify dependencies.&#39;</span>
+            <span class="p">),</span>
+            <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;object&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;properties&#39;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s1">&#39;output_table&#39;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;string&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="s1">&#39;Output table name&#39;</span><span class="p">,</span>
+                <span class="p">},</span>
+                <span class="s1">&#39;start_date&#39;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;string&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="s1">&#39;Start date&#39;</span><span class="p">,</span>
+                    <span class="c1"># date-time is parsed using the chrono library, see</span>
+                    <span class="c1"># https://www.npmjs.com/package/chrono-node#usage</span>
+                    <span class="s1">&#39;format&#39;</span><span class="p">:</span> <span class="s1">&#39;date-time&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;default&#39;</span><span class="p">:</span> <span class="s1">&#39;tomorrow at 9am&#39;</span><span class="p">,</span>
+                <span class="p">},</span>
+                <span class="s1">&#39;end_date&#39;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;string&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="s1">&#39;End date&#39;</span><span class="p">,</span>
+                    <span class="c1"># date-time is parsed using the chrono library, see</span>
+                    <span class="c1"># https://www.npmjs.com/package/chrono-node#usage</span>
+                    <span class="s1">&#39;format&#39;</span><span class="p">:</span> <span class="s1">&#39;date-time&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;default&#39;</span><span class="p">:</span> <span class="s1">&#39;9am in 30 days&#39;</span><span class="p">,</span>
+                <span class="p">},</span>
+                <span class="s1">&#39;schedule_interval&#39;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;string&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="s1">&#39;Schedule interval&#39;</span><span class="p">,</span>
+                <span class="p">},</span>
+                <span class="s1">&#39;dependencies&#39;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;array&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="s1">&#39;Dependencies&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;items&#39;</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;string&#39;</span><span class="p">,</span>
+                    <span class="p">},</span>
+                <span class="p">},</span>
+            <span class="p">},</span>
+        <span class="p">},</span>
+        <span class="s1">&#39;UISCHEMA&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;schedule_interval&#39;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s1">&#39;ui:placeholder&#39;</span><span class="p">:</span> <span class="s1">&#39;@daily, @weekly, etc.&#39;</span><span class="p">,</span>
+            <span class="p">},</span>
+            <span class="s1">&#39;dependencies&#39;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s1">&#39;ui:help&#39;</span><span class="p">:</span> <span class="p">(</span>
+                    <span class="s1">&#39;Check the documentation for the correct format when &#39;</span>
+                    <span class="s1">&#39;defining dependencies.&#39;</span>
+                <span class="p">),</span>
+            <span class="p">},</span>
+        <span class="p">},</span>
+        <span class="s1">&#39;VALIDATION&#39;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="c1"># ensure that start_date &lt;= end_date</span>
+            <span class="p">{</span>
+                <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;less_equal&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;arguments&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;start_date&#39;</span><span class="p">,</span> <span class="s1">&#39;end_date&#39;</span><span class="p">],</span>
+                <span class="s1">&#39;message&#39;</span><span class="p">:</span> <span class="s1">&#39;End date cannot be before start date&#39;</span><span class="p">,</span>
+                <span class="c1"># this is where the error message is shown</span>
+                <span class="s1">&#39;container&#39;</span><span class="p">:</span> <span class="s1">&#39;end_date&#39;</span><span class="p">,</span>
+            <span class="p">},</span>
+        <span class="p">],</span>
+        <span class="c1"># link to the scheduler; this example links to an Airflow pipeline</span>
+        <span class="c1"># that uses the query id and the output table as its name</span>
+        <span class="s1">&#39;linkback&#39;</span><span class="p">:</span> <span class="p">(</span>
+            <span class="s1">&#39;https://airflow.example.com/admin/airflow/tree?&#39;</span>
+            <span class="s1">&#39;dag_id=query_${id}_${extra_json.schedule_info.output_table}&#39;</span>
+        <span class="p">),</span>
+    <span class="p">},</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>This feature flag is based on [react-jsonschema-form](<a class="reference external" href="https://github.com/mozilla-services/react-jsonschema-form">https://github.com/mozilla-services/react-jsonschema-form</a>),
+and will add a button called “Schedule Query” to SQL Lab. When the button is
+clicked, a modal will show up where the user can add the metadata required for
+scheduling the query.</p>
+<p>This information can then be retrieved from the endpoint <cite>/savedqueryviewapi/api/read</cite>
+and used to schedule the queries that have <cite>scheduled_queries</cite> in their JSON
+metadata. For schedulers other than Airflow, additional fields can be easily
+added to the configuration file above.</p>
 </div>
 <div class="section" id="celery-flower">
 <h2>Celery Flower<a class="headerlink" href="#celery-flower" title="Permalink to this headline">¶</a></h2>
@@ -1097,7 +1262,7 @@ located in <code class="docutils literal notranslate"><span class="pre">install/
         <a href="tutorial.html" class="btn btn-neutral float-right" title="Tutorial - Creating your first dashboard" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="index.html" class="btn btn-neutral" title="Apache Superset (incubating)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="index.html" class="btn btn-neutral float-left" title="Apache Superset (incubating)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -1106,7 +1271,6 @@ located in <code class="docutils literal notranslate"><span class="pre">install/
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright Copyright © 2018 The Apache Software Foundation, Licensed under the Apache License, Version 2.0..
 
     </p>
   </div> 
@@ -1122,36 +1286,16 @@ located in <code class="docutils literal notranslate"><span class="pre">install/
   
 
 
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'./',
-            VERSION:'',
-            LANGUAGE:'None',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="_static/jquery.js"></script>
-      <script type="text/javascript" src="_static/underscore.js"></script>
-      <script type="text/javascript" src="_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-
-  
-
-  
-  
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-  
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

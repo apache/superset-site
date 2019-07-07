@@ -17,34 +17,35 @@
   
 
   
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
-  
-    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="prev" title="Importing and Exporting Datasources" href="import_export_datasources.html" /> 
-
-  
-  <script src="_static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -95,7 +96,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#why-is-the-map-not-visible-in-the-mapbox-visualization">Why is the map not visible in the mapbox visualization?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#how-to-add-dynamic-filters-to-a-dashboard">How to add dynamic filters to a dashboard?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#how-to-limit-the-timed-refresh-on-a-dashboard">How to limit the timed refresh on a dashboard?</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#why-does-fabmanager-or-superset-freezed-hung-not-responding-when-started-my-home-directory-is-nfs-mounted">Why does fabmanager or superset freezed/hung/not responding when started (my home directory is NFS mounted)?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#why-does-flask-fab-or-superset-freezed-hung-not-responding-when-started-my-home-directory-is-nfs-mounted">Why does ‘flask fab’ or superset freezed/hung/not responding when started (my home directory is NFS mounted)?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#what-if-the-table-schema-changed">What if the table schema changed?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#how-do-i-go-about-developing-a-new-visualization-type">How do I go about developing a new visualization type?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#what-database-engine-can-i-use-as-a-backend-for-superset">What database engine can I use as a backend for Superset?</a></li>
@@ -215,13 +216,13 @@ other on the <code class="docutils literal notranslate"><span class="pre">Source
 <h2>Why are my queries timing out?<a class="headerlink" href="#why-are-my-queries-timing-out" title="Permalink to this headline">¶</a></h2>
 <p>There are many reasons may cause long query timing out.</p>
 <ul>
-<li><p class="first">For running long query from Sql Lab, by default Superset allows it run as long as 6 hours before it being killed by celery. If you want to increase the time for running query, you can specify the timeout in configuration. For example:</p>
+<li><p>For running long query from Sql Lab, by default Superset allows it run as long as 6 hours before it being killed by celery. If you want to increase the time for running query, you can specify the timeout in configuration. For example:</p>
 <p><code class="docutils literal notranslate"><span class="pre">SQLLAB_ASYNC_TIME_LIMIT_SEC</span> <span class="pre">=</span> <span class="pre">60</span> <span class="pre">*</span> <span class="pre">60</span> <span class="pre">*</span> <span class="pre">6</span></code></p>
 </li>
-<li><p class="first">Superset is running on gunicorn web server, which may time out web requests. If you want to increase the default (50), you can specify the timeout when starting the web server with the <code class="docutils literal notranslate"><span class="pre">-t</span></code> flag, which is expressed in seconds.</p>
+<li><p>Superset is running on gunicorn web server, which may time out web requests. If you want to increase the default (50), you can specify the timeout when starting the web server with the <code class="docutils literal notranslate"><span class="pre">-t</span></code> flag, which is expressed in seconds.</p>
 <p><code class="docutils literal notranslate"><span class="pre">superset</span> <span class="pre">runserver</span> <span class="pre">-t</span> <span class="pre">300</span></code></p>
 </li>
-<li><p class="first">If you are seeing timeouts (504 Gateway Time-out) when loading dashboard or explore slice, you are probably behind gateway or proxy server (such as Nginx). If it did not receive a timely response from Superset server (which is processing long queries), these web servers will send 504 status code to clients directly. Superset has a client-side timeout limit to address this issue. If query didn’t come back within clint-side timeout (60 seconds by default), Superset will display warning message to avoid gateway timeout message. If you have a longer gateway timeout limit, you can change the timeout settings in <code class="docutils literal notranslate"><span class="pre">superset_config.py</span></code>:</p>
+<li><p>If you are seeing timeouts (504 Gateway Time-out) when loading dashboard or explore slice, you are probably behind gateway or proxy server (such as Nginx). If it did not receive a timely response from Superset server (which is processing long queries), these web servers will send 504 status code to clients directly. Superset has a client-side timeout limit to address this issue. If query didn’t come back within clint-side timeout (60 seconds by default), Superset will display warning message to avoid gateway timeout message. If you have a longer gateway timeout limit, you can change the timeout settings in <code class="docutils literal notranslate"><span class="pre">superset_config.py</span></code>:</p>
 <p><code class="docutils literal notranslate"><span class="pre">SUPERSET_WEBSERVER_TIMEOUT</span> <span class="pre">=</span> <span class="pre">60</span></code></p>
 </li>
 </ul>
@@ -302,8 +303,8 @@ by setting the <code class="docutils literal notranslate"><span class="pre">stag
 <p>Here, the entire dashboard will refresh at once if periodic refresh is on. The stagger time of
 2.5 seconds is ignored.</p>
 </div>
-<div class="section" id="why-does-fabmanager-or-superset-freezed-hung-not-responding-when-started-my-home-directory-is-nfs-mounted">
-<h2>Why does fabmanager or superset freezed/hung/not responding when started (my home directory is NFS mounted)?<a class="headerlink" href="#why-does-fabmanager-or-superset-freezed-hung-not-responding-when-started-my-home-directory-is-nfs-mounted" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="why-does-flask-fab-or-superset-freezed-hung-not-responding-when-started-my-home-directory-is-nfs-mounted">
+<h2>Why does ‘flask fab’ or superset freezed/hung/not responding when started (my home directory is NFS mounted)?<a class="headerlink" href="#why-does-flask-fab-or-superset-freezed-hung-not-responding-when-started-my-home-directory-is-nfs-mounted" title="Permalink to this headline">¶</a></h2>
 <p>By default, superset creates and uses an sqlite database at <code class="docutils literal notranslate"><span class="pre">~/.superset/superset.db</span></code>. Sqlite is known to <a class="reference external" href="https://www.sqlite.org/lockingv3.html">don’t work well if used on NFS</a> due to broken file locking implementation on NFS.</p>
 <p>You can override this path using the <code class="docutils literal notranslate"><span class="pre">SUPERSET_HOME</span></code> environment variable.</p>
 <p>Another work around is to change where superset stores the sqlite database by adding <code class="docutils literal notranslate"><span class="pre">SQLALCHEMY_DATABASE_URI</span> <span class="pre">=</span> <span class="pre">'sqlite:////new/location/superset.db'</span></code> in superset_config.py (create the file if needed), then adding the directory where superset_config.py lives to PYTHONPATH environment variable (e.g. <code class="docutils literal notranslate"><span class="pre">export</span> <span class="pre">PYTHONPATH=/opt/logs/sandbox/airbnb/</span></code>).</p>
@@ -373,7 +374,7 @@ engines not listed in this page may work too. We rely on the
 community to contribute to this knowledge base.</p>
 <p>For a database engine to be supported in Superset through the
 SQLAlchemy connector, it requires having a Python compliant
-<a class="reference external" href="http://docs.sqlalchemy.org/en/latest/dialects/">SQLAlchemy dialect</a> as well as a
+<a class="reference external" href="https://docs.sqlalchemy.org/en/latest/dialects/">SQLAlchemy dialect</a> as well as a
 <a class="reference external" href="https://www.python.org/dev/peps/pep-0249/">DBAPI driver</a> defined.
 Database that have limited SQL support may
 work as well. For instance it’s possible to connect
@@ -384,15 +385,15 @@ interface. This interface allows for defining database-specific configurations
 and logic
 that go beyond the SQLAlchemy and DBAPI scope. This includes features like:</p>
 <ul class="simple">
-<li>date-related SQL function that allow Superset to fetch different
-time granularities when running time-series queries</li>
-<li>whether the engine supports subqueries. If false, Superset may run 2-phase
-queries to compensate for the limitation</li>
-<li>methods around processing logs and inferring the percentage of completion
-of a query</li>
-<li>technicalities as to how to handle cursors and connections if the driver
-is not standard DBAPI</li>
-<li>more, read the code for more details</li>
+<li><p>date-related SQL function that allow Superset to fetch different
+time granularities when running time-series queries</p></li>
+<li><p>whether the engine supports subqueries. If false, Superset may run 2-phase
+queries to compensate for the limitation</p></li>
+<li><p>methods around processing logs and inferring the percentage of completion
+of a query</p></li>
+<li><p>technicalities as to how to handle cursors and connections if the driver
+is not standard DBAPI</p></li>
+<li><p>more, read the code for more details</p></li>
 </ul>
 <p>Beyond the SQLAlchemy connector, it’s also possible, though much more
 involved, to extend Superset and write
@@ -404,10 +405,10 @@ preferable to go the SQLAlchemy route. Note that for a native connector to
 be possible the database needs to have support for running OLAP-type queries
 and should be able to things that are typical in basic SQL:</p>
 <ul class="simple">
-<li>aggregate data</li>
-<li>apply filters (==, !=, &gt;, &lt;, &gt;=, &lt;=, IN, …)</li>
-<li>apply HAVING-type filters</li>
-<li>be schema-aware, expose columns and types</li>
+<li><p>aggregate data</p></li>
+<li><p>apply filters (==, !=, &gt;, &lt;, &gt;=, &lt;=, IN, …)</p></li>
+<li><p>apply HAVING-type filters</p></li>
+<li><p>be schema-aware, expose columns and types</p></li>
 </ul>
 </div>
 </div>
@@ -421,7 +422,7 @@ and should be able to things that are typical in basic SQL:</p>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
       
-        <a href="import_export_datasources.html" class="btn btn-neutral" title="Importing and Exporting Datasources" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="import_export_datasources.html" class="btn btn-neutral float-left" title="Importing and Exporting Datasources" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -430,7 +431,6 @@ and should be able to things that are typical in basic SQL:</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright Copyright © 2018 The Apache Software Foundation, Licensed under the Apache License, Version 2.0..
 
     </p>
   </div> 
@@ -446,36 +446,16 @@ and should be able to things that are typical in basic SQL:</p>
   
 
 
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'./',
-            VERSION:'',
-            LANGUAGE:'None',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="_static/jquery.js"></script>
-      <script type="text/javascript" src="_static/underscore.js"></script>
-      <script type="text/javascript" src="_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-
-  
-
-  
-  
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-  
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

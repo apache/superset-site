@@ -17,35 +17,36 @@
   
 
   
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
-  
-    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Security" href="security.html" />
     <link rel="prev" title="Installation &amp; Configuration" href="installation.html" /> 
-
-  
-  <script src="_static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -179,11 +180,11 @@ we use here.</p>
 <p>You can configure a number of advanced options on this page, but for
 this walkthrough, you’ll only need to do <strong>two things</strong>:</p>
 <ol class="arabic simple">
-<li>Name your database connection:</li>
+<li><p>Name your database connection:</p></li>
 </ol>
 <a class="reference internal image-reference" href="_images/tutorial_03_database_name.png"><img alt="_images/tutorial_03_database_name.png" src="_images/tutorial_03_database_name.png" style="width: 554.4px; height: 98.0px;" /></a>
 <ol class="arabic simple" start="2">
-<li>Provide the SQLAlchemy Connection URI and test the connection:</li>
+<li><p>Provide the SQLAlchemy Connection URI and test the connection:</p></li>
 </ol>
 <a class="reference internal image-reference" href="_images/tutorial_04_sqlalchemy_connection_string.png"><img alt="_images/tutorial_04_sqlalchemy_connection_string.png" src="_images/tutorial_04_sqlalchemy_connection_string.png" style="width: 1071.0px; height: 196.0px;" /></a>
 <p>This example shows the connection string for our test weather database.
@@ -212,18 +213,18 @@ to Superset that you’d like to query.</p>
 <a class="reference internal image-reference" href="_images/tutorial_09_add_new_table.png"><img alt="_images/tutorial_09_add_new_table.png" src="_images/tutorial_09_add_new_table.png" style="width: 322.0px; height: 232.39999999999998px;" /></a>
 <p>You only need a few pieces of information to add a new table to Superset:</p>
 <ul class="simple">
-<li>The name of the table</li>
+<li><p>The name of the table</p></li>
 </ul>
 <a class="reference internal image-reference" href="_images/tutorial_10_table_name.png"><img alt="_images/tutorial_10_table_name.png" src="_images/tutorial_10_table_name.png" style="width: 772.8px; height: 130.2px;" /></a>
 <ul class="simple">
-<li>The target database from the <strong>Database</strong> drop-down menu (i.e. the one
-you just added above)</li>
+<li><p>The target database from the <strong>Database</strong> drop-down menu (i.e. the one
+you just added above)</p></li>
 </ul>
 <a class="reference internal image-reference" href="_images/tutorial_11_choose_db.png"><img alt="_images/tutorial_11_choose_db.png" src="_images/tutorial_11_choose_db.png" style="width: 387.79999999999995px; height: 229.6px;" /></a>
 <ul class="simple">
-<li>Optionally, the database schema. If the table exists in the “default” schema
+<li><p>Optionally, the database schema. If the table exists in the “default” schema
 (e.g. the <em>public</em> schema in PostgreSQL or Redshift), you can leave the schema
-field blank.</li>
+field blank.</p></li>
 </ul>
 <p>Click on the <strong>Save</strong> button to save the configuration:</p>
 <a class="reference internal image-reference" href="_images/tutorial_07_save_button.png"><img alt="_images/tutorial_07_save_button.png" src="_images/tutorial_07_save_button.png" style="width: 187.6px; height: 85.39999999999999px;" /></a>
@@ -239,14 +240,14 @@ a more advanced tutorial.</p>
 way you can use specific columns of your table when exploring your data. We’ll run
 through these options to describe their purpose:</p>
 <ul class="simple">
-<li>If you want users to group metrics by a specific field, mark it as <strong>Groupable</strong>.</li>
-<li>If you need to filter on a specific field, mark it as <strong>Filterable</strong>.</li>
-<li>Is this field something you’d like to get the distinct count of? Check the <strong>Count
-Distinct</strong> box.</li>
-<li>Is this a metric you want to sum, or get basic summary statistics for? The <strong>Sum</strong>,
-<strong>Min</strong>, and <strong>Max</strong> columns will help.</li>
-<li>The <strong>is temporal</strong> field should be checked for any date or time fields. We’ll cover
-how this manifests itself in analyses in a moment.</li>
+<li><p>If you want users to group metrics by a specific field, mark it as <strong>Groupable</strong>.</p></li>
+<li><p>If you need to filter on a specific field, mark it as <strong>Filterable</strong>.</p></li>
+<li><p>Is this field something you’d like to get the distinct count of? Check the <strong>Count
+Distinct</strong> box.</p></li>
+<li><p>Is this a metric you want to sum, or get basic summary statistics for? The <strong>Sum</strong>,
+<strong>Min</strong>, and <strong>Max</strong> columns will help.</p></li>
+<li><p>The <strong>is temporal</strong> field should be checked for any date or time fields. We’ll cover
+how this manifests itself in analyses in a moment.</p></li>
 </ul>
 <p>Here’s how we’ve configured fields for the weather data. Even for measures like the
 weather measurements (precipitation, snowfall, etc.), it’s ideal to group and filter
@@ -308,15 +309,15 @@ to investigate some outliers with Superset, but this just scratches the surface 
 we can do.</p>
 <p>You may want to do a couple more things with this measure:</p>
 <ul class="simple">
-<li>The default formatting shows values like 1.37k, which may be difficult for some
+<li><p>The default formatting shows values like 1.37k, which may be difficult for some
 users to read. It’s likely you may want to see the full, comma-separated value.
 You can change the formatting of any measure by editing its config (<em>Edit Table
-Config &gt; List Sql Metric &gt; Edit Metric &gt; D3Format</em>)</li>
-<li>Moreover, you may want to see the temperature measurements in plain degrees C,
+Config &gt; List Sql Metric &gt; Edit Metric &gt; D3Format</em>)</p></li>
+<li><p>Moreover, you may want to see the temperature measurements in plain degrees C,
 not tenths of a degree. Or you may want to convert the temperature to degrees
 Fahrenheit. You can change the SQL that gets executed against the database, baking
 the logic into the measure itself (<em>Edit Table Config &gt; List Sql Metric &gt; Edit
-Metric &gt; SQL Expression</em>)</li>
+Metric &gt; SQL Expression</em>)</p></li>
 </ul>
 <p>For now, though, let’s create a better visualization of these data and add it to
 a dashboard.</p>
@@ -375,7 +376,7 @@ please start exploring and creating slices and dashboards of your own.</p>
         <a href="security.html" class="btn btn-neutral float-right" title="Security" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="installation.html" class="btn btn-neutral" title="Installation &amp; Configuration" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="installation.html" class="btn btn-neutral float-left" title="Installation &amp; Configuration" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -384,7 +385,6 @@ please start exploring and creating slices and dashboards of your own.</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright Copyright © 2018 The Apache Software Foundation, Licensed under the Apache License, Version 2.0..
 
     </p>
   </div> 
@@ -400,36 +400,16 @@ please start exploring and creating slices and dashboards of your own.</p>
   
 
 
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'./',
-            VERSION:'',
-            LANGUAGE:'None',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="_static/jquery.js"></script>
-      <script type="text/javascript" src="_static/underscore.js"></script>
-      <script type="text/javascript" src="_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-
-  
-
-  
-  
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-  
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

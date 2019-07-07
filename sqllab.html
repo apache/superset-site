@@ -17,35 +17,36 @@
   
 
   
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
-  
-    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Visualizations Gallery" href="gallery.html" />
     <link rel="prev" title="Security" href="security.html" /> 
-
-  
-  <script src="_static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -169,27 +170,28 @@
 <div class="section" id="feature-overview">
 <h2>Feature Overview<a class="headerlink" href="#feature-overview" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Connects to just about any database backend</li>
-<li>A multi-tab environment to work on multiple queries at a time</li>
-<li>A smooth flow to visualize your query results using Superset’s rich
-visualization capabilities</li>
-<li>Browse database metadata: tables, columns, indexes, partitions</li>
-<li>Support for long-running queries<ul>
-<li>uses the <a class="reference external" href="http://www.celeryproject.org/">Celery distributed queue</a>
-to dispatch query handling to workers</li>
-<li>supports defining a “results backend” to persist query results</li>
+<li><p>Connects to just about any database backend</p></li>
+<li><p>A multi-tab environment to work on multiple queries at a time</p></li>
+<li><p>A smooth flow to visualize your query results using Superset’s rich
+visualization capabilities</p></li>
+<li><p>Browse database metadata: tables, columns, indexes, partitions</p></li>
+<li><p>Support for long-running queries</p>
+<ul>
+<li><p>uses the <a class="reference external" href="http://www.celeryproject.org/">Celery distributed queue</a>
+to dispatch query handling to workers</p></li>
+<li><p>supports defining a “results backend” to persist query results</p></li>
 </ul>
 </li>
-<li>A search engine to find queries executed in the past</li>
-<li>Supports templating using the
+<li><p>A search engine to find queries executed in the past</p></li>
+<li><p>Supports templating using the
 <a class="reference external" href="http://jinja.pocoo.org/docs/dev/">Jinja templating language</a>
-which allows for using macros in your SQL code</li>
+which allows for using macros in your SQL code</p></li>
 </ul>
 </div>
 <div class="section" id="extra-features">
 <h2>Extra features<a class="headerlink" href="#extra-features" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Hit <code class="docutils literal notranslate"><span class="pre">alt</span> <span class="pre">+</span> <span class="pre">enter</span></code> as a keyboard shortcut to run your query</li>
+<li><p>Hit <code class="docutils literal notranslate"><span class="pre">alt</span> <span class="pre">+</span> <span class="pre">enter</span></code> as a keyboard shortcut to run your query</p></li>
 </ul>
 </div>
 <div class="section" id="templating-with-jinja">
@@ -208,24 +210,38 @@ parameterized so they can be re-used easily.</p>
 <p>We expose certain modules from Python’s standard library in
 Superset’s Jinja context:</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">time</span></code>: <code class="docutils literal notranslate"><span class="pre">time</span></code></li>
-<li><code class="docutils literal notranslate"><span class="pre">datetime</span></code>: <code class="docutils literal notranslate"><span class="pre">datetime.datetime</span></code></li>
-<li><code class="docutils literal notranslate"><span class="pre">uuid</span></code>: <code class="docutils literal notranslate"><span class="pre">uuid</span></code></li>
-<li><code class="docutils literal notranslate"><span class="pre">random</span></code>: <code class="docutils literal notranslate"><span class="pre">random</span></code></li>
-<li><code class="docutils literal notranslate"><span class="pre">relativedelta</span></code>: <code class="docutils literal notranslate"><span class="pre">dateutil.relativedelta.relativedelta</span></code></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">time</span></code>: <code class="docutils literal notranslate"><span class="pre">time</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">datetime</span></code>: <code class="docutils literal notranslate"><span class="pre">datetime.datetime</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">uuid</span></code>: <code class="docutils literal notranslate"><span class="pre">uuid</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">random</span></code>: <code class="docutils literal notranslate"><span class="pre">random</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">relativedelta</span></code>: <code class="docutils literal notranslate"><span class="pre">dateutil.relativedelta.relativedelta</span></code></p></li>
 </ul>
 <p><a class="reference external" href="http://jinja.pocoo.org/docs/dev/templates/">Jinja’s builtin filters</a> can be also be applied where needed.</p>
-<dl class="class">
-<dt id="superset.jinja_context.PrestoTemplateProcessor">
-<em class="property">class </em><code class="descclassname">superset.jinja_context.</code><code class="descname">PrestoTemplateProcessor</code><span class="sig-paren">(</span><em>database=None</em>, <em>query=None</em>, <em>table=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/superset/jinja_context.html#PrestoTemplateProcessor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#superset.jinja_context.PrestoTemplateProcessor" title="Permalink to this definition">¶</a></dt>
-<dd><p>Presto Jinja context</p>
-<p>The methods described here are namespaced under <code class="docutils literal notranslate"><span class="pre">presto</span></code> in the
-jinja context as in <code class="docutils literal notranslate"><span class="pre">SELECT</span> <span class="pre">'{{</span> <span class="pre">presto.some_macro_call()</span> <span class="pre">}}'</span></code></p>
+<dl class="function">
+<dt id="superset.jinja_context.current_user_id">
+<code class="sig-prename descclassname">superset.jinja_context.</code><code class="sig-name descname">current_user_id</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/superset/jinja_context.html#current_user_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#superset.jinja_context.current_user_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>The id of the user who is currently logged in</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="superset.jinja_context.current_username">
+<code class="sig-prename descclassname">superset.jinja_context.</code><code class="sig-name descname">current_username</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/superset/jinja_context.html#current_username"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#superset.jinja_context.current_username" title="Permalink to this definition">¶</a></dt>
+<dd><p>The username of the user who is currently logged in</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="superset.jinja_context.url_param">
-<code class="descclassname">superset.jinja_context.</code><code class="descname">url_param</code><span class="sig-paren">(</span><em>param</em>, <em>default=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/superset/jinja_context.html#url_param"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#superset.jinja_context.url_param" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">superset.jinja_context.</code><code class="sig-name descname">url_param</code><span class="sig-paren">(</span><em class="sig-param">param</em>, <em class="sig-param">default=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/superset/jinja_context.html#url_param"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#superset.jinja_context.url_param" title="Permalink to this definition">¶</a></dt>
 <dd><p>Read a url or post parameter and use it in your SQL Lab query</p>
 <p>When in SQL Lab, it’s possible to add arbitrary URL “query string”
 parameters, and use those in your SQL code. For instance you can
@@ -236,60 +252,68 @@ runtime and replaced by the value in the URL.</p>
 <p>As you create a visualization form this SQL Lab query, you can pass
 parameters in the explore view as well as from the dashboard, and
 it should carry through to your queries.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>param</strong> (<em>str</em>) – the parameter to lookup</li>
-<li><strong>default</strong> (<em>str</em>) – the value to return in the absence of the parameter</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>param</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – the parameter to lookup</p></li>
+<li><p><strong>default</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – the value to return in the absence of the parameter</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>]</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="superset.jinja_context.filter_values">
-<code class="descclassname">superset.jinja_context.</code><code class="descname">filter_values</code><span class="sig-paren">(</span><em>column</em>, <em>default=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/superset/jinja_context.html#filter_values"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#superset.jinja_context.filter_values" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">superset.jinja_context.</code><code class="sig-name descname">filter_values</code><span class="sig-paren">(</span><em class="sig-param">column</em>, <em class="sig-param">default=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/superset/jinja_context.html#filter_values"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#superset.jinja_context.filter_values" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets a values for a particular filter as a list</p>
-<dl class="docutils">
-<dt>This is useful if:</dt>
-<dd><ul class="first last simple">
-<li>you want to use a filter box to filter a query where the name of filter box
-column doesn’t match the one in the select statement</li>
-<li>you want to have the ability for filter inside the main query for speed purposes</li>
+<dl class="simple">
+<dt>This is useful if:</dt><dd><ul class="simple">
+<li><p>you want to use a filter box to filter a query where the name of filter box
+column doesn’t match the one in the select statement</p></li>
+<li><p>you want to have the ability for filter inside the main query for speed
+purposes</p></li>
 </ul>
 </dd>
 </dl>
-<p>This searches for “filters” and “extra_filters” in form_data for a match</p>
-<dl class="docutils">
-<dt>Usage example:</dt>
-<dd>SELECT action, count(*) as times
-FROM logs
-WHERE action in ( {{ “’” + “’,’”.join(filter_values(‘action_type’)) + “’” }} )
-GROUP BY 1</dd>
-</dl>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>column</strong> (<em>str</em>) – column/filter name to lookup</li>
-<li><strong>default</strong> (<em>str</em>) – default value to return if there’s no matching columns</li>
+<p>This searches for “filters” and “extra_filters” in <code class="docutils literal notranslate"><span class="pre">form_data</span></code> for a match</p>
+<p>Usage example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SELECT</span> <span class="n">action</span><span class="p">,</span> <span class="n">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="k">as</span> <span class="n">times</span>
+<span class="n">FROM</span> <span class="n">logs</span>
+<span class="n">WHERE</span> <span class="n">action</span> <span class="ow">in</span> <span class="p">(</span> <span class="p">{{</span> <span class="s2">&quot;&#39;&quot;</span> <span class="o">+</span> <span class="s2">&quot;&#39;,&#39;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">filter_values</span><span class="p">(</span><span class="s1">&#39;action_type&#39;</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot;&#39;&quot;</span> <span class="p">}}</span> <span class="p">)</span>
+<span class="n">GROUP</span> <span class="n">BY</span> <span class="n">action</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>column</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – column/filter name to lookup</p></li>
+<li><p><strong>default</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – default value to return if there’s no matching columns</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">returns a list of filter values</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><p class="first last">list</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>returns a list of filter values</p>
+</dd>
+</dl>
 </dd></dl>
+
+<dl class="class">
+<dt id="superset.jinja_context.PrestoTemplateProcessor">
+<em class="property">class </em><code class="sig-prename descclassname">superset.jinja_context.</code><code class="sig-name descname">PrestoTemplateProcessor</code><span class="sig-paren">(</span><em class="sig-param">database=None</em>, <em class="sig-param">query=None</em>, <em class="sig-param">table=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/superset/jinja_context.html#PrestoTemplateProcessor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#superset.jinja_context.PrestoTemplateProcessor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Presto Jinja context</p>
+<p>The methods described here are namespaced under <code class="docutils literal notranslate"><span class="pre">presto</span></code> in the
+jinja context as in <code class="docutils literal notranslate"><span class="pre">SELECT</span> <span class="pre">'{{</span> <span class="pre">presto.some_macro_call()</span> <span class="pre">}}'</span></code></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="superset.jinja_context.HiveTemplateProcessor">
+<em class="property">class </em><code class="sig-prename descclassname">superset.jinja_context.</code><code class="sig-name descname">HiveTemplateProcessor</code><span class="sig-paren">(</span><em class="sig-param">database=None</em>, <em class="sig-param">query=None</em>, <em class="sig-param">table=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/superset/jinja_context.html#HiveTemplateProcessor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#superset.jinja_context.HiveTemplateProcessor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 </div>
 <div class="section" id="extending-macros">
@@ -314,7 +338,7 @@ to integrate in their queries in <strong>SQL Lab</strong>.</p>
         <a href="gallery.html" class="btn btn-neutral float-right" title="Visualizations Gallery" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="security.html" class="btn btn-neutral" title="Security" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="security.html" class="btn btn-neutral float-left" title="Security" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -323,7 +347,6 @@ to integrate in their queries in <strong>SQL Lab</strong>.</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright Copyright © 2018 The Apache Software Foundation, Licensed under the Apache License, Version 2.0..
 
     </p>
   </div> 
@@ -339,36 +362,16 @@ to integrate in their queries in <strong>SQL Lab</strong>.</p>
   
 
 
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'./',
-            VERSION:'',
-            LANGUAGE:'None',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="_static/jquery.js"></script>
-      <script type="text/javascript" src="_static/underscore.js"></script>
-      <script type="text/javascript" src="_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-
-  
-
-  
-  
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-  
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

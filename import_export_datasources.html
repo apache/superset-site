@@ -17,35 +17,36 @@
   
 
   
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
-  
-    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="FAQ" href="faq.html" />
     <link rel="prev" title="Videos" href="videos.html" /> 
-
-  
-  <script src="_static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -210,15 +211,15 @@ If you want back references to be included (e.g. a column to include the table i
 it belongs to) use the <code class="docutils literal notranslate"><span class="pre">-b</span></code> flag.</p>
 <p>Alternatively, you can export datasources using the UI:</p>
 <ol class="arabic simple">
-<li>Open <strong>Sources</strong> -&gt; <strong>Databases</strong> to export all tables associated to a
+<li><p>Open <strong>Sources</strong> -&gt; <strong>Databases</strong> to export all tables associated to a
 single or multiple databases. (<strong>Tables</strong> for one or more tables,
-<strong>Druid Clusters</strong> for clusters, <strong>Druid Datasources</strong> for datasources)</li>
-<li>Select the items you would like to export</li>
-<li>Click <strong>Actions</strong> -&gt; <strong>Export to YAML</strong></li>
-<li>If you want to import an item that you exported through the UI, you
+<strong>Druid Clusters</strong> for clusters, <strong>Druid Datasources</strong> for datasources)</p></li>
+<li><p>Select the items you would like to export</p></li>
+<li><p>Click <strong>Actions</strong> -&gt; <strong>Export to YAML</strong></p></li>
+<li><p>If you want to import an item that you exported through the UI, you
 will need to nest it inside its parent element, e.g. a <cite>database</cite>
 needs to be nested under <cite>databases</cite> a <cite>table</cite> needs to be
-nested inside a <cite>database</cite> element.</li>
+nested inside a <cite>database</cite> element.</p></li>
 </ol>
 </div>
 <div class="section" id="exporting-the-complete-supported-yaml-schema">
@@ -244,7 +245,8 @@ You can apply additional flags e.g.:</p>
 <p>The sync flag <code class="docutils literal notranslate"><span class="pre">-s</span></code> takes parameters in order to sync the supplied elements with
 your file. Be careful this can delete the contents of your meta database. Example:</p>
 <blockquote>
-<div>superset import_datasources -p &lt;path / filename&gt; -s columns,metrics</div></blockquote>
+<div><p>superset import_datasources -p &lt;path / filename&gt; -s columns,metrics</p>
+</div></blockquote>
 <p>This will sync all <code class="docutils literal notranslate"><span class="pre">metrics</span></code> and <code class="docutils literal notranslate"><span class="pre">columns</span></code> for all datasources found in the
 <code class="docutils literal notranslate"><span class="pre">&lt;path</span> <span class="pre">/</span> <span class="pre">filename&gt;</span></code> in the Superset meta database. This means columns and metrics
 not specified in YAML will be deleted. If you would add <code class="docutils literal notranslate"><span class="pre">tables</span></code> to <code class="docutils literal notranslate"><span class="pre">columns,metrics</span></code>
@@ -275,7 +277,7 @@ by saving the following YAML to file and then running the <code class="docutils 
         <a href="faq.html" class="btn btn-neutral float-right" title="FAQ" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="videos.html" class="btn btn-neutral" title="Videos" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="videos.html" class="btn btn-neutral float-left" title="Videos" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -284,7 +286,6 @@ by saving the following YAML to file and then running the <code class="docutils 
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright Copyright © 2018 The Apache Software Foundation, Licensed under the Apache License, Version 2.0..
 
     </p>
   </div> 
@@ -300,36 +301,16 @@ by saving the following YAML to file and then running the <code class="docutils 
   
 
 
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'./',
-            VERSION:'',
-            LANGUAGE:'None',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="_static/jquery.js"></script>
-      <script type="text/javascript" src="_static/underscore.js"></script>
-      <script type="text/javascript" src="_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-
-  
-
-  
-  
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-  
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>
