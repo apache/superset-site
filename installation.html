@@ -105,9 +105,11 @@
 <li class="toctree-l2"><a class="reference internal" href="#external-password-store-for-sqlalchemy-connections">External Password store for SQLAlchemy connections</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#ssl-access-to-databases">SSL Access to databases</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#druid">Druid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#presto">Presto</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#cors">CORS</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#domain-sharding">DOMAIN SHARDING</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#middleware">MIDDLEWARE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#event-logging">Event Logging</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#upgrading">Upgrading</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#celery-tasks">Celery Tasks</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#email-reports">Email Reports</a></li>
@@ -118,6 +120,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#statsd-logging">StatsD logging</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#install-superset-with-helm-in-kubernetes">Install Superset with helm in Kubernetes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#custom-oauth2-configuration">Custom OAuth2 configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#feature-flags">Feature Flags</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial - Creating your first dashboard</a></li>
@@ -710,6 +713,22 @@ into your global default defined in <code class="docutils literal notranslate"><
 <span class="p">}</span>
 </pre></div>
 </div>
+<p>It is also possible to pass a custom cache initialization function in the
+config to handle additional caching use cases. The function must return an
+object that is compatible with the <a class="reference external" href="https://pythonhosted.org/Flask-Cache/">Flask-Cache</a> API.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">custom_caching</span> <span class="kn">import</span> <span class="n">CustomCache</span>
+
+<span class="k">def</span> <span class="nf">init_cache</span><span class="p">(</span><span class="n">app</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Takes an app instance and returns a custom cache backend&quot;&quot;&quot;</span>
+    <span class="n">config</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;CACHE_DEFAULT_TIMEOUT&#39;</span><span class="p">:</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">24</span><span class="p">,</span> <span class="c1"># 1 day default (in secs)</span>
+        <span class="s1">&#39;CACHE_KEY_PREFIX&#39;</span><span class="p">:</span> <span class="s1">&#39;superset_results&#39;</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">CustomCache</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span>
+
+<span class="n">CACHE_CONFIG</span> <span class="o">=</span> <span class="n">init_cache</span>
+</pre></div>
+</div>
 <p>Superset has a Celery task that will periodically warm up the cache based on
 different strategies. To use it, add the following to the <cite>CELERYBEAT_SCHEDULE</cite>
 section in <cite>config.py</cite>:</p>
@@ -804,6 +823,17 @@ parameter</p>
 <p>Note that you can run the <code class="docutils literal notranslate"><span class="pre">superset</span> <span class="pre">refresh_druid</span></code> command to refresh the
 metadata from your Druid cluster(s)</p>
 </div>
+<div class="section" id="presto">
+<h2>Presto<a class="headerlink" href="#presto" title="Permalink to this headline">¶</a></h2>
+<p>By default Superset assumes the most recent version of Presto is being used when
+querying the datasource. If you’re using an older version of presto, you can configure
+it in the <code class="docutils literal notranslate"><span class="pre">extra</span></code> parameter:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;0.123&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
 <div class="section" id="cors">
 <h2>CORS<a class="headerlink" href="#cors" title="Permalink to this headline">¶</a></h2>
 <p>The extra CORS Dependency must be installed:</p>
@@ -820,7 +850,7 @@ metadata from your Druid cluster(s)</p>
 <h2>DOMAIN SHARDING<a class="headerlink" href="#domain-sharding" title="Permalink to this headline">¶</a></h2>
 <p>Chrome allows up to 6 open connections per domain at a time. When there are more
 than 6 slices in dashboard, a lot of time fetch requests are queued up and wait for
-next available socket. PR (<cite>#5039 &lt;https://github.com/apache/incubator-superset/pull/5039&gt;</cite>) adds domain sharding to Superset,
+next available socket. <a class="reference external" href="https://github.com/apache/incubator-superset/pull/5039">PR 5039</a> adds domain sharding to Superset,
 and this feature will be enabled by configuration only (by default Superset
 doesn’t allow cross-domain request).</p>
 <ul class="simple">
@@ -846,6 +876,38 @@ environment variable:</p>
 </pre></div>
 </div>
 <p><em>Adapted from http://flask.pocoo.org/snippets/69/</em></p>
+</div>
+<div class="section" id="event-logging">
+<h2>Event Logging<a class="headerlink" href="#event-logging" title="Permalink to this headline">¶</a></h2>
+<p>Superset by default logs special action event on it’s database. These log can be accessed on the UI navigating to
+“Security” -&gt; “Action Log”. You can freely customize these logs by implementing your own event log class.</p>
+<p>Example of a simple JSON to Stdout class:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">JSONStdOutEventLogger</span><span class="p">(</span><span class="n">AbstractEventLogger</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">log</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_id</span><span class="p">,</span> <span class="n">action</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">records</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;records&#39;</span><span class="p">,</span> <span class="nb">list</span><span class="p">())</span>
+        <span class="n">dashboard_id</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;dashboard_id&#39;</span><span class="p">)</span>
+        <span class="n">slice_id</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;slice_id&#39;</span><span class="p">)</span>
+        <span class="n">duration_ms</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;duration_ms&#39;</span><span class="p">)</span>
+        <span class="n">referrer</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;referrer&#39;</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">record</span> <span class="ow">in</span> <span class="n">records</span><span class="p">:</span>
+            <span class="n">log</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+                <span class="n">action</span><span class="o">=</span><span class="n">action</span><span class="p">,</span>
+                <span class="n">json</span><span class="o">=</span><span class="n">record</span><span class="p">,</span>
+                <span class="n">dashboard_id</span><span class="o">=</span><span class="n">dashboard_id</span><span class="p">,</span>
+                <span class="n">slice_id</span><span class="o">=</span><span class="n">slice_id</span><span class="p">,</span>
+                <span class="n">duration_ms</span><span class="o">=</span><span class="n">duration_ms</span><span class="p">,</span>
+                <span class="n">referrer</span><span class="o">=</span><span class="n">referrer</span><span class="p">,</span>
+                <span class="n">user_id</span><span class="o">=</span><span class="n">user_id</span>
+            <span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">log</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>Then on Superset’s config pass an instance of the logger type you want to use.</p>
+<blockquote>
+<div><p>EVENT_LOGGER = JSONStdOutEventLogger()</p>
+</div></blockquote>
 </div>
 <div class="section" id="upgrading">
 <h2>Upgrading<a class="headerlink" href="#upgrading" title="Permalink to this headline">¶</a></h2>
@@ -1147,7 +1209,7 @@ your environment. See <a class="reference external" href="https://github.com/apa
 </div>
 <div class="section" id="blueprints">
 <h2>Blueprints<a class="headerlink" href="#blueprints" title="Permalink to this headline">¶</a></h2>
-<p><a class="reference external" href="http://flask.pocoo.org/docs/0.12/blueprints/">Blueprints are Flask’s reusable apps</a>.
+<p><a class="reference external" href="https://flask.palletsprojects.com/en/1.0.x/tutorial/views/">Blueprints are Flask’s reusable apps</a>.
 Superset allows you to specify an array of Blueprints
 in your <code class="docutils literal notranslate"><span class="pre">superset_config</span></code> module. Here’s
 an example of how this can work with a simple Blueprint. By doing
@@ -1248,6 +1310,26 @@ located in <code class="docutils literal notranslate"><span class="pre">install/
 <span class="n">CUSTOM_SECURITY_MANAGER</span> <span class="o">=</span> <span class="n">CustomSsoSecurityManager</span>
 </pre></div>
 </div>
+</div>
+<div class="section" id="feature-flags">
+<h2>Feature Flags<a class="headerlink" href="#feature-flags" title="Permalink to this headline">¶</a></h2>
+<p>Because of a wide variety of users, Superset has some features that are not enabled by default. For example, some users have stronger security restrictions, while some others may not. So Superset allow users to enable or disable some features by config. For feature owners, you can add optional functionalities in Superset, but will be only affected by a subset of users.</p>
+<p>You can enable or disable features with flag from <code class="docutils literal notranslate"><span class="pre">superset_config.py</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">DEFAULT_FEATURE_FLAGS</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;CLIENT_CACHE&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span>
+    <span class="s1">&#39;ENABLE_EXPLORE_JSON_CSRF_PROTECTION&#39;</span><span class="p">:</span> <span class="bp">False</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Here is a list of flags and descriptions:</p>
+<ul class="simple">
+<li><p>ENABLE_EXPLORE_JSON_CSRF_PROTECTION</p>
+<ul>
+<li><p>For some security concerns, you may need to enforce CSRF protection on all query request to explore_json endpoint. In Superset, we use <a class="reference external" href="https://sjl.bitbucket.io/flask-csrf/">flask-csrf</a> add csrf protection for all POST requests, but this protection doesn’t apply to GET method.</p></li>
+<li><p>When ENABLE_EXPLORE_JSON_CSRF_PROTECTION is set to true, your users cannot make GET request to explore_json. The default value for this feature False (current behavior), explore_json accepts both GET and POST request. See <a class="reference external" href="https://github.com/apache/incubator-superset/pull/7935">PR 7935</a> for more details.</p></li>
+</ul>
+</li>
+</ul>
 </div>
 </div>
 

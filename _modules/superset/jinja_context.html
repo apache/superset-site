@@ -281,7 +281,43 @@
         <span class="k">return</span> <span class="p">[]</span></div>
 
 
-<span class="k">class</span> <span class="nc">BaseTemplateProcessor</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">CacheKeyWrapper</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot; Dummy class that exposes a method used to store additional values used in</span>
+<span class="sd">     calculation of query object cache keys&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">extra_cache_keys</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">extra_cache_keys</span> <span class="o">=</span> <span class="n">extra_cache_keys</span>
+
+    <span class="k">def</span> <span class="nf">cache_key_wrapper</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot; Adds values to a list that is added to the query object used for calculating</span>
+<span class="sd">        a cache key.</span>
+
+<span class="sd">        This is needed if the following applies:</span>
+<span class="sd">            - Caching is enabled</span>
+<span class="sd">            - The query is dynamically generated using a jinja template</span>
+<span class="sd">            - A username or similar is used as a filter in the query</span>
+
+<span class="sd">        Example when using a SQL query as a data source ::</span>
+
+<span class="sd">            SELECT action, count(*) as times</span>
+<span class="sd">            FROM logs</span>
+<span class="sd">            WHERE logged_in_user = &#39;{{ cache_key_wrapper(current_username()) }}&#39;</span>
+<span class="sd">            GROUP BY action</span>
+
+<span class="sd">        This will ensure that the query results that were cached by `user_1` will</span>
+<span class="sd">        **not** be seen by `user_2`, as the `cache_key` for the query will be</span>
+<span class="sd">        different. ``cache_key_wrapper`` can be used similarly for regular table data</span>
+<span class="sd">        sources by adding a `Custom SQL` filter.</span>
+
+<span class="sd">        :param key: Any value that should be considered when calculating the cache key</span>
+<span class="sd">        :return: the original value ``key`` passed to the function</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">extra_cache_keys</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">extra_cache_keys</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">key</span>
+
+
+<span class="k">class</span> <span class="nc">BaseTemplateProcessor</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Base class for database-specific jinja context</span>
 
 <span class="sd">    There&#39;s this bit of magic in ``process_template`` that instantiates only</span>
@@ -298,7 +334,14 @@
 
     <span class="n">engine</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">database</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">query</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">table</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">database</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">query</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">table</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">extra_cache_keys</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span>
+    <span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">database</span> <span class="o">=</span> <span class="n">database</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">query</span> <span class="o">=</span> <span class="n">query</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">schema</span> <span class="o">=</span> <span class="kc">None</span>
@@ -310,6 +353,7 @@
             <span class="s2">&quot;url_param&quot;</span><span class="p">:</span> <span class="n">url_param</span><span class="p">,</span>
             <span class="s2">&quot;current_user_id&quot;</span><span class="p">:</span> <span class="n">current_user_id</span><span class="p">,</span>
             <span class="s2">&quot;current_username&quot;</span><span class="p">:</span> <span class="n">current_username</span><span class="p">,</span>
+            <span class="s2">&quot;cache_key_wrapper&quot;</span><span class="p">:</span> <span class="n">CacheKeyWrapper</span><span class="p">(</span><span class="n">extra_cache_keys</span><span class="p">)</span><span class="o">.</span><span class="n">cache_key_wrapper</span><span class="p">,</span>
             <span class="s2">&quot;filter_values&quot;</span><span class="p">:</span> <span class="n">filter_values</span><span class="p">,</span>
             <span class="s2">&quot;form_data&quot;</span><span class="p">:</span> <span class="p">{},</span>
         <span class="p">}</span>
@@ -341,22 +385,44 @@
     <span class="n">engine</span> <span class="o">=</span> <span class="s2">&quot;presto&quot;</span>
 
     <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">_schema_table</span><span class="p">(</span><span class="n">table_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">schema</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
+    <span class="k">def</span> <span class="nf">_schema_table</span><span class="p">(</span>
+        <span class="n">table_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">schema</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>
         <span class="k">if</span> <span class="s2">&quot;.&quot;</span> <span class="ow">in</span> <span class="n">table_name</span><span class="p">:</span>
             <span class="n">schema</span><span class="p">,</span> <span class="n">table_name</span> <span class="o">=</span> <span class="n">table_name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">table_name</span><span class="p">,</span> <span class="n">schema</span>
 
-    <span class="k">def</span> <span class="nf">latest_partition</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<div class="viewcode-block" id="PrestoTemplateProcessor.first_latest_partition"><a class="viewcode-back" href="../../sqllab.html#superset.jinja_context.PrestoTemplateProcessor.first_latest_partition">[docs]</a>    <span class="k">def</span> <span class="nf">first_latest_partition</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Gets the first value in the array of all latest partitions</span>
+
+<span class="sd">        :param table_name: table name in the format `schema.table`</span>
+<span class="sd">        :return: the first (or only) value in the latest partition array</span>
+<span class="sd">        :raises IndexError: If no partition exists</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">latest_partitions</span><span class="p">(</span><span class="n">table_name</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="PrestoTemplateProcessor.latest_partitions"><a class="viewcode-back" href="../../sqllab.html#superset.jinja_context.PrestoTemplateProcessor.latest_partitions">[docs]</a>    <span class="k">def</span> <span class="nf">latest_partitions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Gets the array of all latest partitions</span>
+
+<span class="sd">        :param table_name: table name in the format `schema.table`</span>
+<span class="sd">        :return: the latest partition array</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
         <span class="n">table_name</span><span class="p">,</span> <span class="n">schema</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_schema_table</span><span class="p">(</span><span class="n">table_name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">schema</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">database</span><span class="o">.</span><span class="n">db_engine_spec</span><span class="o">.</span><span class="n">latest_partition</span><span class="p">(</span>
             <span class="n">table_name</span><span class="p">,</span> <span class="n">schema</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">database</span>
-        <span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="p">)[</span><span class="mi">1</span><span class="p">]</span></div>
 
     <span class="k">def</span> <span class="nf">latest_sub_partition</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table_name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="n">table_name</span><span class="p">,</span> <span class="n">schema</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_schema_table</span><span class="p">(</span><span class="n">table_name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">schema</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">database</span><span class="o">.</span><span class="n">db_engine_spec</span><span class="o">.</span><span class="n">latest_sub_partition</span><span class="p">(</span>
             <span class="n">table_name</span><span class="o">=</span><span class="n">table_name</span><span class="p">,</span> <span class="n">schema</span><span class="o">=</span><span class="n">schema</span><span class="p">,</span> <span class="n">database</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">database</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
-        <span class="p">)</span></div>
+        <span class="p">)</span>
+
+    <span class="n">latest_partition</span> <span class="o">=</span> <span class="n">first_latest_partition</span></div>
 
 
 <div class="viewcode-block" id="HiveTemplateProcessor"><a class="viewcode-back" href="../../sqllab.html#superset.jinja_context.HiveTemplateProcessor">[docs]</a><span class="k">class</span> <span class="nc">HiveTemplateProcessor</span><span class="p">(</span><span class="n">PrestoTemplateProcessor</span><span class="p">):</span>
