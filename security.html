@@ -96,7 +96,6 @@
 <li class="toctree-l2"><a class="reference internal" href="#customizing">Customizing</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#permissions">Permissions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#restricting-access-to-a-subset-of-data-sources">Restricting access to a subset of data sources</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#restricting-the-access-to-some-metrics">Restricting the access to some metrics</a></li>
 </ul>
 </li>
 </ul>
@@ -289,26 +288,6 @@ a set of data sources that power dashboards only made available to executives.
 When looking at its dashboard list, this user will only see the
 list of dashboards it has access to, based on the roles and
 permissions that were attributed.</p>
-</div>
-<div class="section" id="restricting-the-access-to-some-metrics">
-<h3>Restricting the access to some metrics<a class="headerlink" href="#restricting-the-access-to-some-metrics" title="Permalink to this headline">¶</a></h3>
-<p>Sometimes some metrics are relatively sensitive (e.g. revenue).
-We may want to restrict those metrics to only a few roles.
-For example, assumed there is a metric <code class="docutils literal notranslate"><span class="pre">[cluster1].[datasource1].[revenue]</span></code>
-and only Admin users are allowed to see it. Here’s how to restrict the access.</p>
-<ol class="arabic simple">
-<li><p>Edit the datasource (<code class="docutils literal notranslate"><span class="pre">Menu</span> <span class="pre">-&gt;</span> <span class="pre">Source</span> <span class="pre">-&gt;</span> <span class="pre">Druid</span> <span class="pre">datasources</span> <span class="pre">-&gt;</span> <span class="pre">edit</span> <span class="pre">the</span>
-<span class="pre">record</span> <span class="pre">&quot;datasource1&quot;</span></code>) and go to the tab <code class="docutils literal notranslate"><span class="pre">List</span> <span class="pre">Druid</span> <span class="pre">Metric</span></code>. Check
-the checkbox <code class="docutils literal notranslate"><span class="pre">Is</span> <span class="pre">Restricted</span></code> in the row of the metric <code class="docutils literal notranslate"><span class="pre">revenue</span></code>.</p></li>
-<li><p>Edit the role (<code class="docutils literal notranslate"><span class="pre">Menu</span> <span class="pre">-&gt;</span> <span class="pre">Security</span> <span class="pre">-&gt;</span> <span class="pre">List</span> <span class="pre">Roles</span> <span class="pre">-&gt;</span> <span class="pre">edit</span> <span class="pre">the</span> <span class="pre">record</span>
-<span class="pre">“Admin”</span></code>), in the permissions field, type-and-search the permission
-<code class="docutils literal notranslate"><span class="pre">metric</span> <span class="pre">access</span> <span class="pre">on</span> <span class="pre">[cluster1].[datasource1].[revenue]</span> <span class="pre">(id:</span> <span class="pre">1)</span></code>, then
-click the Save button on the bottom of the page.</p></li>
-</ol>
-<p>Any users without the permission will see the error message
-<em>Access to the metrics denied: revenue (Status: 500)</em> in the slices.
-It also happens when the user wants to access a post-aggregation metric that
-is dependent on revenue.</p>
 </div>
 </div>
 </div>

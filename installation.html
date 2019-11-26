@@ -106,6 +106,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#ssl-access-to-databases">SSL Access to databases</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#druid">Druid</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#presto">Presto</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#exasol">Exasol</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#cors">CORS</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#domain-sharding">DOMAIN SHARDING</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#middleware">MIDDLEWARE</a></li>
@@ -199,7 +200,7 @@
 <p>Superset has deprecated support for Python <code class="docutils literal notranslate"><span class="pre">2.*</span></code> and supports
 only <code class="docutils literal notranslate"><span class="pre">~=3.6</span></code> to take advantage of the newer Python features and reduce
 the burden of supporting previous versions. We run our test suite
-against <code class="docutils literal notranslate"><span class="pre">3.6</span></code>, but running on <code class="docutils literal notranslate"><span class="pre">3.7</span></code> <strong>should</strong> work as well.</p>
+against <code class="docutils literal notranslate"><span class="pre">3.6</span></code>, but <code class="docutils literal notranslate"><span class="pre">3.7</span></code> is fully supported as well.</p>
 </div>
 <div class="section" id="cloud-native">
 <h2>Cloud-native!<a class="headerlink" href="#cloud-native" title="Permalink to this headline">¶</a></h2>
@@ -338,7 +339,7 @@ and <code class="docutils literal notranslate"><span class="pre">setuptools</spa
 <h2>Superset installation and initialization<a class="headerlink" href="#superset-installation-and-initialization" title="Permalink to this headline">¶</a></h2>
 <p>Follow these few simple steps to install Superset.:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span># Install superset
-pip install superset
+pip install apache-superset
 
 # Initialize the database
 superset db upgrade
@@ -354,7 +355,7 @@ superset load_examples
 superset init
 
 # To start a development web server on port 8088, use -p to bind to another port
-superset run -p 8080 --with-threads --reload --debugger
+superset run -p 8088 --with-threads --reload --debugger
 </pre></div>
 </div>
 <p>After installation, you should be able to point your browser to the right
@@ -493,118 +494,6 @@ You’ll need to install the required packages for the database you
 want to use as your metadata database as well as the packages needed to
 connect to the databases you want to access through Superset.</p>
 <p>Here’s a list of some of the recommended packages.</p>
-<table class="docutils align-default">
-<colgroup>
-<col style="width: 17%" />
-<col style="width: 37%" />
-<col style="width: 46%" />
-</colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>database</p></th>
-<th class="head"><p>pypi package</p></th>
-<th class="head"><p>SQLAlchemy URI prefix</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>Amazon Athena</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">&quot;PyAthenaJDBC&gt;1.0.9&quot;</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">awsathena+jdbc://</span></code></p></td>
-</tr>
-<tr class="row-odd"><td><p>Amazon Athena</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">&quot;PyAthena&gt;1.2.0&quot;</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">awsathena+rest://</span></code></p></td>
-</tr>
-<tr class="row-even"><td><p>Amazon Redshift</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">sqlalchemy-redshift</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">redshift+psycopg2://</span></code></p></td>
-</tr>
-<tr class="row-odd"><td><p>Apache Drill</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">sqlalchemy-drill</span></code></p></td>
-<td><p>For the REST API:``
-<code class="docutils literal notranslate"><span class="pre">drill+sadrill://</span></code>
-For JDBC
-<code class="docutils literal notranslate"><span class="pre">drill+jdbc://</span></code></p></td>
-</tr>
-<tr class="row-even"><td><p>Apache Druid</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">pyduid</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">druid://</span></code></p></td>
-</tr>
-<tr class="row-odd"><td><p>Apache Hive</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">pyhive</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">hive://</span></code></p></td>
-</tr>
-<tr class="row-even"><td><p>Apache Impala</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">impyla</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">impala://</span></code></p></td>
-</tr>
-<tr class="row-odd"><td><p>Apache Kylin</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">kylinpy</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">kylin://</span></code></p></td>
-</tr>
-<tr class="row-even"><td><p>Apache Pinot</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">pinotdb</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">pinot+http://CONTROLLER:5436/</span></code>
-<code class="docutils literal notranslate"><span class="pre">query?server=http://CONTROLLER:5983/</span></code></p></td>
-</tr>
-<tr class="row-odd"><td><p>Apache Spark SQL</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">pyhive</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">jdbc+hive://</span></code></p></td>
-</tr>
-<tr class="row-even"><td><p>BigQuery</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">pybigquery</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">bigquery://</span></code></p></td>
-</tr>
-<tr class="row-odd"><td><p>ClickHouse</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">sqlalchemy-clickhouse</span></code></p></td>
-<td></td>
-</tr>
-<tr class="row-even"><td><p>Google Sheets</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">gsheetsdb</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">gsheets://</span></code></p></td>
-</tr>
-<tr class="row-odd"><td><p>IBM Db2</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">ibm_db_sa</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">db2+ibm_db://</span></code></p></td>
-</tr>
-<tr class="row-even"><td><p>MySQL</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">mysqlclient</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">mysql://</span></code></p></td>
-</tr>
-<tr class="row-odd"><td><p>Oracle</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">cx_Oracle</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">oracle://</span></code></p></td>
-</tr>
-<tr class="row-even"><td><p>PostgreSQL</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">psycopg2</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">postgresql+psycopg2://</span></code></p></td>
-</tr>
-<tr class="row-odd"><td><p>Presto</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">pyhive</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">presto://</span></code></p></td>
-</tr>
-<tr class="row-even"><td><p>Snowflake</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">snowflake-sqlalchemy</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">snowflake://</span></code></p></td>
-</tr>
-<tr class="row-odd"><td><p>SQLite</p></td>
-<td></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">sqlite://</span></code></p></td>
-</tr>
-<tr class="row-even"><td><p>SQL Server</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">pymssql</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">mssql://</span></code></p></td>
-</tr>
-<tr class="row-odd"><td><p>Teradata</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">sqlalchemy-teradata</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">teradata://</span></code></p></td>
-</tr>
-<tr class="row-even"><td><p>Vertica</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span>
-<span class="pre">sqlalchemy-vertica-python</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">vertica+vertica_python://</span></code></p></td>
-</tr>
-</tbody>
-</table>
 <p>Note that many other databases are supported, the main criteria being the
 existence of a functional SqlAlchemy dialect and Python driver. Googling
 the keyword <code class="docutils literal notranslate"><span class="pre">sqlalchemy</span></code> in addition of a keyword that describes the
@@ -759,6 +648,11 @@ object gets unpacked into the
 <a class="reference external" href="https://docs.sqlalchemy.org/en/latest/core/engines.html#sqlalchemy.create_engine">sqlalchemy.create_engine</a> call,
 while the <code class="docutils literal notranslate"><span class="pre">metadata_params</span></code> get unpacked into the
 <a class="reference external" href="https://docs.sqlalchemy.org/en/rel_1_2/core/metadata.html#sqlalchemy.schema.MetaData">sqlalchemy.MetaData</a> call. Refer to the SQLAlchemy docs for more information.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If your using CTAS on SQLLab and PostgreSQL
+take a look at <a class="reference internal" href="sqllab.html#ref-ctas-engine-config"><span class="std std-ref">Create Table As (CTAS)</span></a> for specific <code class="docutils literal notranslate"><span class="pre">engine_params</span></code>.</p>
+</div>
 </div>
 <div class="section" id="schemas-postgres-redshift">
 <h2>Schemas (Postgres &amp; Redshift)<a class="headerlink" href="#schemas-postgres-redshift" title="Permalink to this headline">¶</a></h2>
@@ -834,6 +728,23 @@ it in the <code class="docutils literal notranslate"><span class="pre">extra</sp
 </pre></div>
 </div>
 </div>
+<div class="section" id="exasol">
+<h2>Exasol<a class="headerlink" href="#exasol" title="Permalink to this headline">¶</a></h2>
+<p>The connection string for Exasol looks like this</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">exa</span><span class="o">+</span><span class="n">pyodbc</span><span class="p">:</span><span class="o">//</span><span class="p">{</span><span class="n">user</span><span class="p">}:{</span><span class="n">password</span><span class="p">}</span><span class="o">@</span><span class="p">{</span><span class="n">host</span><span class="p">}</span>
+</pre></div>
+</div>
+<p><em>Note</em>: It’s required to have Exasol ODBC drivers installed for the sqlalchemy dialect to work properly. Exasol ODBC Drivers available are here: <a class="reference external" href="https://www.exasol.com/portal/display/DOWNLOAD/Exasol+Download+Section">https://www.exasol.com/portal/display/DOWNLOAD/Exasol+Download+Section</a></p>
+<p>Example config (odbcinst.ini can be left empty)</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cat $/.../path/to/odbc.ini
+[EXAODBC]
+DRIVER = /.../path/to/driver/EXASOL_driver.so
+EXAHOST = host:8563
+EXASCHEMA = main
+</pre></div>
+</div>
+<p>See <a class="reference external" href="https://github.com/blue-yonder/sqlalchemy_exasol">SQLAlchemy for Exasol</a>.</p>
+</div>
 <div class="section" id="cors">
 <h2>CORS<a class="headerlink" href="#cors" title="Permalink to this headline">¶</a></h2>
 <p>The extra CORS Dependency must be installed:</p>
@@ -865,9 +776,9 @@ your <cite>superset_config.py</cite>. <code class="docutils literal notranslate"
 add the value of <code class="docutils literal notranslate"><span class="pre">HTTP_X_PROXY_REMOTE_USER</span></code> (or any other custom header from the proxy) to Gunicorn’s <code class="docutils literal notranslate"><span class="pre">REMOTE_USER</span></code>
 environment variable:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">RemoteUserMiddleware</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">app</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">app</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">app</span> <span class="o">=</span> <span class="n">app</span>
-    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">environ</span><span class="p">,</span> <span class="n">start_response</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">environ</span><span class="p">,</span> <span class="n">start_response</span><span class="p">):</span>
         <span class="n">user</span> <span class="o">=</span> <span class="n">environ</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;HTTP_X_PROXY_REMOTE_USER&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
         <span class="n">environ</span><span class="p">[</span><span class="s1">&#39;REMOTE_USER&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">user</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="p">(</span><span class="n">environ</span><span class="p">,</span> <span class="n">start_response</span><span class="p">)</span>
@@ -912,7 +823,7 @@ environment variable:</p>
 <div class="section" id="upgrading">
 <h2>Upgrading<a class="headerlink" href="#upgrading" title="Permalink to this headline">¶</a></h2>
 <p>Upgrading should be as straightforward as running:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">superset</span> <span class="o">--</span><span class="n">upgrade</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">apache</span><span class="o">-</span><span class="n">superset</span> <span class="o">--</span><span class="n">upgrade</span>
 <span class="n">superset</span> <span class="n">db</span> <span class="n">upgrade</span>
 <span class="n">superset</span> <span class="n">init</span>
 </pre></div>
@@ -957,7 +868,7 @@ have the same configuration.</p>
     <span class="n">CELERY_RESULT_BACKEND</span> <span class="o">=</span> <span class="s1">&#39;redis://localhost:6379/0&#39;</span>
     <span class="n">CELERYD_LOG_LEVEL</span> <span class="o">=</span> <span class="s1">&#39;DEBUG&#39;</span>
     <span class="n">CELERYD_PREFETCH_MULTIPLIER</span> <span class="o">=</span> <span class="mi">10</span>
-    <span class="n">CELERY_ACKS_LATE</span> <span class="o">=</span> <span class="bp">True</span>
+    <span class="n">CELERY_ACKS_LATE</span> <span class="o">=</span> <span class="kc">True</span>
     <span class="n">CELERY_ANNOTATIONS</span> <span class="o">=</span> <span class="p">{</span>
         <span class="s1">&#39;sql_lab.get_sql_results&#39;</span><span class="p">:</span> <span class="p">{</span>
             <span class="s1">&#39;rate_limit&#39;</span><span class="p">:</span> <span class="s1">&#39;100/s&#39;</span><span class="p">,</span>
@@ -966,7 +877,7 @@ have the same configuration.</p>
             <span class="s1">&#39;rate_limit&#39;</span><span class="p">:</span> <span class="s1">&#39;1/s&#39;</span><span class="p">,</span>
             <span class="s1">&#39;time_limit&#39;</span><span class="p">:</span> <span class="mi">120</span><span class="p">,</span>
             <span class="s1">&#39;soft_time_limit&#39;</span><span class="p">:</span> <span class="mi">150</span><span class="p">,</span>
-            <span class="s1">&#39;ignore_result&#39;</span><span class="p">:</span> <span class="bp">True</span><span class="p">,</span>
+            <span class="s1">&#39;ignore_result&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
         <span class="p">},</span>
     <span class="p">}</span>
     <span class="n">CELERYBEAT_SCHEDULE</span> <span class="o">=</span> <span class="p">{</span>
@@ -1010,6 +921,11 @@ look something like:</p>
     <span class="n">host</span><span class="o">=</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">6379</span><span class="p">,</span> <span class="n">key_prefix</span><span class="o">=</span><span class="s1">&#39;superset_results&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
+<p>For performance gains, <a class="reference external" href="https://github.com/msgpack/msgpack-python">MessagePack</a>
+and <a class="reference external" href="https://arrow.apache.org/docs/python/">PyArrow</a> are now used for results
+serialization. This can be disabled by setting <code class="docutils literal notranslate"><span class="pre">RESULTS_BACKEND_USE_MSGPACK</span> <span class="pre">=</span> <span class="pre">False</span></code>
+in your configuration, should any issues arise. Please clear your existing results
+cache store when upgrading an existing environment.</p>
 <p><strong>Important notes</strong></p>
 <ul class="simple">
 <li><p>It is important that all the worker nodes and web servers in
@@ -1174,7 +1090,7 @@ up by an external scheduled (like [Apache Airflow](<a class="reference external"
         <span class="c1"># that uses the query id and the output table as its name</span>
         <span class="s1">&#39;linkback&#39;</span><span class="p">:</span> <span class="p">(</span>
             <span class="s1">&#39;https://airflow.example.com/admin/airflow/tree?&#39;</span>
-            <span class="s1">&#39;dag_id=query_${id}_${extra_json.schedule_info.output_table}&#39;</span>
+            <span class="s1">&#39;dag_id=query_$</span><span class="si">{id}</span><span class="s1">_$</span><span class="si">{extra_json.schedule_info.output_table}</span><span class="s1">&#39;</span>
         <span class="p">),</span>
     <span class="p">},</span>
 <span class="p">}</span>
@@ -1220,8 +1136,8 @@ same server.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Blueprint</span>
 <span class="n">simple_page</span> <span class="o">=</span> <span class="n">Blueprint</span><span class="p">(</span><span class="s1">&#39;simple_page&#39;</span><span class="p">,</span> <span class="vm">__name__</span><span class="p">,</span>
                                 <span class="n">template_folder</span><span class="o">=</span><span class="s1">&#39;templates&#39;</span><span class="p">)</span>
-<span class="nd">@simple_page.route</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="n">defaults</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;page&#39;</span><span class="p">:</span> <span class="s1">&#39;index&#39;</span><span class="p">})</span>
-<span class="nd">@simple_page.route</span><span class="p">(</span><span class="s1">&#39;/&lt;page&gt;&#39;</span><span class="p">)</span>
+<span class="nd">@simple_page</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="n">defaults</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;page&#39;</span><span class="p">:</span> <span class="s1">&#39;index&#39;</span><span class="p">})</span>
+<span class="nd">@simple_page</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/&lt;page&gt;&#39;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">show</span><span class="p">(</span><span class="n">page</span><span class="p">):</span>
     <span class="k">return</span> <span class="s2">&quot;Ok&quot;</span>
 
@@ -1282,7 +1198,7 @@ located in <code class="docutils literal notranslate"><span class="pre">install/
 <span class="p">]</span>
 
 <span class="c1"># Will allow user self registration, allowing to create Flask users from Authorized User</span>
-<span class="n">AUTH_USER_REGISTRATION</span> <span class="o">=</span> <span class="bp">True</span>
+<span class="n">AUTH_USER_REGISTRATION</span> <span class="o">=</span> <span class="kc">True</span>
 
 <span class="c1"># The default user self registration role</span>
 <span class="n">AUTH_USER_REGISTRATION_ROLE</span> <span class="o">=</span> <span class="s2">&quot;Public&quot;</span>
@@ -1293,13 +1209,13 @@ located in <code class="docutils literal notranslate"><span class="pre">install/
 
 <span class="k">class</span> <span class="nc">CustomSsoSecurityManager</span><span class="p">(</span><span class="n">SupersetSecurityManager</span><span class="p">):</span>
 
-    <span class="k">def</span> <span class="nf">oauth_user_info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">provider</span><span class="p">,</span> <span class="n">response</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Oauth2 provider: {0}.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">provider</span><span class="p">))</span>
+    <span class="k">def</span> <span class="nf">oauth_user_info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">provider</span><span class="p">,</span> <span class="n">response</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Oauth2 provider: </span><span class="si">{0}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">provider</span><span class="p">))</span>
         <span class="k">if</span> <span class="n">provider</span> <span class="o">==</span> <span class="s1">&#39;egaSSO&#39;</span><span class="p">:</span>
             <span class="c1"># As example, this line request a GET to base_url + &#39;/&#39; + userDetails with Bearer  Authentication,</span>
     <span class="c1"># and expects that authorization server checks the token, and response with user details</span>
             <span class="n">me</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">appbuilder</span><span class="o">.</span><span class="n">sm</span><span class="o">.</span><span class="n">oauth_remotes</span><span class="p">[</span><span class="n">provider</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;userDetails&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">data</span>
-            <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;user_data: {0}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">me</span><span class="p">))</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;user_data: </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">me</span><span class="p">))</span>
             <span class="k">return</span> <span class="p">{</span> <span class="s1">&#39;name&#39;</span> <span class="p">:</span> <span class="n">me</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">],</span> <span class="s1">&#39;email&#39;</span> <span class="p">:</span> <span class="n">me</span><span class="p">[</span><span class="s1">&#39;email&#39;</span><span class="p">],</span> <span class="s1">&#39;id&#39;</span> <span class="p">:</span> <span class="n">me</span><span class="p">[</span><span class="s1">&#39;user_name&#39;</span><span class="p">],</span> <span class="s1">&#39;username&#39;</span> <span class="p">:</span> <span class="n">me</span><span class="p">[</span><span class="s1">&#39;user_name&#39;</span><span class="p">],</span> <span class="s1">&#39;first_name&#39;</span><span class="p">:</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;last_name&#39;</span><span class="p">:</span><span class="s1">&#39;&#39;</span><span class="p">}</span>
     <span class="o">...</span>
 </pre></div>
@@ -1316,8 +1232,9 @@ located in <code class="docutils literal notranslate"><span class="pre">install/
 <p>Because of a wide variety of users, Superset has some features that are not enabled by default. For example, some users have stronger security restrictions, while some others may not. So Superset allow users to enable or disable some features by config. For feature owners, you can add optional functionalities in Superset, but will be only affected by a subset of users.</p>
 <p>You can enable or disable features with flag from <code class="docutils literal notranslate"><span class="pre">superset_config.py</span></code>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">DEFAULT_FEATURE_FLAGS</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;CLIENT_CACHE&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span>
-    <span class="s1">&#39;ENABLE_EXPLORE_JSON_CSRF_PROTECTION&#39;</span><span class="p">:</span> <span class="bp">False</span>
+    <span class="s1">&#39;CLIENT_CACHE&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="s1">&#39;ENABLE_EXPLORE_JSON_CSRF_PROTECTION&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="s1">&#39;PRESTO_EXPAND_DATA&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -1327,6 +1244,11 @@ located in <code class="docutils literal notranslate"><span class="pre">install/
 <ul>
 <li><p>For some security concerns, you may need to enforce CSRF protection on all query request to explore_json endpoint. In Superset, we use <a class="reference external" href="https://sjl.bitbucket.io/flask-csrf/">flask-csrf</a> add csrf protection for all POST requests, but this protection doesn’t apply to GET method.</p></li>
 <li><p>When ENABLE_EXPLORE_JSON_CSRF_PROTECTION is set to true, your users cannot make GET request to explore_json. The default value for this feature False (current behavior), explore_json accepts both GET and POST request. See <a class="reference external" href="https://github.com/apache/incubator-superset/pull/7935">PR 7935</a> for more details.</p></li>
+</ul>
+</li>
+<li><p>PRESTO_EXPAND_DATA</p>
+<ul>
+<li><p>When this feature is enabled, nested types in Presto will be expanded into extra columns and/or arrays. This is experimental, and doesn’t work with all nested types.</p></li>
 </ul>
 </li>
 </ul>
