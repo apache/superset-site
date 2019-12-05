@@ -82,7 +82,7 @@
             
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation &amp; Configuration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial - Creating your first dashboard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials</a></li>
 <li class="toctree-l1"><a class="reference internal" href="security.html">Security</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">SQL Lab</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#feature-overview">Feature Overview</a></li>
@@ -254,6 +254,8 @@ runtime and replaced by the value in the URL.</p>
 <p>As you create a visualization form this SQL Lab query, you can pass
 parameters in the explore view as well as from the dashboard, and
 it should carry through to your queries.</p>
+<p>Default values for URL parameters can be defined in chart metdata by
+adding the key-value pair <cite>url_params: {‘foo’: ‘bar’}</cite></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -426,15 +428,43 @@ to integrate in their queries in <strong>SQL Lab</strong>.</p>
 of queries before executing this. Currently, Presto is supported in SQL Lab. To
 enable query cost estimation, add the following keys to the “Extra” field in the
 database configuration:</p>
-<div class="highlight-json notranslate"><div class="highlight"><pre><span></span>{
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>{
     &quot;version&quot;: &quot;0.319&quot;,
-    &quot;cost_estimate_enabled&quot;: true,
+    &quot;cost_estimate_enabled&quot;: true
     ...
 }
 </pre></div>
 </div>
 <p>Here, “version” should be the version of your Presto cluster. Support for this
 functionality was introduced in Presto 0.319.</p>
+<p>You also need to enable the feature flag in your <cite>superset_config.py</cite>, and you
+can optionally specify a custom formatter. Eg:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">presto_query_cost_formatter</span><span class="p">(</span><span class="n">cost_estimate</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Format cost estimate returned by Presto.</span>
+
+<span class="sd">    :param cost_estimate: JSON estimate from Presto</span>
+<span class="sd">    :return: Human readable cost estimate</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Convert cost to dollars based on CPU and network cost. These coefficients are just</span>
+    <span class="c1"># examples, they need to be estimated based on your infrastructure.</span>
+    <span class="n">cpu_coefficient</span> <span class="o">=</span> <span class="mf">2e-12</span>
+    <span class="n">network_coefficient</span> <span class="o">=</span> <span class="mf">1e-12</span>
+
+    <span class="n">cost</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">cost_estimate</span><span class="p">:</span>
+        <span class="n">cost</span> <span class="o">+=</span> <span class="n">row</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;cpuCost&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">*</span> <span class="n">cpu_coefficient</span>
+        <span class="n">cost</span> <span class="o">+=</span> <span class="n">row</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;networkCost&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">*</span> <span class="n">network_coefficient</span>
+
+    <span class="k">return</span> <span class="p">[{</span><span class="s2">&quot;Cost&quot;</span><span class="p">:</span> <span class="n">f</span><span class="s2">&quot;US$ {cost:.2f}&quot;</span><span class="p">}]</span>
+
+
+<span class="n">DEFAULT_FEATURE_FLAGS</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;ESTIMATE_QUERY_COST&quot;</span><span class="p">:</span> <span class="bp">True</span><span class="p">,</span>
+    <span class="s2">&quot;QUERY_COST_FORMATTERS_BY_ENGINE&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;presto&quot;</span><span class="p">:</span> <span class="n">presto_query_cost_formatter</span><span class="p">},</span>
+<span class="p">}</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="create-table-as-ctas">
 <span id="ref-ctas-engine-config"></span><h3>Create Table As (CTAS)<a class="headerlink" href="#create-table-as-ctas" title="Permalink to this headline">¶</a></h3>
@@ -442,7 +472,7 @@ functionality was introduced in Presto 0.319.</p>
 and off at the database configuration level.</p>
 <p>Note that since <code class="docutils literal notranslate"><span class="pre">CREATE</span> <span class="pre">TABLE..</span></code> belongs to a SQL DDL category. Specifically on PostgreSQL, DDL is transactional,
 this means that to properly use this feature you have to set <code class="docutils literal notranslate"><span class="pre">autocommit</span></code> to true on your engine parameters:</p>
-<div class="highlight-json notranslate"><div class="highlight"><pre><span></span>{
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>{
     ...
     &quot;engine_params&quot;: {&quot;isolation_level&quot;:&quot;AUTOCOMMIT&quot;},
     ...
@@ -473,6 +503,7 @@ this means that to properly use this feature you have to set <code class="docuti
 
   <div role="contentinfo">
     <p>
+        &copy; Copyright Copyright © 2019 The Apache Software Foundation, Licensed under the Apache License, Version 2.0.
 
     </p>
   </div> 

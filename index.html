@@ -81,7 +81,7 @@
             
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation &amp; Configuration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial - Creating your first dashboard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials</a></li>
 <li class="toctree-l1"><a class="reference internal" href="security.html">Security</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sqllab.html">SQL Lab</a></li>
 <li class="toctree-l1"><a class="reference internal" href="gallery.html">Visualizations Gallery</a></li>
@@ -223,7 +223,7 @@ to the user</p></li>
 </div>
 <div class="section" id="databases">
 <h3>Databases<a class="headerlink" href="#databases" title="Permalink to this headline">¶</a></h3>
-<p>The following RDBMS are currently suppored:</p>
+<p>The following RDBMS are currently supported:</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://aws.amazon.com/athena/">Amazon Athena</a></p></li>
 <li><p><a class="reference external" href="https://aws.amazon.com/redshift/">Amazon Redshift</a></p></li>
@@ -236,6 +236,7 @@ to the user</p></li>
 <li><p><a class="reference external" href="https://spark.apache.org/sql/">Apache Spark SQL</a></p></li>
 <li><p><a class="reference external" href="https://cloud.google.com/bigquery/">BigQuery</a></p></li>
 <li><p><a class="reference external" href="https://clickhouse.yandex/">ClickHouse</a></p></li>
+<li><p><a class="reference external" href="https://www.elastic.co/products/elasticsearch/">Elasticsearch</a></p></li>
 <li><p><a class="reference external" href="https://www.exasol.com/">Exasol</a></p></li>
 <li><p><a class="reference external" href="https://www.google.com/sheets/about/">Google Sheets</a></p></li>
 <li><p><a class="reference external" href="https://greenplum.org/">Greenplum</a></p></li>
@@ -249,6 +250,7 @@ to the user</p></li>
 <li><p><a class="reference external" href="https://www.microsoft.com/en-us/sql-server/">SQL Server</a></p></li>
 <li><p><a class="reference external" href="https://www.teradata.com/">Teradata</a></p></li>
 <li><p><a class="reference external" href="https://www.vertica.com/">Vertica</a></p></li>
+<li><p><a class="reference external" href="https://www.sap.com/products/hana.html">Hana</a></p></li>
 </ul>
 <p>Other database engines with a proper DB-API driver and SQLAlchemy dialect should
 be supported as well.</p>
@@ -281,8 +283,10 @@ be supported as well.</p>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#configuration-behind-a-load-balancer">Configuration behind a load balancer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#configuration">Configuration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#database-dependencies">Database dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#hana">Hana</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#aws-athena">(AWS) Athena</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#google-bigquery">(Google) BigQuery</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#elasticsearch">Elasticsearch</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#snowflake">Snowflake</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#teradata">Teradata</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#apache-drill">Apache Drill</a></li>
@@ -295,8 +299,8 @@ be supported as well.</p>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#presto">Presto</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#exasol">Exasol</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#cors">CORS</a></li>
-<li class="toctree-l2"><a class="reference internal" href="installation.html#domain-sharding">DOMAIN SHARDING</a></li>
-<li class="toctree-l2"><a class="reference internal" href="installation.html#middleware">MIDDLEWARE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#domain-sharding">Domain Sharding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#middleware">Middleware</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#event-logging">Event Logging</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#upgrading">Upgrading</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#celery-tasks">Celery Tasks</a></li>
@@ -309,13 +313,12 @@ be supported as well.</p>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#install-superset-with-helm-in-kubernetes">Install Superset with helm in Kubernetes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#custom-oauth2-configuration">Custom OAuth2 configuration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#feature-flags">Feature Flags</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#sip-15">SIP-15</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial - Creating your first dashboard</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="tutorial.html#connecting-to-a-new-database">Connecting to a new database</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial.html#adding-a-new-table">Adding a new table</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial.html#exploring-your-data">Exploring your data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial.html#creating-a-slice-and-dashboard">Creating a slice and dashboard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="admintutorial.html">Creating your first dashboard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usertutorial.html">Exploring data with Apache Superset</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="security.html">Security</a><ul>
@@ -395,6 +398,7 @@ be supported as well.</p>
 
   <div role="contentinfo">
     <p>
+        &copy; Copyright Copyright © 2019 The Apache Software Foundation, Licensed under the Apache License, Version 2.0.
 
     </p>
   </div> 
