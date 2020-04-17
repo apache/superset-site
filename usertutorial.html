@@ -202,7 +202,7 @@ functionality for the examples database.</p>
 <p>In the top menu, select <span class="menuselection">Sources ‣ Databases</span>. Find the
 <span class="guilabel">examples</span> database in the list and select the edit record
 button.</p>
-<img alt="_images/edit-record.png" src="_images/edit-record.png" />
+<img alt="_static/images/usertutorial/edit-record.png" src="_static/images/usertutorial/edit-record.png" />
 <p>Within the <span class="guilabel">Edit Database</span> page, check the
 <span class="guilabel">Allow Csv Upload</span> checkbox.</p>
 <p>Finally, save by selecting <span class="guilabel">Save</span> at the bottom of the page.</p>
@@ -212,13 +212,13 @@ button.</p>
 <p>Download the data for this tutorial to your computer from
 <a class="reference external" href="https://raw.githubusercontent.com/apache-superset/examples-data/master/tutorial_flights.csv">Github</a>.</p>
 <p>In the top menu, select <span class="menuselection">Sources ‣ Upload a CSV</span>.</p>
-<img alt="_images/upload_a_csv.png" src="_images/upload_a_csv.png" />
+<img alt="_static/images/usertutorial/upload_a_csv.png" src="_static/images/usertutorial/upload_a_csv.png" />
 <p>Then, enter the <span class="guilabel">Table name</span> as <cite>tutorial_flights</cite>
 and select the <span class="guilabel">CSV file</span> from your computer.</p>
-<img alt="_images/csv_to_database_configuration.png" src="_images/csv_to_database_configuration.png" />
+<img alt="_static/images/usertutorial/csv_to_database_configuration.png" src="_static/images/usertutorial/csv_to_database_configuration.png" />
 <p>Next enter the text <cite>Travel Date</cite> into the
 <span class="guilabel">Parse Dates</span> field.</p>
-<img alt="_images/parse_dates_column.png" src="_images/parse_dates_column.png" />
+<img alt="_static/images/usertutorial/parse_dates_column.png" src="_static/images/usertutorial/parse_dates_column.png" />
 <p>Leaving all the other options in their default settings, select
 <span class="guilabel">Save</span> at the bottom of the page.</p>
 </div>
@@ -227,13 +227,13 @@ and select the <span class="guilabel">CSV file</span> from your computer.</p>
 <p>In this section, we’ll create our first visualization: a table to show
 the number of flights and cost per travel class.</p>
 <p>To create a new chart, select the <span class="menuselection">New ‣ Chart</span>.</p>
-<img alt="_images/add_new_chart.png" src="_images/add_new_chart.png" />
+<img alt="_static/images/usertutorial/add_new_chart.png" src="_static/images/usertutorial/add_new_chart.png" />
 <p>Once in the <span class="guilabel">Create a new chart</span> dialogue, select
 <span class="guilabel">tutorial_flights</span> from the <span class="guilabel">Chose a datasource</span>
 dropdown.</p>
-<img alt="_images/chose_a_datasource.png" src="_images/chose_a_datasource.png" />
+<img alt="_static/images/usertutorial/chose_a_datasource.png" src="_static/images/usertutorial/chose_a_datasource.png" />
 <p>Next, select the visualization type as <span class="guilabel">Table</span>.</p>
-<img alt="_images/select_table_visualization_type.png" src="_images/select_table_visualization_type.png" />
+<img alt="_static/images/usertutorial/select_table_visualization_type.png" src="_static/images/usertutorial/select_table_visualization_type.png" />
 <p>Then, select <span class="guilabel">Create new chart</span> to go into the chart view.</p>
 <p>By default, Apache Superset only shows the last week of data: in our
 example, we want to look at all the data in the dataset. No problem -
@@ -241,7 +241,7 @@ within the <span class="guilabel">Time</span> section, remove the filter on
 <span class="guilabel">Time range</span> by selecting on <span class="guilabel">Last week</span> then
 changing the selection to <span class="guilabel">No filter</span>, with a final
 <span class="guilabel">OK</span> to confirm your selection.</p>
-<img alt="_images/no_filter_on_time_filter.png" src="_images/no_filter_on_time_filter.png" />
+<img alt="_static/images/usertutorial/no_filter_on_time_filter.png" src="_static/images/usertutorial/no_filter_on_time_filter.png" />
 <p>Now, we want to specify the rows in our table by using the
 <span class="guilabel">Group by</span> option. Since in this example, we want to
 understand different Travel Classes, we select <span class="guilabel">Travel Class</span>
@@ -252,9 +252,9 @@ rows in the table (in this case corresponding to the number of flights
 since we have a row per flight), is already there. To add cost, within
 <span class="guilabel">Metrics</span>, select <span class="guilabel">Cost</span>. <span class="guilabel">Save</span> the
 default aggregation option, which is to sum the column.</p>
-<img alt="_images/sum_cost_column.png" src="_images/sum_cost_column.png" />
+<img alt="_static/images/usertutorial/sum_cost_column.png" src="_static/images/usertutorial/sum_cost_column.png" />
 <p>Finally, select <span class="guilabel">Run Query</span> to see the results of the table.</p>
-<img alt="_images/tutorial_table.png" src="_images/tutorial_table.png" />
+<img alt="_static/images/usertutorial/tutorial_table.png" src="_static/images/usertutorial/tutorial_table.png" />
 <p>Congratulations, you have created your first visualization in Apache
 Superset!</p>
 <p>To save the visualization, click on <span class="guilabel">Save</span> in the top left of
@@ -263,7 +263,7 @@ name as Tutorial Table (you will be able to find it again through the
 <span class="guilabel">Charts</span> screen, accessible in the top menu). Similarly,
 select <span class="guilabel">Add to new dashboard</span> and enter <cite>Tutorial Dashboard</cite>.
 Finally, select <span class="guilabel">Save &amp; go to dashboard</span>.</p>
-<img alt="_images/save_tutorial_table.png" src="_images/save_tutorial_table.png" />
+<img alt="_static/images/usertutorial/save_tutorial_table.png" src="_static/images/usertutorial/save_tutorial_table.png" />
 </div>
 <div class="section" id="dashboard-basics">
 <h2>Dashboard basics<a class="headerlink" href="#dashboard-basics" title="Permalink to this headline">¶</a></h2>
@@ -276,7 +276,7 @@ from the list of dashboards.</p>
 section. Select <span class="guilabel">Edit dashboard</span> and then hover over the
 table. By selecting the bottom right hand corner of the table (the
 cursor will change too), you can resize it by dragging and dropping.</p>
-<img alt="_images/resize_tutorial_table_on_dashboard.png" src="_images/resize_tutorial_table_on_dashboard.png" />
+<img alt="_static/images/usertutorial/resize_tutorial_table_on_dashboard.png" src="_static/images/usertutorial/resize_tutorial_table_on_dashboard.png" />
 <p>Finally, save your changes by selecting <span class="guilabel">Save changes</span> in the
 top right.</p>
 </div>
@@ -302,7 +302,7 @@ range to be the first six months of 2011 by click on Last week in the
 June 2011 respectively by either entering directly the dates or using
 the calendar widget (by selecting the month name and then the year, you
 can move more quickly to far away dates).</p>
-<img alt="_images/select_dates_pivot_table.png" src="_images/select_dates_pivot_table.png" />
+<img alt="_static/images/usertutorial/select_dates_pivot_table.png" src="_static/images/usertutorial/select_dates_pivot_table.png" />
 <p>Next, within the <span class="guilabel">Query</span> section, remove the default COUNT(*)
 and add Cost, keeping the default SUM aggregate. Note that Apache
 Superset will indicate the type of the metric by the symbol on the left
@@ -314,7 +314,7 @@ section.</p>
 <p>Within <span class="guilabel">Columns</span>, select first <span class="guilabel">Department</span> and then
 <span class="guilabel">Travel Class</span>. All set – let’s <span class="guilabel">Run Query</span> to see
 some data!</p>
-<img alt="_images/tutorial_pivot_table.png" src="_images/tutorial_pivot_table.png" />
+<img alt="_static/images/usertutorial/tutorial_pivot_table.png" src="_static/images/usertutorial/tutorial_pivot_table.png" />
 <p>You should see months in the rows and Department and Travel Class in the
 columns. To get this in our dashboard, select <span class="guilabel">Save</span>, name the
 chart Tutorial Pivot and using
@@ -337,7 +337,7 @@ at entire dataset.</p>
 add <span class="guilabel">Cost</span>. This time, we want to change how this column is
 aggregated to show the mean value: we can do this by selecting
 <span class="guilabel">AVG</span> in the <span class="guilabel">aggregate</span> dropdown.</p>
-<img alt="_images/average_aggregate_for_cost.png" src="_images/average_aggregate_for_cost.png" />
+<img alt="_static/images/usertutorial/average_aggregate_for_cost.png" src="_static/images/usertutorial/average_aggregate_for_cost.png" />
 <p>Next, select <span class="guilabel">Run Query</span> to show the data on the chart.</p>
 <p>How does this look? Well, we can see that the average cost goes up in
 December. However, perhaps it doesn’t make sense to combine both single
@@ -353,7 +353,7 @@ this pane, try changing the <span class="guilabel">Color Scheme</span>, removing
 filter by selecting No in the <span class="guilabel">Show Range Filter</span> drop down
 and adding some labels using <span class="guilabel">X Axis Label</span> and
 <span class="guilabel">Y Axis Label</span>.</p>
-<img alt="_images/tutorial_line_chart.png" src="_images/tutorial_line_chart.png" />
+<img alt="_static/images/usertutorial/tutorial_line_chart.png" src="_static/images/usertutorial/tutorial_line_chart.png" />
 <p>Once you’re done, <span class="guilabel">Save</span> as Tutorial Line Chart, use
 <span class="guilabel">Add chart to
 existing dashboard</span> to add this chart to the previous ones on the
@@ -369,14 +369,14 @@ edit mode by selecting <span class="guilabel">Edit dashboard</span>.</p>
 <p>Within the Insert components pane, drag and drop a <span class="guilabel">Markdown</span>
 box on the dashboard. Look for the blue lines which indicate the anchor
 where the box will go.</p>
-<img alt="_images/blue_bar_insert_component.png" src="_images/blue_bar_insert_component.png" />
+<img alt="_static/images/usertutorial/blue_bar_insert_component.png" src="_static/images/usertutorial/blue_bar_insert_component.png" />
 <p>Now, to edit the text, select the box. You can enter text, in markdown
 format (see <a class="reference external" href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet">this Markdown
 Cheatsheet</a>
 for more information about this format). You can toggle between
 <span class="guilabel">Edit</span> and <span class="guilabel">Preview</span> using the menu on the top of
 the box.</p>
-<img alt="_images/markdown.png" src="_images/markdown.png" />
+<img alt="_static/images/usertutorial/markdown.png" src="_static/images/usertutorial/markdown.png" />
 <p>To exit, select any other part of the dashboard. Finally, don’t forget
 to keep your changes using <span class="guilabel">Save changes</span>.</p>
 </div>
@@ -401,7 +401,7 @@ alphabetical order. First, enter the column as
 select <span class="guilabel">Run Query</span>. This gives us a preview of our filter.</p>
 <p>Next, remove the date filter by unchecking the <span class="guilabel">Date Filter</span>
 checkbox.</p>
-<img alt="_images/filter_on_origin_country.png" src="_images/filter_on_origin_country.png" />
+<img alt="_static/images/usertutorial/filter_on_origin_country.png" src="_static/images/usertutorial/filter_on_origin_country.png" />
 <p>Finally, select <span class="guilabel">Save</span>, name the chart as Tutorial Filter, add
 the chart to our existing Tutorial Dashboard and then
 <span class="guilabel">Save &amp; go to
@@ -419,7 +419,7 @@ like, you can rearrange the elements of the dashboard by selecting
 simply select <span class="guilabel">Draft</span> next to the title of your dashboard on
 the top left to change your dashboard to be in <span class="guilabel">Published</span>
 state. You can also favorite this dashboard by selecting the star.</p>
-<img alt="_images/publish_dashboard.png" src="_images/publish_dashboard.png" />
+<img alt="_static/images/usertutorial/publish_dashboard.png" src="_static/images/usertutorial/publish_dashboard.png" />
 </div>
 <div class="section" id="taking-your-dashboard-further">
 <h2>Taking your dashboard further<a class="headerlink" href="#taking-your-dashboard-further" title="Permalink to this headline">¶</a></h2>
@@ -443,7 +443,7 @@ number of different annotations.</p>
 by selecting the green plus sign. Then, select the
 <span class="guilabel">Volcanic Eruptions</span> layer, add a short description Grímsvötn
 and the eruption dates (23-25 May 2011) before finally saving.</p>
-<img alt="_images/edit_annotation.png" src="_images/edit_annotation.png" />
+<img alt="_static/images/usertutorial/edit_annotation.png" src="_static/images/usertutorial/edit_annotation.png" />
 <p>Then, navigate to the line chart by going to <span class="guilabel">Charts</span> then
 selecting <span class="guilabel">Tutorial
 Line Chart</span> from the list. Next, go to the
@@ -455,9 +455,9 @@ Line Chart</span> from the list. Next, go to the
 <li><p>set the <span class="guilabel">Annotation Source</span> as <span class="guilabel">Superset annotation</span></p></li>
 <li><p>specify the <span class="guilabel">Annotation Layer</span> as <span class="guilabel">Volcanic Eruptions</span></p></li>
 </ul>
-<img alt="_images/annotation_settings.png" src="_images/annotation_settings.png" />
+<img alt="_static/images/usertutorial/annotation_settings.png" src="_static/images/usertutorial/annotation_settings.png" />
 <p>Select <span class="guilabel">Apply</span> to see your annotation shown on the chart.</p>
-<img alt="_images/annotation.png" src="_images/annotation.png" />
+<img alt="_static/images/usertutorial/annotation.png" src="_static/images/usertutorial/annotation.png" />
 <p>If you wish, you can change how your annotation looks by changing the
 settings in the <span class="guilabel">Display configuration</span> section. Otherwise,
 select <span class="guilabel">OK</span> and finally <span class="guilabel">Save</span> to save your chart.
@@ -493,7 +493,7 @@ Time section, set the <span class="guilabel">Time Range</span> as 1<sup>st</sup>
 <p>Next, in the query section, change the <span class="guilabel">Metrics</span> to the sum of
 <span class="guilabel">Cost</span>. Select <span class="guilabel">Run Query</span> to show the chart. You
 should see the total cost per day for each month in October 2011.</p>
-<img alt="_images/advanced_analytics_base.png" src="_images/advanced_analytics_base.png" />
+<img alt="_static/images/usertutorial/advanced_analytics_base.png" src="_static/images/usertutorial/advanced_analytics_base.png" />
 <p>Finally, save the visualization as Tutorial Advanced Analytics Base,
 adding it to the Tutorial Dashboard.</p>
 </div>
@@ -514,7 +514,7 @@ calculated on 7 days and we avoid any ramp up period.</p>
 <p>After displaying the chart by selecting <span class="guilabel">Run Query</span> you will
 see that the data is less variable and that the series starts later as
 the ramp up period is excluded.</p>
-<img alt="_images/rolling_mean.png" src="_images/rolling_mean.png" />
+<img alt="_static/images/usertutorial/rolling_mean.png" src="_static/images/usertutorial/rolling_mean.png" />
 <p>Save the chart as Tutorial Rolling Mean and add it to the Tutorial
 Dashboard.</p>
 </div>
@@ -531,12 +531,12 @@ visualization).</p>
 typing in “minus 1 week” (note this box accepts input in natural
 language). <span class="guilabel">Run Query</span> to see the new chart, which has an
 additional series with the same values, shifted a week back in time.</p>
-<img alt="_images/time_comparison_two_series.png" src="_images/time_comparison_two_series.png" />
+<img alt="_static/images/usertutorial/time_comparison_two_series.png" src="_static/images/usertutorial/time_comparison_two_series.png" />
 <p>Then, change the <span class="guilabel">Calculation type</span> to
 <span class="guilabel">Absolute difference</span> and select <span class="guilabel">Run
 Query</span>. We can now see only one series again, this time showing the
 difference between the two series we saw previously.</p>
-<img alt="_images/time_comparison_absolute_difference.png" src="_images/time_comparison_absolute_difference.png" />
+<img alt="_static/images/usertutorial/time_comparison_absolute_difference.png" src="_static/images/usertutorial/time_comparison_absolute_difference.png" />
 <p>Save the chart as Tutorial Time Comparison and add it to the Tutorial
 Dashboard.</p>
 </div>
@@ -549,7 +549,7 @@ Tutorial Advanced Analytics Base chart.</p>
 <span class="guilabel">Advanced Analytics</span>, enter 7D, corresponding to seven days,
 in the <span class="guilabel">Rule</span> and median as the <span class="guilabel">Method</span> and show
 the chart by selecting <span class="guilabel">Run Query</span>.</p>
-<img alt="_images/resample.png" src="_images/resample.png" />
+<img alt="_static/images/usertutorial/resample.png" src="_static/images/usertutorial/resample.png" />
 <p>Note that now we have a single data point every 7 days. In our case, the
 value showed corresponds to the median value within the seven daily data
 points. For more information on the meaning of the various options in

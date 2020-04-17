@@ -107,6 +107,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#external-password-store-for-sqlalchemy-connections">External Password store for SQLAlchemy connections</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#ssl-access-to-databases">SSL Access to databases</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#druid">Druid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dremio">Dremio</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#presto">Presto</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#exasol">Exasol</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#cors">CORS</a></li>
@@ -246,7 +247,10 @@ initialize development environment:</p>
 </pre></div>
 </div>
 <p>After several minutes for superset initialization to finish, you can open
-a browser and view <cite>http://localhost:8088</cite> to start your journey.</p>
+a browser and view <cite>http://localhost:8088</cite> to start your journey. By default
+the system configures an admin user with the username of <cite>admin</cite> and a password
+of <cite>admin</cite> - if you are in a non-local environment it is highly recommended to
+change this username and password at your earliest convenience.</p>
 <p>From there, the container server will reload on modification of the superset python
 and javascript source code.
 Don’t forget to reload the page to take the new frontend into account though.</p>
@@ -344,7 +348,7 @@ superset db upgrade
 
 # Create an admin user (you will be prompted to set a username, first and last name before setting a password)
 $ export FLASK_APP=superset
-flask fab create-admin
+superset fab create-admin
 
 # Load some data to play with
 superset load_examples
@@ -557,6 +561,14 @@ For JDBC
 <td><p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">sqlalchemy-clickhouse</span></code></p></td>
 <td></td>
 </tr>
+<tr class="row-even"><td><p>CockroachDB</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">cockroachdb</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">cockroachdb://</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Dremio</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">sqlalchemy_dremio</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">dremio://user:pwd&#64;host:31010/</span></code></p></td>
+</tr>
 <tr class="row-even"><td><p>Elasticsearch</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">elasticsearch-dbapi</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">elasticsearch+http://</span></code></p></td>
@@ -612,7 +624,8 @@ For JDBC
 </tr>
 <tr class="row-odd"><td><p>Hana</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">hdbcli</span> <span class="pre">sqlalchemy-hana</span></code>
-or <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">superset[hana]</span></code></p></td>
+or
+<code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">apache-superset[hana]</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">hana://</span></code></p></td>
 </tr>
 </tbody>
@@ -726,7 +739,11 @@ The role and warehouse can be omitted if defaults are defined for the user, i.e.
 </div></blockquote>
 <p>Make sure the user has privileges to access and use all required
 databases/schemas/tables/views/warehouses, as the Snowflake SQLAlchemy engine does
-not test for user rights during engine creation.</p>
+not test for user/role rights during engine creation by default. However, when
+pressing the “Test Connection” button in the Create or Edit Database dialog,
+user/role credentials are validated by passing <cite>“validate_default_parameters”: True</cite>
+to the <cite>connect()</cite> method during engine creation. If the user/role is not authorized
+to access the database, an error is recorded in the Superset logs.</p>
 <p>See <a class="reference external" href="https://github.com/snowflakedb/snowflake-sqlalchemy">Snowflake SQLAlchemy</a>.</p>
 </div>
 <div class="section" id="teradata">
@@ -832,7 +849,7 @@ For other strategies, check the <cite>superset/tasks/cache.py</cite> file.</p>
 <p>It is possible to tweak the database connection information using the
 parameters exposed by SQLAlchemy. In the <code class="docutils literal notranslate"><span class="pre">Database</span></code> edit view, you will
 find an <code class="docutils literal notranslate"><span class="pre">extra</span></code> field as a <code class="docutils literal notranslate"><span class="pre">JSON</span></code> blob.</p>
-<a class="reference internal image-reference" href="_images/add_db.png"><img alt="_images/add_db.png" src="_images/add_db.png" style="width: 534.0px; height: 370.8px;" /></a>
+<a class="reference internal image-reference" href="_static/images/tutorial/add_db.png"><img alt="_static/images/tutorial/add_db.png" src="_static/images/tutorial/add_db.png" /></a>
 <p>This JSON string contains extra configuration elements. The <code class="docutils literal notranslate"><span class="pre">engine_params</span></code>
 object gets unpacked into the
 <a class="reference external" href="https://docs.sqlalchemy.org/en/latest/core/engines.html#sqlalchemy.create_engine">sqlalchemy.create_engine</a> call,
@@ -897,15 +914,23 @@ parameter</p>
 </div>
 <div class="section" id="druid">
 <h2>Druid<a class="headerlink" href="#druid" title="Permalink to this headline">¶</a></h2>
+<p>The native Druid connector (behind the <code class="docutils literal notranslate"><span class="pre">DRUID_IS_ACTIVE</span></code> feature flag)
+is slowly getting deprecated in favor of the SQLAlchemy/DBAPI connector made
+available in the <code class="docutils literal notranslate"><span class="pre">pydruid</span></code> library.</p>
+<p>To use a custom SSL certificate to validate HTTPS requests, the certificate
+contents can be entered in the <code class="docutils literal notranslate"><span class="pre">Root</span> <span class="pre">Certificate</span></code> field in the Database
+dialog. When using a custom certificate, <code class="docutils literal notranslate"><span class="pre">pydruid</span></code> will automatically use
+<code class="docutils literal notranslate"><span class="pre">https</span></code> scheme. To disable SSL verification add the following to extras:
+<code class="docutils literal notranslate"><span class="pre">engine_params&quot;:</span> <span class="pre">{&quot;connect_args&quot;:</span> <span class="pre">{&quot;scheme&quot;:</span> <span class="pre">&quot;https&quot;,</span> <span class="pre">&quot;ssl_verify_cert&quot;:</span> <span class="pre">false}}</span></code></p>
+</div>
+<div class="section" id="dremio">
+<h2>Dremio<a class="headerlink" href="#dremio" title="Permalink to this headline">¶</a></h2>
+<p>Install the following dependencies to connect to Dremio:</p>
 <ul class="simple">
-<li><p>From the UI, enter the information about your clusters in the
-<cite>Sources -&gt; Druid Clusters</cite> menu by hitting the + sign.</p></li>
-<li><p>Once the Druid cluster connection information is entered, hit the
-<cite>Sources -&gt; Refresh Druid Metadata</cite> menu item to populate</p></li>
-<li><p>Navigate to your datasources</p></li>
+<li><p>Dremio SQLAlchemy: <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">sqlalchemy_dremio</span></code></p></li>
+<li><p>Dremio’s ODBC driver: <a class="reference external" href="https://www.dremio.com/drivers/">https://www.dremio.com/drivers/</a></p></li>
 </ul>
-<p>Note that you can run the <code class="docutils literal notranslate"><span class="pre">superset</span> <span class="pre">refresh_druid</span></code> command to refresh the
-metadata from your Druid cluster(s)</p>
+<p>Example SQLAlchemy URI: <code class="docutils literal notranslate"><span class="pre">dremio://dremio:dremio123&#64;localhost:31010/dremio</span></code></p>
 </div>
 <div class="section" id="presto">
 <h2>Presto<a class="headerlink" href="#presto" title="Permalink to this headline">¶</a></h2>
@@ -938,9 +963,9 @@ EXASCHEMA = main
 <div class="section" id="cors">
 <h2>CORS<a class="headerlink" href="#cors" title="Permalink to this headline">¶</a></h2>
 <p>The extra CORS Dependency must be installed:</p>
-<blockquote>
-<div><p>superset[cors]</p>
-</div></blockquote>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>pip install apache-superset[cors]
+</pre></div>
+</div>
 <p>The following keys in <cite>superset_config.py</cite> can be specified to configure CORS:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">ENABLE_CORS</span></code>: Must be set to True in order to enable CORS</p></li>
@@ -966,9 +991,9 @@ your <cite>superset_config.py</cite>. <code class="docutils literal notranslate"
 add the value of <code class="docutils literal notranslate"><span class="pre">HTTP_X_PROXY_REMOTE_USER</span></code> (or any other custom header from the proxy) to Gunicorn’s <code class="docutils literal notranslate"><span class="pre">REMOTE_USER</span></code>
 environment variable:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">RemoteUserMiddleware</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">app</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">app</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">app</span> <span class="o">=</span> <span class="n">app</span>
-    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">environ</span><span class="p">,</span> <span class="n">start_response</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">environ</span><span class="p">,</span> <span class="n">start_response</span><span class="p">):</span>
         <span class="n">user</span> <span class="o">=</span> <span class="n">environ</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;HTTP_X_PROXY_REMOTE_USER&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
         <span class="n">environ</span><span class="p">[</span><span class="s1">&#39;REMOTE_USER&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">user</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="p">(</span><span class="n">environ</span><span class="p">,</span> <span class="n">start_response</span><span class="p">)</span>
@@ -1058,7 +1083,7 @@ have the same configuration.</p>
     <span class="n">CELERY_RESULT_BACKEND</span> <span class="o">=</span> <span class="s1">&#39;redis://localhost:6379/0&#39;</span>
     <span class="n">CELERYD_LOG_LEVEL</span> <span class="o">=</span> <span class="s1">&#39;DEBUG&#39;</span>
     <span class="n">CELERYD_PREFETCH_MULTIPLIER</span> <span class="o">=</span> <span class="mi">10</span>
-    <span class="n">CELERY_ACKS_LATE</span> <span class="o">=</span> <span class="bp">True</span>
+    <span class="n">CELERY_ACKS_LATE</span> <span class="o">=</span> <span class="kc">True</span>
     <span class="n">CELERY_ANNOTATIONS</span> <span class="o">=</span> <span class="p">{</span>
         <span class="s1">&#39;sql_lab.get_sql_results&#39;</span><span class="p">:</span> <span class="p">{</span>
             <span class="s1">&#39;rate_limit&#39;</span><span class="p">:</span> <span class="s1">&#39;100/s&#39;</span><span class="p">,</span>
@@ -1067,7 +1092,7 @@ have the same configuration.</p>
             <span class="s1">&#39;rate_limit&#39;</span><span class="p">:</span> <span class="s1">&#39;1/s&#39;</span><span class="p">,</span>
             <span class="s1">&#39;time_limit&#39;</span><span class="p">:</span> <span class="mi">120</span><span class="p">,</span>
             <span class="s1">&#39;soft_time_limit&#39;</span><span class="p">:</span> <span class="mi">150</span><span class="p">,</span>
-            <span class="s1">&#39;ignore_result&#39;</span><span class="p">:</span> <span class="bp">True</span><span class="p">,</span>
+            <span class="s1">&#39;ignore_result&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
         <span class="p">},</span>
     <span class="p">}</span>
     <span class="n">CELERYBEAT_SCHEDULE</span> <span class="o">=</span> <span class="p">{</span>
@@ -1140,7 +1165,7 @@ higher than expected load / traffic etc.</p></li>
 </ul>
 <p><strong>Setup</strong></p>
 <p>Make sure you enable email reports in your configuration file</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ENABLE_SCHEDULED_EMAIL_REPORTS</span> <span class="o">=</span> <span class="bp">True</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ENABLE_SCHEDULED_EMAIL_REPORTS</span> <span class="o">=</span> <span class="kc">True</span>
 </pre></div>
 </div>
 <p>Now you will find two new items in the navigation bar that allow you to schedule email
@@ -1157,11 +1182,11 @@ mandatory bcc.</p>
 (see section above “Celery Tasks”). Your celery configuration also
 needs an entry <code class="docutils literal notranslate"><span class="pre">email_reports.schedule_hourly</span></code> for <code class="docutils literal notranslate"><span class="pre">CELERYBEAT_SCHEDULE</span></code>.</p>
 <p>To send emails you need to configure SMTP settings in your configuration file. e.g.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">EMAIL_NOTIFICATIONS</span> <span class="o">=</span> <span class="bp">True</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">EMAIL_NOTIFICATIONS</span> <span class="o">=</span> <span class="kc">True</span>
 
 <span class="n">SMTP_HOST</span> <span class="o">=</span> <span class="s2">&quot;email-smtp.eu-west-1.amazonaws.com&quot;</span>
-<span class="n">SMTP_STARTTLS</span> <span class="o">=</span> <span class="bp">True</span>
-<span class="n">SMTP_SSL</span> <span class="o">=</span> <span class="bp">False</span>
+<span class="n">SMTP_STARTTLS</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">SMTP_SSL</span> <span class="o">=</span> <span class="kc">False</span>
 <span class="n">SMTP_USER</span> <span class="o">=</span> <span class="s2">&quot;smtp_username&quot;</span>
 <span class="n">SMTP_PORT</span> <span class="o">=</span> <span class="mi">25</span>
 <span class="n">SMTP_PASSWORD</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;SMTP_PASSWORD&quot;</span><span class="p">)</span>
@@ -1310,7 +1335,7 @@ up by an external scheduled (like [Apache Airflow](<a class="reference external"
         <span class="c1"># that uses the query id and the output table as its name</span>
         <span class="s1">&#39;linkback&#39;</span><span class="p">:</span> <span class="p">(</span>
             <span class="s1">&#39;https://airflow.example.com/admin/airflow/tree?&#39;</span>
-            <span class="s1">&#39;dag_id=query_${id}_${extra_json.schedule_info.output_table}&#39;</span>
+            <span class="s1">&#39;dag_id=query_$</span><span class="si">{id}</span><span class="s1">_$</span><span class="si">{extra_json.schedule_info.output_table}</span><span class="s1">&#39;</span>
         <span class="p">),</span>
     <span class="p">},</span>
 <span class="p">}</span>
@@ -1356,8 +1381,8 @@ same server.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Blueprint</span>
 <span class="n">simple_page</span> <span class="o">=</span> <span class="n">Blueprint</span><span class="p">(</span><span class="s1">&#39;simple_page&#39;</span><span class="p">,</span> <span class="vm">__name__</span><span class="p">,</span>
                                 <span class="n">template_folder</span><span class="o">=</span><span class="s1">&#39;templates&#39;</span><span class="p">)</span>
-<span class="nd">@simple_page.route</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="n">defaults</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;page&#39;</span><span class="p">:</span> <span class="s1">&#39;index&#39;</span><span class="p">})</span>
-<span class="nd">@simple_page.route</span><span class="p">(</span><span class="s1">&#39;/&lt;page&gt;&#39;</span><span class="p">)</span>
+<span class="nd">@simple_page</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="n">defaults</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;page&#39;</span><span class="p">:</span> <span class="s1">&#39;index&#39;</span><span class="p">})</span>
+<span class="nd">@simple_page</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/&lt;page&gt;&#39;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">show</span><span class="p">(</span><span class="n">page</span><span class="p">):</span>
     <span class="k">return</span> <span class="s2">&quot;Ok&quot;</span>
 
@@ -1418,7 +1443,7 @@ located in <code class="docutils literal notranslate"><span class="pre">install/
 <span class="p">]</span>
 
 <span class="c1"># Will allow user self registration, allowing to create Flask users from Authorized User</span>
-<span class="n">AUTH_USER_REGISTRATION</span> <span class="o">=</span> <span class="bp">True</span>
+<span class="n">AUTH_USER_REGISTRATION</span> <span class="o">=</span> <span class="kc">True</span>
 
 <span class="c1"># The default user self registration role</span>
 <span class="n">AUTH_USER_REGISTRATION_ROLE</span> <span class="o">=</span> <span class="s2">&quot;Public&quot;</span>
@@ -1429,13 +1454,13 @@ located in <code class="docutils literal notranslate"><span class="pre">install/
 
 <span class="k">class</span> <span class="nc">CustomSsoSecurityManager</span><span class="p">(</span><span class="n">SupersetSecurityManager</span><span class="p">):</span>
 
-    <span class="k">def</span> <span class="nf">oauth_user_info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">provider</span><span class="p">,</span> <span class="n">response</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Oauth2 provider: {0}.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">provider</span><span class="p">))</span>
+    <span class="k">def</span> <span class="nf">oauth_user_info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">provider</span><span class="p">,</span> <span class="n">response</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Oauth2 provider: </span><span class="si">{0}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">provider</span><span class="p">))</span>
         <span class="k">if</span> <span class="n">provider</span> <span class="o">==</span> <span class="s1">&#39;egaSSO&#39;</span><span class="p">:</span>
             <span class="c1"># As example, this line request a GET to base_url + &#39;/&#39; + userDetails with Bearer  Authentication,</span>
     <span class="c1"># and expects that authorization server checks the token, and response with user details</span>
             <span class="n">me</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">appbuilder</span><span class="o">.</span><span class="n">sm</span><span class="o">.</span><span class="n">oauth_remotes</span><span class="p">[</span><span class="n">provider</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;userDetails&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">data</span>
-            <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;user_data: {0}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">me</span><span class="p">))</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;user_data: </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">me</span><span class="p">))</span>
             <span class="k">return</span> <span class="p">{</span> <span class="s1">&#39;name&#39;</span> <span class="p">:</span> <span class="n">me</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">],</span> <span class="s1">&#39;email&#39;</span> <span class="p">:</span> <span class="n">me</span><span class="p">[</span><span class="s1">&#39;email&#39;</span><span class="p">],</span> <span class="s1">&#39;id&#39;</span> <span class="p">:</span> <span class="n">me</span><span class="p">[</span><span class="s1">&#39;user_name&#39;</span><span class="p">],</span> <span class="s1">&#39;username&#39;</span> <span class="p">:</span> <span class="n">me</span><span class="p">[</span><span class="s1">&#39;user_name&#39;</span><span class="p">],</span> <span class="s1">&#39;first_name&#39;</span><span class="p">:</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;last_name&#39;</span><span class="p">:</span><span class="s1">&#39;&#39;</span><span class="p">}</span>
     <span class="o">...</span>
 </pre></div>
@@ -1452,9 +1477,9 @@ located in <code class="docutils literal notranslate"><span class="pre">install/
 <p>Because of a wide variety of users, Superset has some features that are not enabled by default. For example, some users have stronger security restrictions, while some others may not. So Superset allow users to enable or disable some features by config. For feature owners, you can add optional functionalities in Superset, but will be only affected by a subset of users.</p>
 <p>You can enable or disable features with flag from <code class="docutils literal notranslate"><span class="pre">superset_config.py</span></code>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">DEFAULT_FEATURE_FLAGS</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;CLIENT_CACHE&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span>
-    <span class="s1">&#39;ENABLE_EXPLORE_JSON_CSRF_PROTECTION&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span>
-    <span class="s1">&#39;PRESTO_EXPAND_DATA&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span>
+    <span class="s1">&#39;CLIENT_CACHE&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="s1">&#39;ENABLE_EXPLORE_JSON_CSRF_PROTECTION&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="s1">&#39;PRESTO_EXPAND_DATA&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -1487,7 +1512,7 @@ located in <code class="docutils literal notranslate"><span class="pre">install/
 </div>
 <p><strong>New deployments</strong></p>
 <p>All new Superset deployments should enable SIP-15 via,</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">SIP_15_ENABLED</span> <span class="o">=</span> <span class="bp">True</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">SIP_15_ENABLED</span> <span class="o">=</span> <span class="kc">True</span>
 </pre></div>
 </div>
 <p><strong>Existing deployments</strong></p>
@@ -1495,7 +1520,7 @@ located in <code class="docutils literal notranslate"><span class="pre">install/
 <p>Prior to enabling SIP-15 existing deployments should communicate to their users the impact of the change and define a grace period end date (exclusive of course) after which all charts will conform to the [start, end) interval, i.e.,</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">dateime</span> <span class="kn">import</span> <span class="n">date</span>
 
-<span class="n">SIP_15_ENABLED</span> <span class="o">=</span> <span class="bp">True</span>
+<span class="n">SIP_15_ENABLED</span> <span class="o">=</span> <span class="kc">True</span>
 <span class="n">SIP_15_GRACE_PERIOD_END</span> <span class="o">=</span> <span class="n">date</span><span class="p">(</span><span class="o">&lt;</span><span class="n">YYYY</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">MM</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">DD</span><span class="o">&gt;</span><span class="p">)</span>
 </pre></div>
 </div>

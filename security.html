@@ -96,6 +96,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#customizing">Customizing</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#permissions">Permissions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#restricting-access-to-a-subset-of-data-sources">Restricting access to a subset of data sources</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#restricting-access-to-a-subset-of-a-particular-table">Restricting access to a subset of a particular table</a></li>
 </ul>
 </li>
 </ul>
@@ -232,7 +233,7 @@ to the role manually.</p>
 sure the users with limited access have [only] the Gamma role assigned to
 them. Second, create a new role (<code class="docutils literal notranslate"><span class="pre">Menu</span> <span class="pre">-&gt;</span> <span class="pre">Security</span> <span class="pre">-&gt;</span> <span class="pre">List</span> <span class="pre">Roles</span></code>) and
 click the <code class="docutils literal notranslate"><span class="pre">+</span></code> sign.</p>
-<a class="reference internal image-reference" href="_images/create_role.png"><img alt="_images/create_role.png" src="_images/create_role.png" style="width: 591.5px; height: 309.5px;" /></a>
+<a class="reference internal image-reference" href="_static/images/create_role.png"><img alt="_static/images/create_role.png" src="_static/images/create_role.png" /></a>
 <p>This new window allows you to give this new role a name, attribute it to users
 and select the tables in the <code class="docutils literal notranslate"><span class="pre">Permissions</span></code> dropdown. To select the data
 sources you want to associate with this role, simply click on the dropdown
@@ -288,6 +289,25 @@ a set of data sources that power dashboards only made available to executives.
 When looking at its dashboard list, this user will only see the
 list of dashboards it has access to, based on the roles and
 permissions that were attributed.</p>
+</div>
+<div class="section" id="restricting-access-to-a-subset-of-a-particular-table">
+<h3>Restricting access to a subset of a particular table<a class="headerlink" href="#restricting-access-to-a-subset-of-a-particular-table" title="Permalink to this headline">¶</a></h3>
+<p>Using <code class="docutils literal notranslate"><span class="pre">Row</span> <span class="pre">level</span> <span class="pre">security</span> <span class="pre">filters</span></code> (under the <code class="docutils literal notranslate"><span class="pre">Security</span></code> menu) you can create
+filters that are assigned to a particular table, as well as a set of roles.
+Say people in your finance department should only have access to rows where
+<code class="docutils literal notranslate"><span class="pre">department</span> <span class="pre">=</span> <span class="pre">&quot;finance&quot;</span></code>.  You could create a <code class="docutils literal notranslate"><span class="pre">Row</span> <span class="pre">level</span> <span class="pre">security</span> <span class="pre">filter</span></code>
+with that clause, and assign it to your <code class="docutils literal notranslate"><span class="pre">Finance</span></code> role, as well as the
+applicable table.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">clause</span></code> field can contain arbitrary text which is then added to the generated
+SQL statement’s <code class="docutils literal notranslate"><span class="pre">WHERE</span></code> clause.  So you could even do something like create a
+filter for the last 30 days and apply it to a specific role, with a clause like
+<code class="docutils literal notranslate"><span class="pre">date_field</span> <span class="pre">&gt;</span> <span class="pre">DATE_SUB(NOW(),</span> <span class="pre">INTERVAL</span> <span class="pre">30</span> <span class="pre">DAY)</span></code>.  It can also support multiple
+conditions: <code class="docutils literal notranslate"><span class="pre">client_id</span> <span class="pre">=</span> <span class="pre">6</span> <span class="pre">AND</span> <span class="pre">advertiser=&quot;foo&quot;</span></code>, etc.</p>
+<p>All relevant <code class="docutils literal notranslate"><span class="pre">Row</span> <span class="pre">level</span> <span class="pre">security</span> <span class="pre">filters</span></code> will be ANDed together, so it’s
+possible to create a situation where two roles conflict in such a way as to
+limit a table subset to empty.  For example, the filters <code class="docutils literal notranslate"><span class="pre">client_id=4</span></code> and
+and <code class="docutils literal notranslate"><span class="pre">client_id=5</span></code>, applied to a role, will result in users of that role having
+<code class="docutils literal notranslate"><span class="pre">client_id=4</span> <span class="pre">AND</span> <span class="pre">client_id=5</span></code> added to their query, which can never be true.</p>
 </div>
 </div>
 </div>

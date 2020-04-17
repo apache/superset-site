@@ -167,7 +167,7 @@
 <p>SQL Lab is a modern, feature-rich SQL IDE written in
 <a class="reference external" href="https://facebook.github.io/react/">React</a>.</p>
 <hr class="docutils" />
-<img alt="_images/sqllab.png" src="_images/sqllab.png" />
+<img alt="_static/images/screenshots/sqllab.png" src="_static/images/screenshots/sqllab.png" />
 <hr class="docutils" />
 <div class="section" id="feature-overview">
 <h2>Feature Overview<a class="headerlink" href="#feature-overview" title="Permalink to this headline">¶</a></h2>
@@ -456,11 +456,11 @@ can optionally specify a custom formatter. Eg:</p>
         <span class="n">cost</span> <span class="o">+=</span> <span class="n">row</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;cpuCost&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">*</span> <span class="n">cpu_coefficient</span>
         <span class="n">cost</span> <span class="o">+=</span> <span class="n">row</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;networkCost&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">*</span> <span class="n">network_coefficient</span>
 
-    <span class="k">return</span> <span class="p">[{</span><span class="s2">&quot;Cost&quot;</span><span class="p">:</span> <span class="n">f</span><span class="s2">&quot;US$ {cost:.2f}&quot;</span><span class="p">}]</span>
+    <span class="k">return</span> <span class="p">[{</span><span class="s2">&quot;Cost&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;US$ </span><span class="si">{</span><span class="n">cost</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">}]</span>
 
 
 <span class="n">DEFAULT_FEATURE_FLAGS</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">&quot;ESTIMATE_QUERY_COST&quot;</span><span class="p">:</span> <span class="bp">True</span><span class="p">,</span>
+    <span class="s2">&quot;ESTIMATE_QUERY_COST&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
     <span class="s2">&quot;QUERY_COST_FORMATTERS_BY_ENGINE&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;presto&quot;</span><span class="p">:</span> <span class="n">presto_query_cost_formatter</span><span class="p">},</span>
 <span class="p">}</span>
 </pre></div>

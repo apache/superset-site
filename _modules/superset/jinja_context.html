@@ -166,16 +166,15 @@
 <span class="c1"># KIND, either express or implied.  See the License for the</span>
 <span class="c1"># specific language governing permissions and limitations</span>
 <span class="c1"># under the License.</span>
-<span class="c1"># pylint: disable=C,R,W</span>
 <span class="sd">&quot;&quot;&quot;Defines the templating context for SQL Lab&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">inspect</span>
 <span class="kn">import</span> <span class="nn">json</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span>
 
-<span class="kn">from</span> <span class="nn">flask</span> <span class="k">import</span> <span class="n">g</span><span class="p">,</span> <span class="n">request</span>
-<span class="kn">from</span> <span class="nn">jinja2.sandbox</span> <span class="k">import</span> <span class="n">SandboxedEnvironment</span>
+<span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">g</span><span class="p">,</span> <span class="n">request</span>
+<span class="kn">from</span> <span class="nn">jinja2.sandbox</span> <span class="kn">import</span> <span class="n">SandboxedEnvironment</span>
 
-<span class="kn">from</span> <span class="nn">superset</span> <span class="k">import</span> <span class="n">jinja_base_context</span>
+<span class="kn">from</span> <span class="nn">superset</span> <span class="kn">import</span> <span class="n">jinja_base_context</span>
 
 
 <div class="viewcode-block" id="url_param"><a class="viewcode-back" href="../../sqllab.html#superset.jinja_context.url_param">[docs]</a><span class="k">def</span> <span class="nf">url_param</span><span class="p">(</span><span class="n">param</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Any</span><span class="p">]:</span>
@@ -264,15 +263,15 @@
 
     <span class="k">if</span> <span class="n">default</span><span class="p">:</span>
         <span class="k">return</span> <span class="p">[</span><span class="n">default</span><span class="p">]</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="k">return</span> <span class="p">[]</span></div>
+
+    <span class="k">return</span> <span class="p">[]</span></div>
 
 
-<span class="k">class</span> <span class="nc">CacheKeyWrapper</span><span class="p">:</span>
+<span class="k">class</span> <span class="nc">CacheKeyWrapper</span><span class="p">:</span>  <span class="c1"># pylint: disable=too-few-public-methods</span>
     <span class="sd">&quot;&quot;&quot; Dummy class that exposes a method used to store additional values used in</span>
 <span class="sd">     calculation of query object cache keys&quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">extra_cache_keys</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">extra_cache_keys</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">extra_cache_keys</span> <span class="o">=</span> <span class="n">extra_cache_keys</span>
 
     <span class="k">def</span> <span class="nf">cache_key_wrapper</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
@@ -304,7 +303,7 @@
         <span class="k">return</span> <span class="n">key</span>
 
 
-<span class="k">class</span> <span class="nc">BaseTemplateProcessor</span><span class="p">:</span>
+<span class="k">class</span> <span class="nc">BaseTemplateProcessor</span><span class="p">:</span>  <span class="c1"># pylint: disable=too-few-public-methods</span>
     <span class="sd">&quot;&quot;&quot;Base class for database-specific jinja context</span>
 
 <span class="sd">    There&#39;s this bit of magic in ``process_template`` that instantiates only</span>
@@ -321,7 +320,7 @@
 
     <span class="n">engine</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">database</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">query</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -425,8 +424,10 @@
 
 
 <span class="k">def</span> <span class="nf">get_template_processor</span><span class="p">(</span><span class="n">database</span><span class="p">,</span> <span class="n">table</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">query</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="n">TP</span> <span class="o">=</span> <span class="n">template_processors</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">database</span><span class="o">.</span><span class="n">backend</span><span class="p">,</span> <span class="n">BaseTemplateProcessor</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">TP</span><span class="p">(</span><span class="n">database</span><span class="o">=</span><span class="n">database</span><span class="p">,</span> <span class="n">table</span><span class="o">=</span><span class="n">table</span><span class="p">,</span> <span class="n">query</span><span class="o">=</span><span class="n">query</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">template_processor</span> <span class="o">=</span> <span class="n">template_processors</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+        <span class="n">database</span><span class="o">.</span><span class="n">backend</span><span class="p">,</span> <span class="n">BaseTemplateProcessor</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">template_processor</span><span class="p">(</span><span class="n">database</span><span class="o">=</span><span class="n">database</span><span class="p">,</span> <span class="n">table</span><span class="o">=</span><span class="n">table</span><span class="p">,</span> <span class="n">query</span><span class="o">=</span><span class="n">query</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </pre></div>
 
            </div>
