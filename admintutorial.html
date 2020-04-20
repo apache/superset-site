@@ -180,19 +180,19 @@ into a fresh DB, or configure the
 <a class="reference external" href="https://github.com/dylburger/noaa-ghcn-weather-data">example weather data</a>
 we use here.</p>
 <p>Under the <strong>Sources</strong> menu, select the <em>Databases</em> option:</p>
-<a class="reference internal image-reference" href="_static/images/tutorial/tutorial_01_sources_database.png"><img alt="_static/images/tutorial/tutorial_01_sources_database.png" src="_static/images/tutorial/tutorial_01_sources_database.png" /></a>
+<a class="reference internal image-reference" href="_images/tutorial_01_sources_database.png"><img alt="_images/tutorial_01_sources_database.png" src="_images/tutorial_01_sources_database.png" style="width: 316.4px; height: 187.6px;" /></a>
 <p>On the resulting page, click on the green plus sign, near the top right:</p>
-<a class="reference internal image-reference" href="_static/images/tutorial/tutorial_02_add_database.png"><img alt="_static/images/tutorial/tutorial_02_add_database.png" src="_static/images/tutorial/tutorial_02_add_database.png" /></a>
+<a class="reference internal image-reference" href="_images/tutorial_02_add_database.png"><img alt="_images/tutorial_02_add_database.png" src="_images/tutorial_02_add_database.png" style="width: 359.79999999999995px; height: 270.2px;" /></a>
 <p>You can configure a number of advanced options on this page, but for
 this walkthrough, you’ll only need to do <strong>two things</strong>:</p>
 <ol class="arabic simple">
 <li><p>Name your database connection:</p></li>
 </ol>
-<a class="reference internal image-reference" href="_static/images/tutorial/tutorial_03_database_name.png"><img alt="_static/images/tutorial/tutorial_03_database_name.png" src="_static/images/tutorial/tutorial_03_database_name.png" /></a>
+<a class="reference internal image-reference" href="_images/tutorial_03_database_name.png"><img alt="_images/tutorial_03_database_name.png" src="_images/tutorial_03_database_name.png" style="width: 554.4px; height: 98.0px;" /></a>
 <ol class="arabic simple" start="2">
 <li><p>Provide the SQLAlchemy Connection URI and test the connection:</p></li>
 </ol>
-<a class="reference internal image-reference" href="_static/images/tutorial/tutorial_04_sqlalchemy_connection_string.png"><img alt="_static/images/tutorial/tutorial_04_sqlalchemy_connection_string.png" src="_static/images/tutorial/tutorial_04_sqlalchemy_connection_string.png" /></a>
+<a class="reference internal image-reference" href="_images/tutorial_04_sqlalchemy_connection_string.png"><img alt="_images/tutorial_04_sqlalchemy_connection_string.png" src="_images/tutorial_04_sqlalchemy_connection_string.png" style="width: 1071.0px; height: 196.0px;" /></a>
 <p>This example shows the connection string for our test weather database.
 As noted in the text below the URI, you should refer to the SQLAlchemy
 documentation on
@@ -201,47 +201,47 @@ for your target database.</p>
 <p>Click the <strong>Test Connection</strong> button to confirm things work end to end.
 Once Superset can successfully connect and authenticate, you should see
 a popup like this:</p>
-<a class="reference internal image-reference" href="_static/images/tutorial/tutorial_05_connection_popup.png"><img alt="_static/images/tutorial/tutorial_05_connection_popup.png" src="_static/images/tutorial/tutorial_05_connection_popup.png" /></a>
+<a class="reference internal image-reference" href="_images/tutorial_05_connection_popup.png"><img alt="_images/tutorial_05_connection_popup.png" src="_images/tutorial_05_connection_popup.png" style="width: 562.0px; height: 277.0px;" /></a>
 <p>Moreover, you should also see the list of tables Superset can read from
 the schema you’re connected to, at the bottom of the page:</p>
-<a class="reference internal image-reference" href="_static/images/tutorial/tutorial_06_list_of_tables.png"><img alt="_static/images/tutorial/tutorial_06_list_of_tables.png" src="_static/images/tutorial/tutorial_06_list_of_tables.png" /></a>
+<a class="reference internal image-reference" href="_images/tutorial_06_list_of_tables.png"><img alt="_images/tutorial_06_list_of_tables.png" src="_images/tutorial_06_list_of_tables.png" style="width: 963.1999999999999px; height: 127.39999999999999px;" /></a>
 <p>If the connection looks good, save the configuration by clicking the <strong>Save</strong>
 button at the bottom of the page:</p>
-<a class="reference internal image-reference" href="_static/images/tutorial/tutorial_07_save_button.png"><img alt="_static/images/tutorial/tutorial_07_save_button.png" src="_static/images/tutorial/tutorial_07_save_button.png" /></a>
+<a class="reference internal image-reference" href="_images/tutorial_07_save_button.png"><img alt="_images/tutorial_07_save_button.png" src="_images/tutorial_07_save_button.png" style="width: 187.6px; height: 85.39999999999999px;" /></a>
 </div>
 <div class="section" id="adding-a-new-table">
 <h2>Adding a new table<a class="headerlink" href="#adding-a-new-table" title="Permalink to this headline">¶</a></h2>
 <p>Now that you’ve configured a database, you’ll need to add specific tables
 to Superset that you’d like to query.</p>
 <p>Under the <strong>Sources</strong> menu, select the <em>Tables</em> option:</p>
-<a class="reference internal image-reference" href="_static/images/tutorial/tutorial_08_sources_tables.png"><img alt="_static/images/tutorial/tutorial_08_sources_tables.png" src="_static/images/tutorial/tutorial_08_sources_tables.png" /></a>
+<a class="reference internal image-reference" href="_images/tutorial_08_sources_tables.png"><img alt="_images/tutorial_08_sources_tables.png" src="_images/tutorial_08_sources_tables.png" style="width: 315.0px; height: 187.6px;" /></a>
 <p>On the resulting page, click on the green plus sign, near the top left:</p>
-<a class="reference internal image-reference" href="_static/images/tutorial/tutorial_09_add_new_table.png"><img alt="_static/images/tutorial/tutorial_09_add_new_table.png" src="_static/images/tutorial/tutorial_09_add_new_table.png" /></a>
+<a class="reference internal image-reference" href="_images/tutorial_09_add_new_table.png"><img alt="_images/tutorial_09_add_new_table.png" src="_images/tutorial_09_add_new_table.png" style="width: 322.0px; height: 232.39999999999998px;" /></a>
 <p>You only need a few pieces of information to add a new table to Superset:</p>
 <ul class="simple">
 <li><p>The name of the table</p></li>
 </ul>
-<a class="reference internal image-reference" href="_static/images/tutorial/tutorial_10_table_name.png"><img alt="_static/images/tutorial/tutorial_10_table_name.png" src="_static/images/tutorial/tutorial_10_table_name.png" /></a>
+<a class="reference internal image-reference" href="_images/tutorial_10_table_name.png"><img alt="_images/tutorial_10_table_name.png" src="_images/tutorial_10_table_name.png" style="width: 772.8px; height: 130.2px;" /></a>
 <ul class="simple">
 <li><p>The target database from the <strong>Database</strong> drop-down menu (i.e. the one
 you just added above)</p></li>
 </ul>
-<a class="reference internal image-reference" href="_static/images/tutorial/tutorial_11_choose_db.png"><img alt="_static/images/tutorial/tutorial_11_choose_db.png" src="_static/images/tutorial/tutorial_11_choose_db.png" /></a>
+<a class="reference internal image-reference" href="_images/tutorial_11_choose_db.png"><img alt="_images/tutorial_11_choose_db.png" src="_images/tutorial_11_choose_db.png" style="width: 387.79999999999995px; height: 229.6px;" /></a>
 <ul class="simple">
 <li><p>Optionally, the database schema. If the table exists in the “default” schema
 (e.g. the <em>public</em> schema in PostgreSQL or Redshift), you can leave the schema
 field blank.</p></li>
 </ul>
 <p>Click on the <strong>Save</strong> button to save the configuration:</p>
-<a class="reference internal image-reference" href="_static/images/tutorial/tutorial_07_save_button.png"><img alt="_static/images/tutorial/tutorial_07_save_button.png" src="_static/images/tutorial/tutorial_07_save_button.png" /></a>
+<a class="reference internal image-reference" href="_images/tutorial_07_save_button.png"><img alt="_images/tutorial_07_save_button.png" src="_images/tutorial_07_save_button.png" style="width: 187.6px; height: 85.39999999999999px;" /></a>
 <p>When redirected back to the list of tables, you should see a message indicating
 that your table was created:</p>
-<a class="reference internal image-reference" href="_static/images/tutorial/tutorial_12_table_creation_success_msg.png"><img alt="_static/images/tutorial/tutorial_12_table_creation_success_msg.png" src="_static/images/tutorial/tutorial_12_table_creation_success_msg.png" /></a>
+<a class="reference internal image-reference" href="_images/tutorial_12_table_creation_success_msg.png"><img alt="_images/tutorial_12_table_creation_success_msg.png" src="_images/tutorial_12_table_creation_success_msg.png" style="width: 1260.0px; height: 89.6px;" /></a>
 <p>This message also directs you to edit the table configuration. We’ll edit a limited
 portion of the configuration now - just to get you started - and leave the rest for
 a more advanced tutorial.</p>
 <p>Click on the edit button next to the table you’ve created:</p>
-<a class="reference internal image-reference" href="_static/images/tutorial/tutorial_13_edit_table_config.png"><img alt="_static/images/tutorial/tutorial_13_edit_table_config.png" src="_static/images/tutorial/tutorial_13_edit_table_config.png" /></a>
+<a class="reference internal image-reference" href="_images/tutorial_13_edit_table_config.png"><img alt="_images/tutorial_13_edit_table_config.png" src="_images/tutorial_13_edit_table_config.png" style="width: 509.59999999999997px; height: 180.6px;" /></a>
 <p>On the resulting page, click on the <strong>List Table Column</strong> tab. Here, you’ll define the
 way you can use specific columns of your table when exploring your data. We’ll run
 through these options to describe their purpose:</p>
@@ -258,42 +258,42 @@ how this manifests itself in analyses in a moment.</p></li>
 <p>Here’s how we’ve configured fields for the weather data. Even for measures like the
 weather measurements (precipitation, snowfall, etc.), it’s ideal to group and filter
 by these values:</p>
-<img alt="_static/images/tutorial/tutorial_14_field_config.png" src="_static/images/tutorial/tutorial_14_field_config.png" />
+<img alt="_images/tutorial_14_field_config.png" src="_images/tutorial_14_field_config.png" />
 <p>As with the configurations above, click the <strong>Save</strong> button to save these settings.</p>
 </div>
 <div class="section" id="exploring-your-data">
 <h2>Exploring your data<a class="headerlink" href="#exploring-your-data" title="Permalink to this headline">¶</a></h2>
 <p>To start exploring your data, simply click on the table name you just created in
 the list of available tables:</p>
-<img alt="_static/images/tutorial/tutorial_15_click_table_name.png" src="_static/images/tutorial/tutorial_15_click_table_name.png" />
+<img alt="_images/tutorial_15_click_table_name.png" src="_images/tutorial_15_click_table_name.png" />
 <p>By default, you’ll be presented with a Table View:</p>
-<img alt="_static/images/tutorial/tutorial_16_datasource_chart_type.png" src="_static/images/tutorial/tutorial_16_datasource_chart_type.png" />
+<img alt="_images/tutorial_16_datasource_chart_type.png" src="_images/tutorial_16_datasource_chart_type.png" />
 <p>Let’s walk through a basic query to get the count of all records in our table.
 First, we’ll need to change the <strong>Since</strong> filter to capture the range of our data.
 You can use simple phrases to apply these filters, like “3 years ago”:</p>
-<img alt="_static/images/tutorial/tutorial_17_choose_time_range.png" src="_static/images/tutorial/tutorial_17_choose_time_range.png" />
+<img alt="_images/tutorial_17_choose_time_range.png" src="_images/tutorial_17_choose_time_range.png" />
 <p>The upper limit for time, the <strong>Until</strong> filter, defaults to “now”, which may or may
 not be what you want.</p>
 <p>Look for the Metrics section under the <strong>GROUP BY</strong> header, and start typing “Count”
 - you’ll see a list of metrics matching what you type:</p>
-<img alt="_static/images/tutorial/tutorial_18_choose_metric.png" src="_static/images/tutorial/tutorial_18_choose_metric.png" />
+<img alt="_images/tutorial_18_choose_metric.png" src="_images/tutorial_18_choose_metric.png" />
 <p>Select the <em>COUNT(*)</em> metric, then click the green <strong>Query</strong> button near the top
 of the explore:</p>
-<img alt="_static/images/tutorial/tutorial_19_click_query.png" src="_static/images/tutorial/tutorial_19_click_query.png" />
+<img alt="_images/tutorial_19_click_query.png" src="_images/tutorial_19_click_query.png" />
 <p>You’ll see your results in the table:</p>
-<img alt="_static/images/tutorial/tutorial_20_count_star_result.png" src="_static/images/tutorial/tutorial_20_count_star_result.png" />
+<img alt="_images/tutorial_20_count_star_result.png" src="_images/tutorial_20_count_star_result.png" />
 <p>Let’s group this by the <em>weather_description</em> field to get the count of records by
 the type of weather recorded by adding it to the <em>Group by</em> section:</p>
-<img alt="_static/images/tutorial/tutorial_21_group_by.png" src="_static/images/tutorial/tutorial_21_group_by.png" />
+<img alt="_images/tutorial_21_group_by.png" src="_images/tutorial_21_group_by.png" />
 <p>and run the query:</p>
-<img alt="_static/images/tutorial/tutorial_22_group_by_result.png" src="_static/images/tutorial/tutorial_22_group_by_result.png" />
+<img alt="_images/tutorial_22_group_by_result.png" src="_images/tutorial_22_group_by_result.png" />
 <p>Let’s find a more useful data point: the top 10 times and places that recorded the
 highest temperature in 2015.</p>
 <p>We replace <em>weather_description</em> with <em>latitude</em>, <em>longitude</em> and <em>measurement_date</em> in the
 <em>Group by</em> section:</p>
-<img alt="_static/images/tutorial/tutorial_23_group_by_more_dimensions.png" src="_static/images/tutorial/tutorial_23_group_by_more_dimensions.png" />
+<img alt="_images/tutorial_23_group_by_more_dimensions.png" src="_images/tutorial_23_group_by_more_dimensions.png" />
 <p>And replace <em>COUNT(*)</em> with <em>max__measurement_flag</em>:</p>
-<img alt="_static/images/tutorial/tutorial_24_max_metric.png" src="_static/images/tutorial/tutorial_24_max_metric.png" />
+<img alt="_images/tutorial_24_max_metric.png" src="_images/tutorial_24_max_metric.png" />
 <p>The <em>max__measurement_flag</em> metric was created when we checked the box under <strong>Max</strong> and
 next to the <em>measurement_flag</em> field, indicating that this field was numeric and that
 we wanted to find its maximum value when grouped by specific fields.</p>
@@ -302,12 +302,12 @@ depends on the type of measurement (the researchers recorded different values fo
 precipitation and temperature). Therefore, we must filter our query only on records
 where the <em>weather_description</em> is equal to “Maximum temperature”, which we do in
 the <strong>Filters</strong> section at the bottom of the explore:</p>
-<img alt="_static/images/tutorial/tutorial_25_max_temp_filter.png" src="_static/images/tutorial/tutorial_25_max_temp_filter.png" />
+<img alt="_images/tutorial_25_max_temp_filter.png" src="_images/tutorial_25_max_temp_filter.png" />
 <p>Finally, since we only care about the top 10 measurements, we limit our results to
 10 records using the <em>Row limit</em> option under the <strong>Options</strong> header:</p>
-<img alt="_static/images/tutorial/tutorial_26_row_limit.png" src="_static/images/tutorial/tutorial_26_row_limit.png" />
+<img alt="_images/tutorial_26_row_limit.png" src="_images/tutorial_26_row_limit.png" />
 <p>We click <strong>Query</strong> and get the following results:</p>
-<img alt="_static/images/tutorial/tutorial_27_top_10_max_temps.png" src="_static/images/tutorial/tutorial_27_top_10_max_temps.png" />
+<img alt="_images/tutorial_27_top_10_max_temps.png" src="_images/tutorial_27_top_10_max_temps.png" />
 <p>In this dataset, the maximum temperature is recorded in tenths of a degree Celsius.
 The top value of 1370, measured in the middle of Nevada, is equal to 137 C, or roughly
 278 degrees F. It’s unlikely this value was correctly recorded. We’ve already been able
@@ -328,16 +328,16 @@ Metric &gt; SQL Expression</em>)</p></li>
 <p>For now, though, let’s create a better visualization of these data and add it to
 a dashboard.</p>
 <p>We change the Chart Type to “Distribution - Bar Chart”:</p>
-<img alt="_static/images/tutorial/tutorial_28_bar_chart.png" src="_static/images/tutorial/tutorial_28_bar_chart.png" />
+<img alt="_images/tutorial_28_bar_chart.png" src="_images/tutorial_28_bar_chart.png" />
 <p>Our filter on Maximum temperature measurements was retained, but the query and
 formatting options are dependent on the chart type, so you’ll have to set the
 values again:</p>
-<img alt="_static/images/tutorial/tutorial_29_bar_chart_series_metrics.png" src="_static/images/tutorial/tutorial_29_bar_chart_series_metrics.png" />
+<img alt="_images/tutorial_29_bar_chart_series_metrics.png" src="_images/tutorial_29_bar_chart_series_metrics.png" />
 <p>You should note the extensive formatting options for this chart: the ability to
 set axis labels, margins, ticks, etc. To make the data presentable to a broad
 audience, you’ll want to apply many of these to slices that end up in dashboards.
 For now, though, we run our query and get the following chart:</p>
-<a class="reference internal image-reference" href="_static/images/tutorial/tutorial_30_bar_chart_results.png"><img alt="_static/images/tutorial/tutorial_30_bar_chart_results.png" src="_static/images/tutorial/tutorial_30_bar_chart_results.png" /></a>
+<a class="reference internal image-reference" href="_images/tutorial_30_bar_chart_results.png"><img alt="_images/tutorial_30_bar_chart_results.png" src="_images/tutorial_30_bar_chart_results.png" style="width: 956.9px; height: 435.4px;" /></a>
 </div>
 <div class="section" id="creating-a-slice-and-dashboard">
 <h2>Creating a slice and dashboard<a class="headerlink" href="#creating-a-slice-and-dashboard" title="Permalink to this headline">¶</a></h2>
@@ -345,24 +345,24 @@ For now, though, we run our query and get the following chart:</p>
 a saved query is called a <strong>Slice</strong>.</p>
 <p>To create a slice, click the <strong>Save as</strong> button near the top-left of the
 explore:</p>
-<img alt="_static/images/tutorial/tutorial_19_click_query.png" src="_static/images/tutorial/tutorial_19_click_query.png" />
+<img alt="_images/tutorial_19_click_query.png" src="_images/tutorial_19_click_query.png" />
 <p>A popup should appear, asking you to name the slice, and optionally add it to a
 dashboard. Since we haven’t yet created any dashboards, we can create one and
 immediately add our slice to it. Let’s do it:</p>
-<a class="reference internal image-reference" href="_static/images/tutorial/tutorial_31_save_slice_to_dashboard.png"><img alt="_static/images/tutorial/tutorial_31_save_slice_to_dashboard.png" src="_static/images/tutorial/tutorial_31_save_slice_to_dashboard.png" /></a>
+<a class="reference internal image-reference" href="_images/tutorial_31_save_slice_to_dashboard.png"><img alt="_images/tutorial_31_save_slice_to_dashboard.png" src="_images/tutorial_31_save_slice_to_dashboard.png" style="width: 432.59999999999997px; height: 268.79999999999995px;" /></a>
 <p>Click Save, which will direct you back to your original query. We see that
 our slice and dashboard were successfully created:</p>
-<a class="reference internal image-reference" href="_static/images/tutorial/tutorial_32_save_slice_confirmation.png"><img alt="_static/images/tutorial/tutorial_32_save_slice_confirmation.png" src="_static/images/tutorial/tutorial_32_save_slice_confirmation.png" /></a>
+<a class="reference internal image-reference" href="_images/tutorial_32_save_slice_confirmation.png"><img alt="_images/tutorial_32_save_slice_confirmation.png" src="_images/tutorial_32_save_slice_confirmation.png" style="width: 611.8px; height: 105.69999999999999px;" /></a>
 <p>Let’s check out our new dashboard. We click on the <strong>Dashboards</strong> menu:</p>
-<img alt="_static/images/tutorial/tutorial_33_dashboard.png" src="_static/images/tutorial/tutorial_33_dashboard.png" />
+<img alt="_images/tutorial_33_dashboard.png" src="_images/tutorial_33_dashboard.png" />
 <p>and find the dashboard we just created:</p>
-<img alt="_static/images/tutorial/tutorial_34_weather_dashboard.png" src="_static/images/tutorial/tutorial_34_weather_dashboard.png" />
+<img alt="_images/tutorial_34_weather_dashboard.png" src="_images/tutorial_34_weather_dashboard.png" />
 <p>Things seemed to have worked - our slice is here!</p>
-<a class="reference internal image-reference" href="_static/images/tutorial/tutorial_35_slice_on_dashboard.png"><img alt="_static/images/tutorial/tutorial_35_slice_on_dashboard.png" src="_static/images/tutorial/tutorial_35_slice_on_dashboard.png" /></a>
+<a class="reference internal image-reference" href="_images/tutorial_35_slice_on_dashboard.png"><img alt="_images/tutorial_35_slice_on_dashboard.png" src="_images/tutorial_35_slice_on_dashboard.png" style="width: 464.79999999999995px; height: 397.59999999999997px;" /></a>
 <p>But it’s a bit smaller than we might like. Luckily, you can adjust the size
 of slices in a dashboard by clicking, holding and dragging the bottom-right
 corner to your desired dimensions:</p>
-<a class="reference internal image-reference" href="_static/images/tutorial/tutorial_36_adjust_dimensions.gif"><img alt="_static/images/tutorial/tutorial_36_adjust_dimensions.gif" src="_static/images/tutorial/tutorial_36_adjust_dimensions.gif" /></a>
+<a class="reference internal image-reference" href="_images/tutorial_36_adjust_dimensions.gif"><img alt="_images/tutorial_36_adjust_dimensions.gif" src="_images/tutorial_36_adjust_dimensions.gif" style="width: 576.0px; height: 297.59999999999997px;" /></a>
 <p>After adjusting the size, you’ll be asked to click on the icon near the
 top-right of the dashboard to save the new configuration.</p>
 <p>Congrats! You’ve successfully linked, analyzed, and visualized data in Superset.
