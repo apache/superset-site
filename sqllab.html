@@ -21,10 +21,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -90,6 +90,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#templating-with-jinja">Templating with Jinja</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#available-macros">Available macros</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#extending-macros">Extending macros</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#customize-templating">Customize templating</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#query-cost-estimation">Query cost estimation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#create-table-as-ctas">Create Table As (CTAS)</a></li>
 </ul>
@@ -99,6 +100,7 @@
 <li class="toctree-l1"><a class="reference internal" href="gallery.html">Visualizations Gallery</a></li>
 <li class="toctree-l1"><a class="reference internal" href="druid.html">Druid</a></li>
 <li class="toctree-l1"><a class="reference internal" href="misc.html">Misc</a></li>
+<li class="toctree-l1"><a class="reference internal" href="issue_code_reference.html">Issue Code Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a></li>
 </ul>
 
@@ -219,59 +221,95 @@ Superset’s Jinja context:</p>
 <li><p><code class="docutils literal notranslate"><span class="pre">relativedelta</span></code>: <code class="docutils literal notranslate"><span class="pre">dateutil.relativedelta.relativedelta</span></code></p></li>
 </ul>
 <p><a class="reference external" href="http://jinja.pocoo.org/docs/dev/templates/">Jinja’s builtin filters</a> can be also be applied where needed.</p>
-<dl class="function">
-<dt id="superset.jinja_context.current_user_id">
-<code class="sig-prename descclassname">superset.jinja_context.</code><code class="sig-name descname">current_user_id</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/superset/jinja_context.html#current_user_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#superset.jinja_context.current_user_id" title="Permalink to this definition">¶</a></dt>
-<dd><p>The id of the user who is currently logged in</p>
+<dl class="py class">
+<dt id="superset.jinja_context.ExtraCache">
+<em class="property">class </em><code class="sig-prename descclassname">superset.jinja_context.</code><code class="sig-name descname">ExtraCache</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">extra_cache_keys</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>List<span class="p">[</span>Any<span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/superset/jinja_context.html#ExtraCache"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#superset.jinja_context.ExtraCache" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dummy class that exposes a method used to store additional values used in
+calculation of query object cache keys.</p>
+<dl class="py method">
+<dt id="superset.jinja_context.ExtraCache.cache_key_wrapper">
+<code class="sig-name descname">cache_key_wrapper</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key</span><span class="p">:</span> <span class="n">Any</span></em><span class="sig-paren">)</span> &#x2192; Any<a class="reference internal" href="_modules/superset/jinja_context.html#ExtraCache.cache_key_wrapper"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#superset.jinja_context.ExtraCache.cache_key_wrapper" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds values to a list that is added to the query object used for calculating a
+cache key.</p>
+<dl class="simple">
+<dt>This is needed if the following applies:</dt><dd><ul class="simple">
+<li><p>Caching is enabled</p></li>
+<li><p>The query is dynamically generated using a jinja template</p></li>
+<li><p>A <cite>JINJA_CONTEXT_ADDONS</cite> or similar is used as a filter in the query</p></li>
+</ul>
+</dd>
+</dl>
 <dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]</p>
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>key</strong> – Any value that should be considered when calculating the cache key</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the original value <code class="docutils literal notranslate"><span class="pre">key</span></code> passed to the function</p>
 </dd>
 </dl>
 </dd></dl>
 
-<dl class="function">
-<dt id="superset.jinja_context.current_username">
-<code class="sig-prename descclassname">superset.jinja_context.</code><code class="sig-name descname">current_username</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/superset/jinja_context.html#current_username"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#superset.jinja_context.current_username" title="Permalink to this definition">¶</a></dt>
-<dd><p>The username of the user who is currently logged in</p>
+<dl class="py method">
+<dt id="superset.jinja_context.ExtraCache.current_user_id">
+<code class="sig-name descname">current_user_id</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">add_to_cache_keys</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em><span class="sig-paren">)</span> &#x2192; Optional<span class="p">[</span>int<span class="p">]</span><a class="reference internal" href="_modules/superset/jinja_context.html#ExtraCache.current_user_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#superset.jinja_context.ExtraCache.current_user_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the user ID of the user who is currently logged in.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</p>
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>add_to_cache_keys</strong> – Whether the value should be included in the cache key</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The user ID</p>
 </dd>
 </dl>
 </dd></dl>
 
-<dl class="function">
-<dt id="superset.jinja_context.url_param">
-<code class="sig-prename descclassname">superset.jinja_context.</code><code class="sig-name descname">url_param</code><span class="sig-paren">(</span><em class="sig-param">param</em>, <em class="sig-param">default=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/superset/jinja_context.html#url_param"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#superset.jinja_context.url_param" title="Permalink to this definition">¶</a></dt>
-<dd><p>Read a url or post parameter and use it in your SQL Lab query</p>
-<p>When in SQL Lab, it’s possible to add arbitrary URL “query string”
-parameters, and use those in your SQL code. For instance you can
-alter your url and add <cite>?foo=bar</cite>, as in
-<cite>{domain}/superset/sqllab?foo=bar</cite>. Then if your query is something like
-SELECT * FROM foo = ‘{{ url_param(‘foo’) }}’, it will be parsed at
-runtime and replaced by the value in the URL.</p>
-<p>As you create a visualization form this SQL Lab query, you can pass
-parameters in the explore view as well as from the dashboard, and
-it should carry through to your queries.</p>
-<p>Default values for URL parameters can be defined in chart metdata by
-adding the key-value pair <cite>url_params: {‘foo’: ‘bar’}</cite></p>
+<dl class="py method">
+<dt id="superset.jinja_context.ExtraCache.current_username">
+<code class="sig-name descname">current_username</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">add_to_cache_keys</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em><span class="sig-paren">)</span> &#x2192; Optional<span class="p">[</span>str<span class="p">]</span><a class="reference internal" href="_modules/superset/jinja_context.html#ExtraCache.current_username"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#superset.jinja_context.ExtraCache.current_username" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the username of the user who is currently logged in.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>add_to_cache_keys</strong> – Whether the value should be included in the cache key</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The username</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="superset.jinja_context.ExtraCache.url_param">
+<code class="sig-name descname">url_param</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">param</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">default</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">add_to_cache_keys</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em><span class="sig-paren">)</span> &#x2192; Optional<span class="p">[</span>Any<span class="p">]</span><a class="reference internal" href="_modules/superset/jinja_context.html#ExtraCache.url_param"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#superset.jinja_context.ExtraCache.url_param" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read a url or post parameter and use it in your SQL Lab query.</p>
+<p>When in SQL Lab, it’s possible to add arbitrary URL “query string” parameters,
+and use those in your SQL code. For instance you can alter your url and add
+<cite>?foo=bar</cite>, as in <cite>{domain}/superset/sqllab?foo=bar</cite>. Then if your query is
+something like SELECT * FROM foo = ‘{{ url_param(‘foo’) }}’, it will be parsed
+at runtime and replaced by the value in the URL.</p>
+<p>As you create a visualization form this SQL Lab query, you can pass parameters
+in the explore view as well as from the dashboard, and it should carry through
+to your queries.</p>
+<p>Default values for URL parameters can be defined in chart metadata by adding the
+key-value pair <cite>url_params: {‘foo’: ‘bar’}</cite></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>param</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – the parameter to lookup</p></li>
-<li><p><strong>default</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – the value to return in the absence of the parameter</p></li>
+<li><p><strong>param</strong> – the parameter to lookup</p></li>
+<li><p><strong>default</strong> – the value to return in the absence of the parameter</p></li>
+<li><p><strong>add_to_cache_keys</strong> – Whether the value should be included in the cache key</p></li>
 </ul>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>]</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The URL parameters</p>
 </dd>
 </dl>
 </dd></dl>
 
-<dl class="function">
+</dd></dl>
+
+<dl class="py function">
 <dt id="superset.jinja_context.filter_values">
-<code class="sig-prename descclassname">superset.jinja_context.</code><code class="sig-name descname">filter_values</code><span class="sig-paren">(</span><em class="sig-param">column</em>, <em class="sig-param">default=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/superset/jinja_context.html#filter_values"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#superset.jinja_context.filter_values" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">superset.jinja_context.</code><code class="sig-name descname">filter_values</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">column</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">default</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span>str<span class="p">]</span><a class="reference internal" href="_modules/superset/jinja_context.html#filter_values"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#superset.jinja_context.filter_values" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets a values for a particular filter as a list</p>
 <dl class="simple">
 <dt>This is useful if:</dt><dd><ul class="simple">
@@ -282,7 +320,6 @@ purposes</p></li>
 </ul>
 </dd>
 </dl>
-<p>This searches for “filters” and “extra_filters” in <code class="docutils literal notranslate"><span class="pre">form_data</span></code> for a match</p>
 <p>Usage example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SELECT</span> <span class="n">action</span><span class="p">,</span> <span class="n">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="k">as</span> <span class="n">times</span>
 <span class="n">FROM</span> <span class="n">logs</span>
@@ -293,124 +330,75 @@ purposes</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>column</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – column/filter name to lookup</p></li>
-<li><p><strong>default</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – default value to return if there’s no matching columns</p></li>
+<li><p><strong>column</strong> – column/filter name to lookup</p></li>
+<li><p><strong>default</strong> – default value to return if there’s no matching columns</p></li>
 </ul>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</p>
-</dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>returns a list of filter values</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>returns a list of filter values</p>
 </dd>
 </dl>
 </dd></dl>
 
-<dl class="function">
-<dt id="superset.jinja_context.CacheKeyWrapper.cache_key_wrapper">
-<code class="sig-prename descclassname">superset.jinja_context.CacheKeyWrapper.</code><code class="sig-name descname">cache_key_wrapper</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">key</em><span class="sig-paren">)</span><a class="headerlink" href="#superset.jinja_context.CacheKeyWrapper.cache_key_wrapper" title="Permalink to this definition">¶</a></dt>
-<dd><p>Adds values to a list that is added to the query object used for calculating
-a cache key.</p>
-<dl class="simple">
-<dt>This is needed if the following applies:</dt><dd><ul class="simple">
-<li><p>Caching is enabled</p></li>
-<li><p>The query is dynamically generated using a jinja template</p></li>
-<li><p>A username or similar is used as a filter in the query</p></li>
-</ul>
-</dd>
-</dl>
-<p>Example when using a SQL query as a data source</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SELECT</span> <span class="n">action</span><span class="p">,</span> <span class="n">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="k">as</span> <span class="n">times</span>
-<span class="n">FROM</span> <span class="n">logs</span>
-<span class="n">WHERE</span> <span class="n">logged_in_user</span> <span class="o">=</span> <span class="s1">&#39;{{ cache_key_wrapper(current_username()) }}&#39;</span>
-<span class="n">GROUP</span> <span class="n">BY</span> <span class="n">action</span>
-</pre></div>
-</div>
-<p>This will ensure that the query results that were cached by <cite>user_1</cite> will
-<strong>not</strong> be seen by <cite>user_2</cite>, as the <cite>cache_key</cite> for the query will be
-different. <code class="docutils literal notranslate"><span class="pre">cache_key_wrapper</span></code> can be used similarly for regular table data
-sources by adding a <cite>Custom SQL</cite> filter.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>key</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>) – Any value that should be considered when calculating the cache key</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></p>
-</dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>the original value <code class="docutils literal notranslate"><span class="pre">key</span></code> passed to the function</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="class">
+<dl class="py class">
 <dt id="superset.jinja_context.PrestoTemplateProcessor">
-<em class="property">class </em><code class="sig-prename descclassname">superset.jinja_context.</code><code class="sig-name descname">PrestoTemplateProcessor</code><span class="sig-paren">(</span><em class="sig-param">database=None</em>, <em class="sig-param">query=None</em>, <em class="sig-param">table=None</em>, <em class="sig-param">extra_cache_keys=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/superset/jinja_context.html#PrestoTemplateProcessor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#superset.jinja_context.PrestoTemplateProcessor" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">superset.jinja_context.</code><code class="sig-name descname">PrestoTemplateProcessor</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">database</span><span class="p">:</span> <span class="n">Database</span></em>, <em class="sig-param"><span class="n">query</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>Query<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">table</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>SqlaTable<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">extra_cache_keys</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>List<span class="p">[</span>Any<span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/superset/jinja_context.html#PrestoTemplateProcessor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#superset.jinja_context.PrestoTemplateProcessor" title="Permalink to this definition">¶</a></dt>
 <dd><p>Presto Jinja context</p>
 <p>The methods described here are namespaced under <code class="docutils literal notranslate"><span class="pre">presto</span></code> in the
 jinja context as in <code class="docutils literal notranslate"><span class="pre">SELECT</span> <span class="pre">'{{</span> <span class="pre">presto.some_macro_call()</span> <span class="pre">}}'</span></code></p>
-<dl class="method">
+<dl class="py method">
 <dt id="superset.jinja_context.PrestoTemplateProcessor.first_latest_partition">
-<code class="sig-name descname">first_latest_partition</code><span class="sig-paren">(</span><em class="sig-param">table_name</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/superset/jinja_context.html#PrestoTemplateProcessor.first_latest_partition"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#superset.jinja_context.PrestoTemplateProcessor.first_latest_partition" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">first_latest_partition</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">table_name</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; Optional<span class="p">[</span>str<span class="p">]</span><a class="reference internal" href="_modules/superset/jinja_context.html#PrestoTemplateProcessor.first_latest_partition"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#superset.jinja_context.PrestoTemplateProcessor.first_latest_partition" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets the first value in the array of all latest partitions</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>table_name</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – table name in the format <cite>schema.table</cite></p>
+<dd class="field-odd"><p><strong>table_name</strong> – table name in the format <cite>schema.table</cite></p>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the first (or only) value in the latest partition array</p>
 </dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>the first (or only) value in the latest partition array</p>
-</dd>
-<dt class="field-even">Raises</dt>
-<dd class="field-even"><p><strong>IndexError</strong> – If no partition exists</p>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><strong>IndexError</strong> – If no partition exists</p>
 </dd>
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="superset.jinja_context.PrestoTemplateProcessor.latest_partition">
-<code class="sig-name descname">latest_partition</code><span class="sig-paren">(</span><em class="sig-param">table_name</em><span class="sig-paren">)</span><a class="headerlink" href="#superset.jinja_context.PrestoTemplateProcessor.latest_partition" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">latest_partition</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">table_name</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; Optional<span class="p">[</span>str<span class="p">]</span><a class="headerlink" href="#superset.jinja_context.PrestoTemplateProcessor.latest_partition" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets the first value in the array of all latest partitions</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>table_name</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – table name in the format <cite>schema.table</cite></p>
+<dd class="field-odd"><p><strong>table_name</strong> – table name in the format <cite>schema.table</cite></p>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the first (or only) value in the latest partition array</p>
 </dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>the first (or only) value in the latest partition array</p>
-</dd>
-<dt class="field-even">Raises</dt>
-<dd class="field-even"><p><strong>IndexError</strong> – If no partition exists</p>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><strong>IndexError</strong> – If no partition exists</p>
 </dd>
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="superset.jinja_context.PrestoTemplateProcessor.latest_partitions">
-<code class="sig-name descname">latest_partitions</code><span class="sig-paren">(</span><em class="sig-param">table_name</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/superset/jinja_context.html#PrestoTemplateProcessor.latest_partitions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#superset.jinja_context.PrestoTemplateProcessor.latest_partitions" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">latest_partitions</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">table_name</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; Optional<span class="p">[</span>List<span class="p">[</span>str<span class="p">]</span><span class="p">]</span><a class="reference internal" href="_modules/superset/jinja_context.html#PrestoTemplateProcessor.latest_partitions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#superset.jinja_context.PrestoTemplateProcessor.latest_partitions" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets the array of all latest partitions</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>table_name</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – table name in the format <cite>schema.table</cite></p>
+<dd class="field-odd"><p><strong>table_name</strong> – table name in the format <cite>schema.table</cite></p>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</p>
-</dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>the latest partition array</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the latest partition array</p>
 </dd>
 </dl>
 </dd></dl>
 
 </dd></dl>
 
-<dl class="class">
+<dl class="py class">
 <dt id="superset.jinja_context.HiveTemplateProcessor">
-<em class="property">class </em><code class="sig-prename descclassname">superset.jinja_context.</code><code class="sig-name descname">HiveTemplateProcessor</code><span class="sig-paren">(</span><em class="sig-param">database=None</em>, <em class="sig-param">query=None</em>, <em class="sig-param">table=None</em>, <em class="sig-param">extra_cache_keys=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/superset/jinja_context.html#HiveTemplateProcessor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#superset.jinja_context.HiveTemplateProcessor" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">superset.jinja_context.</code><code class="sig-name descname">HiveTemplateProcessor</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">database</span><span class="p">:</span> <span class="n">Database</span></em>, <em class="sig-param"><span class="n">query</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>Query<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">table</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>SqlaTable<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">extra_cache_keys</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>List<span class="p">[</span>Any<span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/superset/jinja_context.html#HiveTemplateProcessor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#superset.jinja_context.HiveTemplateProcessor" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
@@ -421,6 +409,14 @@ it’s possible for administrators to expose more more macros in their
 environment using the configuration variable <code class="docutils literal notranslate"><span class="pre">JINJA_CONTEXT_ADDONS</span></code>.
 All objects referenced in this dictionary will become available for users
 to integrate in their queries in <strong>SQL Lab</strong>.</p>
+</div>
+<div class="section" id="customize-templating">
+<h3>Customize templating<a class="headerlink" href="#customize-templating" title="Permalink to this headline">¶</a></h3>
+<p>As mentioned in the <a class="reference external" href="https://superset.incubator.apache.org/installation.html#sql-lab">Installation &amp; Configuration</a> documentation,
+it’s possible for administrators to overwrite Jinja templating with your customized
+template processor using the configuration variable <code class="docutils literal notranslate"><span class="pre">CUSTOM_TEMPLATE_PROCESSORS</span></code>.
+The template processors referenced in the dictionary will overwrite default Jinja template processors
+of the specified database engines.</p>
 </div>
 <div class="section" id="query-cost-estimation">
 <h3>Query cost estimation<a class="headerlink" href="#query-cost-estimation" title="Permalink to this headline">¶</a></h3>
@@ -503,7 +499,7 @@ this means that to properly use this feature you have to set <code class="docuti
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright Copyright © 2019 The Apache Software Foundation, Licensed under the Apache License, Version 2.0.
+        &copy; Copyright Copyright © 2020 The Apache Software Foundation, Licensed under the Apache License, Version 2.0.
 
     </p>
   </div> 

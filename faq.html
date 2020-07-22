@@ -21,10 +21,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -35,7 +35,7 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="Importing and Exporting Datasources" href="import_export_datasources.html" /> 
+    <link rel="prev" title="Issue Code Reference" href="issue_code_reference.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -87,6 +87,7 @@
 <li class="toctree-l1"><a class="reference internal" href="gallery.html">Visualizations Gallery</a></li>
 <li class="toctree-l1"><a class="reference internal" href="druid.html">Druid</a></li>
 <li class="toctree-l1"><a class="reference internal" href="misc.html">Misc</a></li>
+<li class="toctree-l1"><a class="reference internal" href="issue_code_reference.html">Issue Code Reference</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">FAQ</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#can-i-query-join-multiple-tables-at-one-time">Can I query/join multiple tables at one time?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#how-big-can-my-data-source-be">How BIG can my data source be?</a></li>
@@ -105,6 +106,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#how-do-i-get-superset-to-refresh-the-schema-of-my-table">How do I get Superset to refresh the schema of my table?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#is-there-a-way-to-force-the-use-specific-colors">Is there a way to force the use specific colors?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#does-superset-work-with-insert-database-engine-here">Does Superset work with [insert database engine here]?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#does-superset-offer-a-public-api">Does Superset offer a public API?</a></li>
 </ul>
 </li>
 </ul>
@@ -369,7 +371,7 @@ labels to colors in the <code class="docutils literal notranslate"><span class="
 <div class="section" id="does-superset-work-with-insert-database-engine-here">
 <h2>Does Superset work with [insert database engine here]?<a class="headerlink" href="#does-superset-work-with-insert-database-engine-here" title="Permalink to this headline">¶</a></h2>
 <p>The community over time has curated a list of databases that work well with
-Superset in the <a class="reference internal" href="installation.html#ref-database-deps"><span class="std std-ref">Database dependencies</span></a> section of the docs. Database
+Superset in the <a class="reference internal" href="installation.html#ref-database-deps"><span class="std std-ref">Caching</span></a> section of the docs. Database
 engines not listed in this page may work too. We rely on the
 community to contribute to this knowledge base.</p>
 <p>For a database engine to be supported in Superset through the
@@ -411,6 +413,26 @@ and should be able to things that are typical in basic SQL:</p>
 <li><p>be schema-aware, expose columns and types</p></li>
 </ul>
 </div>
+<div class="section" id="does-superset-offer-a-public-api">
+<h2>Does Superset offer a public API?<a class="headerlink" href="#does-superset-offer-a-public-api" title="Permalink to this headline">¶</a></h2>
+<p>Yes, a public REST API, and the surface of that API formal
+is expanding steadily. Some of the original vision for the collection
+of endpoints under <cite>/api/v1</cite> was originally specified in
+[SIP-17](<a class="reference external" href="https://github.com/apache/incubator-superset/issues/7259">https://github.com/apache/incubator-superset/issues/7259</a>) and
+constant progress has been made to cover more and more use cases.</p>
+<p>The API available is documented using [Swagger](<a class="reference external" href="https://swagger.io/">https://swagger.io/</a>)
+and the documentation
+can be made available under <cite>/swagger/v1</cite> by enabling
+the <cite>FAB_API_SWAGGER_UI = True</cite> configuration flag.</p>
+<p>There are other undocumented [private] ways to interact with Superset
+programmatically that offer no guarantees and are not recommended but
+may fit your use case temporarily:</p>
+<ul class="simple">
+<li><p>using the ORM (SQLAlchemy) directly</p></li>
+<li><p>using the internal FAB ModelView API (to be deprecated in Superset)</p></li>
+<li><p>altering the source code in your fork</p></li>
+</ul>
+</div>
 </div>
 
 
@@ -422,7 +444,7 @@ and should be able to things that are typical in basic SQL:</p>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
       
-        <a href="import_export_datasources.html" class="btn btn-neutral float-left" title="Importing and Exporting Datasources" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="issue_code_reference.html" class="btn btn-neutral float-left" title="Issue Code Reference" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -431,7 +453,7 @@ and should be able to things that are typical in basic SQL:</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright Copyright © 2019 The Apache Software Foundation, Licensed under the Apache License, Version 2.0.
+        &copy; Copyright Copyright © 2020 The Apache Software Foundation, Licensed under the Apache License, Version 2.0.
 
     </p>
   </div> 

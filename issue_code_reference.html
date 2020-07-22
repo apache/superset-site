@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Tutorials &mdash; Apache Superset  documentation</title>
+  <title>Issue Code Reference &mdash; Apache Superset  documentation</title>
   
 
   
@@ -35,8 +35,8 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Creating your first dashboard" href="admintutorial.html" />
-    <link rel="prev" title="Installation &amp; Configuration" href="installation.html" /> 
+    <link rel="next" title="FAQ" href="faq.html" />
+    <link rel="prev" title="Importing and Exporting Datasources" href="import_export_datasources.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -82,17 +82,17 @@
             
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation &amp; Configuration</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Tutorials</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="admintutorial.html">Creating your first dashboard</a></li>
-<li class="toctree-l2"><a class="reference internal" href="usertutorial.html">Exploring data with Apache Superset</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials</a></li>
 <li class="toctree-l1"><a class="reference internal" href="security.html">Security</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sqllab.html">SQL Lab</a></li>
 <li class="toctree-l1"><a class="reference internal" href="gallery.html">Visualizations Gallery</a></li>
 <li class="toctree-l1"><a class="reference internal" href="druid.html">Druid</a></li>
 <li class="toctree-l1"><a class="reference internal" href="misc.html">Misc</a></li>
-<li class="toctree-l1"><a class="reference internal" href="issue_code_reference.html">Issue Code Reference</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Issue Code Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#issue-1000">Issue 1000</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#issue-1001">Issue 1001</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a></li>
 </ul>
 
@@ -139,7 +139,7 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>Tutorials</li>
+      <li>Issue Code Reference</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -156,33 +156,22 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="tutorials">
-<h1>Tutorials<a class="headerlink" href="#tutorials" title="Permalink to this headline">¶</a></h1>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="admintutorial.html">Creating your first dashboard</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="admintutorial.html#connecting-to-a-new-database">Connecting to a new database</a></li>
-<li class="toctree-l2"><a class="reference internal" href="admintutorial.html#adding-a-new-table">Adding a new table</a></li>
-<li class="toctree-l2"><a class="reference internal" href="admintutorial.html#exploring-your-data">Exploring your data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="admintutorial.html#creating-a-slice-and-dashboard">Creating a slice and dashboard</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="usertutorial.html">Exploring data with Apache Superset</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="usertutorial.html#enabling-upload-a-csv-functionality">Enabling Upload a CSV Functionality</a></li>
-<li class="toctree-l2"><a class="reference internal" href="usertutorial.html#obtaining-and-loading-the-data">Obtaining and loading the data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="usertutorial.html#table-visualization">Table Visualization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="usertutorial.html#dashboard-basics">Dashboard basics</a></li>
-<li class="toctree-l2"><a class="reference internal" href="usertutorial.html#pivot-table">Pivot Table</a></li>
-<li class="toctree-l2"><a class="reference internal" href="usertutorial.html#line-chart">Line Chart</a></li>
-<li class="toctree-l2"><a class="reference internal" href="usertutorial.html#markup">Markup</a></li>
-<li class="toctree-l2"><a class="reference internal" href="usertutorial.html#filter-box">Filter box</a></li>
-<li class="toctree-l2"><a class="reference internal" href="usertutorial.html#publishing-your-dashboard">Publishing your dashboard</a></li>
-<li class="toctree-l2"><a class="reference internal" href="usertutorial.html#taking-your-dashboard-further">Taking your dashboard further</a></li>
-<li class="toctree-l2"><a class="reference internal" href="usertutorial.html#annotations">Annotations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="usertutorial.html#advanced-analytics">Advanced Analytics</a></li>
-</ul>
-</li>
-</ul>
+  <div class="section" id="issue-code-reference">
+<h1>Issue Code Reference<a class="headerlink" href="#issue-code-reference" title="Permalink to this headline">¶</a></h1>
+<p>This page lists issue codes that may be displayed in Superset and provides additional context.</p>
+<div class="section" id="issue-1000">
+<h2>Issue 1000<a class="headerlink" href="#issue-1000" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>The datasource is too large to query.
+</pre></div>
+</div>
+<p>It’s likely your datasource has grown too large to run the current query, and is timing out. You can resolve this by reducing the size of your datasource or by modifying your query to only process a subset of your data.</p>
+</div>
+<div class="section" id="issue-1001">
+<h2>Issue 1001<a class="headerlink" href="#issue-1001" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>The database is under an unusual load.
+</pre></div>
+</div>
+<p>Your query may have timed out because of unusually high load on the database engine. You can make your query simpler, or wait until the database is under less load and try again.</p>
 </div>
 </div>
 
@@ -194,10 +183,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="admintutorial.html" class="btn btn-neutral float-right" title="Creating your first dashboard" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="faq.html" class="btn btn-neutral float-right" title="FAQ" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="installation.html" class="btn btn-neutral float-left" title="Installation &amp; Configuration" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="import_export_datasources.html" class="btn btn-neutral float-left" title="Importing and Exporting Datasources" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

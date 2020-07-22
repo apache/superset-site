@@ -21,10 +21,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -93,7 +93,10 @@
 <li class="toctree-l2"><a class="reference internal" href="#flask-appbuilder-permissions">Flask-AppBuilder Permissions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#configuration-behind-a-load-balancer">Configuration behind a load balancer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#configuration">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#caching">Caching</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#caching-thumbnails">Caching Thumbnails</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#database-dependencies">Database dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#postgresql">PostgreSQL</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#hana">Hana</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#aws-athena">(AWS) Athena</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#google-bigquery">(Google) BigQuery</a></li>
@@ -101,7 +104,6 @@
 <li class="toctree-l2"><a class="reference internal" href="#snowflake">Snowflake</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#teradata">Teradata</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#apache-drill">Apache Drill</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#caching">Caching</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#deeper-sqlalchemy-integration">Deeper SQLAlchemy integration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#schemas-postgres-redshift">Schemas (Postgres &amp; Redshift)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#external-password-store-for-sqlalchemy-connections">External Password store for SQLAlchemy connections</a></li>
@@ -134,6 +136,7 @@
 <li class="toctree-l1"><a class="reference internal" href="gallery.html">Visualizations Gallery</a></li>
 <li class="toctree-l1"><a class="reference internal" href="druid.html">Druid</a></li>
 <li class="toctree-l1"><a class="reference internal" href="misc.html">Misc</a></li>
+<li class="toctree-l1"><a class="reference internal" href="issue_code_reference.html">Issue Code Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a></li>
 </ul>
 
@@ -393,7 +396,7 @@ for more information.</p>
 <p>Note that the development web
 server (<cite>superset run</cite> or <cite>flask run</cite>) is not intended for production use.</p>
 <p>If not using gunicorn, you may want to disable the use of flask-compress
-by setting <cite>ENABLE_FLASK_COMPRESS = False</cite> in your <cite>superset_config.py</cite></p>
+by setting <cite>COMPRESS_REGISTER = False</cite> in your <cite>superset_config.py</cite></p>
 </div>
 <div class="section" id="flask-appbuilder-permissions">
 <h2>Flask-AppBuilder Permissions<a class="headerlink" href="#flask-appbuilder-permissions" title="Permalink to this headline">¶</a></h2>
@@ -488,8 +491,122 @@ auth postback endpoint, you can add them to <em>WTF_CSRF_EXEMPT_LIST</em></p>
 <div><p>WTF_CSRF_EXEMPT_LIST = [‘’]</p>
 </div></blockquote>
 </div>
+<div class="section" id="caching">
+<span id="ref-database-deps"></span><h2>Caching<a class="headerlink" href="#caching" title="Permalink to this headline">¶</a></h2>
+<p>Superset uses <a class="reference external" href="https://pythonhosted.org/Flask-Cache/">Flask-Cache</a> for
+caching purpose. Configuring your caching backend is as easy as providing
+a <code class="docutils literal notranslate"><span class="pre">CACHE_CONFIG</span></code>, constant in your <code class="docutils literal notranslate"><span class="pre">superset_config.py</span></code> that
+complies with the Flask-Cache specifications.</p>
+<p>Flask-Cache supports multiple caching backends (Redis, Memcached,
+SimpleCache (in-memory), or the local filesystem). If you are going to use
+Memcached please use the <cite>pylibmc</cite> client library as <cite>python-memcached</cite> does
+not handle storing binary data correctly. If you use Redis, please install
+the <a class="reference external" href="https://pypi.python.org/pypi/redis">redis</a> Python package:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">redis</span>
+</pre></div>
+</div>
+<p>For setting your timeouts, this is done in the Superset metadata and goes
+up the “timeout searchpath”, from your slice configuration, to your
+data source’s configuration, to your database’s and ultimately falls back
+into your global default defined in <code class="docutils literal notranslate"><span class="pre">CACHE_CONFIG</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">CACHE_CONFIG</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;CACHE_TYPE&#39;</span><span class="p">:</span> <span class="s1">&#39;redis&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;CACHE_DEFAULT_TIMEOUT&#39;</span><span class="p">:</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">24</span><span class="p">,</span> <span class="c1"># 1 day default (in secs)</span>
+    <span class="s1">&#39;CACHE_KEY_PREFIX&#39;</span><span class="p">:</span> <span class="s1">&#39;superset_results&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;CACHE_REDIS_URL&#39;</span><span class="p">:</span> <span class="s1">&#39;redis://localhost:6379/0&#39;</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>It is also possible to pass a custom cache initialization function in the
+config to handle additional caching use cases. The function must return an
+object that is compatible with the <a class="reference external" href="https://pythonhosted.org/Flask-Cache/">Flask-Cache</a> API.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">custom_caching</span> <span class="kn">import</span> <span class="n">CustomCache</span>
+
+<span class="k">def</span> <span class="nf">init_cache</span><span class="p">(</span><span class="n">app</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Takes an app instance and returns a custom cache backend&quot;&quot;&quot;</span>
+    <span class="n">config</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;CACHE_DEFAULT_TIMEOUT&#39;</span><span class="p">:</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">24</span><span class="p">,</span> <span class="c1"># 1 day default (in secs)</span>
+        <span class="s1">&#39;CACHE_KEY_PREFIX&#39;</span><span class="p">:</span> <span class="s1">&#39;superset_results&#39;</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">CustomCache</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span>
+
+<span class="n">CACHE_CONFIG</span> <span class="o">=</span> <span class="n">init_cache</span>
+</pre></div>
+</div>
+<p>Superset has a Celery task that will periodically warm up the cache based on
+different strategies. To use it, add the following to the <cite>CELERYBEAT_SCHEDULE</cite>
+section in <cite>config.py</cite>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">CELERYBEAT_SCHEDULE</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;cache-warmup-hourly&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;task&#39;</span><span class="p">:</span> <span class="s1">&#39;cache-warmup&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;schedule&#39;</span><span class="p">:</span> <span class="n">crontab</span><span class="p">(</span><span class="n">minute</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">hour</span><span class="o">=</span><span class="s1">&#39;*&#39;</span><span class="p">),</span>  <span class="c1"># hourly</span>
+        <span class="s1">&#39;kwargs&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;strategy_name&#39;</span><span class="p">:</span> <span class="s1">&#39;top_n_dashboards&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;top_n&#39;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+            <span class="s1">&#39;since&#39;</span><span class="p">:</span> <span class="s1">&#39;7 days ago&#39;</span><span class="p">,</span>
+        <span class="p">},</span>
+    <span class="p">},</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>This will cache all the charts in the top 5 most popular dashboards every hour.
+For other strategies, check the <cite>superset/tasks/cache.py</cite> file.</p>
+</div>
+<div class="section" id="caching-thumbnails">
+<h2>Caching Thumbnails<a class="headerlink" href="#caching-thumbnails" title="Permalink to this headline">¶</a></h2>
+<p>This is an optional feature that can be turned on by activating it’s feature flag on config:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">FEATURE_FLAGS</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;THUMBNAILS&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="s2">&quot;THUMBNAILS_SQLA_LISTENERS&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>For this feature you will need a cache system and celery workers. All thumbnails are store on cache and are processed
+asynchronously by the workers.</p>
+<p>An example config where images are stored on S3 could be:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span>
+<span class="kn">from</span> <span class="nn">s3cache.s3cache</span> <span class="kn">import</span> <span class="n">S3Cache</span>
+
+<span class="o">...</span>
+
+<span class="k">class</span> <span class="nc">CeleryConfig</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="n">BROKER_URL</span> <span class="o">=</span> <span class="s2">&quot;redis://localhost:6379/0&quot;</span>
+    <span class="n">CELERY_IMPORTS</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;superset.sql_lab&quot;</span><span class="p">,</span> <span class="s2">&quot;superset.tasks&quot;</span><span class="p">,</span> <span class="s2">&quot;superset.tasks.thumbnails&quot;</span><span class="p">)</span>
+    <span class="n">CELERY_RESULT_BACKEND</span> <span class="o">=</span> <span class="s2">&quot;redis://localhost:6379/0&quot;</span>
+    <span class="n">CELERYD_PREFETCH_MULTIPLIER</span> <span class="o">=</span> <span class="mi">10</span>
+    <span class="n">CELERY_ACKS_LATE</span> <span class="o">=</span> <span class="kc">True</span>
+
+
+<span class="n">CELERY_CONFIG</span> <span class="o">=</span> <span class="n">CeleryConfig</span>
+
+<span class="k">def</span> <span class="nf">init_thumbnail_cache</span><span class="p">(</span><span class="n">app</span><span class="p">:</span> <span class="n">Flask</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">S3Cache</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">S3Cache</span><span class="p">(</span><span class="s2">&quot;bucket_name&quot;</span><span class="p">,</span> <span class="s1">&#39;thumbs_cache/&#39;</span><span class="p">)</span>
+
+
+<span class="n">THUMBNAIL_CACHE_CONFIG</span> <span class="o">=</span> <span class="n">init_thumbnail_cache</span>
+<span class="c1"># Async selenium thumbnail task will use the following user</span>
+<span class="n">THUMBNAIL_SELENIUM_USER</span> <span class="o">=</span> <span class="s2">&quot;Admin&quot;</span>
+</pre></div>
+</div>
+<p>Using the above example cache keys for dashboards will be <cite>superset_thumb__dashboard__{ID}</cite></p>
+<p>You can override the base URL for selenium using:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">WEBDRIVER_BASEURL</span> <span class="o">=</span> <span class="s2">&quot;https://superset.company.com&quot;</span>
+</pre></div>
+</div>
+<p>Additional selenium web drive config can be set using <cite>WEBDRIVER_CONFIGURATION</cite></p>
+<p>You can implement a custom function to authenticate selenium, the default uses flask-login session cookie.
+An example of a custom function signature:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">auth_driver</span><span class="p">(</span><span class="n">driver</span><span class="p">:</span> <span class="n">WebDriver</span><span class="p">,</span> <span class="n">user</span><span class="p">:</span> <span class="s2">&quot;User&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">WebDriver</span><span class="p">:</span>
+    <span class="k">pass</span>
+</pre></div>
+</div>
+<p>Then on config:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">WEBDRIVER_AUTH_FUNC</span> <span class="o">=</span> <span class="n">auth_driver</span>
+</pre></div>
+</div>
+</div>
 <div class="section" id="database-dependencies">
-<span id="ref-database-deps"></span><h2>Database dependencies<a class="headerlink" href="#database-dependencies" title="Permalink to this headline">¶</a></h2>
+<h2>Database dependencies<a class="headerlink" href="#database-dependencies" title="Permalink to this headline">¶</a></h2>
 <p>Superset does not ship bundled with connectivity to databases, except
 for Sqlite, which is part of the Python standard library.
 You’ll need to install the required packages for the database you
@@ -567,7 +684,7 @@ For JDBC
 </tr>
 <tr class="row-odd"><td><p>Dremio</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">sqlalchemy_dremio</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">dremio://user:pwd&#64;host:31010/</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">dremio://</span></code></p></td>
 </tr>
 <tr class="row-even"><td><p>Elasticsearch</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">elasticsearch-dbapi</span></code></p></td>
@@ -634,6 +751,42 @@ or
 existence of a functional SqlAlchemy dialect and Python driver. Googling
 the keyword <code class="docutils literal notranslate"><span class="pre">sqlalchemy</span></code> in addition of a keyword that describes the
 database you want to connect to should get you to the right place.</p>
+</div>
+<div class="section" id="postgresql">
+<h2>PostgreSQL<a class="headerlink" href="#postgresql" title="Permalink to this headline">¶</a></h2>
+<p>The connection string for PostgreSQL looks like this</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">postgresql</span><span class="o">+</span><span class="n">psycopg2</span><span class="p">:</span><span class="o">//</span><span class="p">{</span><span class="n">username</span><span class="p">}:{</span><span class="n">password</span><span class="p">}</span><span class="o">@</span><span class="p">{</span><span class="n">host</span><span class="p">}:{</span><span class="n">port</span><span class="p">}</span><span class="o">/</span><span class="p">{</span><span class="n">database</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>Additional  may be configured via the <code class="docutils literal notranslate"><span class="pre">extra</span></code> field under <code class="docutils literal notranslate"><span class="pre">engine_params</span></code>.
+If you would like to enable mutual SSL here is a sample configuration:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;metadata_params&quot;</span><span class="p">:</span> <span class="p">{},</span>
+    <span class="nt">&quot;engine_params&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;connect_args&quot;</span><span class="p">:{</span>
+                <span class="nt">&quot;sslmode&quot;</span><span class="p">:</span> <span class="s2">&quot;require&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;sslrootcert&quot;</span><span class="p">:</span> <span class="s2">&quot;/path/to/root_cert&quot;</span>
+        <span class="p">}</span>
+     <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>If the key <code class="docutils literal notranslate"><span class="pre">sslrootcert</span></code> is present the server’s certificate will be verified to be signed by the same Certificate Authority (CA).</p>
+<p>If you would like to enable mutual SSL here is a sample configuration:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;metadata_params&quot;</span><span class="p">:</span> <span class="p">{},</span>
+    <span class="nt">&quot;engine_params&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;connect_args&quot;</span><span class="p">:{</span>
+                <span class="nt">&quot;sslmode&quot;</span><span class="p">:</span> <span class="s2">&quot;require&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;sslcert&quot;</span><span class="p">:</span> <span class="s2">&quot;/path/to/client_cert&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;sslkey&quot;</span><span class="p">:</span> <span class="s2">&quot;/path/to/client_key&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;sslrootcert&quot;</span><span class="p">:</span> <span class="s2">&quot;/path/to/root_cert&quot;</span>
+        <span class="p">}</span>
+     <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>See <a class="reference external" href="https://docs.sqlalchemy.org/en/13/dialects/postgresql.html#module-sqlalchemy.dialects.postgresql.psycopg2">psycopg2 SQLAlchemy</a>.</p>
 </div>
 <div class="section" id="hana">
 <h2>Hana<a class="headerlink" href="#hana" title="Permalink to this headline">¶</a></h2>
@@ -783,67 +936,6 @@ Drill JDBC Driver installed.</p>
 <p>For a complete tutorial about how to use Apache Drill with Superset, see this tutorial:
 <a class="reference external" href="http://thedataist.com/visualize-anything-with-superset-and-drill/">Visualize Anything with Superset and Drill</a></p>
 </div>
-<div class="section" id="caching">
-<h2>Caching<a class="headerlink" href="#caching" title="Permalink to this headline">¶</a></h2>
-<p>Superset uses <a class="reference external" href="https://pythonhosted.org/Flask-Cache/">Flask-Cache</a> for
-caching purpose. Configuring your caching backend is as easy as providing
-a <code class="docutils literal notranslate"><span class="pre">CACHE_CONFIG</span></code>, constant in your <code class="docutils literal notranslate"><span class="pre">superset_config.py</span></code> that
-complies with the Flask-Cache specifications.</p>
-<p>Flask-Cache supports multiple caching backends (Redis, Memcached,
-SimpleCache (in-memory), or the local filesystem). If you are going to use
-Memcached please use the <cite>pylibmc</cite> client library as <cite>python-memcached</cite> does
-not handle storing binary data correctly. If you use Redis, please install
-the <a class="reference external" href="https://pypi.python.org/pypi/redis">redis</a> Python package:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">redis</span>
-</pre></div>
-</div>
-<p>For setting your timeouts, this is done in the Superset metadata and goes
-up the “timeout searchpath”, from your slice configuration, to your
-data source’s configuration, to your database’s and ultimately falls back
-into your global default defined in <code class="docutils literal notranslate"><span class="pre">CACHE_CONFIG</span></code>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">CACHE_CONFIG</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;CACHE_TYPE&#39;</span><span class="p">:</span> <span class="s1">&#39;redis&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;CACHE_DEFAULT_TIMEOUT&#39;</span><span class="p">:</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">24</span><span class="p">,</span> <span class="c1"># 1 day default (in secs)</span>
-    <span class="s1">&#39;CACHE_KEY_PREFIX&#39;</span><span class="p">:</span> <span class="s1">&#39;superset_results&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;CACHE_REDIS_URL&#39;</span><span class="p">:</span> <span class="s1">&#39;redis://localhost:6379/0&#39;</span><span class="p">,</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p>It is also possible to pass a custom cache initialization function in the
-config to handle additional caching use cases. The function must return an
-object that is compatible with the <a class="reference external" href="https://pythonhosted.org/Flask-Cache/">Flask-Cache</a> API.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">custom_caching</span> <span class="kn">import</span> <span class="n">CustomCache</span>
-
-<span class="k">def</span> <span class="nf">init_cache</span><span class="p">(</span><span class="n">app</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Takes an app instance and returns a custom cache backend&quot;&quot;&quot;</span>
-    <span class="n">config</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s1">&#39;CACHE_DEFAULT_TIMEOUT&#39;</span><span class="p">:</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">24</span><span class="p">,</span> <span class="c1"># 1 day default (in secs)</span>
-        <span class="s1">&#39;CACHE_KEY_PREFIX&#39;</span><span class="p">:</span> <span class="s1">&#39;superset_results&#39;</span><span class="p">,</span>
-    <span class="p">}</span>
-    <span class="k">return</span> <span class="n">CustomCache</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span>
-
-<span class="n">CACHE_CONFIG</span> <span class="o">=</span> <span class="n">init_cache</span>
-</pre></div>
-</div>
-<p>Superset has a Celery task that will periodically warm up the cache based on
-different strategies. To use it, add the following to the <cite>CELERYBEAT_SCHEDULE</cite>
-section in <cite>config.py</cite>:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">CELERYBEAT_SCHEDULE</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;cache-warmup-hourly&#39;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s1">&#39;task&#39;</span><span class="p">:</span> <span class="s1">&#39;cache-warmup&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;schedule&#39;</span><span class="p">:</span> <span class="n">crontab</span><span class="p">(</span><span class="n">minute</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">hour</span><span class="o">=</span><span class="s1">&#39;*&#39;</span><span class="p">),</span>  <span class="c1"># hourly</span>
-        <span class="s1">&#39;kwargs&#39;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s1">&#39;strategy_name&#39;</span><span class="p">:</span> <span class="s1">&#39;top_n_dashboards&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;top_n&#39;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
-            <span class="s1">&#39;since&#39;</span><span class="p">:</span> <span class="s1">&#39;7 days ago&#39;</span><span class="p">,</span>
-        <span class="p">},</span>
-    <span class="p">},</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p>This will cache all the charts in the top 5 most popular dashboards every hour.
-For other strategies, check the <cite>superset/tasks/cache.py</cite> file.</p>
-</div>
 <div class="section" id="deeper-sqlalchemy-integration">
 <h2>Deeper SQLAlchemy integration<a class="headerlink" href="#deeper-sqlalchemy-integration" title="Permalink to this headline">¶</a></h2>
 <p>It is possible to tweak the database connection information using the
@@ -927,7 +1019,11 @@ dialog. When using a custom certificate, <code class="docutils literal notransla
 <h2>Dremio<a class="headerlink" href="#dremio" title="Permalink to this headline">¶</a></h2>
 <p>Install the following dependencies to connect to Dremio:</p>
 <ul class="simple">
-<li><p>Dremio SQLAlchemy: <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">sqlalchemy_dremio</span></code></p></li>
+<li><p>Dremio SQLAlchemy: <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">sqlalchemy_dremio</span></code></p>
+<ul>
+<li><p>If you receive any errors during the installation of <code class="docutils literal notranslate"><span class="pre">sqlalchemy_dremio</span></code>, make sure to install the prerequisites for PyODBC properly by following the instructions for your OS here: <a class="reference external" href="https://github.com/narendrans/sqlalchemy_dremio#installation">https://github.com/narendrans/sqlalchemy_dremio#installation</a></p></li>
+</ul>
+</li>
 <li><p>Dremio’s ODBC driver: <a class="reference external" href="https://www.dremio.com/drivers/">https://www.dremio.com/drivers/</a></p></li>
 </ul>
 <p>Example SQLAlchemy URI: <code class="docutils literal notranslate"><span class="pre">dremio://dremio:dremio123&#64;localhost:31010/dremio</span></code></p>
@@ -1118,7 +1214,7 @@ have the same configuration.</p>
 </li>
 </ul>
 <p>To setup a result backend, you need to pass an instance of a derivative
-of <code class="docutils literal notranslate"><span class="pre">werkzeug.contrib.cache.BaseCache</span></code> to the <code class="docutils literal notranslate"><span class="pre">RESULTS_BACKEND</span></code>
+of <code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">cachelib.base.BaseCache</span></code> to the <code class="docutils literal notranslate"><span class="pre">RESULTS_BACKEND</span></code>
 configuration key in your <code class="docutils literal notranslate"><span class="pre">superset_config.py</span></code>. It’s possible to use
 Memcached, Redis, S3 (<a class="reference external" href="https://pypi.python.org/pypi/s3werkzeugcache">https://pypi.python.org/pypi/s3werkzeugcache</a>),
 memory or the file system (in a single server-type setup or for testing),
@@ -1131,7 +1227,7 @@ look something like:</p>
 <span class="n">RESULTS_BACKEND</span> <span class="o">=</span> <span class="n">S3Cache</span><span class="p">(</span><span class="n">S3_CACHE_BUCKET</span><span class="p">,</span> <span class="n">S3_CACHE_KEY_PREFIX</span><span class="p">)</span>
 
 <span class="c1"># On Redis</span>
-<span class="kn">from</span> <span class="nn">werkzeug.contrib.cache</span> <span class="kn">import</span> <span class="n">RedisCache</span>
+<span class="kn">from</span> <span class="nn">cachelib.redis</span> <span class="kn">import</span> <span class="n">RedisCache</span>
 <span class="n">RESULTS_BACKEND</span> <span class="o">=</span> <span class="n">RedisCache</span><span class="p">(</span>
     <span class="n">host</span><span class="o">=</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">6379</span><span class="p">,</span> <span class="n">key_prefix</span><span class="o">=</span><span class="s1">&#39;superset_results&#39;</span><span class="p">)</span>
 </pre></div>
@@ -1240,6 +1336,56 @@ the default Jinja context in your environment by defining the
 in this dictionary are made available for users to use in their SQL.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">JINJA_CONTEXT_ADDONS</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s1">&#39;my_crazy_macro&#39;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">*</span><span class="mi">2</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Besides default Jinja templating, SQL lab also supports self-defined template
+processor by setting the <code class="docutils literal notranslate"><span class="pre">CUSTOM_TEMPLATE_PROCESSORS</span></code> in your superset configuration.
+The values in this dictionary overwrite the default Jinja template processors of the
+specified database engine.
+The example below configures a custom presto template processor which implements
+its own logic of processing macro template with regex parsing. It uses <code class="docutils literal notranslate"><span class="pre">$</span></code> style
+macro instead of <code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">}}</span></code> style in Jinja templating. By configuring it with
+<code class="docutils literal notranslate"><span class="pre">CUSTOM_TEMPLATE_PROCESSORS</span></code>, sql template on presto database is processed
+by the custom one rather than the default one.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">DATE</span><span class="p">(</span>
+    <span class="n">ts</span><span class="p">:</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">day_offset</span><span class="p">:</span> <span class="n">SupportsInt</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">hour_offset</span><span class="p">:</span> <span class="n">SupportsInt</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Current day as a string.&quot;&quot;&quot;</span>
+    <span class="n">day_offset</span><span class="p">,</span> <span class="n">hour_offset</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">day_offset</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">hour_offset</span><span class="p">)</span>
+    <span class="n">offset_day</span> <span class="o">=</span> <span class="p">(</span><span class="n">ts</span> <span class="o">+</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="n">day_offset</span><span class="p">,</span> <span class="n">hours</span><span class="o">=</span><span class="n">hour_offset</span><span class="p">))</span><span class="o">.</span><span class="n">date</span><span class="p">()</span>
+    <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">offset_day</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">CustomPrestoTemplateProcessor</span><span class="p">(</span><span class="n">PrestoTemplateProcessor</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;A custom presto template processor.&quot;&quot;&quot;</span>
+
+    <span class="n">engine</span> <span class="o">=</span> <span class="s2">&quot;presto&quot;</span>
+
+    <span class="k">def</span> <span class="nf">process_template</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sql</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Processes a sql template with $ style macro using regex.&quot;&quot;&quot;</span>
+        <span class="c1"># Add custom macros functions.</span>
+        <span class="n">macros</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;DATE&quot;</span><span class="p">:</span> <span class="n">partial</span><span class="p">(</span><span class="n">DATE</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">utcnow</span><span class="p">())</span>
+        <span class="p">}</span>  <span class="c1"># type: Dict[str, Any]</span>
+        <span class="c1"># Update with macros defined in context and kwargs.</span>
+        <span class="n">macros</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="p">)</span>
+        <span class="n">macros</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">replacer</span><span class="p">(</span><span class="n">match</span><span class="p">):</span>
+            <span class="sd">&quot;&quot;&quot;Expand $ style macros with corresponding function calls.&quot;&quot;&quot;</span>
+            <span class="n">macro_name</span><span class="p">,</span> <span class="n">args_str</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">groups</span><span class="p">()</span>
+            <span class="n">args</span> <span class="o">=</span> <span class="p">[</span><span class="n">a</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">args_str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)]</span>
+            <span class="k">if</span> <span class="n">args</span> <span class="o">==</span> <span class="p">[</span><span class="s2">&quot;&quot;</span><span class="p">]:</span>
+                <span class="n">args</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">f</span> <span class="o">=</span> <span class="n">macros</span><span class="p">[</span><span class="n">macro_name</span><span class="p">[</span><span class="mi">1</span><span class="p">:]]</span>
+            <span class="k">return</span> <span class="n">f</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
+
+        <span class="n">macro_names</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;$&quot;</span> <span class="o">+</span> <span class="n">name</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">macros</span><span class="o">.</span><span class="n">keys</span><span class="p">()]</span>
+        <span class="n">pattern</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;(</span><span class="si">%s</span><span class="s2">)\s*\(([^()]*)\)&quot;</span> <span class="o">%</span> <span class="s2">&quot;|&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">escape</span><span class="p">,</span> <span class="n">macro_names</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">replacer</span><span class="p">,</span> <span class="n">sql</span><span class="p">)</span>
+
+<span class="n">CUSTOM_TEMPLATE_PROCESSORS</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">CustomPrestoTemplateProcessor</span><span class="o">.</span><span class="n">engine</span><span class="p">:</span> <span class="n">CustomPrestoTemplateProcessor</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -1555,7 +1701,7 @@ parameter</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright Copyright © 2019 The Apache Software Foundation, Licensed under the Apache License, Version 2.0.
+        &copy; Copyright Copyright © 2020 The Apache Software Foundation, Licensed under the Apache License, Version 2.0.
 
     </p>
   </div> 

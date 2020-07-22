@@ -21,10 +21,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../_static/language_data.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -86,6 +86,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../gallery.html">Visualizations Gallery</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../druid.html">Druid</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../misc.html">Misc</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../issue_code_reference.html">Issue Code Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../faq.html">FAQ</a></li>
 </ul>
 
@@ -168,58 +169,22 @@
 <span class="c1"># under the License.</span>
 <span class="sd">&quot;&quot;&quot;Defines the templating context for SQL Lab&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">inspect</span>
-<span class="kn">import</span> <span class="nn">json</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">cast</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">TYPE_CHECKING</span>
 
 <span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">g</span><span class="p">,</span> <span class="n">request</span>
 <span class="kn">from</span> <span class="nn">jinja2.sandbox</span> <span class="kn">import</span> <span class="n">SandboxedEnvironment</span>
 
 <span class="kn">from</span> <span class="nn">superset</span> <span class="kn">import</span> <span class="n">jinja_base_context</span>
+<span class="kn">from</span> <span class="nn">superset.extensions</span> <span class="kn">import</span> <span class="n">jinja_context_manager</span>
+<span class="kn">from</span> <span class="nn">superset.utils.core</span> <span class="kn">import</span> <span class="n">convert_legacy_filters_into_adhoc</span><span class="p">,</span> <span class="n">merge_extra_filters</span>
 
-
-<div class="viewcode-block" id="url_param"><a class="viewcode-back" href="../../sqllab.html#superset.jinja_context.url_param">[docs]</a><span class="k">def</span> <span class="nf">url_param</span><span class="p">(</span><span class="n">param</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Any</span><span class="p">]:</span>
-    <span class="sd">&quot;&quot;&quot;Read a url or post parameter and use it in your SQL Lab query</span>
-
-<span class="sd">    When in SQL Lab, it&#39;s possible to add arbitrary URL &quot;query string&quot;</span>
-<span class="sd">    parameters, and use those in your SQL code. For instance you can</span>
-<span class="sd">    alter your url and add `?foo=bar`, as in</span>
-<span class="sd">    `{domain}/superset/sqllab?foo=bar`. Then if your query is something like</span>
-<span class="sd">    SELECT * FROM foo = &#39;{{ url_param(&#39;foo&#39;) }}&#39;, it will be parsed at</span>
-<span class="sd">    runtime and replaced by the value in the URL.</span>
-
-<span class="sd">    As you create a visualization form this SQL Lab query, you can pass</span>
-<span class="sd">    parameters in the explore view as well as from the dashboard, and</span>
-<span class="sd">    it should carry through to your queries.</span>
-
-<span class="sd">    Default values for URL parameters can be defined in chart metdata by</span>
-<span class="sd">    adding the key-value pair `url_params: {&#39;foo&#39;: &#39;bar&#39;}`</span>
-
-<span class="sd">    :param param: the parameter to lookup</span>
-<span class="sd">    :param default: the value to return in the absence of the parameter</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">param</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">request</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">param</span><span class="p">,</span> <span class="n">default</span><span class="p">)</span>
-    <span class="c1"># Supporting POST as well as get</span>
-    <span class="n">form_data</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;form_data&quot;</span><span class="p">)</span>
-    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">form_data</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-        <span class="n">form_data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">form_data</span><span class="p">)</span>
-        <span class="n">url_params</span> <span class="o">=</span> <span class="n">form_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;url_params&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="p">{}</span>
-        <span class="k">return</span> <span class="n">url_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">param</span><span class="p">,</span> <span class="n">default</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">default</span></div>
-
-
-<div class="viewcode-block" id="current_user_id"><a class="viewcode-back" href="../../sqllab.html#superset.jinja_context.current_user_id">[docs]</a><span class="k">def</span> <span class="nf">current_user_id</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
-    <span class="sd">&quot;&quot;&quot;The id of the user who is currently logged in&quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="s2">&quot;user&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">g</span><span class="o">.</span><span class="n">user</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">g</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">id</span>
-    <span class="k">return</span> <span class="kc">None</span></div>
-
-
-<div class="viewcode-block" id="current_username"><a class="viewcode-back" href="../../sqllab.html#superset.jinja_context.current_username">[docs]</a><span class="k">def</span> <span class="nf">current_username</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
-    <span class="sd">&quot;&quot;&quot;The username of the user who is currently logged in&quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">g</span><span class="o">.</span><span class="n">user</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">g</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">username</span>
-    <span class="k">return</span> <span class="kc">None</span></div>
+<span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">superset.connectors.sqla.models</span> <span class="kn">import</span> <span class="p">(</span>  <span class="c1"># pylint: disable=unused-import</span>
+        <span class="n">SqlaTable</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="kn">from</span> <span class="nn">superset.models.core</span> <span class="kn">import</span> <span class="n">Database</span>  <span class="c1"># pylint: disable=unused-import</span>
+    <span class="kn">from</span> <span class="nn">superset.models.sql_lab</span> <span class="kn">import</span> <span class="n">Query</span>  <span class="c1"># pylint: disable=unused-import</span>
 
 
 <div class="viewcode-block" id="filter_values"><a class="viewcode-back" href="../../sqllab.html#superset.jinja_context.filter_values">[docs]</a><span class="k">def</span> <span class="nf">filter_values</span><span class="p">(</span><span class="n">column</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
@@ -230,8 +195,6 @@
 <span class="sd">          column doesn&#39;t match the one in the select statement</span>
 <span class="sd">        - you want to have the ability for filter inside the main query for speed</span>
 <span class="sd">          purposes</span>
-
-<span class="sd">    This searches for &quot;filters&quot; and &quot;extra_filters&quot; in ``form_data`` for a match</span>
 
 <span class="sd">    Usage example::</span>
 
@@ -244,19 +207,28 @@
 <span class="sd">    :param default: default value to return if there&#39;s no matching columns</span>
 <span class="sd">    :return: returns a list of filter values</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">form_data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;form_data&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">&quot;</span><span class="p">))</span>
-    <span class="n">return_val</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">for</span> <span class="n">filter_type</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;filters&quot;</span><span class="p">,</span> <span class="s2">&quot;extra_filters&quot;</span><span class="p">]:</span>
-        <span class="k">if</span> <span class="n">filter_type</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">form_data</span><span class="p">:</span>
-            <span class="k">continue</span>
 
-        <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">form_data</span><span class="p">[</span><span class="n">filter_type</span><span class="p">]:</span>
-            <span class="k">if</span> <span class="n">f</span><span class="p">[</span><span class="s2">&quot;col&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">column</span><span class="p">:</span>
-                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">f</span><span class="p">[</span><span class="s2">&quot;val&quot;</span><span class="p">],</span> <span class="nb">list</span><span class="p">):</span>
-                    <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">f</span><span class="p">[</span><span class="s2">&quot;val&quot;</span><span class="p">]:</span>
-                        <span class="n">return_val</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="n">return_val</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">f</span><span class="p">[</span><span class="s2">&quot;val&quot;</span><span class="p">])</span>
+    <span class="kn">from</span> <span class="nn">superset.views.utils</span> <span class="kn">import</span> <span class="n">get_form_data</span>
+
+    <span class="n">form_data</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">get_form_data</span><span class="p">()</span>
+    <span class="n">convert_legacy_filters_into_adhoc</span><span class="p">(</span><span class="n">form_data</span><span class="p">)</span>
+    <span class="n">merge_extra_filters</span><span class="p">(</span><span class="n">form_data</span><span class="p">)</span>
+
+    <span class="n">return_val</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">comparator</span>
+        <span class="k">for</span> <span class="nb">filter</span> <span class="ow">in</span> <span class="n">form_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;adhoc_filters&quot;</span><span class="p">,</span> <span class="p">[])</span>
+        <span class="k">for</span> <span class="n">comparator</span> <span class="ow">in</span> <span class="p">(</span>
+            <span class="nb">filter</span><span class="p">[</span><span class="s2">&quot;comparator&quot;</span><span class="p">]</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="nb">filter</span><span class="p">[</span><span class="s2">&quot;comparator&quot;</span><span class="p">],</span> <span class="nb">list</span><span class="p">)</span>
+            <span class="k">else</span> <span class="p">[</span><span class="nb">filter</span><span class="p">[</span><span class="s2">&quot;comparator&quot;</span><span class="p">]]</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span>
+            <span class="nb">filter</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;expressionType&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;SIMPLE&quot;</span>
+            <span class="ow">and</span> <span class="nb">filter</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;clause&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;WHERE&quot;</span>
+            <span class="ow">and</span> <span class="nb">filter</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;subject&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="n">column</span>
+            <span class="ow">and</span> <span class="nb">filter</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;comparator&quot;</span><span class="p">)</span>
+        <span class="p">)</span>
+    <span class="p">]</span>
 
     <span class="k">if</span> <span class="n">return_val</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">return_val</span>
@@ -267,40 +239,106 @@
     <span class="k">return</span> <span class="p">[]</span></div>
 
 
-<span class="k">class</span> <span class="nc">CacheKeyWrapper</span><span class="p">:</span>  <span class="c1"># pylint: disable=too-few-public-methods</span>
-    <span class="sd">&quot;&quot;&quot; Dummy class that exposes a method used to store additional values used in</span>
-<span class="sd">     calculation of query object cache keys&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="ExtraCache"><a class="viewcode-back" href="../../sqllab.html#superset.jinja_context.ExtraCache">[docs]</a><span class="k">class</span> <span class="nc">ExtraCache</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Dummy class that exposes a method used to store additional values used in</span>
+<span class="sd">    calculation of query object cache keys.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Regular expression for detecting the presence of templated methods which could</span>
+    <span class="c1"># be added to the cache key.</span>
+    <span class="n">regex</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span>
+        <span class="sa">r</span><span class="s2">&quot;\{\{.*(&quot;</span>
+        <span class="sa">r</span><span class="s2">&quot;current_user_id\(.*\)|&quot;</span>
+        <span class="sa">r</span><span class="s2">&quot;current_username\(.*\)|&quot;</span>
+        <span class="sa">r</span><span class="s2">&quot;cache_key_wrapper\(.*\)|&quot;</span>
+        <span class="sa">r</span><span class="s2">&quot;url_param\(.*\)&quot;</span>
+        <span class="sa">r</span><span class="s2">&quot;).*\}\}&quot;</span>
+    <span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">extra_cache_keys</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">extra_cache_keys</span> <span class="o">=</span> <span class="n">extra_cache_keys</span>
 
-    <span class="k">def</span> <span class="nf">cache_key_wrapper</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot; Adds values to a list that is added to the query object used for calculating</span>
-<span class="sd">        a cache key.</span>
+<div class="viewcode-block" id="ExtraCache.current_user_id"><a class="viewcode-back" href="../../sqllab.html#superset.jinja_context.ExtraCache.current_user_id">[docs]</a>    <span class="k">def</span> <span class="nf">current_user_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">add_to_cache_keys</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the user ID of the user who is currently logged in.</span>
+
+<span class="sd">        :param add_to_cache_keys: Whether the value should be included in the cache key</span>
+<span class="sd">        :returns: The user ID</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="s2">&quot;user&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">g</span><span class="o">.</span><span class="n">user</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">add_to_cache_keys</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">cache_key_wrapper</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">g</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">id</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="ExtraCache.current_username"><a class="viewcode-back" href="../../sqllab.html#superset.jinja_context.ExtraCache.current_username">[docs]</a>    <span class="k">def</span> <span class="nf">current_username</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">add_to_cache_keys</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the username of the user who is currently logged in.</span>
+
+<span class="sd">        :param add_to_cache_keys: Whether the value should be included in the cache key</span>
+<span class="sd">        :returns: The username</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">g</span><span class="o">.</span><span class="n">user</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">add_to_cache_keys</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">cache_key_wrapper</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">username</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">g</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">username</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="ExtraCache.cache_key_wrapper"><a class="viewcode-back" href="../../sqllab.html#superset.jinja_context.ExtraCache.cache_key_wrapper">[docs]</a>    <span class="k">def</span> <span class="nf">cache_key_wrapper</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Adds values to a list that is added to the query object used for calculating a</span>
+<span class="sd">        cache key.</span>
 
 <span class="sd">        This is needed if the following applies:</span>
 <span class="sd">            - Caching is enabled</span>
 <span class="sd">            - The query is dynamically generated using a jinja template</span>
-<span class="sd">            - A username or similar is used as a filter in the query</span>
-
-<span class="sd">        Example when using a SQL query as a data source ::</span>
-
-<span class="sd">            SELECT action, count(*) as times</span>
-<span class="sd">            FROM logs</span>
-<span class="sd">            WHERE logged_in_user = &#39;{{ cache_key_wrapper(current_username()) }}&#39;</span>
-<span class="sd">            GROUP BY action</span>
-
-<span class="sd">        This will ensure that the query results that were cached by `user_1` will</span>
-<span class="sd">        **not** be seen by `user_2`, as the `cache_key` for the query will be</span>
-<span class="sd">        different. ``cache_key_wrapper`` can be used similarly for regular table data</span>
-<span class="sd">        sources by adding a `Custom SQL` filter.</span>
+<span class="sd">            - A `JINJA_CONTEXT_ADDONS` or similar is used as a filter in the query</span>
 
 <span class="sd">        :param key: Any value that should be considered when calculating the cache key</span>
 <span class="sd">        :return: the original value ``key`` passed to the function</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">extra_cache_keys</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">extra_cache_keys</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">key</span>
+        <span class="k">return</span> <span class="n">key</span></div>
+
+<div class="viewcode-block" id="ExtraCache.url_param"><a class="viewcode-back" href="../../sqllab.html#superset.jinja_context.ExtraCache.url_param">[docs]</a>    <span class="k">def</span> <span class="nf">url_param</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">param</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">add_to_cache_keys</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Any</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Read a url or post parameter and use it in your SQL Lab query.</span>
+
+<span class="sd">        When in SQL Lab, it&#39;s possible to add arbitrary URL &quot;query string&quot; parameters,</span>
+<span class="sd">        and use those in your SQL code. For instance you can alter your url and add</span>
+<span class="sd">        `?foo=bar`, as in `{domain}/superset/sqllab?foo=bar`. Then if your query is</span>
+<span class="sd">        something like SELECT * FROM foo = &#39;{{ url_param(&#39;foo&#39;) }}&#39;, it will be parsed</span>
+<span class="sd">        at runtime and replaced by the value in the URL.</span>
+
+<span class="sd">        As you create a visualization form this SQL Lab query, you can pass parameters</span>
+<span class="sd">        in the explore view as well as from the dashboard, and it should carry through</span>
+<span class="sd">        to your queries.</span>
+
+<span class="sd">        Default values for URL parameters can be defined in chart metadata by adding the</span>
+<span class="sd">        key-value pair `url_params: {&#39;foo&#39;: &#39;bar&#39;}`</span>
+
+<span class="sd">        :param param: the parameter to lookup</span>
+<span class="sd">        :param default: the value to return in the absence of the parameter</span>
+<span class="sd">        :param add_to_cache_keys: Whether the value should be included in the cache key</span>
+<span class="sd">        :returns: The URL parameters</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="kn">from</span> <span class="nn">superset.views.utils</span> <span class="kn">import</span> <span class="n">get_form_data</span>
+
+        <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">param</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">request</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">param</span><span class="p">,</span> <span class="n">default</span><span class="p">)</span>
+        <span class="n">form_data</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">get_form_data</span><span class="p">()</span>
+        <span class="n">url_params</span> <span class="o">=</span> <span class="n">form_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;url_params&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="p">{}</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">url_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">param</span><span class="p">,</span> <span class="n">default</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">add_to_cache_keys</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cache_key_wrapper</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">result</span></div></div>
 
 
 <span class="k">class</span> <span class="nc">BaseTemplateProcessor</span><span class="p">:</span>  <span class="c1"># pylint: disable=too-few-public-methods</span>
@@ -322,12 +360,12 @@
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">database</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">query</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">table</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">database</span><span class="p">:</span> <span class="s2">&quot;Database&quot;</span><span class="p">,</span>
+        <span class="n">query</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="s2">&quot;Query&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">table</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="s2">&quot;SqlaTable&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">extra_cache_keys</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="o">**</span><span class="n">kwargs</span>
-    <span class="p">):</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">database</span> <span class="o">=</span> <span class="n">database</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">query</span> <span class="o">=</span> <span class="n">query</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">schema</span> <span class="o">=</span> <span class="kc">None</span>
@@ -335,11 +373,14 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">schema</span> <span class="o">=</span> <span class="n">query</span><span class="o">.</span><span class="n">schema</span>
         <span class="k">elif</span> <span class="n">table</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">schema</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">schema</span>
+
+        <span class="n">extra_cache</span> <span class="o">=</span> <span class="n">ExtraCache</span><span class="p">(</span><span class="n">extra_cache_keys</span><span class="p">)</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">context</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s2">&quot;url_param&quot;</span><span class="p">:</span> <span class="n">url_param</span><span class="p">,</span>
-            <span class="s2">&quot;current_user_id&quot;</span><span class="p">:</span> <span class="n">current_user_id</span><span class="p">,</span>
-            <span class="s2">&quot;current_username&quot;</span><span class="p">:</span> <span class="n">current_username</span><span class="p">,</span>
-            <span class="s2">&quot;cache_key_wrapper&quot;</span><span class="p">:</span> <span class="n">CacheKeyWrapper</span><span class="p">(</span><span class="n">extra_cache_keys</span><span class="p">)</span><span class="o">.</span><span class="n">cache_key_wrapper</span><span class="p">,</span>
+            <span class="s2">&quot;url_param&quot;</span><span class="p">:</span> <span class="n">extra_cache</span><span class="o">.</span><span class="n">url_param</span><span class="p">,</span>
+            <span class="s2">&quot;current_user_id&quot;</span><span class="p">:</span> <span class="n">extra_cache</span><span class="o">.</span><span class="n">current_user_id</span><span class="p">,</span>
+            <span class="s2">&quot;current_username&quot;</span><span class="p">:</span> <span class="n">extra_cache</span><span class="o">.</span><span class="n">current_username</span><span class="p">,</span>
+            <span class="s2">&quot;cache_key_wrapper&quot;</span><span class="p">:</span> <span class="n">extra_cache</span><span class="o">.</span><span class="n">cache_key_wrapper</span><span class="p">,</span>
             <span class="s2">&quot;filter_values&quot;</span><span class="p">:</span> <span class="n">filter_values</span><span class="p">,</span>
             <span class="s2">&quot;form_data&quot;</span><span class="p">:</span> <span class="p">{},</span>
         <span class="p">}</span>
@@ -349,7 +390,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">engine</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">env</span> <span class="o">=</span> <span class="n">SandboxedEnvironment</span><span class="p">()</span>
 
-    <span class="k">def</span> <span class="nf">process_template</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sql</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">process_template</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sql</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Processes a sql template</span>
 
 <span class="sd">        &gt;&gt;&gt; sql = &quot;SELECT &#39;{{ datetime(2017, 1, 1).isoformat() }}&#39;&quot;</span>
@@ -378,7 +419,7 @@
             <span class="n">schema</span><span class="p">,</span> <span class="n">table_name</span> <span class="o">=</span> <span class="n">table_name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">table_name</span><span class="p">,</span> <span class="n">schema</span>
 
-<div class="viewcode-block" id="PrestoTemplateProcessor.first_latest_partition"><a class="viewcode-back" href="../../sqllab.html#superset.jinja_context.PrestoTemplateProcessor.first_latest_partition">[docs]</a>    <span class="k">def</span> <span class="nf">first_latest_partition</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<div class="viewcode-block" id="PrestoTemplateProcessor.first_latest_partition"><a class="viewcode-back" href="../../sqllab.html#superset.jinja_context.PrestoTemplateProcessor.first_latest_partition">[docs]</a>    <span class="k">def</span> <span class="nf">first_latest_partition</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets the first value in the array of all latest partitions</span>
 
@@ -387,9 +428,10 @@
 <span class="sd">        :raises IndexError: If no partition exists</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">latest_partitions</span><span class="p">(</span><span class="n">table_name</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span></div>
+        <span class="n">latest_partitions</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">latest_partitions</span><span class="p">(</span><span class="n">table_name</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">latest_partitions</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">latest_partitions</span> <span class="k">else</span> <span class="kc">None</span></div>
 
-<div class="viewcode-block" id="PrestoTemplateProcessor.latest_partitions"><a class="viewcode-back" href="../../sqllab.html#superset.jinja_context.PrestoTemplateProcessor.latest_partitions">[docs]</a>    <span class="k">def</span> <span class="nf">latest_partitions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<div class="viewcode-block" id="PrestoTemplateProcessor.latest_partitions"><a class="viewcode-back" href="../../sqllab.html#superset.jinja_context.PrestoTemplateProcessor.latest_partitions">[docs]</a>    <span class="k">def</span> <span class="nf">latest_partitions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets the array of all latest partitions</span>
 
@@ -397,14 +439,21 @@
 <span class="sd">        :return: the latest partition array</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
+        <span class="kn">from</span> <span class="nn">superset.db_engine_specs.presto</span> <span class="kn">import</span> <span class="n">PrestoEngineSpec</span>
+
         <span class="n">table_name</span><span class="p">,</span> <span class="n">schema</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_schema_table</span><span class="p">(</span><span class="n">table_name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">schema</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">database</span><span class="o">.</span><span class="n">db_engine_spec</span><span class="o">.</span><span class="n">latest_partition</span><span class="p">(</span>
+        <span class="k">return</span> <span class="n">cast</span><span class="p">(</span><span class="n">PrestoEngineSpec</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">database</span><span class="o">.</span><span class="n">db_engine_spec</span><span class="p">)</span><span class="o">.</span><span class="n">latest_partition</span><span class="p">(</span>
             <span class="n">table_name</span><span class="p">,</span> <span class="n">schema</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">database</span>
         <span class="p">)[</span><span class="mi">1</span><span class="p">]</span></div>
 
-    <span class="k">def</span> <span class="nf">latest_sub_partition</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table_name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">latest_sub_partition</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="n">table_name</span><span class="p">,</span> <span class="n">schema</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_schema_table</span><span class="p">(</span><span class="n">table_name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">schema</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">database</span><span class="o">.</span><span class="n">db_engine_spec</span><span class="o">.</span><span class="n">latest_sub_partition</span><span class="p">(</span>
+
+        <span class="kn">from</span> <span class="nn">superset.db_engine_specs.presto</span> <span class="kn">import</span> <span class="n">PrestoEngineSpec</span>
+
+        <span class="k">return</span> <span class="n">cast</span><span class="p">(</span>
+            <span class="n">PrestoEngineSpec</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">database</span><span class="o">.</span><span class="n">db_engine_spec</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">latest_sub_partition</span><span class="p">(</span>
             <span class="n">table_name</span><span class="o">=</span><span class="n">table_name</span><span class="p">,</span> <span class="n">schema</span><span class="o">=</span><span class="n">schema</span><span class="p">,</span> <span class="n">database</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">database</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
         <span class="p">)</span>
 
@@ -415,7 +464,8 @@
     <span class="n">engine</span> <span class="o">=</span> <span class="s2">&quot;hive&quot;</span></div>
 
 
-<span class="n">template_processors</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="c1"># The global template processors from Jinja context manager.</span>
+<span class="n">template_processors</span> <span class="o">=</span> <span class="n">jinja_context_manager</span><span class="o">.</span><span class="n">template_processors</span>
 <span class="n">keys</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">globals</span><span class="p">()</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
 <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">:</span>
     <span class="n">o</span> <span class="o">=</span> <span class="nb">globals</span><span class="p">()[</span><span class="n">k</span><span class="p">]</span>
@@ -423,7 +473,12 @@
         <span class="n">template_processors</span><span class="p">[</span><span class="n">o</span><span class="o">.</span><span class="n">engine</span><span class="p">]</span> <span class="o">=</span> <span class="n">o</span>
 
 
-<span class="k">def</span> <span class="nf">get_template_processor</span><span class="p">(</span><span class="n">database</span><span class="p">,</span> <span class="n">table</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">query</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">get_template_processor</span><span class="p">(</span>
+    <span class="n">database</span><span class="p">:</span> <span class="s2">&quot;Database&quot;</span><span class="p">,</span>
+    <span class="n">table</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="s2">&quot;SqlaTable&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">query</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="s2">&quot;Query&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BaseTemplateProcessor</span><span class="p">:</span>
     <span class="n">template_processor</span> <span class="o">=</span> <span class="n">template_processors</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
         <span class="n">database</span><span class="o">.</span><span class="n">backend</span><span class="p">,</span> <span class="n">BaseTemplateProcessor</span>
     <span class="p">)</span>
@@ -440,7 +495,7 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright Copyright © 2019 The Apache Software Foundation, Licensed under the Apache License, Version 2.0.
+        &copy; Copyright Copyright © 2020 The Apache Software Foundation, Licensed under the Apache License, Version 2.0.
 
     </p>
   </div> 
