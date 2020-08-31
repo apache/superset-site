@@ -126,7 +126,15 @@ const integrationSection = css`
       margin: 20px;
     }
   }
-
+  .joinCommunity {
+    text-align: center;
+    #head {
+      display: block;
+      font-size: 35px;
+      margin-bottom: 20px;
+      margin-top: 80px;
+    }
+  }
 `;
 
 const linkCarousel = css`
@@ -260,7 +268,7 @@ const Theme = () => {
                 <div className="toggle" onClick={()=>slider.current.goTo(2)}>
                   <h3>Investigate</h3>
                   <span>
-                    Use sqlab to write queries to explore your data
+                    Use SQL Lab to write queries to explore your data
                   </span>
                 </div>
             </div>
@@ -290,6 +298,14 @@ const Theme = () => {
             ))}
           </ul>
           <span className="databaseSub"> .. and any other SQLAlchemy <a href="https://superset.incubator.apache.org/installation.html#database-dependencies"> compatible data source. </a> </span>
+          <div className="joinCommunity">
+            <span id="head"> Want to be part of Apache Superset?</span>
+            <Link to="/community">
+              <Button type="primary" size="large">
+                Join the Community!
+              </Button>
+            </Link>
+          </div> 
         </div>
       </Layout>
     </ThemeProvider>

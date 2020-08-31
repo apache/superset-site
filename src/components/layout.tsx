@@ -30,6 +30,9 @@ const headerStyle = css`
   width: 100%;
   box-shadow: 0 2px 6px 0 rgba(0,0,0,.12);
   z-index: 1;
+  .gatsby-image-wrapper {
+    margin-top: 6px;
+  }
   .ant-menu {
     background: transparent;
   }

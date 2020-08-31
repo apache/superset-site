@@ -1,6 +1,6 @@
-import React from "react"
-import { useStaticQuery, graphql } from "gatsby"
-import Img from "gatsby-image"
+import React from "react";
+import { useStaticQuery, graphql } from "gatsby";
+import Img from "gatsby-image";
 
 interface Props {
   imageName?: string;
@@ -13,9 +13,9 @@ interface Props {
 const Image = ({ imageName, type, width, height, ...otherProps}):Props => {
   const data = useStaticQuery(graphql`
     query {
-      logoSm: file(relativePath: { eq: "src/images/s.png" }) {
+      logoSm: file(relativePath: { eq: "src/images/superset-logo-horiz-apache.png" }) {
         childImageSharp {
-          fixed(width: 60) {
+          fixed(width: 223) {
             ...GatsbyImageSharpFixed
           }
         }
