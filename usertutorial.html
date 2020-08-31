@@ -1,0 +1,625 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Exploring data with Apache Superset &mdash; Apache Superset  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Security" href="security.html" />
+    <link rel="prev" title="Creating your first dashboard" href="admintutorial.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Apache Superset
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation &amp; Configuration</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="tutorials.html">Tutorials</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="admintutorial.html">Creating your first dashboard</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Exploring data with Apache Superset</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#enabling-upload-a-csv-functionality">Enabling Upload a CSV Functionality</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#obtaining-and-loading-the-data">Obtaining and loading the data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#table-visualization">Table Visualization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dashboard-basics">Dashboard basics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pivot-table">Pivot Table</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#line-chart">Line Chart</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#markup">Markup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#filter-box">Filter box</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#publishing-your-dashboard">Publishing your dashboard</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#taking-your-dashboard-further">Taking your dashboard further</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#annotations">Annotations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#advanced-analytics">Advanced Analytics</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#setting-up-the-base-chart">Setting up the base chart</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#rolling-mean">Rolling mean</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#time-comparison">Time Comparison</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#resampling-the-data">Resampling the data</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="security.html">Security</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sqllab.html">SQL Lab</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gallery.html">Visualizations Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="druid.html">Druid</a></li>
+<li class="toctree-l1"><a class="reference internal" href="misc.html">Misc</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Apache Superset</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="tutorials.html">Tutorials</a> &raquo;</li>
+        
+      <li>Exploring data with Apache Superset</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="exploring-data-with-apache-superset">
+<h1>Exploring data with Apache Superset<a class="headerlink" href="#exploring-data-with-apache-superset" title="Permalink to this headline">¶</a></h1>
+<p>In this tutorial, we will introduce key concepts in Apache Superset
+through the exploration of a real dataset which contains the flights
+made by employees of a UK-based organization in 2011. The following
+information about each flight is given:</p>
+<ul class="simple">
+<li><p>The traveller’s department. For the purposes of this tutorial the
+departments have been renamed Orange, Yellow and Purple.</p></li>
+<li><p>The cost of the ticket.</p></li>
+<li><p>The travel class (Economy, Premium Economy, Business and First
+Class).</p></li>
+<li><p>Whether the ticket was a single or return.</p></li>
+<li><p>The date of travel.</p></li>
+<li><p>Information about the origin and destination.</p></li>
+<li><p>The distance between the origin and destination, in kilometers (km).</p></li>
+</ul>
+<div class="section" id="enabling-upload-a-csv-functionality">
+<h2>Enabling Upload a CSV Functionality<a class="headerlink" href="#enabling-upload-a-csv-functionality" title="Permalink to this headline">¶</a></h2>
+<p>You may need to enable the functionality to upload a CSV to your
+database. The following section explains how to enable this
+functionality for the examples database.</p>
+<p>In the top menu, select <span class="menuselection">Sources ‣ Databases</span>. Find the
+<span class="guilabel">examples</span> database in the list and select the edit record
+button.</p>
+<img alt="_images/edit-record.png" src="_images/edit-record.png" />
+<p>Within the <span class="guilabel">Edit Database</span> page, check the
+<span class="guilabel">Allow Csv Upload</span> checkbox.</p>
+<p>Finally, save by selecting <span class="guilabel">Save</span> at the bottom of the page.</p>
+</div>
+<div class="section" id="obtaining-and-loading-the-data">
+<h2>Obtaining and loading the data<a class="headerlink" href="#obtaining-and-loading-the-data" title="Permalink to this headline">¶</a></h2>
+<p>Download the data for this tutorial to your computer from
+<a class="reference external" href="https://raw.githubusercontent.com/apache-superset/examples-data/master/tutorial_flights.csv">Github</a>.</p>
+<p>In the top menu, select <span class="menuselection">Sources ‣ Upload a CSV</span>.</p>
+<img alt="_images/upload_a_csv.png" src="_images/upload_a_csv.png" />
+<p>Then, enter the <span class="guilabel">Table name</span> as <cite>tutorial_flights</cite>
+and select the <span class="guilabel">CSV file</span> from your computer.</p>
+<img alt="_images/csv_to_database_configuration.png" src="_images/csv_to_database_configuration.png" />
+<p>Next enter the text <cite>Travel Date</cite> into the
+<span class="guilabel">Parse Dates</span> field.</p>
+<img alt="_images/parse_dates_column.png" src="_images/parse_dates_column.png" />
+<p>Leaving all the other options in their default settings, select
+<span class="guilabel">Save</span> at the bottom of the page.</p>
+</div>
+<div class="section" id="table-visualization">
+<h2>Table Visualization<a class="headerlink" href="#table-visualization" title="Permalink to this headline">¶</a></h2>
+<p>In this section, we’ll create our first visualization: a table to show
+the number of flights and cost per travel class.</p>
+<p>To create a new chart, select the <span class="menuselection">New ‣ Chart</span>.</p>
+<img alt="_images/add_new_chart.png" src="_images/add_new_chart.png" />
+<p>Once in the <span class="guilabel">Create a new chart</span> dialogue, select
+<span class="guilabel">tutorial_flights</span> from the <span class="guilabel">Chose a datasource</span>
+dropdown.</p>
+<img alt="_images/chose_a_datasource.png" src="_images/chose_a_datasource.png" />
+<p>Next, select the visualization type as <span class="guilabel">Table</span>.</p>
+<img alt="_images/select_table_visualization_type.png" src="_images/select_table_visualization_type.png" />
+<p>Then, select <span class="guilabel">Create new chart</span> to go into the chart view.</p>
+<p>By default, Apache Superset only shows the last week of data: in our
+example, we want to look at all the data in the dataset. No problem -
+within the <span class="guilabel">Time</span> section, remove the filter on
+<span class="guilabel">Time range</span> by selecting on <span class="guilabel">Last week</span> then
+changing the selection to <span class="guilabel">No filter</span>, with a final
+<span class="guilabel">OK</span> to confirm your selection.</p>
+<img alt="_images/no_filter_on_time_filter.png" src="_images/no_filter_on_time_filter.png" />
+<p>Now, we want to specify the rows in our table by using the
+<span class="guilabel">Group by</span> option. Since in this example, we want to
+understand different Travel Classes, we select <span class="guilabel">Travel Class</span>
+in this menu.</p>
+<p>Next, we can specify the metrics we would like to see in our table with
+the <span class="guilabel">Metrics</span> option. <span class="guilabel">Count(*)</span>, which represents the number of
+rows in the table (in this case corresponding to the number of flights
+since we have a row per flight), is already there. To add cost, within
+<span class="guilabel">Metrics</span>, select <span class="guilabel">Cost</span>. <span class="guilabel">Save</span> the
+default aggregation option, which is to sum the column.</p>
+<img alt="_images/sum_cost_column.png" src="_images/sum_cost_column.png" />
+<p>Finally, select <span class="guilabel">Run Query</span> to see the results of the table.</p>
+<img alt="_images/tutorial_table.png" src="_images/tutorial_table.png" />
+<p>Congratulations, you have created your first visualization in Apache
+Superset!</p>
+<p>To save the visualization, click on <span class="guilabel">Save</span> in the top left of
+the screen. Select the <span class="guilabel">Save as</span> option, and enter the chart
+name as Tutorial Table (you will be able to find it again through the
+<span class="guilabel">Charts</span> screen, accessible in the top menu). Similarly,
+select <span class="guilabel">Add to new dashboard</span> and enter <cite>Tutorial Dashboard</cite>.
+Finally, select <span class="guilabel">Save &amp; go to dashboard</span>.</p>
+<img alt="_images/save_tutorial_table.png" src="_images/save_tutorial_table.png" />
+</div>
+<div class="section" id="dashboard-basics">
+<h2>Dashboard basics<a class="headerlink" href="#dashboard-basics" title="Permalink to this headline">¶</a></h2>
+<p>Next, we are going to explore the dashboard interface. If you’ve
+followed the previous section, you should already have the dashboard
+open. Otherwise, you can navigate to the dashboard by selecting
+<span class="guilabel">Dashboards</span> on the top menu, then <span class="guilabel">Tutorial dashboard</span>
+from the list of dashboards.</p>
+<p>On this dashboard you should see the table you created in the previous
+section. Select <span class="guilabel">Edit dashboard</span> and then hover over the
+table. By selecting the bottom right hand corner of the table (the
+cursor will change too), you can resize it by dragging and dropping.</p>
+<img alt="_images/resize_tutorial_table_on_dashboard.png" src="_images/resize_tutorial_table_on_dashboard.png" />
+<p>Finally, save your changes by selecting <span class="guilabel">Save changes</span> in the
+top right.</p>
+</div>
+<div class="section" id="pivot-table">
+<h2>Pivot Table<a class="headerlink" href="#pivot-table" title="Permalink to this headline">¶</a></h2>
+<p>In this section, we will extend our analysis using a more complex
+visualization, Pivot Table. By the end of this section, you will have
+created a table that shows the monthly spend on flights for the first
+six months, by department, by travel class.</p>
+<p>As before, create a new visualization by selecting
+<span class="menuselection">New ‣ Chart</span> on the top menu. Choose tutorial_flights
+again as a datasource, then click on the visualization type to get to
+the visualization menu. Select the <span class="guilabel">Pivot Table</span> visualization
+(you can filter by entering text in the search box) and then
+<span class="guilabel">Create a new chart</span>.</p>
+<p>In the <span class="guilabel">Time</span> section, keep the Time Column as Travel Date
+(this is selected automatically as we only have one time column in our
+dataset). Then select <span class="guilabel">Time Grain</span> to be month as having daily
+data would be too granular to see patterns from. Then select the time
+range to be the first six months of 2011 by click on Last week in the
+<span class="guilabel">Time Range</span> section, then in <span class="guilabel">Custom</span> selecting a
+<span class="guilabel">Start / end</span> of 1<sup>st</sup> January 2011 and 30<sup>th</sup>
+June 2011 respectively by either entering directly the dates or using
+the calendar widget (by selecting the month name and then the year, you
+can move more quickly to far away dates).</p>
+<img alt="_images/select_dates_pivot_table.png" src="_images/select_dates_pivot_table.png" />
+<p>Next, within the <span class="guilabel">Query</span> section, remove the default COUNT(*)
+and add Cost, keeping the default SUM aggregate. Note that Apache
+Superset will indicate the type of the metric by the symbol on the left
+hand column of the list (ABC for string, # for number, a clock face for
+time, etc.).</p>
+<p>In <span class="guilabel">Group by</span> select <span class="guilabel">Time</span>: this will automatically
+use the Time Column and Time Grain selections we defined in the Time
+section.</p>
+<p>Within <span class="guilabel">Columns</span>, select first <span class="guilabel">Department</span> and then
+<span class="guilabel">Travel Class</span>. All set – let’s <span class="guilabel">Run Query</span> to see
+some data!</p>
+<img alt="_images/tutorial_pivot_table.png" src="_images/tutorial_pivot_table.png" />
+<p>You should see months in the rows and Department and Travel Class in the
+columns. To get this in our dashboard, select <span class="guilabel">Save</span>, name the
+chart Tutorial Pivot and using
+<span class="guilabel">Add chart to existing dashboard</span> select
+<span class="guilabel">Tutorial Dashboard</span>, and then finally
+<span class="guilabel">Save &amp; go to dashboard</span>.</p>
+</div>
+<div class="section" id="line-chart">
+<h2>Line Chart<a class="headerlink" href="#line-chart" title="Permalink to this headline">¶</a></h2>
+<p>In this section, we are going to create a line chart to understand the
+average price of a ticket by month across the entire dataset. As before,
+select <span class="menuselection">New ‣ Chart</span>, and then
+<span class="guilabel">tutorial_flights</span> as the datasource and
+<span class="guilabel">Line Chart</span> as the visualization type.</p>
+<p>In the Time section, as before, keep the <span class="guilabel">Time Column</span> as
+Travel Date and <span class="guilabel">Time Grain</span> as month but this time for the
+<span class="guilabel">Time range</span> select <span class="guilabel">No filter</span> as we want to look
+at entire dataset.</p>
+<p>Within <span class="guilabel">Metrics</span>, remove the default <span class="guilabel">COUNT(*)</span> and
+add <span class="guilabel">Cost</span>. This time, we want to change how this column is
+aggregated to show the mean value: we can do this by selecting
+<span class="guilabel">AVG</span> in the <span class="guilabel">aggregate</span> dropdown.</p>
+<img alt="_images/average_aggregate_for_cost.png" src="_images/average_aggregate_for_cost.png" />
+<p>Next, select <span class="guilabel">Run Query</span> to show the data on the chart.</p>
+<p>How does this look? Well, we can see that the average cost goes up in
+December. However, perhaps it doesn’t make sense to combine both single
+and return tickets, but rather show two separate lines for each ticket
+type.</p>
+<p>Let’s do this by selecting <span class="guilabel">Ticket Single or Return</span> in the
+<span class="guilabel">Group by</span> box, and the selecting <span class="guilabel">Run Query</span> again.
+Nice! We can see that on average single tickets are cheaper than returns
+and that the big spike in December is caused by return tickets.</p>
+<p>Our chart is looking pretty good already, but let’s customize some more
+by going to the <span class="guilabel">Customize</span> tab on the left hand pane. Within
+this pane, try changing the <span class="guilabel">Color Scheme</span>, removing the range
+filter by selecting No in the <span class="guilabel">Show Range Filter</span> drop down
+and adding some labels using <span class="guilabel">X Axis Label</span> and
+<span class="guilabel">Y Axis Label</span>.</p>
+<img alt="_images/tutorial_line_chart.png" src="_images/tutorial_line_chart.png" />
+<p>Once you’re done, <span class="guilabel">Save</span> as Tutorial Line Chart, use
+<span class="guilabel">Add chart to
+existing dashboard</span> to add this chart to the previous ones on the
+Tutorial Dashboard and then <span class="guilabel">Save &amp; go to dashboard</span>.</p>
+</div>
+<div class="section" id="markup">
+<h2>Markup<a class="headerlink" href="#markup" title="Permalink to this headline">¶</a></h2>
+<p>In this section, we will add some text to our dashboard. If you’re there
+already, you can navigate to the dashboard by selecting
+<span class="guilabel">Dashboards</span> on the top menu, then
+<span class="guilabel">Tutorial dashboard</span> from the list of dashboards. Got into
+edit mode by selecting <span class="guilabel">Edit dashboard</span>.</p>
+<p>Within the Insert components pane, drag and drop a <span class="guilabel">Markdown</span>
+box on the dashboard. Look for the blue lines which indicate the anchor
+where the box will go.</p>
+<img alt="_images/blue_bar_insert_component.png" src="_images/blue_bar_insert_component.png" />
+<p>Now, to edit the text, select the box. You can enter text, in markdown
+format (see <a class="reference external" href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet">this Markdown
+Cheatsheet</a>
+for more information about this format). You can toggle between
+<span class="guilabel">Edit</span> and <span class="guilabel">Preview</span> using the menu on the top of
+the box.</p>
+<img alt="_images/markdown.png" src="_images/markdown.png" />
+<p>To exit, select any other part of the dashboard. Finally, don’t forget
+to keep your changes using <span class="guilabel">Save changes</span>.</p>
+</div>
+<div class="section" id="filter-box">
+<h2>Filter box<a class="headerlink" href="#filter-box" title="Permalink to this headline">¶</a></h2>
+<p>In this section, you will learn how to add a filter to your dashboard.
+Specifically, we will create a filter that allows us to look at those
+flights that depart from a particular country.</p>
+<p>A filter box visualization can be created as any other visualization by
+selecting <span class="menuselection">New ‣ Chart</span>, and then
+<span class="guilabel">tutorial_flights</span> as the datasource and
+<span class="guilabel">Filter Box</span> as the visualization type.</p>
+<p>First of all, in the <span class="guilabel">Time</span> section, remove the filter from
+the <span class="guilabel">Time
+range</span> selection by selecting <span class="guilabel">No filter</span>.</p>
+<p>Next, in <span class="guilabel">Filters Configurations</span> first add a new filter by
+selecting the plus sign and then edit the newly created filter by
+selecting the pencil icon.</p>
+<p>For our use case, it makes most sense to present a list of countries in
+alphabetical order. First, enter the column as
+<span class="guilabel">Origin Country</span> and keep all other options the same and then
+select <span class="guilabel">Run Query</span>. This gives us a preview of our filter.</p>
+<p>Next, remove the date filter by unchecking the <span class="guilabel">Date Filter</span>
+checkbox.</p>
+<img alt="_images/filter_on_origin_country.png" src="_images/filter_on_origin_country.png" />
+<p>Finally, select <span class="guilabel">Save</span>, name the chart as Tutorial Filter, add
+the chart to our existing Tutorial Dashboard and then
+<span class="guilabel">Save &amp; go to
+dashboard</span>. Once on the Dashboard, try using the filter to show only
+those flights that departed from the United Kingdom – you will see the
+filter is applied to all of the other visualizations on the dashboard.</p>
+</div>
+<div class="section" id="publishing-your-dashboard">
+<h2>Publishing your dashboard<a class="headerlink" href="#publishing-your-dashboard" title="Permalink to this headline">¶</a></h2>
+<p>If you have followed all of the steps outlined in the previous section,
+you should have a dashboard that looks like the below. If you would
+like, you can rearrange the elements of the dashboard by selecting
+<span class="guilabel">Edit dashboard</span> and dragging and dropping.</p>
+<p>If you would like to make your dashboard available to other users,
+simply select <span class="guilabel">Draft</span> next to the title of your dashboard on
+the top left to change your dashboard to be in <span class="guilabel">Published</span>
+state. You can also favorite this dashboard by selecting the star.</p>
+<img alt="_images/publish_dashboard.png" src="_images/publish_dashboard.png" />
+</div>
+<div class="section" id="taking-your-dashboard-further">
+<h2>Taking your dashboard further<a class="headerlink" href="#taking-your-dashboard-further" title="Permalink to this headline">¶</a></h2>
+<p>In the following sections, we will look at more advanced Apache Superset
+topics.</p>
+</div>
+<div class="section" id="annotations">
+<h2>Annotations<a class="headerlink" href="#annotations" title="Permalink to this headline">¶</a></h2>
+<p>Annotations allow you to add additional context to your chart. In this
+section, we will add an annotation to the Tutorial Line Chart we made in
+a previous section. Specifically, we will add the dates when some
+flights were cancelled by the UK’s Civil Aviation Authority in response
+to the eruption of the Grímsvötn volcano in Iceland (23-25 May 2011).</p>
+<p>First, add an annotation layer by navigating to
+<span class="menuselection">Manage ‣ Annotation Layers</span>. Add a new annotation
+layer by selecting the green plus sign to add a new record. Enter the
+name Volcanic Eruptions and save. We can use this layer to refer to a
+number of different annotations.</p>
+<p>Next, add an annotation by navigating to
+<span class="menuselection">Manage ‣ Annotations</span> and then create a new annotation
+by selecting the green plus sign. Then, select the
+<span class="guilabel">Volcanic Eruptions</span> layer, add a short description Grímsvötn
+and the eruption dates (23-25 May 2011) before finally saving.</p>
+<img alt="_images/edit_annotation.png" src="_images/edit_annotation.png" />
+<p>Then, navigate to the line chart by going to <span class="guilabel">Charts</span> then
+selecting <span class="guilabel">Tutorial
+Line Chart</span> from the list. Next, go to the
+<span class="guilabel">Annotations and Layers</span> section and select
+<span class="guilabel">Add Annotation Layer</span>. Within this dialogue:</p>
+<ul class="simple">
+<li><p>name the layer as <cite>Volcanic Eruptions</cite></p></li>
+<li><p>change the <span class="guilabel">Annotation Layer Type</span> to <span class="guilabel">Event</span></p></li>
+<li><p>set the <span class="guilabel">Annotation Source</span> as <span class="guilabel">Superset annotation</span></p></li>
+<li><p>specify the <span class="guilabel">Annotation Layer</span> as <span class="guilabel">Volcanic Eruptions</span></p></li>
+</ul>
+<img alt="_images/annotation_settings.png" src="_images/annotation_settings.png" />
+<p>Select <span class="guilabel">Apply</span> to see your annotation shown on the chart.</p>
+<img alt="_images/annotation.png" src="_images/annotation.png" />
+<p>If you wish, you can change how your annotation looks by changing the
+settings in the <span class="guilabel">Display configuration</span> section. Otherwise,
+select <span class="guilabel">OK</span> and finally <span class="guilabel">Save</span> to save your chart.
+If you keep the default selection to overwrite the chart, your
+annotation will be saved to the chart and also appear automatically in
+the Tutorial Dashboard.</p>
+</div>
+<div class="section" id="advanced-analytics">
+<h2>Advanced Analytics<a class="headerlink" href="#advanced-analytics" title="Permalink to this headline">¶</a></h2>
+<p>In this section, we are going to explore the Advanced Analytics feature
+of Apache Superset that allows you to apply additional transformations
+to your data. The three types of transformation are:</p>
+<dl class="simple">
+<dt>Moving Average</dt><dd><p>Select a rolling window <a class="footnote-reference brackets" href="#f1" id="id1">1</a>, and then apply a calculation on it (mean,
+sum or standard deviation). The fourth option, cumsum, calculates the
+cumulative sum of the series <a class="footnote-reference brackets" href="#f2" id="id2">2</a>.</p>
+</dd>
+<dt>Time Comparison</dt><dd><p>Shift your data in time and, optionally, apply a calculation to compare the
+shifted data with your actual data (e.g. calculate the absolute difference
+between the two).</p>
+</dd>
+<dt>Python Functions</dt><dd><p>Resample your data using one of a variety of methods <a class="footnote-reference brackets" href="#f3" id="id3">3</a>.</p>
+</dd>
+</dl>
+<div class="section" id="setting-up-the-base-chart">
+<h3>Setting up the base chart<a class="headerlink" href="#setting-up-the-base-chart" title="Permalink to this headline">¶</a></h3>
+<p>In this section, we’re going to set up a base chart which we can then
+apply the different Advanced Analytics features to. Start off by
+creating a new chart using the same <span class="guilabel">tutorial_flights</span>
+datasource and the <span class="guilabel">Line Chart</span> visualization type. Within the
+Time section, set the <span class="guilabel">Time Range</span> as 1<sup>st</sup> October
+2011 and 31<sup>st</sup> October 2011.</p>
+<p>Next, in the query section, change the <span class="guilabel">Metrics</span> to the sum of
+<span class="guilabel">Cost</span>. Select <span class="guilabel">Run Query</span> to show the chart. You
+should see the total cost per day for each month in October 2011.</p>
+<img alt="_images/advanced_analytics_base.png" src="_images/advanced_analytics_base.png" />
+<p>Finally, save the visualization as Tutorial Advanced Analytics Base,
+adding it to the Tutorial Dashboard.</p>
+</div>
+<div class="section" id="rolling-mean">
+<h3>Rolling mean<a class="headerlink" href="#rolling-mean" title="Permalink to this headline">¶</a></h3>
+<p>There is quite a lot of variation in the data, which makes it difficult
+to identify any trend. One approach we can take is to show instead a
+rolling average of the time series. To do this, in the
+<span class="guilabel">Moving Average</span> subsection of <span class="guilabel">Advanced Analytics</span>,
+select mean in the <span class="guilabel">Rolling</span> box and enter 7 into both Periods
+and Min Periods. The period is the length of the rolling period
+expressed as a multiple of the <span class="guilabel">Time Grain</span>. In our example,
+the <span class="guilabel">Time Grain</span> is day, so the rolling period is 7 days, such
+that on the 7th October 2011 the value shown would correspond to the
+first seven days of October 2011. Lastly, by specifying
+<span class="guilabel">Min Periods</span> as 7, we ensure that our mean is always
+calculated on 7 days and we avoid any ramp up period.</p>
+<p>After displaying the chart by selecting <span class="guilabel">Run Query</span> you will
+see that the data is less variable and that the series starts later as
+the ramp up period is excluded.</p>
+<img alt="_images/rolling_mean.png" src="_images/rolling_mean.png" />
+<p>Save the chart as Tutorial Rolling Mean and add it to the Tutorial
+Dashboard.</p>
+</div>
+<div class="section" id="time-comparison">
+<h3>Time Comparison<a class="headerlink" href="#time-comparison" title="Permalink to this headline">¶</a></h3>
+<p>In this section, we will compare values in our time series to the value
+a week before. Start off by opening the Tutorial Advanced Analytics Base
+chart, by going to <span class="guilabel">Charts</span> in the top menu and then selecting
+the visualization name in the list (alternatively, find the chart in the
+Tutorial Dashboard and select Explore chart from the menu for that
+visualization).</p>
+<p>Next, in the <span class="guilabel">Time Comparison</span> subsection of
+<span class="guilabel">Advanced Analytics</span>, enter the <span class="guilabel">Time Shift</span> by
+typing in “minus 1 week” (note this box accepts input in natural
+language). <span class="guilabel">Run Query</span> to see the new chart, which has an
+additional series with the same values, shifted a week back in time.</p>
+<img alt="_images/time_comparison_two_series.png" src="_images/time_comparison_two_series.png" />
+<p>Then, change the <span class="guilabel">Calculation type</span> to
+<span class="guilabel">Absolute difference</span> and select <span class="guilabel">Run
+Query</span>. We can now see only one series again, this time showing the
+difference between the two series we saw previously.</p>
+<img alt="_images/time_comparison_absolute_difference.png" src="_images/time_comparison_absolute_difference.png" />
+<p>Save the chart as Tutorial Time Comparison and add it to the Tutorial
+Dashboard.</p>
+</div>
+<div class="section" id="resampling-the-data">
+<h3>Resampling the data<a class="headerlink" href="#resampling-the-data" title="Permalink to this headline">¶</a></h3>
+<p>In this section, we’ll resample the data so that rather than having
+daily data we have weekly data. As in the previous section, reopen the
+Tutorial Advanced Analytics Base chart.</p>
+<p>Next, in the <span class="guilabel">Python Functions</span> subsection of
+<span class="guilabel">Advanced Analytics</span>, enter 7D, corresponding to seven days,
+in the <span class="guilabel">Rule</span> and median as the <span class="guilabel">Method</span> and show
+the chart by selecting <span class="guilabel">Run Query</span>.</p>
+<img alt="_images/resample.png" src="_images/resample.png" />
+<p>Note that now we have a single data point every 7 days. In our case, the
+value showed corresponds to the median value within the seven daily data
+points. For more information on the meaning of the various options in
+this section, refer to the <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.resample.html">Pandas
+documentation</a>.</p>
+<p>Lastly, save your chart as Tutorial Resample and add it to the Tutorial
+Dashboard. Go to the tutorial dashboard to see the four charts side by
+side and compare the different outputs.</p>
+<p class="rubric">Footnotes</p>
+<dl class="footnote brackets">
+<dt class="label" id="f1"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>See the Pandas <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.rolling.html">rolling method documentation</a> for more information.</p>
+</dd>
+<dt class="label" id="f2"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
+<dd><p>See the Pandas <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.cumsum.html">cumsum method documentation</a> for more information.</p>
+</dd>
+<dt class="label" id="f3"><span class="brackets"><a class="fn-backref" href="#id3">3</a></span></dt>
+<dd><p>See the Pandas <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.resample.html">resample method documentation</a> for more information.</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="security.html" class="btn btn-neutral float-right" title="Security" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="admintutorial.html" class="btn btn-neutral float-left" title="Creating your first dashboard" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright Copyright © 2020 The Apache Software Foundation, Licensed under the Apache License, Version 2.0.
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

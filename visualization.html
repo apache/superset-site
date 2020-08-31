@@ -1,0 +1,3272 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Visualization Tools &mdash; Apache Superset  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Videos" href="videos.html" />
+    <link rel="prev" title="Misc" href="misc.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Apache Superset
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation &amp; Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="security.html">Security</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sqllab.html">SQL Lab</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gallery.html">Visualizations Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="druid.html">Druid</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="misc.html">Misc</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Visualization Tools</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#country-map-tools">Country Map Tools</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#list-of-countries">List of Countries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#need-to-add-a-new-country">Need to add a new Country?</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="videos.html">Videos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="import_export_datasources.html">Importing and Exporting Datasources</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Apache Superset</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="misc.html">Misc</a> &raquo;</li>
+        
+      <li>Visualization Tools</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="visualization-tools">
+<h1>Visualization Tools<a class="headerlink" href="#visualization-tools" title="Permalink to this headline">¶</a></h1>
+<p>The data is visualized via the slices. These slices are visual components made with the D3.js. Some components can be completed or required inputs.</p>
+<div class="section" id="country-map-tools">
+<h2>Country Map Tools<a class="headerlink" href="#country-map-tools" title="Permalink to this headline">¶</a></h2>
+<p>This tool is used in slices for visualization number or string by region, province or department of your countries.
+So, if you want to use tools, you need ISO 3166-2 code of region, province or department.</p>
+<p>ISO 3166-2 is part of the ISO 3166 standard published by the International Organization for Standardization (ISO), and defines codes for identifying the principal subdivisions (e.g., provinces or states) of all countries coded in ISO 3166-1</p>
+<p>The purpose of ISO 3166-2 is to establish an international standard of short and unique alphanumeric codes to represent the relevant administrative divisions and dependent territories of all countries in a more convenient and less ambiguous form than their full names. Each complete ISO 3166-2 code consists of two parts, separated by a hyphen:[1]</p>
+<p>The first part is the ISO 3166-1 alpha-2 code of the country;
+The second part is a string of up to three alphanumeric characters, which is usually obtained from national sources and stems from coding systems already in use in the country concerned, but may also be developed by the ISO itself.</p>
+</div>
+<div class="section" id="list-of-countries">
+<h2>List of Countries<a class="headerlink" href="#list-of-countries" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Belgium</p></li>
+</ul>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 32%" />
+<col style="width: 68%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>ISO</p></th>
+<th class="head"><p>Name of region</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>BE-BRU</p></td>
+<td><p>Bruxelles</p></td>
+</tr>
+<tr class="row-odd"><td><p>BE-VAN</p></td>
+<td><p>Antwerpen</p></td>
+</tr>
+<tr class="row-even"><td><p>BE-VLI</p></td>
+<td><p>Limburg</p></td>
+</tr>
+<tr class="row-odd"><td><p>BE-VOV</p></td>
+<td><p>Oost-Vlaanderen</p></td>
+</tr>
+<tr class="row-even"><td><p>BE-VBR</p></td>
+<td><p>Vlaams Brabant</p></td>
+</tr>
+<tr class="row-odd"><td><p>BE-VWV</p></td>
+<td><p>West-Vlaanderen</p></td>
+</tr>
+<tr class="row-even"><td><p>BE-WBR</p></td>
+<td><p>Brabant Wallon</p></td>
+</tr>
+<tr class="row-odd"><td><p>BE-WHT</p></td>
+<td><p>Hainaut</p></td>
+</tr>
+<tr class="row-even"><td><p>BE-WLG</p></td>
+<td><p>Liège</p></td>
+</tr>
+<tr class="row-odd"><td><p>BE-VLI</p></td>
+<td><p>Limburg</p></td>
+</tr>
+<tr class="row-even"><td><p>BE-WLX</p></td>
+<td><p>Luxembourg</p></td>
+</tr>
+<tr class="row-odd"><td><p>BE-WNA</p></td>
+<td><p>Namur</p></td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li><p>Brazil</p></li>
+</ul>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 30%" />
+<col style="width: 70%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>ISO</p></th>
+<th class="head"><p>Name of region</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>BR-AC</p></td>
+<td><p>Acre</p></td>
+</tr>
+<tr class="row-odd"><td><p>BR-AL</p></td>
+<td><p>Alagoas</p></td>
+</tr>
+<tr class="row-even"><td><p>BR-AP</p></td>
+<td><p>Amapá</p></td>
+</tr>
+<tr class="row-odd"><td><p>BR-AM</p></td>
+<td><p>Amazonas</p></td>
+</tr>
+<tr class="row-even"><td><p>BR-BA</p></td>
+<td><p>Bahia</p></td>
+</tr>
+<tr class="row-odd"><td><p>BR-CE</p></td>
+<td><p>Ceará</p></td>
+</tr>
+<tr class="row-even"><td><p>BR-DF</p></td>
+<td><p>Distrito Federal</p></td>
+</tr>
+<tr class="row-odd"><td><p>BR-ES</p></td>
+<td><p>Espírito Santo</p></td>
+</tr>
+<tr class="row-even"><td><p>BR-GO</p></td>
+<td><p>Goiás</p></td>
+</tr>
+<tr class="row-odd"><td><p>BR-MA</p></td>
+<td><p>Maranhão</p></td>
+</tr>
+<tr class="row-even"><td><p>BR-MS</p></td>
+<td><p>Mato Grosso do Sul</p></td>
+</tr>
+<tr class="row-odd"><td><p>BR-MT</p></td>
+<td><p>Mato Grosso</p></td>
+</tr>
+<tr class="row-even"><td><p>BR-MG</p></td>
+<td><p>Minas Gerais</p></td>
+</tr>
+<tr class="row-odd"><td><p>BR-PA</p></td>
+<td><p>Pará</p></td>
+</tr>
+<tr class="row-even"><td><p>BR-PB</p></td>
+<td><p>Paraíba</p></td>
+</tr>
+<tr class="row-odd"><td><p>BR-PR</p></td>
+<td><p>Paraná</p></td>
+</tr>
+<tr class="row-even"><td><p>BR-PE</p></td>
+<td><p>Pernambuco</p></td>
+</tr>
+<tr class="row-odd"><td><p>BR-PI</p></td>
+<td><p>Piauí</p></td>
+</tr>
+<tr class="row-even"><td><p>BR-RJ</p></td>
+<td><p>Rio de Janeiro</p></td>
+</tr>
+<tr class="row-odd"><td><p>BR-RN</p></td>
+<td><p>Rio Grande do Norte</p></td>
+</tr>
+<tr class="row-even"><td><p>BR-RS</p></td>
+<td><p>Rio Grande do Sul</p></td>
+</tr>
+<tr class="row-odd"><td><p>BR-RO</p></td>
+<td><p>Rondônia</p></td>
+</tr>
+<tr class="row-even"><td><p>BR-RR</p></td>
+<td><p>Roraima</p></td>
+</tr>
+<tr class="row-odd"><td><p>BR-SP</p></td>
+<td><p>São Paulo</p></td>
+</tr>
+<tr class="row-even"><td><p>BR-SC</p></td>
+<td><p>Santa Catarina</p></td>
+</tr>
+<tr class="row-odd"><td><p>BR-SE</p></td>
+<td><p>Sergipe</p></td>
+</tr>
+<tr class="row-even"><td><p>BR-TO</p></td>
+<td><p>Tocantins</p></td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li><p>China</p></li>
+</ul>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 31%" />
+<col style="width: 69%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>ISO</p></th>
+<th class="head"><p>Name of region</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>CN-34</p></td>
+<td><p>Anhui</p></td>
+</tr>
+<tr class="row-odd"><td><p>CN-11</p></td>
+<td><p>Beijing</p></td>
+</tr>
+<tr class="row-even"><td><p>CN-50</p></td>
+<td><p>Chongqing</p></td>
+</tr>
+<tr class="row-odd"><td><p>CN-35</p></td>
+<td><p>Fujian</p></td>
+</tr>
+<tr class="row-even"><td><p>CN-62</p></td>
+<td><p>Gansu</p></td>
+</tr>
+<tr class="row-odd"><td><p>CN-44</p></td>
+<td><p>Guangdong</p></td>
+</tr>
+<tr class="row-even"><td><p>CN-45</p></td>
+<td><p>Guangxi</p></td>
+</tr>
+<tr class="row-odd"><td><p>CN-52</p></td>
+<td><p>Guizhou</p></td>
+</tr>
+<tr class="row-even"><td><p>CN-46</p></td>
+<td><p>Hainan</p></td>
+</tr>
+<tr class="row-odd"><td><p>CN-13</p></td>
+<td><p>Hebei</p></td>
+</tr>
+<tr class="row-even"><td><p>CN-23</p></td>
+<td><p>Heilongjiang</p></td>
+</tr>
+<tr class="row-odd"><td><p>CN-41</p></td>
+<td><p>Henan</p></td>
+</tr>
+<tr class="row-even"><td><p>CN-42</p></td>
+<td><p>Hubei</p></td>
+</tr>
+<tr class="row-odd"><td><p>CN-43</p></td>
+<td><p>Hunan</p></td>
+</tr>
+<tr class="row-even"><td><p>CN-32</p></td>
+<td><p>Jiangsu</p></td>
+</tr>
+<tr class="row-odd"><td><p>CN-36</p></td>
+<td><p>Jiangxi</p></td>
+</tr>
+<tr class="row-even"><td><p>CN-22</p></td>
+<td><p>Jilin</p></td>
+</tr>
+<tr class="row-odd"><td><p>CN-21</p></td>
+<td><p>Liaoning</p></td>
+</tr>
+<tr class="row-even"><td><p>CN-15</p></td>
+<td><p>Nei Mongol</p></td>
+</tr>
+<tr class="row-odd"><td><p>CN-64</p></td>
+<td><p>Ningxia Hui</p></td>
+</tr>
+<tr class="row-even"><td><p>CN-63</p></td>
+<td><p>Qinghai</p></td>
+</tr>
+<tr class="row-odd"><td><p>CN-61</p></td>
+<td><p>Shaanxi</p></td>
+</tr>
+<tr class="row-even"><td><p>CN-37</p></td>
+<td><p>Shandong</p></td>
+</tr>
+<tr class="row-odd"><td><p>CN-31</p></td>
+<td><p>Shanghai</p></td>
+</tr>
+<tr class="row-even"><td><p>CN-14</p></td>
+<td><p>Shanxi</p></td>
+</tr>
+<tr class="row-odd"><td><p>CN-51</p></td>
+<td><p>Sichuan</p></td>
+</tr>
+<tr class="row-even"><td><p>CN-12</p></td>
+<td><p>Tianjin</p></td>
+</tr>
+<tr class="row-odd"><td><p>CN-65</p></td>
+<td><p>Xinjiang Uygur</p></td>
+</tr>
+<tr class="row-even"><td><p>CN-54</p></td>
+<td><p>Xizang</p></td>
+</tr>
+<tr class="row-odd"><td><p>CN-53</p></td>
+<td><p>Yunnan</p></td>
+</tr>
+<tr class="row-even"><td><p>CN-33</p></td>
+<td><p>Zhejiang</p></td>
+</tr>
+<tr class="row-odd"><td><p>CN-71</p></td>
+<td><p>Taiwan</p></td>
+</tr>
+<tr class="row-even"><td><p>CN-91</p></td>
+<td><p>Hong Kong</p></td>
+</tr>
+<tr class="row-odd"><td><p>CN-92</p></td>
+<td><p>Macao</p></td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li><p>Egypt</p></li>
+</ul>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 31%" />
+<col style="width: 69%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>ISO</p></th>
+<th class="head"><p>Name of region</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>EG-DK</p></td>
+<td><p>Ad Daqahliyah</p></td>
+</tr>
+<tr class="row-odd"><td><p>EG-BA</p></td>
+<td><p>Al Bahr al Ahmar</p></td>
+</tr>
+<tr class="row-even"><td><p>EG-BH</p></td>
+<td><p>Al Buhayrah</p></td>
+</tr>
+<tr class="row-odd"><td><p>EG-FYM</p></td>
+<td><p>Al Fayyum</p></td>
+</tr>
+<tr class="row-even"><td><p>EG-GH</p></td>
+<td><p>Al Gharbiyah</p></td>
+</tr>
+<tr class="row-odd"><td><p>EG-ALX</p></td>
+<td><p>Al Iskandariyah</p></td>
+</tr>
+<tr class="row-even"><td><p>EG-IS</p></td>
+<td><p>Al Isma iliyah</p></td>
+</tr>
+<tr class="row-odd"><td><p>EG-GZ</p></td>
+<td><p>Al Jizah</p></td>
+</tr>
+<tr class="row-even"><td><p>EG-MNF</p></td>
+<td><p>Al Minufiyah</p></td>
+</tr>
+<tr class="row-odd"><td><p>EG-MN</p></td>
+<td><p>Al Minya</p></td>
+</tr>
+<tr class="row-even"><td><p>EG-C</p></td>
+<td><p>Al Qahirah</p></td>
+</tr>
+<tr class="row-odd"><td><p>EG-KB</p></td>
+<td><p>Al Qalyubiyah</p></td>
+</tr>
+<tr class="row-even"><td><p>EG-LX</p></td>
+<td><p>Al Uqsur</p></td>
+</tr>
+<tr class="row-odd"><td><p>EG-WAD</p></td>
+<td><p>Al Wadi al Jadid</p></td>
+</tr>
+<tr class="row-even"><td><p>EG-SUZ</p></td>
+<td><p>As Suways</p></td>
+</tr>
+<tr class="row-odd"><td><p>EG-SHR</p></td>
+<td><p>Ash Sharqiyah</p></td>
+</tr>
+<tr class="row-even"><td><p>EG-ASN</p></td>
+<td><p>Aswan</p></td>
+</tr>
+<tr class="row-odd"><td><p>EG-AST</p></td>
+<td><p>Asyut</p></td>
+</tr>
+<tr class="row-even"><td><p>EG-BNS</p></td>
+<td><p>Bani Suwayf</p></td>
+</tr>
+<tr class="row-odd"><td><p>EG-PTS</p></td>
+<td><p>Bur Sa id</p></td>
+</tr>
+<tr class="row-even"><td><p>EG-DT</p></td>
+<td><p>Dumyat</p></td>
+</tr>
+<tr class="row-odd"><td><p>EG-JS</p></td>
+<td><p>Janub Sina’</p></td>
+</tr>
+<tr class="row-even"><td><p>EG-KFS</p></td>
+<td><p>Kafr ash Shaykh</p></td>
+</tr>
+<tr class="row-odd"><td><p>EG-MT</p></td>
+<td><p>Matrouh</p></td>
+</tr>
+<tr class="row-even"><td><p>EG-KN</p></td>
+<td><p>Qina</p></td>
+</tr>
+<tr class="row-odd"><td><p>EG-SIN</p></td>
+<td><p>Shamal Sina’</p></td>
+</tr>
+<tr class="row-even"><td><p>EG-SHG</p></td>
+<td><p>Suhaj</p></td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li><p>France</p></li>
+</ul>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 77%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>ISO</p></th>
+<th class="head"><p>Name of region</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>FR-67</p></td>
+<td><p>Bas-Rhin</p></td>
+</tr>
+<tr class="row-odd"><td><p>FR-68</p></td>
+<td><p>Haut-Rhin</p></td>
+</tr>
+<tr class="row-even"><td><p>FR-24</p></td>
+<td><p>Dordogne</p></td>
+</tr>
+<tr class="row-odd"><td><p>FR-33</p></td>
+<td><p>Gironde</p></td>
+</tr>
+<tr class="row-even"><td><p>FR-40</p></td>
+<td><p>Landes</p></td>
+</tr>
+<tr class="row-odd"><td><p>FR-47</p></td>
+<td><p>Lot-et-Garonne</p></td>
+</tr>
+<tr class="row-even"><td><p>FR-64</p></td>
+<td><p>Pyrénées-Atlantiques</p></td>
+</tr>
+<tr class="row-odd"><td><p>FR-03</p></td>
+<td><p>Allier</p></td>
+</tr>
+<tr class="row-even"><td><p>FR-15</p></td>
+<td><p>Cantal</p></td>
+</tr>
+<tr class="row-odd"><td><p>FR-43</p></td>
+<td><p>Haute-Loire</p></td>
+</tr>
+<tr class="row-even"><td><p>FR-63</p></td>
+<td><p>Puy-de-Dôme</p></td>
+</tr>
+<tr class="row-odd"><td><p>FR-91</p></td>
+<td><p>Essonne</p></td>
+</tr>
+<tr class="row-even"><td><p>FR-92</p></td>
+<td><p>Hauts-de-Seine</p></td>
+</tr>
+<tr class="row-odd"><td><p>FR-75</p></td>
+<td><p>Paris</p></td>
+</tr>
+<tr class="row-even"><td><p>FR-77</p></td>
+<td><p>Seine-et-Marne</p></td>
+</tr>
+<tr class="row-odd"><td><p>FR-93</p></td>
+<td><p>Seine-Saint-Denis</p></td>
+</tr>
+<tr class="row-even"><td><p>FR-95</p></td>
+<td><p>Val-d’Oise</p></td>
+</tr>
+<tr class="row-odd"><td><p>FR-94</p></td>
+<td><p>Val-de-Marne</p></td>
+</tr>
+<tr class="row-even"><td><p>FR-78</p></td>
+<td><p>Yvelines</p></td>
+</tr>
+<tr class="row-odd"><td><p>FR-14</p></td>
+<td><p>Calvados</p></td>
+</tr>
+<tr class="row-even"><td><p>FR-50</p></td>
+<td><p>Manche</p></td>
+</tr>
+<tr class="row-odd"><td><p>FR-61</p></td>
+<td><p>Orne</p></td>
+</tr>
+<tr class="row-even"><td><p>FR-21</p></td>
+<td><p>Côte-d’Or</p></td>
+</tr>
+<tr class="row-odd"><td><p>FR-58</p></td>
+<td><p>Nièvre</p></td>
+</tr>
+<tr class="row-even"><td><p>FR-71</p></td>
+<td><p>Saône-et-Loire</p></td>
+</tr>
+<tr class="row-odd"><td><p>FR-89</p></td>
+<td><p>Yonne</p></td>
+</tr>
+<tr class="row-even"><td><p>FR-22</p></td>
+<td><p>Côtes-d’Armor</p></td>
+</tr>
+<tr class="row-odd"><td><p>FR-29</p></td>
+<td><p>Finistère</p></td>
+</tr>
+<tr class="row-even"><td><p>FR-35</p></td>
+<td><p>Ille-et-Vilaine</p></td>
+</tr>
+<tr class="row-odd"><td><p>FR-56</p></td>
+<td><p>Morbihan</p></td>
+</tr>
+<tr class="row-even"><td><p>FR-18</p></td>
+<td><p>Cher</p></td>
+</tr>
+<tr class="row-odd"><td><p>FR-28</p></td>
+<td><p>Eure-et-Loir</p></td>
+</tr>
+<tr class="row-even"><td><p>FR-37</p></td>
+<td><p>Indre-et-Loire</p></td>
+</tr>
+<tr class="row-odd"><td><p>FR-36</p></td>
+<td><p>Indre</p></td>
+</tr>
+<tr class="row-even"><td><p>FR-41</p></td>
+<td><p>Loir-et-Cher</p></td>
+</tr>
+<tr class="row-odd"><td><p>FR-45</p></td>
+<td><p>Loiret</p></td>
+</tr>
+<tr class="row-even"><td><p>FR-08</p></td>
+<td><p>Ardennes</p></td>
+</tr>
+<tr class="row-odd"><td><p>FR-10</p></td>
+<td><p>Aube</p></td>
+</tr>
+<tr class="row-even"><td><p>FR-52</p></td>
+<td><p>Haute-Marne</p></td>
+</tr>
+<tr class="row-odd"><td><p>FR-51</p></td>
+<td><p>Marne</p></td>
+</tr>
+<tr class="row-even"><td><p>FR-2A</p></td>
+<td><p>Corse-du-Sud</p></td>
+</tr>
+<tr class="row-odd"><td><p>FR-2B</p></td>
+<td><p>Haute-Corse</p></td>
+</tr>
+<tr class="row-even"><td><p>FR-25</p></td>
+<td><p>Doubs</p></td>
+</tr>
+<tr class="row-odd"><td><p>FR-70</p></td>
+<td><p>Haute-Saône</p></td>
+</tr>
+<tr class="row-even"><td><p>FR-39</p></td>
+<td><p>Jura</p></td>
+</tr>
+<tr class="row-odd"><td><p>FR-90</p></td>
+<td><p>Territoire de Belfort</p></td>
+</tr>
+<tr class="row-even"><td><p>FR-27</p></td>
+<td><p>Eure</p></td>
+</tr>
+<tr class="row-odd"><td><p>FR-76</p></td>
+<td><p>Seine-Maritime</p></td>
+</tr>
+<tr class="row-even"><td><p>FR-11</p></td>
+<td><p>Aude</p></td>
+</tr>
+<tr class="row-odd"><td><p>FR-30</p></td>
+<td><p>Gard</p></td>
+</tr>
+<tr class="row-even"><td><p>FR-34</p></td>
+<td><p>Hérault</p></td>
+</tr>
+<tr class="row-odd"><td><p>FR-48</p></td>
+<td><p>Lozère</p></td>
+</tr>
+<tr class="row-even"><td><p>FR-66</p></td>
+<td><p>Pyrénées-Orientales</p></td>
+</tr>
+<tr class="row-odd"><td><p>FR-19</p></td>
+<td><p>Corrèze</p></td>
+</tr>
+<tr class="row-even"><td><p>FR-23</p></td>
+<td><p>Creuse</p></td>
+</tr>
+<tr class="row-odd"><td><p>FR-87</p></td>
+<td><p>Haute-Vienne</p></td>
+</tr>
+<tr class="row-even"><td><p>FR-54</p></td>
+<td><p>Meurthe-et-Moselle</p></td>
+</tr>
+<tr class="row-odd"><td><p>FR-55</p></td>
+<td><p>Meuse</p></td>
+</tr>
+<tr class="row-even"><td><p>FR-57</p></td>
+<td><p>Moselle</p></td>
+</tr>
+<tr class="row-odd"><td><p>FR-88</p></td>
+<td><p>Vosges</p></td>
+</tr>
+<tr class="row-even"><td><p>FR-09</p></td>
+<td><p>Ariège</p></td>
+</tr>
+<tr class="row-odd"><td><p>FR-12</p></td>
+<td><p>Aveyron</p></td>
+</tr>
+<tr class="row-even"><td><p>FR-32</p></td>
+<td><p>Gers</p></td>
+</tr>
+<tr class="row-odd"><td><p>FR-31</p></td>
+<td><p>Haute-Garonne</p></td>
+</tr>
+<tr class="row-even"><td><p>FR-65</p></td>
+<td><p>Hautes-Pyrénées</p></td>
+</tr>
+<tr class="row-odd"><td><p>FR-46</p></td>
+<td><p>Lot</p></td>
+</tr>
+<tr class="row-even"><td><p>FR-82</p></td>
+<td><p>Tarn-et-Garonne</p></td>
+</tr>
+<tr class="row-odd"><td><p>FR-81</p></td>
+<td><p>Tarn</p></td>
+</tr>
+<tr class="row-even"><td><p>FR-59</p></td>
+<td><p>Nord</p></td>
+</tr>
+<tr class="row-odd"><td><p>FR-62</p></td>
+<td><p>Pas-de-Calais</p></td>
+</tr>
+<tr class="row-even"><td><p>FR-44</p></td>
+<td><p>Loire-Atlantique</p></td>
+</tr>
+<tr class="row-odd"><td><p>FR-49</p></td>
+<td><p>Maine-et-Loire</p></td>
+</tr>
+<tr class="row-even"><td><p>FR-53</p></td>
+<td><p>Mayenne</p></td>
+</tr>
+<tr class="row-odd"><td><p>FR-72</p></td>
+<td><p>Sarthe</p></td>
+</tr>
+<tr class="row-even"><td><p>FR-85</p></td>
+<td><p>Vendée</p></td>
+</tr>
+<tr class="row-odd"><td><p>FR-02</p></td>
+<td><p>Aisne</p></td>
+</tr>
+<tr class="row-even"><td><p>FR-60</p></td>
+<td><p>Oise</p></td>
+</tr>
+<tr class="row-odd"><td><p>FR-80</p></td>
+<td><p>Somme</p></td>
+</tr>
+<tr class="row-even"><td><p>FR-17</p></td>
+<td><p>Charente-Maritime</p></td>
+</tr>
+<tr class="row-odd"><td><p>FR-16</p></td>
+<td><p>Charente</p></td>
+</tr>
+<tr class="row-even"><td><p>FR-79</p></td>
+<td><p>Deux-Sèvres</p></td>
+</tr>
+<tr class="row-odd"><td><p>FR-86</p></td>
+<td><p>Vienne</p></td>
+</tr>
+<tr class="row-even"><td><p>FR-04</p></td>
+<td><p>Alpes-de-Haute-Provence</p></td>
+</tr>
+<tr class="row-odd"><td><p>FR-06</p></td>
+<td><p>Alpes-Maritimes</p></td>
+</tr>
+<tr class="row-even"><td><p>FR-13</p></td>
+<td><p>Bouches-du-Rhône</p></td>
+</tr>
+<tr class="row-odd"><td><p>FR-05</p></td>
+<td><p>Hautes-Alpes</p></td>
+</tr>
+<tr class="row-even"><td><p>FR-83</p></td>
+<td><p>Var</p></td>
+</tr>
+<tr class="row-odd"><td><p>FR-84</p></td>
+<td><p>Vaucluse</p></td>
+</tr>
+<tr class="row-even"><td><p>FR-01</p></td>
+<td><p>Ain</p></td>
+</tr>
+<tr class="row-odd"><td><p>FR-07</p></td>
+<td><p>Ardèche</p></td>
+</tr>
+<tr class="row-even"><td><p>FR-26</p></td>
+<td><p>Drôme</p></td>
+</tr>
+<tr class="row-odd"><td><p>FR-74</p></td>
+<td><p>Haute-Savoie</p></td>
+</tr>
+<tr class="row-even"><td><p>FR-38</p></td>
+<td><p>Isère</p></td>
+</tr>
+<tr class="row-odd"><td><p>FR-42</p></td>
+<td><p>Loire</p></td>
+</tr>
+<tr class="row-even"><td><p>FR-69</p></td>
+<td><p>Rhône</p></td>
+</tr>
+<tr class="row-odd"><td><p>FR-73</p></td>
+<td><p>Savoie</p></td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li><p>Germany</p></li>
+</ul>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 77%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>ISO</p></th>
+<th class="head"><p>Name of region</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>DE-BW</p></td>
+<td><p>Baden-Württemberg</p></td>
+</tr>
+<tr class="row-odd"><td><p>DE-BY</p></td>
+<td><p>Bayern</p></td>
+</tr>
+<tr class="row-even"><td><p>DE-BE</p></td>
+<td><p>Berlin</p></td>
+</tr>
+<tr class="row-odd"><td><p>DE-BB</p></td>
+<td><p>Brandenburg</p></td>
+</tr>
+<tr class="row-even"><td><p>DE-HB</p></td>
+<td><p>Bremen</p></td>
+</tr>
+<tr class="row-odd"><td><p>DE-HH</p></td>
+<td><p>Hamburg</p></td>
+</tr>
+<tr class="row-even"><td><p>DE-HE</p></td>
+<td><p>Hessen</p></td>
+</tr>
+<tr class="row-odd"><td><p>DE-MV</p></td>
+<td><p>Mecklenburg-Vorpommern</p></td>
+</tr>
+<tr class="row-even"><td><p>DE-NI</p></td>
+<td><p>Niedersachsen</p></td>
+</tr>
+<tr class="row-odd"><td><p>DE-NW</p></td>
+<td><p>Nordrhein-Westfalen</p></td>
+</tr>
+<tr class="row-even"><td><p>DE-RP</p></td>
+<td><p>Rheinland-Pfalz</p></td>
+</tr>
+<tr class="row-odd"><td><p>DE-SL</p></td>
+<td><p>Saarland</p></td>
+</tr>
+<tr class="row-even"><td><p>DE-ST</p></td>
+<td><p>Sachsen-Anhalt</p></td>
+</tr>
+<tr class="row-odd"><td><p>DE-SN</p></td>
+<td><p>Sachsen</p></td>
+</tr>
+<tr class="row-even"><td><p>DE-SH</p></td>
+<td><p>Schleswig-Holstein</p></td>
+</tr>
+<tr class="row-odd"><td><p>DE-TH</p></td>
+<td><p>Thüringen</p></td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li><p>Italy</p></li>
+</ul>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 86%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>ISO</p></th>
+<th class="head"><p>Name of region</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>IT-CH</p></td>
+<td><p>Chieti</p></td>
+</tr>
+<tr class="row-odd"><td><p>IT-AQ</p></td>
+<td><p>L’Aquila</p></td>
+</tr>
+<tr class="row-even"><td><p>IT-PE</p></td>
+<td><p>Pescara</p></td>
+</tr>
+<tr class="row-odd"><td><p>IT-TE</p></td>
+<td><p>Teramo</p></td>
+</tr>
+<tr class="row-even"><td><p>IT-BA</p></td>
+<td><p>Bari</p></td>
+</tr>
+<tr class="row-odd"><td><p>IT-BT</p></td>
+<td><p>Barletta-Andria-Trani</p></td>
+</tr>
+<tr class="row-even"><td><p>IT-BR</p></td>
+<td><p>Brindisi</p></td>
+</tr>
+<tr class="row-odd"><td><p>IT-FG</p></td>
+<td><p>Foggia</p></td>
+</tr>
+<tr class="row-even"><td><p>IT-LE</p></td>
+<td><p>Lecce</p></td>
+</tr>
+<tr class="row-odd"><td><p>IT-TA</p></td>
+<td><p>Taranto</p></td>
+</tr>
+<tr class="row-even"><td><p>IT-MT</p></td>
+<td><p>Matera</p></td>
+</tr>
+<tr class="row-odd"><td><p>IT-PZ</p></td>
+<td><p>Potenza</p></td>
+</tr>
+<tr class="row-even"><td><p>IT-CZ</p></td>
+<td><p>Catanzaro</p></td>
+</tr>
+<tr class="row-odd"><td><p>IT-CS</p></td>
+<td><p>Cosenza</p></td>
+</tr>
+<tr class="row-even"><td><p>IT-KR</p></td>
+<td><p>Crotone</p></td>
+</tr>
+<tr class="row-odd"><td><p>IT-RC</p></td>
+<td><p>Reggio Di Calabria</p></td>
+</tr>
+<tr class="row-even"><td><p>IT-VV</p></td>
+<td><p>Vibo Valentia</p></td>
+</tr>
+<tr class="row-odd"><td><p>IT-AV</p></td>
+<td><p>Avellino</p></td>
+</tr>
+<tr class="row-even"><td><p>IT-BN</p></td>
+<td><p>Benevento</p></td>
+</tr>
+<tr class="row-odd"><td><p>IT-CE</p></td>
+<td><p>Caserta</p></td>
+</tr>
+<tr class="row-even"><td><p>IT-NA</p></td>
+<td><p>Napoli</p></td>
+</tr>
+<tr class="row-odd"><td><p>IT-SA</p></td>
+<td><p>Salerno</p></td>
+</tr>
+<tr class="row-even"><td><p>IT-BO</p></td>
+<td><p>Bologna</p></td>
+</tr>
+<tr class="row-odd"><td><p>IT-FE</p></td>
+<td><p>Ferrara</p></td>
+</tr>
+<tr class="row-even"><td><p>IT-FC</p></td>
+<td><p>Forli’ - Cesena</p></td>
+</tr>
+<tr class="row-odd"><td><p>IT-MO</p></td>
+<td><p>Modena</p></td>
+</tr>
+<tr class="row-even"><td><p>IT-PR</p></td>
+<td><p>Parma</p></td>
+</tr>
+<tr class="row-odd"><td><p>IT-PC</p></td>
+<td><p>Piacenza</p></td>
+</tr>
+<tr class="row-even"><td><p>IT-RA</p></td>
+<td><p>Ravenna</p></td>
+</tr>
+<tr class="row-odd"><td><p>IT-RE</p></td>
+<td><p>Reggio Nell’Emilia</p></td>
+</tr>
+<tr class="row-even"><td><p>IT-RN</p></td>
+<td><p>Rimini</p></td>
+</tr>
+<tr class="row-odd"><td><p>IT-GO</p></td>
+<td><p>Gorizia</p></td>
+</tr>
+<tr class="row-even"><td><p>IT-PN</p></td>
+<td><p>Pordenone</p></td>
+</tr>
+<tr class="row-odd"><td><p>IT-TS</p></td>
+<td><p>Trieste</p></td>
+</tr>
+<tr class="row-even"><td><p>IT-UD</p></td>
+<td><p>Udine</p></td>
+</tr>
+<tr class="row-odd"><td><p>IT-FR</p></td>
+<td><p>Frosinone</p></td>
+</tr>
+<tr class="row-even"><td><p>IT-LT</p></td>
+<td><p>Latina</p></td>
+</tr>
+<tr class="row-odd"><td><p>IT-RI</p></td>
+<td><p>Rieti</p></td>
+</tr>
+<tr class="row-even"><td><p>IT-RM</p></td>
+<td><p>Roma</p></td>
+</tr>
+<tr class="row-odd"><td><p>IT-VT</p></td>
+<td><p>Viterbo</p></td>
+</tr>
+<tr class="row-even"><td><p>IT-GE</p></td>
+<td><p>Genova</p></td>
+</tr>
+<tr class="row-odd"><td><p>IT-IM</p></td>
+<td><p>Imperia</p></td>
+</tr>
+<tr class="row-even"><td><p>IT-SP</p></td>
+<td><p>La Spezia</p></td>
+</tr>
+<tr class="row-odd"><td><p>IT-SV</p></td>
+<td><p>Savona</p></td>
+</tr>
+<tr class="row-even"><td><p>IT-BG</p></td>
+<td><p>Bergamo</p></td>
+</tr>
+<tr class="row-odd"><td><p>IT-BS</p></td>
+<td><p>Brescia</p></td>
+</tr>
+<tr class="row-even"><td><p>IT-CO</p></td>
+<td><p>Como</p></td>
+</tr>
+<tr class="row-odd"><td><p>IT-CR</p></td>
+<td><p>Cremona</p></td>
+</tr>
+<tr class="row-even"><td><p>IT-LC</p></td>
+<td><p>Lecco</p></td>
+</tr>
+<tr class="row-odd"><td><p>IT-LO</p></td>
+<td><p>Lodi</p></td>
+</tr>
+<tr class="row-even"><td><p>IT-MN</p></td>
+<td><p>Mantua</p></td>
+</tr>
+<tr class="row-odd"><td><p>IT-MI</p></td>
+<td><p>Milano</p></td>
+</tr>
+<tr class="row-even"><td><p>IT-MB</p></td>
+<td><p>Monza and Brianza</p></td>
+</tr>
+<tr class="row-odd"><td><p>IT-PV</p></td>
+<td><p>Pavia</p></td>
+</tr>
+<tr class="row-even"><td><p>IT-SO</p></td>
+<td><p>Sondrio</p></td>
+</tr>
+<tr class="row-odd"><td><p>IT-VA</p></td>
+<td><p>Varese</p></td>
+</tr>
+<tr class="row-even"><td><p>IT-AN</p></td>
+<td><p>Ancona</p></td>
+</tr>
+<tr class="row-odd"><td><p>IT-AP</p></td>
+<td><p>Ascoli Piceno</p></td>
+</tr>
+<tr class="row-even"><td><p>IT-FM</p></td>
+<td><p>Fermo</p></td>
+</tr>
+<tr class="row-odd"><td><p>IT-MC</p></td>
+<td><p>Macerata</p></td>
+</tr>
+<tr class="row-even"><td><p>IT-PU</p></td>
+<td><p>Pesaro E Urbino</p></td>
+</tr>
+<tr class="row-odd"><td><p>IT-CB</p></td>
+<td><p>Campobasso</p></td>
+</tr>
+<tr class="row-even"><td><p>IT-IS</p></td>
+<td><p>Isernia</p></td>
+</tr>
+<tr class="row-odd"><td><p>IT-AL</p></td>
+<td><p>Alessandria</p></td>
+</tr>
+<tr class="row-even"><td><p>IT-AT</p></td>
+<td><p>Asti</p></td>
+</tr>
+<tr class="row-odd"><td><p>IT-BI</p></td>
+<td><p>Biella</p></td>
+</tr>
+<tr class="row-even"><td><p>IT-CN</p></td>
+<td><p>Cuneo</p></td>
+</tr>
+<tr class="row-odd"><td><p>IT-NO</p></td>
+<td><p>Novara</p></td>
+</tr>
+<tr class="row-even"><td><p>IT-TO</p></td>
+<td><p>Torino</p></td>
+</tr>
+<tr class="row-odd"><td><p>IT-VB</p></td>
+<td><p>Verbano-Cusio-Ossola</p></td>
+</tr>
+<tr class="row-even"><td><p>IT-VC</p></td>
+<td><p>Vercelli</p></td>
+</tr>
+<tr class="row-odd"><td><p>IT-CA</p></td>
+<td><p>Cagliari</p></td>
+</tr>
+<tr class="row-even"><td><p>IT-CI</p></td>
+<td><p>Carbonia-Iglesias</p></td>
+</tr>
+<tr class="row-odd"><td><p>IT-VS</p></td>
+<td><p>Medio Campidano</p></td>
+</tr>
+<tr class="row-even"><td><p>IT-NU</p></td>
+<td><p>Nuoro</p></td>
+</tr>
+<tr class="row-odd"><td><p>IT-OG</p></td>
+<td><p>Ogliastra</p></td>
+</tr>
+<tr class="row-even"><td><p>IT-OT</p></td>
+<td><p>Olbia-Tempio</p></td>
+</tr>
+<tr class="row-odd"><td><p>IT-OR</p></td>
+<td><p>Oristano</p></td>
+</tr>
+<tr class="row-even"><td><p>IT-SS</p></td>
+<td><p>Sassari</p></td>
+</tr>
+<tr class="row-odd"><td><p>IT-AG</p></td>
+<td><p>Agrigento</p></td>
+</tr>
+<tr class="row-even"><td><p>IT-CL</p></td>
+<td><p>Caltanissetta</p></td>
+</tr>
+<tr class="row-odd"><td><p>IT-CT</p></td>
+<td><p>Catania</p></td>
+</tr>
+<tr class="row-even"><td><p>IT-EN</p></td>
+<td><p>Enna</p></td>
+</tr>
+<tr class="row-odd"><td><p>IT-ME</p></td>
+<td><p>Messina</p></td>
+</tr>
+<tr class="row-even"><td><p>IT-PA</p></td>
+<td><p>Palermo</p></td>
+</tr>
+<tr class="row-odd"><td><p>IT-RG</p></td>
+<td><p>Ragusa</p></td>
+</tr>
+<tr class="row-even"><td><p>IT-SR</p></td>
+<td><p>Syracuse</p></td>
+</tr>
+<tr class="row-odd"><td><p>IT-TP</p></td>
+<td><p>Trapani</p></td>
+</tr>
+<tr class="row-even"><td><p>IT-AR</p></td>
+<td><p>Arezzo</p></td>
+</tr>
+<tr class="row-odd"><td><p>IT-FI</p></td>
+<td><p>Florence</p></td>
+</tr>
+<tr class="row-even"><td><p>IT-GR</p></td>
+<td><p>Grosseto</p></td>
+</tr>
+<tr class="row-odd"><td><p>IT-LI</p></td>
+<td><p>Livorno</p></td>
+</tr>
+<tr class="row-even"><td><p>IT-LU</p></td>
+<td><p>Lucca</p></td>
+</tr>
+<tr class="row-odd"><td><p>IT-MS</p></td>
+<td><p>Massa Carrara</p></td>
+</tr>
+<tr class="row-even"><td><p>IT-PI</p></td>
+<td><p>Pisa</p></td>
+</tr>
+<tr class="row-odd"><td><p>IT-PT</p></td>
+<td><p>Pistoia</p></td>
+</tr>
+<tr class="row-even"><td><p>IT-PO</p></td>
+<td><p>Prato</p></td>
+</tr>
+<tr class="row-odd"><td><p>IT-SI</p></td>
+<td><p>Siena</p></td>
+</tr>
+<tr class="row-even"><td><p>IT-BZ</p></td>
+<td><p>Bolzano</p></td>
+</tr>
+<tr class="row-odd"><td><p>IT-TN</p></td>
+<td><p>Trento</p></td>
+</tr>
+<tr class="row-even"><td><p>IT-PG</p></td>
+<td><p>Perugia</p></td>
+</tr>
+<tr class="row-odd"><td><p>IT-TR</p></td>
+<td><p>Terni</p></td>
+</tr>
+<tr class="row-even"><td><p>IT-AO</p></td>
+<td><p>Aosta</p></td>
+</tr>
+<tr class="row-odd"><td><p>IT-BL</p></td>
+<td><p>Belluno</p></td>
+</tr>
+<tr class="row-even"><td><p>IT-PD</p></td>
+<td><p>Padua</p></td>
+</tr>
+<tr class="row-odd"><td><p>IT-RO</p></td>
+<td><p>Rovigo</p></td>
+</tr>
+<tr class="row-even"><td><p>IT-TV</p></td>
+<td><p>Treviso</p></td>
+</tr>
+<tr class="row-odd"><td><p>IT-VE</p></td>
+<td><p>Venezia</p></td>
+</tr>
+<tr class="row-even"><td><p>IT-VR</p></td>
+<td><p>Verona</p></td>
+</tr>
+<tr class="row-odd"><td><p>IT-VI</p></td>
+<td><p>Vicenza</p></td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li><p>Japan</p></li>
+</ul>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 30%" />
+<col style="width: 70%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>ISO</p></th>
+<th class="head"><p>Name of region</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>JP-01</p></td>
+<td><p>Hokkaido</p></td>
+</tr>
+<tr class="row-odd"><td><p>JP-02</p></td>
+<td><p>Aomori</p></td>
+</tr>
+<tr class="row-even"><td><p>JP-03</p></td>
+<td><p>Iwate</p></td>
+</tr>
+<tr class="row-odd"><td><p>JP-04</p></td>
+<td><p>Miyagi</p></td>
+</tr>
+<tr class="row-even"><td><p>JP-05</p></td>
+<td><p>Akita</p></td>
+</tr>
+<tr class="row-odd"><td><p>JP-06</p></td>
+<td><p>Yamagata</p></td>
+</tr>
+<tr class="row-even"><td><p>JP-07</p></td>
+<td><p>Fukushima</p></td>
+</tr>
+<tr class="row-odd"><td><p>JP-08</p></td>
+<td><p>Ibaraki</p></td>
+</tr>
+<tr class="row-even"><td><p>JP-09</p></td>
+<td><p>Tochigi</p></td>
+</tr>
+<tr class="row-odd"><td><p>JP-10</p></td>
+<td><p>Gunma</p></td>
+</tr>
+<tr class="row-even"><td><p>JP-11</p></td>
+<td><p>Saitama</p></td>
+</tr>
+<tr class="row-odd"><td><p>JP-12</p></td>
+<td><p>Chiba</p></td>
+</tr>
+<tr class="row-even"><td><p>JP-13</p></td>
+<td><p>Tokyo</p></td>
+</tr>
+<tr class="row-odd"><td><p>JP-14</p></td>
+<td><p>Kanagawa</p></td>
+</tr>
+<tr class="row-even"><td><p>JP-15</p></td>
+<td><p>Niigata</p></td>
+</tr>
+<tr class="row-odd"><td><p>JP-16</p></td>
+<td><p>Toyama</p></td>
+</tr>
+<tr class="row-even"><td><p>JP-17</p></td>
+<td><p>Ishikawa</p></td>
+</tr>
+<tr class="row-odd"><td><p>JP-18</p></td>
+<td><p>Fukui</p></td>
+</tr>
+<tr class="row-even"><td><p>JP-19</p></td>
+<td><p>Yamanashi</p></td>
+</tr>
+<tr class="row-odd"><td><p>JP-20</p></td>
+<td><p>Nagano</p></td>
+</tr>
+<tr class="row-even"><td><p>JP-21</p></td>
+<td><p>Gifu</p></td>
+</tr>
+<tr class="row-odd"><td><p>JP-22</p></td>
+<td><p>Shizuoka</p></td>
+</tr>
+<tr class="row-even"><td><p>JP-23</p></td>
+<td><p>Aichi</p></td>
+</tr>
+<tr class="row-odd"><td><p>JP-24</p></td>
+<td><p>Mie</p></td>
+</tr>
+<tr class="row-even"><td><p>JP-25</p></td>
+<td><p>Shiga</p></td>
+</tr>
+<tr class="row-odd"><td><p>JP-26</p></td>
+<td><p>Kyoto</p></td>
+</tr>
+<tr class="row-even"><td><p>JP-27</p></td>
+<td><p>Osaka</p></td>
+</tr>
+<tr class="row-odd"><td><p>JP-28</p></td>
+<td><p>Hyogo</p></td>
+</tr>
+<tr class="row-even"><td><p>JP-29</p></td>
+<td><p>Nara</p></td>
+</tr>
+<tr class="row-odd"><td><p>JP-30</p></td>
+<td><p>Wakayama</p></td>
+</tr>
+<tr class="row-even"><td><p>JP-31</p></td>
+<td><p>Tottori</p></td>
+</tr>
+<tr class="row-odd"><td><p>JP-32</p></td>
+<td><p>Shimane</p></td>
+</tr>
+<tr class="row-even"><td><p>JP-33</p></td>
+<td><p>Okayama</p></td>
+</tr>
+<tr class="row-odd"><td><p>JP-34</p></td>
+<td><p>Hiroshima</p></td>
+</tr>
+<tr class="row-even"><td><p>JP-35</p></td>
+<td><p>Yamaguchi</p></td>
+</tr>
+<tr class="row-odd"><td><p>JP-36</p></td>
+<td><p>Tokushima</p></td>
+</tr>
+<tr class="row-even"><td><p>JP-37</p></td>
+<td><p>Kagawa</p></td>
+</tr>
+<tr class="row-odd"><td><p>JP-38</p></td>
+<td><p>Ehime</p></td>
+</tr>
+<tr class="row-even"><td><p>JP-39</p></td>
+<td><p>Kochi</p></td>
+</tr>
+<tr class="row-odd"><td><p>JP-40</p></td>
+<td><p>Fukuoka</p></td>
+</tr>
+<tr class="row-even"><td><p>JP-41</p></td>
+<td><p>Saga</p></td>
+</tr>
+<tr class="row-odd"><td><p>JP-42</p></td>
+<td><p>Nagasaki</p></td>
+</tr>
+<tr class="row-even"><td><p>JP-43</p></td>
+<td><p>Kumamoto</p></td>
+</tr>
+<tr class="row-odd"><td><p>JP-44</p></td>
+<td><p>Oita</p></td>
+</tr>
+<tr class="row-even"><td><p>JP-45</p></td>
+<td><p>Miyazaki</p></td>
+</tr>
+<tr class="row-odd"><td><p>JP-46</p></td>
+<td><p>Kagoshima</p></td>
+</tr>
+<tr class="row-even"><td><p>JP-47</p></td>
+<td><p>Okinawa</p></td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li><p>Korea</p></li>
+</ul>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 30%" />
+<col style="width: 70%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>ISO</p></th>
+<th class="head"><p>Name of region</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>KR-11</p></td>
+<td><p>Seoul</p></td>
+</tr>
+<tr class="row-odd"><td><p>KR-26</p></td>
+<td><p>Busan</p></td>
+</tr>
+<tr class="row-even"><td><p>KR-27</p></td>
+<td><p>Daegu</p></td>
+</tr>
+<tr class="row-odd"><td><p>KR-28</p></td>
+<td><p>Incheon</p></td>
+</tr>
+<tr class="row-even"><td><p>KR-29</p></td>
+<td><p>Gwangju</p></td>
+</tr>
+<tr class="row-odd"><td><p>KR-30</p></td>
+<td><p>Daejeon</p></td>
+</tr>
+<tr class="row-even"><td><p>KR-31</p></td>
+<td><p>Ulsan</p></td>
+</tr>
+<tr class="row-odd"><td><p>KR-41</p></td>
+<td><p>Gyeonggi</p></td>
+</tr>
+<tr class="row-even"><td><p>KR-42</p></td>
+<td><p>Gangwon</p></td>
+</tr>
+<tr class="row-odd"><td><p>KR-43</p></td>
+<td><p>Chungbuk</p></td>
+</tr>
+<tr class="row-even"><td><p>KR-44</p></td>
+<td><p>Chungnam</p></td>
+</tr>
+<tr class="row-odd"><td><p>KR-45</p></td>
+<td><p>Jeonbuk</p></td>
+</tr>
+<tr class="row-even"><td><p>KR-46</p></td>
+<td><p>Jeonnam</p></td>
+</tr>
+<tr class="row-odd"><td><p>KR-47</p></td>
+<td><p>Gyeongbuk</p></td>
+</tr>
+<tr class="row-even"><td><p>KR-48</p></td>
+<td><p>Gyeongnam</p></td>
+</tr>
+<tr class="row-odd"><td><p>KR-49</p></td>
+<td><p>Jeju</p></td>
+</tr>
+<tr class="row-even"><td><p>KR-50</p></td>
+<td><p>Sejong</p></td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li><p>Liechtenstein</p></li>
+</ul>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 30%" />
+<col style="width: 70%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>ISO</p></th>
+<th class="head"><p>Name of region</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>LI-01</p></td>
+<td><p>Balzers</p></td>
+</tr>
+<tr class="row-odd"><td><p>LI-02</p></td>
+<td><p>Eschen</p></td>
+</tr>
+<tr class="row-even"><td><p>LI-03</p></td>
+<td><p>Gamprin</p></td>
+</tr>
+<tr class="row-odd"><td><p>LI-04</p></td>
+<td><p>Mauren</p></td>
+</tr>
+<tr class="row-even"><td><p>LI-05</p></td>
+<td><p>Planken</p></td>
+</tr>
+<tr class="row-odd"><td><p>LI-06</p></td>
+<td><p>Ruggell</p></td>
+</tr>
+<tr class="row-even"><td><p>LI-07</p></td>
+<td><p>Schaan</p></td>
+</tr>
+<tr class="row-odd"><td><p>LI-08</p></td>
+<td><p>Schellenberg</p></td>
+</tr>
+<tr class="row-even"><td><p>LI-09</p></td>
+<td><p>Triesen</p></td>
+</tr>
+<tr class="row-odd"><td><p>LI-10</p></td>
+<td><p>Triesenberg</p></td>
+</tr>
+<tr class="row-even"><td><p>LI-11</p></td>
+<td><p>Vaduz</p></td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li><p>Morocco</p></li>
+</ul>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 81%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>ISO</p></th>
+<th class="head"><p>Name of region</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>MA-BES</p></td>
+<td><p>Ben Slimane</p></td>
+</tr>
+<tr class="row-odd"><td><p>MA-KHO</p></td>
+<td><p>Khouribga</p></td>
+</tr>
+<tr class="row-even"><td><p>MA-SET</p></td>
+<td><p>Settat</p></td>
+</tr>
+<tr class="row-odd"><td><p>MA-JDI</p></td>
+<td><p>El Jadida</p></td>
+</tr>
+<tr class="row-even"><td><p>MA-SAF</p></td>
+<td><p>Safi</p></td>
+</tr>
+<tr class="row-odd"><td><p>MA-BOM</p></td>
+<td><p>Boulemane</p></td>
+</tr>
+<tr class="row-even"><td><p>MA-FES</p></td>
+<td><p>Fès</p></td>
+</tr>
+<tr class="row-odd"><td><p>MA-SEF</p></td>
+<td><p>Sefrou</p></td>
+</tr>
+<tr class="row-even"><td><p>MA-MOU</p></td>
+<td><p>Zouagha-Moulay Yacoub</p></td>
+</tr>
+<tr class="row-odd"><td><p>MA-KEN</p></td>
+<td><p>Kénitra</p></td>
+</tr>
+<tr class="row-even"><td><p>MA-SIK</p></td>
+<td><p>Sidi Kacem</p></td>
+</tr>
+<tr class="row-odd"><td><p>MA-CAS</p></td>
+<td><p>Casablanca</p></td>
+</tr>
+<tr class="row-even"><td><p>MA-MOH</p></td>
+<td><p>Mohammedia</p></td>
+</tr>
+<tr class="row-odd"><td><p>MA-ASZ</p></td>
+<td><p>Assa-Zag</p></td>
+</tr>
+<tr class="row-even"><td><p>MA-GUE</p></td>
+<td><p>Guelmim</p></td>
+</tr>
+<tr class="row-odd"><td><p>MA-TNT</p></td>
+<td><p>Tan-Tan</p></td>
+</tr>
+<tr class="row-even"><td><p>MA-TAT</p></td>
+<td><p>Tata</p></td>
+</tr>
+<tr class="row-odd"><td><p>MA-LAA</p></td>
+<td><p>Laâyoune</p></td>
+</tr>
+<tr class="row-even"><td><p>MA-HAO</p></td>
+<td><p>Al Haouz</p></td>
+</tr>
+<tr class="row-odd"><td><p>MA-CHI</p></td>
+<td><p>Chichaoua</p></td>
+</tr>
+<tr class="row-even"><td><p>MA-KES</p></td>
+<td><p>El Kelaâ des Sraghna</p></td>
+</tr>
+<tr class="row-odd"><td><p>MA-ESI</p></td>
+<td><p>Essaouira</p></td>
+</tr>
+<tr class="row-even"><td><p>MA-MMD</p></td>
+<td><p>Marrakech</p></td>
+</tr>
+<tr class="row-odd"><td><p>MA-HAJ</p></td>
+<td><p>El Hajeb</p></td>
+</tr>
+<tr class="row-even"><td><p>MA-ERR</p></td>
+<td><p>Errachidia</p></td>
+</tr>
+<tr class="row-odd"><td><p>MA-IFR</p></td>
+<td><p>Ifrane</p></td>
+</tr>
+<tr class="row-even"><td><p>MA-KHN</p></td>
+<td><p>Khénifra</p></td>
+</tr>
+<tr class="row-odd"><td><p>MA-MEK</p></td>
+<td><p>Meknès</p></td>
+</tr>
+<tr class="row-even"><td><p>MA-BER</p></td>
+<td><p>Berkane Taourirt</p></td>
+</tr>
+<tr class="row-odd"><td><p>MA-FIG</p></td>
+<td><p>Figuig</p></td>
+</tr>
+<tr class="row-even"><td><p>MA-JRA</p></td>
+<td><p>Jerada</p></td>
+</tr>
+<tr class="row-odd"><td><p>MA-NAD</p></td>
+<td><p>Nador</p></td>
+</tr>
+<tr class="row-even"><td><p>MA-OUJ</p></td>
+<td><p>Oujda Angad</p></td>
+</tr>
+<tr class="row-odd"><td><p>MA-KHE</p></td>
+<td><p>Khémisset</p></td>
+</tr>
+<tr class="row-even"><td><p>MA-RAB</p></td>
+<td><p>Rabat</p></td>
+</tr>
+<tr class="row-odd"><td><p>MA-SAL</p></td>
+<td><p>Salé</p></td>
+</tr>
+<tr class="row-even"><td><p>MA-SKH</p></td>
+<td><p>Skhirate-Témara</p></td>
+</tr>
+<tr class="row-odd"><td><p>MA-AGD</p></td>
+<td><p>Agadir-Ida ou Tanane</p></td>
+</tr>
+<tr class="row-even"><td><p>MA-CHT</p></td>
+<td><p>Chtouka-Aït Baha</p></td>
+</tr>
+<tr class="row-odd"><td><p>MA-INE</p></td>
+<td><p>Inezgane-Aït Melloul</p></td>
+</tr>
+<tr class="row-even"><td><p>MA-OUA</p></td>
+<td><p>Ouarzazate</p></td>
+</tr>
+<tr class="row-odd"><td><p>MA-TAR</p></td>
+<td><p>Taroudannt</p></td>
+</tr>
+<tr class="row-even"><td><p>MA-TIZ</p></td>
+<td><p>Tiznit</p></td>
+</tr>
+<tr class="row-odd"><td><p>MA-ZAG</p></td>
+<td><p>Zagora</p></td>
+</tr>
+<tr class="row-even"><td><p>MA-AZI</p></td>
+<td><p>Azilal</p></td>
+</tr>
+<tr class="row-odd"><td><p>MA-BEM</p></td>
+<td><p>Béni Mellal</p></td>
+</tr>
+<tr class="row-even"><td><p>MA-CHE</p></td>
+<td><p>Chefchaouen</p></td>
+</tr>
+<tr class="row-odd"><td><p>MA-FAH</p></td>
+<td><p>Fahs Anjra</p></td>
+</tr>
+<tr class="row-even"><td><p>MA-LAR</p></td>
+<td><p>Larache</p></td>
+</tr>
+<tr class="row-odd"><td><p>MA-TET</p></td>
+<td><p>Tétouan</p></td>
+</tr>
+<tr class="row-even"><td><p>MA-TNG</p></td>
+<td><p>Tanger-Assilah</p></td>
+</tr>
+<tr class="row-odd"><td><p>MA-HOC</p></td>
+<td><p>Al Hoceïma</p></td>
+</tr>
+<tr class="row-even"><td><p>MA-TAO</p></td>
+<td><p>Taounate</p></td>
+</tr>
+<tr class="row-odd"><td><p>MA-TAZ</p></td>
+<td><p>Taza</p></td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li><p>Netherlands</p></li>
+</ul>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 17%" />
+<col style="width: 83%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>ISO</p></th>
+<th class="head"><p>Name of region</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>NL-DR</p></td>
+<td><p>Drenthe</p></td>
+</tr>
+<tr class="row-odd"><td><p>NL-FL</p></td>
+<td><p>Flevoland</p></td>
+</tr>
+<tr class="row-even"><td><p>NL-FR</p></td>
+<td><p>Friesland</p></td>
+</tr>
+<tr class="row-odd"><td><p>NL-GE</p></td>
+<td><p>Gelderland</p></td>
+</tr>
+<tr class="row-even"><td><p>NL-GR</p></td>
+<td><p>Groningen</p></td>
+</tr>
+<tr class="row-odd"><td><p>NL-YS</p></td>
+<td><p>IJsselmeer</p></td>
+</tr>
+<tr class="row-even"><td><p>NL-LI</p></td>
+<td><p>Limburg</p></td>
+</tr>
+<tr class="row-odd"><td><p>NL-NB</p></td>
+<td><p>Noord-Brabant</p></td>
+</tr>
+<tr class="row-even"><td><p>NL-NH</p></td>
+<td><p>Noord-Holland</p></td>
+</tr>
+<tr class="row-odd"><td><p>NL-OV</p></td>
+<td><p>Overijssel</p></td>
+</tr>
+<tr class="row-even"><td><p>NL-UT</p></td>
+<td><p>Utrecht</p></td>
+</tr>
+<tr class="row-odd"><td><p>NL-ZE</p></td>
+<td><p>Zeeland</p></td>
+</tr>
+<tr class="row-even"><td><p>NL-ZM</p></td>
+<td><p>Zeeuwse meren</p></td>
+</tr>
+<tr class="row-odd"><td><p>NL-ZH</p></td>
+<td><p>Zuid-Holland</p></td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li><p>Russian</p></li>
+</ul>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 81%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>ISO</p></th>
+<th class="head"><p>Name of region</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>RU-AD</p></td>
+<td><p>Adygey</p></td>
+</tr>
+<tr class="row-odd"><td><p>RU-ALT</p></td>
+<td><p>Altay</p></td>
+</tr>
+<tr class="row-even"><td><p>RU-AMU</p></td>
+<td><p>Amur</p></td>
+</tr>
+<tr class="row-odd"><td><p>RU-ARK</p></td>
+<td><p>Arkhangel’sk</p></td>
+</tr>
+<tr class="row-even"><td><p>RU-AST</p></td>
+<td><p>Astrakhan’</p></td>
+</tr>
+<tr class="row-odd"><td><p>RU-BA</p></td>
+<td><p>Bashkortostan</p></td>
+</tr>
+<tr class="row-even"><td><p>RU-BEL</p></td>
+<td><p>Belgorod</p></td>
+</tr>
+<tr class="row-odd"><td><p>RU-BRY</p></td>
+<td><p>Bryansk</p></td>
+</tr>
+<tr class="row-even"><td><p>RU-BU</p></td>
+<td><p>Buryat</p></td>
+</tr>
+<tr class="row-odd"><td><p>RU-CE</p></td>
+<td><p>Chechnya</p></td>
+</tr>
+<tr class="row-even"><td><p>RU-CHE</p></td>
+<td><p>Chelyabinsk</p></td>
+</tr>
+<tr class="row-odd"><td><p>RU-CHU</p></td>
+<td><p>Chukot</p></td>
+</tr>
+<tr class="row-even"><td><p>RU-CU</p></td>
+<td><p>Chuvash</p></td>
+</tr>
+<tr class="row-odd"><td><p>RU-SPE</p></td>
+<td><p>City of St. Petersburg</p></td>
+</tr>
+<tr class="row-even"><td><p>RU-DA</p></td>
+<td><p>Dagestan</p></td>
+</tr>
+<tr class="row-odd"><td><p>RU-AL</p></td>
+<td><p>Gorno-Altay</p></td>
+</tr>
+<tr class="row-even"><td><p>RU-IN</p></td>
+<td><p>Ingush</p></td>
+</tr>
+<tr class="row-odd"><td><p>RU-IRK</p></td>
+<td><p>Irkutsk</p></td>
+</tr>
+<tr class="row-even"><td><p>RU-IVA</p></td>
+<td><p>Ivanovo</p></td>
+</tr>
+<tr class="row-odd"><td><p>RU-KB</p></td>
+<td><p>Kabardin-Balkar</p></td>
+</tr>
+<tr class="row-even"><td><p>RU-KGD</p></td>
+<td><p>Kaliningrad</p></td>
+</tr>
+<tr class="row-odd"><td><p>RU-KL</p></td>
+<td><p>Kalmyk</p></td>
+</tr>
+<tr class="row-even"><td><p>RU-KLU</p></td>
+<td><p>Kaluga</p></td>
+</tr>
+<tr class="row-odd"><td><p>RU-KAM</p></td>
+<td><p>Kamchatka</p></td>
+</tr>
+<tr class="row-even"><td><p>RU-KC</p></td>
+<td><p>Karachay-Cherkess</p></td>
+</tr>
+<tr class="row-odd"><td><p>RU-KR</p></td>
+<td><p>Karelia</p></td>
+</tr>
+<tr class="row-even"><td><p>RU-KEM</p></td>
+<td><p>Kemerovo</p></td>
+</tr>
+<tr class="row-odd"><td><p>RU-KHA</p></td>
+<td><p>Khabarovsk</p></td>
+</tr>
+<tr class="row-even"><td><p>RU-KK</p></td>
+<td><p>Khakass</p></td>
+</tr>
+<tr class="row-odd"><td><p>RU-KHM</p></td>
+<td><p>Khanty-Mansiy</p></td>
+</tr>
+<tr class="row-even"><td><p>RU-KIR</p></td>
+<td><p>Kirov</p></td>
+</tr>
+<tr class="row-odd"><td><p>RU-KO</p></td>
+<td><p>Komi</p></td>
+</tr>
+<tr class="row-even"><td><p>RU-KOS</p></td>
+<td><p>Kostroma</p></td>
+</tr>
+<tr class="row-odd"><td><p>RU-KDA</p></td>
+<td><p>Krasnodar</p></td>
+</tr>
+<tr class="row-even"><td><p>RU-KYA</p></td>
+<td><p>Krasnoyarsk</p></td>
+</tr>
+<tr class="row-odd"><td><p>RU-KGN</p></td>
+<td><p>Kurgan</p></td>
+</tr>
+<tr class="row-even"><td><p>RU-KRS</p></td>
+<td><p>Kursk</p></td>
+</tr>
+<tr class="row-odd"><td><p>RU-LEN</p></td>
+<td><p>Leningrad</p></td>
+</tr>
+<tr class="row-even"><td><p>RU-LIP</p></td>
+<td><p>Lipetsk</p></td>
+</tr>
+<tr class="row-odd"><td><p>RU-MAG</p></td>
+<td><p>Maga Buryatdan</p></td>
+</tr>
+<tr class="row-even"><td><p>RU-ME</p></td>
+<td><p>Mariy-El</p></td>
+</tr>
+<tr class="row-odd"><td><p>RU-MO</p></td>
+<td><p>Mordovia</p></td>
+</tr>
+<tr class="row-even"><td><p>RU-MOW</p></td>
+<td><p>Moscow City</p></td>
+</tr>
+<tr class="row-odd"><td><p>RU-MOS</p></td>
+<td><p>Moskva</p></td>
+</tr>
+<tr class="row-even"><td><p>RU-MUR</p></td>
+<td><p>Murmansk</p></td>
+</tr>
+<tr class="row-odd"><td><p>RU-NEN</p></td>
+<td><p>Nenets</p></td>
+</tr>
+<tr class="row-even"><td><p>RU-NIZ</p></td>
+<td><p>Nizhegorod</p></td>
+</tr>
+<tr class="row-odd"><td><p>RU-SE</p></td>
+<td><p>North Ossetia</p></td>
+</tr>
+<tr class="row-even"><td><p>RU-NGR</p></td>
+<td><p>Novgorod</p></td>
+</tr>
+<tr class="row-odd"><td><p>RU-NVS</p></td>
+<td><p>Novosibirsk</p></td>
+</tr>
+<tr class="row-even"><td><p>RU-OMS</p></td>
+<td><p>Omsk</p></td>
+</tr>
+<tr class="row-odd"><td><p>RU-ORL</p></td>
+<td><p>Orel</p></td>
+</tr>
+<tr class="row-even"><td><p>RU-ORE</p></td>
+<td><p>Orenburg</p></td>
+</tr>
+<tr class="row-odd"><td><p>RU-PNZ</p></td>
+<td><p>Penza</p></td>
+</tr>
+<tr class="row-even"><td><p>RU-PER</p></td>
+<td><p>Perm’</p></td>
+</tr>
+<tr class="row-odd"><td><p>RU-PRI</p></td>
+<td><p>Primor’ye</p></td>
+</tr>
+<tr class="row-even"><td><p>RU-PSK</p></td>
+<td><p>Pskov</p></td>
+</tr>
+<tr class="row-odd"><td><p>RU-ROS</p></td>
+<td><p>Rostov</p></td>
+</tr>
+<tr class="row-even"><td><p>RU-RYA</p></td>
+<td><p>Ryazan’</p></td>
+</tr>
+<tr class="row-odd"><td><p>RU-SAK</p></td>
+<td><p>Sakhalin</p></td>
+</tr>
+<tr class="row-even"><td><p>RU-SA</p></td>
+<td><p>Sakha</p></td>
+</tr>
+<tr class="row-odd"><td><p>RU-SAM</p></td>
+<td><p>Samara</p></td>
+</tr>
+<tr class="row-even"><td><p>RU-SAR</p></td>
+<td><p>Saratov</p></td>
+</tr>
+<tr class="row-odd"><td><p>RU-SMO</p></td>
+<td><p>Smolensk</p></td>
+</tr>
+<tr class="row-even"><td><p>RU-STA</p></td>
+<td><p>Stavropol’</p></td>
+</tr>
+<tr class="row-odd"><td><p>RU-SVE</p></td>
+<td><p>Sverdlovsk</p></td>
+</tr>
+<tr class="row-even"><td><p>RU-TAM</p></td>
+<td><p>Tambov</p></td>
+</tr>
+<tr class="row-odd"><td><p>RU-TA</p></td>
+<td><p>Tatarstan</p></td>
+</tr>
+<tr class="row-even"><td><p>RU-TOM</p></td>
+<td><p>Tomsk</p></td>
+</tr>
+<tr class="row-odd"><td><p>RU-TUL</p></td>
+<td><p>Tula</p></td>
+</tr>
+<tr class="row-even"><td><p>RU-TY</p></td>
+<td><p>Tuva</p></td>
+</tr>
+<tr class="row-odd"><td><p>RU-TVE</p></td>
+<td><p>Tver’</p></td>
+</tr>
+<tr class="row-even"><td><p>RU-TYU</p></td>
+<td><p>Tyumen’</p></td>
+</tr>
+<tr class="row-odd"><td><p>RU-UD</p></td>
+<td><p>Udmurt</p></td>
+</tr>
+<tr class="row-even"><td><p>RU-ULY</p></td>
+<td><p>Ul’yanovsk</p></td>
+</tr>
+<tr class="row-odd"><td><p>RU-VLA</p></td>
+<td><p>Vladimir</p></td>
+</tr>
+<tr class="row-even"><td><p>RU-VGG</p></td>
+<td><p>Volgograd</p></td>
+</tr>
+<tr class="row-odd"><td><p>RU-VLG</p></td>
+<td><p>Vologda</p></td>
+</tr>
+<tr class="row-even"><td><p>RU-VOR</p></td>
+<td><p>Voronezh</p></td>
+</tr>
+<tr class="row-odd"><td><p>RU-YAN</p></td>
+<td><p>Yamal-Nenets</p></td>
+</tr>
+<tr class="row-even"><td><p>RU-YAR</p></td>
+<td><p>Yaroslavl’</p></td>
+</tr>
+<tr class="row-odd"><td><p>RU-YEV</p></td>
+<td><p>Yevrey</p></td>
+</tr>
+<tr class="row-even"><td><p>RU-ZAB</p></td>
+<td><p>Zabaykal’ye</p></td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li><p>Singapore</p></li>
+</ul>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 86%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Id</p></th>
+<th class="head"><p>Name of region</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>205</p></td>
+<td><p>Singapore</p></td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li><p>Spain</p></li>
+</ul>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 81%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>ISO</p></th>
+<th class="head"><p>Name of region</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ES-AL</p></td>
+<td><p>Almería</p></td>
+</tr>
+<tr class="row-odd"><td><p>ES-CA</p></td>
+<td><p>Cádiz</p></td>
+</tr>
+<tr class="row-even"><td><p>ES-CO</p></td>
+<td><p>Córdoba</p></td>
+</tr>
+<tr class="row-odd"><td><p>ES-GR</p></td>
+<td><p>Granada</p></td>
+</tr>
+<tr class="row-even"><td><p>ES-H</p></td>
+<td><p>Huelva</p></td>
+</tr>
+<tr class="row-odd"><td><p>ES-J</p></td>
+<td><p>Jaén</p></td>
+</tr>
+<tr class="row-even"><td><p>ES-MA</p></td>
+<td><p>Málaga</p></td>
+</tr>
+<tr class="row-odd"><td><p>ES-SE</p></td>
+<td><p>Sevilla</p></td>
+</tr>
+<tr class="row-even"><td><p>ES-HU</p></td>
+<td><p>Huesca</p></td>
+</tr>
+<tr class="row-odd"><td><p>ES-TE</p></td>
+<td><p>Teruel</p></td>
+</tr>
+<tr class="row-even"><td><p>ES-Z</p></td>
+<td><p>Zaragoza</p></td>
+</tr>
+<tr class="row-odd"><td><p>ES-S3</p></td>
+<td><p>Cantabria</p></td>
+</tr>
+<tr class="row-even"><td><p>ES-AB</p></td>
+<td><p>Albacete</p></td>
+</tr>
+<tr class="row-odd"><td><p>ES-CR</p></td>
+<td><p>Ciudad Real</p></td>
+</tr>
+<tr class="row-even"><td><p>ES-CU</p></td>
+<td><p>Cuenca</p></td>
+</tr>
+<tr class="row-odd"><td><p>ES-GU</p></td>
+<td><p>Guadalajara</p></td>
+</tr>
+<tr class="row-even"><td><p>ES-TO</p></td>
+<td><p>Toledo</p></td>
+</tr>
+<tr class="row-odd"><td><p>ES-AV</p></td>
+<td><p>Ávila</p></td>
+</tr>
+<tr class="row-even"><td><p>ES-BU</p></td>
+<td><p>Burgos</p></td>
+</tr>
+<tr class="row-odd"><td><p>ES-LE</p></td>
+<td><p>León</p></td>
+</tr>
+<tr class="row-even"><td><p>ES-P</p></td>
+<td><p>Palencia</p></td>
+</tr>
+<tr class="row-odd"><td><p>ES-SA</p></td>
+<td><p>Salamanca</p></td>
+</tr>
+<tr class="row-even"><td><p>ES-SG</p></td>
+<td><p>Segovia</p></td>
+</tr>
+<tr class="row-odd"><td><p>ES-SO</p></td>
+<td><p>Soria</p></td>
+</tr>
+<tr class="row-even"><td><p>ES-VA</p></td>
+<td><p>Valladolid</p></td>
+</tr>
+<tr class="row-odd"><td><p>ES-ZA</p></td>
+<td><p>Zamora</p></td>
+</tr>
+<tr class="row-even"><td><p>ES-B</p></td>
+<td><p>Barcelona</p></td>
+</tr>
+<tr class="row-odd"><td><p>ES-GI</p></td>
+<td><p>Girona</p></td>
+</tr>
+<tr class="row-even"><td><p>ES-L</p></td>
+<td><p>Lleida</p></td>
+</tr>
+<tr class="row-odd"><td><p>ES-T</p></td>
+<td><p>Tarragona</p></td>
+</tr>
+<tr class="row-even"><td><p>ES-CE</p></td>
+<td><p>Ceuta</p></td>
+</tr>
+<tr class="row-odd"><td><p>ES-ML</p></td>
+<td><p>Melilla</p></td>
+</tr>
+<tr class="row-even"><td><p>ES-M5</p></td>
+<td><p>Madrid</p></td>
+</tr>
+<tr class="row-odd"><td><p>ES-NA7</p></td>
+<td><p>Navarra</p></td>
+</tr>
+<tr class="row-even"><td><p>ES-A</p></td>
+<td><p>Alicante</p></td>
+</tr>
+<tr class="row-odd"><td><p>ES-CS</p></td>
+<td><p>Castellón</p></td>
+</tr>
+<tr class="row-even"><td><p>ES-V</p></td>
+<td><p>Valencia</p></td>
+</tr>
+<tr class="row-odd"><td><p>ES-BA</p></td>
+<td><p>Badajoz</p></td>
+</tr>
+<tr class="row-even"><td><p>ES-CC</p></td>
+<td><p>Cáceres</p></td>
+</tr>
+<tr class="row-odd"><td><p>ES-C</p></td>
+<td><p>A Coruña</p></td>
+</tr>
+<tr class="row-even"><td><p>ES-LU</p></td>
+<td><p>Lugo</p></td>
+</tr>
+<tr class="row-odd"><td><p>ES-OR</p></td>
+<td><p>Ourense</p></td>
+</tr>
+<tr class="row-even"><td><p>ES-PO</p></td>
+<td><p>Pontevedra</p></td>
+</tr>
+<tr class="row-odd"><td><p>ES-PM</p></td>
+<td><p>Baleares</p></td>
+</tr>
+<tr class="row-even"><td><p>ES-GC</p></td>
+<td><p>Las Palmas</p></td>
+</tr>
+<tr class="row-odd"><td><p>ES-TF</p></td>
+<td><p>Santa Cruz de Tenerife</p></td>
+</tr>
+<tr class="row-even"><td><p>ES-LO4</p></td>
+<td><p>La Rioja</p></td>
+</tr>
+<tr class="row-odd"><td><p>ES-VI</p></td>
+<td><p>Álava</p></td>
+</tr>
+<tr class="row-even"><td><p>ES-SS</p></td>
+<td><p>Guipúzcoa</p></td>
+</tr>
+<tr class="row-odd"><td><p>ES-BI</p></td>
+<td><p>Vizcaya</p></td>
+</tr>
+<tr class="row-even"><td><p>ES-O2</p></td>
+<td><p>Asturias</p></td>
+</tr>
+<tr class="row-odd"><td><p>ES-MU6</p></td>
+<td><p>Murcia</p></td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li><p>Switzerland</p></li>
+</ul>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 81%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>ISO</p></th>
+<th class="head"><p>Name of region</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>CH-AG</p></td>
+<td><p>Aargau</p></td>
+</tr>
+<tr class="row-odd"><td><p>CH-AR</p></td>
+<td><p>Appenzell Ausserrhoden</p></td>
+</tr>
+<tr class="row-even"><td><p>CH-AI</p></td>
+<td><p>Appenzell Innerrhoden</p></td>
+</tr>
+<tr class="row-odd"><td><p>CH-BL</p></td>
+<td><p>Basel-Landschaft</p></td>
+</tr>
+<tr class="row-even"><td><p>CH-BS</p></td>
+<td><p>Basel-Stadt</p></td>
+</tr>
+<tr class="row-odd"><td><p>CH-BE</p></td>
+<td><p>Bern</p></td>
+</tr>
+<tr class="row-even"><td><p>CH-FR</p></td>
+<td><p>Freiburg</p></td>
+</tr>
+<tr class="row-odd"><td><p>CH-GE</p></td>
+<td><p>Genf</p></td>
+</tr>
+<tr class="row-even"><td><p>CH-GL</p></td>
+<td><p>Glarus</p></td>
+</tr>
+<tr class="row-odd"><td><p>CH-GR</p></td>
+<td><p>Graubünden</p></td>
+</tr>
+<tr class="row-even"><td><p>CH-JU</p></td>
+<td><p>Jura</p></td>
+</tr>
+<tr class="row-odd"><td><p>CH-LU</p></td>
+<td><p>Luzern</p></td>
+</tr>
+<tr class="row-even"><td><p>CH-NE</p></td>
+<td><p>Neuenburg</p></td>
+</tr>
+<tr class="row-odd"><td><p>CH-NW</p></td>
+<td><p>Nidwalden</p></td>
+</tr>
+<tr class="row-even"><td><p>CH-OW</p></td>
+<td><p>Obwalden</p></td>
+</tr>
+<tr class="row-odd"><td><p>CH-SH</p></td>
+<td><p>Schaffhausen</p></td>
+</tr>
+<tr class="row-even"><td><p>CH-SZ</p></td>
+<td><p>Schwyz</p></td>
+</tr>
+<tr class="row-odd"><td><p>CH-SO</p></td>
+<td><p>Solothurn</p></td>
+</tr>
+<tr class="row-even"><td><p>CH-SG</p></td>
+<td><p>St. Gallen</p></td>
+</tr>
+<tr class="row-odd"><td><p>CH-TI</p></td>
+<td><p>Tessin</p></td>
+</tr>
+<tr class="row-even"><td><p>CH-TG</p></td>
+<td><p>Thurgau</p></td>
+</tr>
+<tr class="row-odd"><td><p>CH-UR</p></td>
+<td><p>Uri</p></td>
+</tr>
+<tr class="row-even"><td><p>CH-VD</p></td>
+<td><p>Waadt</p></td>
+</tr>
+<tr class="row-odd"><td><p>CH-VS</p></td>
+<td><p>Wallis</p></td>
+</tr>
+<tr class="row-even"><td><p>CH-ZG</p></td>
+<td><p>Zug</p></td>
+</tr>
+<tr class="row-odd"><td><p>CH-ZH</p></td>
+<td><p>Zürich</p></td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li><p>Uk</p></li>
+</ul>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 81%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>ISO</p></th>
+<th class="head"><p>Name of region</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>GB-BDG</p></td>
+<td><p>Barking and Dagenham</p></td>
+</tr>
+<tr class="row-odd"><td><p>GB-BAS</p></td>
+<td><p>Bath and North East Somerset</p></td>
+</tr>
+<tr class="row-even"><td><p>GB-BDF</p></td>
+<td><p>Bedfordshire</p></td>
+</tr>
+<tr class="row-odd"><td><p>GB-WBK</p></td>
+<td><p>Berkshire</p></td>
+</tr>
+<tr class="row-even"><td><p>GB-BEX</p></td>
+<td><p>Bexley</p></td>
+</tr>
+<tr class="row-odd"><td><p>GB-BBD</p></td>
+<td><p>Blackburn with Darwen</p></td>
+</tr>
+<tr class="row-even"><td><p>GB-BMH</p></td>
+<td><p>Bournemouth</p></td>
+</tr>
+<tr class="row-odd"><td><p>GB-BEN</p></td>
+<td><p>Brent</p></td>
+</tr>
+<tr class="row-even"><td><p>GB-BNH</p></td>
+<td><p>Brighton and Hove</p></td>
+</tr>
+<tr class="row-odd"><td><p>GB-BST</p></td>
+<td><p>Bristol</p></td>
+</tr>
+<tr class="row-even"><td><p>GB-BRY</p></td>
+<td><p>Bromley</p></td>
+</tr>
+<tr class="row-odd"><td><p>GB-BKM</p></td>
+<td><p>Buckinghamshire</p></td>
+</tr>
+<tr class="row-even"><td><p>GB-CAM</p></td>
+<td><p>Cambridgeshire</p></td>
+</tr>
+<tr class="row-odd"><td><p>GB-CMD</p></td>
+<td><p>Camden</p></td>
+</tr>
+<tr class="row-even"><td><p>GB-CHS</p></td>
+<td><p>Cheshire</p></td>
+</tr>
+<tr class="row-odd"><td><p>GB-CON</p></td>
+<td><p>Cornwall</p></td>
+</tr>
+<tr class="row-even"><td><p>GB-CRY</p></td>
+<td><p>Croydon</p></td>
+</tr>
+<tr class="row-odd"><td><p>GB-CMA</p></td>
+<td><p>Cumbria</p></td>
+</tr>
+<tr class="row-even"><td><p>GB-DAL</p></td>
+<td><p>Darlington</p></td>
+</tr>
+<tr class="row-odd"><td><p>GB-DBY</p></td>
+<td><p>Derbyshire</p></td>
+</tr>
+<tr class="row-even"><td><p>GB-DER</p></td>
+<td><p>Derby</p></td>
+</tr>
+<tr class="row-odd"><td><p>GB-DEV</p></td>
+<td><p>Devon</p></td>
+</tr>
+<tr class="row-even"><td><p>GB-DOR</p></td>
+<td><p>Dorset</p></td>
+</tr>
+<tr class="row-odd"><td><p>GB-DUR</p></td>
+<td><p>Durham</p></td>
+</tr>
+<tr class="row-even"><td><p>GB-EAL</p></td>
+<td><p>Ealing</p></td>
+</tr>
+<tr class="row-odd"><td><p>GB-ERY</p></td>
+<td><p>East Riding of Yorkshire</p></td>
+</tr>
+<tr class="row-even"><td><p>GB-ESX</p></td>
+<td><p>East Sussex</p></td>
+</tr>
+<tr class="row-odd"><td><p>GB-ENF</p></td>
+<td><p>Enfield</p></td>
+</tr>
+<tr class="row-even"><td><p>GB-ESS</p></td>
+<td><p>Essex</p></td>
+</tr>
+<tr class="row-odd"><td><p>GB-GLS</p></td>
+<td><p>Gloucestershire</p></td>
+</tr>
+<tr class="row-even"><td><p>GB-GRE</p></td>
+<td><p>Greenwich</p></td>
+</tr>
+<tr class="row-odd"><td><p>GB-HCK</p></td>
+<td><p>Hackney</p></td>
+</tr>
+<tr class="row-even"><td><p>GB-HAL</p></td>
+<td><p>Halton</p></td>
+</tr>
+<tr class="row-odd"><td><p>GB-HMF</p></td>
+<td><p>Hammersmith and Fulham</p></td>
+</tr>
+<tr class="row-even"><td><p>GB-HAM</p></td>
+<td><p>Hampshire</p></td>
+</tr>
+<tr class="row-odd"><td><p>GB-HRY</p></td>
+<td><p>Haringey</p></td>
+</tr>
+<tr class="row-even"><td><p>GB-HRW</p></td>
+<td><p>Harrow</p></td>
+</tr>
+<tr class="row-odd"><td><p>GB-HPL</p></td>
+<td><p>Hartlepool</p></td>
+</tr>
+<tr class="row-even"><td><p>GB-HAV</p></td>
+<td><p>Havering</p></td>
+</tr>
+<tr class="row-odd"><td><p>GB-HRT</p></td>
+<td><p>Herefordshire</p></td>
+</tr>
+<tr class="row-even"><td><p>GB-HEF</p></td>
+<td><p>Hertfordshire</p></td>
+</tr>
+<tr class="row-odd"><td><p>GB-HIL</p></td>
+<td><p>Hillingdon</p></td>
+</tr>
+<tr class="row-even"><td><p>GB-HNS</p></td>
+<td><p>Hounslow</p></td>
+</tr>
+<tr class="row-odd"><td><p>GB-IOW</p></td>
+<td><p>Isle of Wight</p></td>
+</tr>
+<tr class="row-even"><td><p>GB-ISL</p></td>
+<td><p>Islington</p></td>
+</tr>
+<tr class="row-odd"><td><p>GB-KEC</p></td>
+<td><p>Kensington and Chelsea</p></td>
+</tr>
+<tr class="row-even"><td><p>GB-KEN</p></td>
+<td><p>Kent</p></td>
+</tr>
+<tr class="row-odd"><td><p>GB-KHL</p></td>
+<td><p>Kingston upon Hull</p></td>
+</tr>
+<tr class="row-even"><td><p>GB-KTT</p></td>
+<td><p>Kingston upon Thames</p></td>
+</tr>
+<tr class="row-odd"><td><p>GB-LBH</p></td>
+<td><p>Lambeth</p></td>
+</tr>
+<tr class="row-even"><td><p>GB-LAN</p></td>
+<td><p>Lancashire</p></td>
+</tr>
+<tr class="row-odd"><td><p>GB-LEC</p></td>
+<td><p>Leicestershire</p></td>
+</tr>
+<tr class="row-even"><td><p>GB-LCE</p></td>
+<td><p>Leicester</p></td>
+</tr>
+<tr class="row-odd"><td><p>GB-LEW</p></td>
+<td><p>Lewisham</p></td>
+</tr>
+<tr class="row-even"><td><p>GB-LIN</p></td>
+<td><p>Lincolnshire</p></td>
+</tr>
+<tr class="row-odd"><td><p>GB-LND</p></td>
+<td><p>London</p></td>
+</tr>
+<tr class="row-even"><td><p>GB-LUT</p></td>
+<td><p>Luton</p></td>
+</tr>
+<tr class="row-odd"><td><p>GB-MAN</p></td>
+<td><p>Manchester</p></td>
+</tr>
+<tr class="row-even"><td><p>GB-MDW</p></td>
+<td><p>Medway</p></td>
+</tr>
+<tr class="row-odd"><td><p>GB-MER</p></td>
+<td><p>Merseyside</p></td>
+</tr>
+<tr class="row-even"><td><p>GB-MRT</p></td>
+<td><p>Merton</p></td>
+</tr>
+<tr class="row-odd"><td><p>GB-MDB</p></td>
+<td><p>Middlesbrough</p></td>
+</tr>
+<tr class="row-even"><td><p>GB-MIK</p></td>
+<td><p>Milton Keynes</p></td>
+</tr>
+<tr class="row-odd"><td><p>GB-NWM</p></td>
+<td><p>Newham</p></td>
+</tr>
+<tr class="row-even"><td><p>GB-NFK</p></td>
+<td><p>Norfolk</p></td>
+</tr>
+<tr class="row-odd"><td><p>GB-NEL</p></td>
+<td><p>North East Lincolnshire</p></td>
+</tr>
+<tr class="row-even"><td><p>GB-NLN</p></td>
+<td><p>North Lincolnshire</p></td>
+</tr>
+<tr class="row-odd"><td><p>GB-NSM</p></td>
+<td><p>North Somerset</p></td>
+</tr>
+<tr class="row-even"><td><p>GB-NYK</p></td>
+<td><p>North Yorkshire</p></td>
+</tr>
+<tr class="row-odd"><td><p>GB-NTH</p></td>
+<td><p>Northamptonshire</p></td>
+</tr>
+<tr class="row-even"><td><p>GB-NBL</p></td>
+<td><p>Northumberland</p></td>
+</tr>
+<tr class="row-odd"><td><p>GB-NTT</p></td>
+<td><p>Nottinghamshire</p></td>
+</tr>
+<tr class="row-even"><td><p>GB-NGM</p></td>
+<td><p>Nottingham</p></td>
+</tr>
+<tr class="row-odd"><td><p>GB-OXF</p></td>
+<td><p>Oxfordshire</p></td>
+</tr>
+<tr class="row-even"><td><p>GB-PTE</p></td>
+<td><p>Peterborough</p></td>
+</tr>
+<tr class="row-odd"><td><p>GB-PLY</p></td>
+<td><p>Plymouth</p></td>
+</tr>
+<tr class="row-even"><td><p>GB-POL</p></td>
+<td><p>Poole</p></td>
+</tr>
+<tr class="row-odd"><td><p>GB-POR</p></td>
+<td><p>Portsmouth</p></td>
+</tr>
+<tr class="row-even"><td><p>GB-RDB</p></td>
+<td><p>Redbridge</p></td>
+</tr>
+<tr class="row-odd"><td><p>GB-RCC</p></td>
+<td><p>Redcar and Cleveland</p></td>
+</tr>
+<tr class="row-even"><td><p>GB-RIC</p></td>
+<td><p>Richmond upon Thames</p></td>
+</tr>
+<tr class="row-odd"><td><p>GB-RUT</p></td>
+<td><p>Rutland</p></td>
+</tr>
+<tr class="row-even"><td><p>GB-SHR</p></td>
+<td><p>Shropshire</p></td>
+</tr>
+<tr class="row-odd"><td><p>GB-SOM</p></td>
+<td><p>Somerset</p></td>
+</tr>
+<tr class="row-even"><td><p>GB-SGC</p></td>
+<td><p>South Gloucestershire</p></td>
+</tr>
+<tr class="row-odd"><td><p>GB-SY</p></td>
+<td><p>South Yorkshire</p></td>
+</tr>
+<tr class="row-even"><td><p>GB-STH</p></td>
+<td><p>Southampton</p></td>
+</tr>
+<tr class="row-odd"><td><p>GB-SOS</p></td>
+<td><p>Southend-on-Sea</p></td>
+</tr>
+<tr class="row-even"><td><p>GB-SWK</p></td>
+<td><p>Southwark</p></td>
+</tr>
+<tr class="row-odd"><td><p>GB-STS</p></td>
+<td><p>Staffordshire</p></td>
+</tr>
+<tr class="row-even"><td><p>GB-STT</p></td>
+<td><p>Stockton-on-Tees</p></td>
+</tr>
+<tr class="row-odd"><td><p>GB-STE</p></td>
+<td><p>Stoke-on-Trent</p></td>
+</tr>
+<tr class="row-even"><td><p>GB-SFK</p></td>
+<td><p>Suffolk</p></td>
+</tr>
+<tr class="row-odd"><td><p>GB-SRY</p></td>
+<td><p>Surrey</p></td>
+</tr>
+<tr class="row-even"><td><p>GB-STN</p></td>
+<td><p>Sutton</p></td>
+</tr>
+<tr class="row-odd"><td><p>GB-SWD</p></td>
+<td><p>Swindon</p></td>
+</tr>
+<tr class="row-even"><td><p>GB-TFW</p></td>
+<td><p>Telford and Wrekin</p></td>
+</tr>
+<tr class="row-odd"><td><p>GB-THR</p></td>
+<td><p>Thurrock</p></td>
+</tr>
+<tr class="row-even"><td><p>GB-TOB</p></td>
+<td><p>Torbay</p></td>
+</tr>
+<tr class="row-odd"><td><p>GB-TWH</p></td>
+<td><p>Tower Hamlets</p></td>
+</tr>
+<tr class="row-even"><td><p>GB-TAW</p></td>
+<td><p>Tyne and Wear</p></td>
+</tr>
+<tr class="row-odd"><td><p>GB-WFT</p></td>
+<td><p>Waltham Forest</p></td>
+</tr>
+<tr class="row-even"><td><p>GB-WND</p></td>
+<td><p>Wandsworth</p></td>
+</tr>
+<tr class="row-odd"><td><p>GB-WRT</p></td>
+<td><p>Warrington</p></td>
+</tr>
+<tr class="row-even"><td><p>GB-WAR</p></td>
+<td><p>Warwickshire</p></td>
+</tr>
+<tr class="row-odd"><td><p>GB-WM</p></td>
+<td><p>West Midlands</p></td>
+</tr>
+<tr class="row-even"><td><p>GB-WSX</p></td>
+<td><p>West Sussex</p></td>
+</tr>
+<tr class="row-odd"><td><p>GB-WY</p></td>
+<td><p>West Yorkshire</p></td>
+</tr>
+<tr class="row-even"><td><p>GB-WSM</p></td>
+<td><p>Westminster</p></td>
+</tr>
+<tr class="row-odd"><td><p>GB-WIL</p></td>
+<td><p>Wiltshire</p></td>
+</tr>
+<tr class="row-even"><td><p>GB-WOR</p></td>
+<td><p>Worcestershire</p></td>
+</tr>
+<tr class="row-odd"><td><p>GB-YOR</p></td>
+<td><p>York</p></td>
+</tr>
+<tr class="row-even"><td><p>GB-ANT</p></td>
+<td><p>Antrim</p></td>
+</tr>
+<tr class="row-odd"><td><p>GB-ARD</p></td>
+<td><p>Ards</p></td>
+</tr>
+<tr class="row-even"><td><p>GB-ARM</p></td>
+<td><p>Armagh</p></td>
+</tr>
+<tr class="row-odd"><td><p>GB-BLA</p></td>
+<td><p>Ballymena</p></td>
+</tr>
+<tr class="row-even"><td><p>GB-BLY</p></td>
+<td><p>Ballymoney</p></td>
+</tr>
+<tr class="row-odd"><td><p>GB-BNB</p></td>
+<td><p>Banbridge</p></td>
+</tr>
+<tr class="row-even"><td><p>GB-BFS</p></td>
+<td><p>Belfast</p></td>
+</tr>
+<tr class="row-odd"><td><p>GB-CKF</p></td>
+<td><p>Carrickfergus</p></td>
+</tr>
+<tr class="row-even"><td><p>GB-CSR</p></td>
+<td><p>Castlereagh</p></td>
+</tr>
+<tr class="row-odd"><td><p>GB-CLR</p></td>
+<td><p>Coleraine</p></td>
+</tr>
+<tr class="row-even"><td><p>GB-CKT</p></td>
+<td><p>Cookstown</p></td>
+</tr>
+<tr class="row-odd"><td><p>GB-CGV</p></td>
+<td><p>Craigavon</p></td>
+</tr>
+<tr class="row-even"><td><p>GB-DRY</p></td>
+<td><p>Derry</p></td>
+</tr>
+<tr class="row-odd"><td><p>GB-DOW</p></td>
+<td><p>Down</p></td>
+</tr>
+<tr class="row-even"><td><p>GB-DGN</p></td>
+<td><p>Dungannon</p></td>
+</tr>
+<tr class="row-odd"><td><p>GB-FER</p></td>
+<td><p>Fermanagh</p></td>
+</tr>
+<tr class="row-even"><td><p>GB-LRN</p></td>
+<td><p>Larne</p></td>
+</tr>
+<tr class="row-odd"><td><p>GB-LMV</p></td>
+<td><p>Limavady</p></td>
+</tr>
+<tr class="row-even"><td><p>GB-LSB</p></td>
+<td><p>Lisburn</p></td>
+</tr>
+<tr class="row-odd"><td><p>GB-MFT</p></td>
+<td><p>Magherafelt</p></td>
+</tr>
+<tr class="row-even"><td><p>GB-MYL</p></td>
+<td><p>Moyle</p></td>
+</tr>
+<tr class="row-odd"><td><p>GB-NYM</p></td>
+<td><p>Newry and Mourne</p></td>
+</tr>
+<tr class="row-even"><td><p>GB-NTA</p></td>
+<td><p>Newtownabbey</p></td>
+</tr>
+<tr class="row-odd"><td><p>GB-NDN</p></td>
+<td><p>North Down</p></td>
+</tr>
+<tr class="row-even"><td><p>GB-OMH</p></td>
+<td><p>Omagh</p></td>
+</tr>
+<tr class="row-odd"><td><p>GB-STB</p></td>
+<td><p>Strabane</p></td>
+</tr>
+<tr class="row-even"><td><p>GB-ABD</p></td>
+<td><p>Aberdeenshire</p></td>
+</tr>
+<tr class="row-odd"><td><p>GB-ABE</p></td>
+<td><p>Aberdeen</p></td>
+</tr>
+<tr class="row-even"><td><p>GB-ANS</p></td>
+<td><p>Angus</p></td>
+</tr>
+<tr class="row-odd"><td><p>GB-AGB</p></td>
+<td><p>Argyll and Bute</p></td>
+</tr>
+<tr class="row-even"><td><p>GB-CLK</p></td>
+<td><p>Clackmannanshire</p></td>
+</tr>
+<tr class="row-odd"><td><p>GB-DGY</p></td>
+<td><p>Dumfries and Galloway</p></td>
+</tr>
+<tr class="row-even"><td><p>GB-DND</p></td>
+<td><p>Dundee</p></td>
+</tr>
+<tr class="row-odd"><td><p>GB-EAY</p></td>
+<td><p>East Ayrshire</p></td>
+</tr>
+<tr class="row-even"><td><p>GB-EDU</p></td>
+<td><p>East Dunbartonshire</p></td>
+</tr>
+<tr class="row-odd"><td><p>GB-ELN</p></td>
+<td><p>East Lothian</p></td>
+</tr>
+<tr class="row-even"><td><p>GB-ERW</p></td>
+<td><p>East Renfrewshire</p></td>
+</tr>
+<tr class="row-odd"><td><p>GB-EDH</p></td>
+<td><p>Edinburgh</p></td>
+</tr>
+<tr class="row-even"><td><p>GB-ELS</p></td>
+<td><p>Eilean Siar</p></td>
+</tr>
+<tr class="row-odd"><td><p>GB-FAL</p></td>
+<td><p>Falkirk</p></td>
+</tr>
+<tr class="row-even"><td><p>GB-FIF</p></td>
+<td><p>Fife</p></td>
+</tr>
+<tr class="row-odd"><td><p>GB-GLG</p></td>
+<td><p>Glasgow</p></td>
+</tr>
+<tr class="row-even"><td><p>GB-HLD</p></td>
+<td><p>Highland</p></td>
+</tr>
+<tr class="row-odd"><td><p>GB-IVC</p></td>
+<td><p>Inverclyde</p></td>
+</tr>
+<tr class="row-even"><td><p>GB-MLN</p></td>
+<td><p>Midlothian</p></td>
+</tr>
+<tr class="row-odd"><td><p>GB-MRY</p></td>
+<td><p>Moray</p></td>
+</tr>
+<tr class="row-even"><td><p>GB-NAY</p></td>
+<td><p>North Ayrshire</p></td>
+</tr>
+<tr class="row-odd"><td><p>GB-NLK</p></td>
+<td><p>North Lanarkshire</p></td>
+</tr>
+<tr class="row-even"><td><p>GB-ORK</p></td>
+<td><p>Orkney Islands</p></td>
+</tr>
+<tr class="row-odd"><td><p>GB-PKN</p></td>
+<td><p>Perthshire and Kinross</p></td>
+</tr>
+<tr class="row-even"><td><p>GB-RFW</p></td>
+<td><p>Renfrewshire</p></td>
+</tr>
+<tr class="row-odd"><td><p>GB-SCB</p></td>
+<td><p>Scottish Borders</p></td>
+</tr>
+<tr class="row-even"><td><p>GB-ZET</p></td>
+<td><p>Shetland Islands</p></td>
+</tr>
+<tr class="row-odd"><td><p>GB-SAY</p></td>
+<td><p>South Ayrshire</p></td>
+</tr>
+<tr class="row-even"><td><p>GB-SLK</p></td>
+<td><p>South Lanarkshire</p></td>
+</tr>
+<tr class="row-odd"><td><p>GB-STG</p></td>
+<td><p>Stirling</p></td>
+</tr>
+<tr class="row-even"><td><p>GB-WDU</p></td>
+<td><p>West Dunbartonshire</p></td>
+</tr>
+<tr class="row-odd"><td><p>GB-WLN</p></td>
+<td><p>West Lothian</p></td>
+</tr>
+<tr class="row-even"><td><p>GB-AGY</p></td>
+<td><p>Anglesey</p></td>
+</tr>
+<tr class="row-odd"><td><p>GB-BGW</p></td>
+<td><p>Blaenau Gwent</p></td>
+</tr>
+<tr class="row-even"><td><p>GB-BGE</p></td>
+<td><p>Bridgend</p></td>
+</tr>
+<tr class="row-odd"><td><p>GB-CAY</p></td>
+<td><p>Caerphilly</p></td>
+</tr>
+<tr class="row-even"><td><p>GB-CRF</p></td>
+<td><p>Cardiff</p></td>
+</tr>
+<tr class="row-odd"><td><p>GB-CMN</p></td>
+<td><p>Carmarthenshire</p></td>
+</tr>
+<tr class="row-even"><td><p>GB-CGN</p></td>
+<td><p>Ceredigion</p></td>
+</tr>
+<tr class="row-odd"><td><p>GB-CWY</p></td>
+<td><p>Conwy</p></td>
+</tr>
+<tr class="row-even"><td><p>GB-DEN</p></td>
+<td><p>Denbighshire</p></td>
+</tr>
+<tr class="row-odd"><td><p>GB-FLN</p></td>
+<td><p>Flintshire</p></td>
+</tr>
+<tr class="row-even"><td><p>GB-GWN</p></td>
+<td><p>Gwynedd</p></td>
+</tr>
+<tr class="row-odd"><td><p>GB-MTY</p></td>
+<td><p>Merthyr Tydfil</p></td>
+</tr>
+<tr class="row-even"><td><p>GB-MON</p></td>
+<td><p>Monmouthshire</p></td>
+</tr>
+<tr class="row-odd"><td><p>GB-NTL</p></td>
+<td><p>Neath Port Talbot</p></td>
+</tr>
+<tr class="row-even"><td><p>GB-NWP</p></td>
+<td><p>Newport</p></td>
+</tr>
+<tr class="row-odd"><td><p>GB-PEM</p></td>
+<td><p>Pembrokeshire</p></td>
+</tr>
+<tr class="row-even"><td><p>GB-POW</p></td>
+<td><p>Powys</p></td>
+</tr>
+<tr class="row-odd"><td><p>GB-RCT</p></td>
+<td><p>Rhondda</p></td>
+</tr>
+<tr class="row-even"><td><p>GB-SWA</p></td>
+<td><p>Swansea</p></td>
+</tr>
+<tr class="row-odd"><td><p>GB-TOF</p></td>
+<td><p>Torfaen</p></td>
+</tr>
+<tr class="row-even"><td><p>GB-VGL</p></td>
+<td><p>Vale of Glamorgan</p></td>
+</tr>
+<tr class="row-odd"><td><p>GB-WRX</p></td>
+<td><p>Wrexham</p></td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li><p>Ukraine</p></li>
+</ul>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 17%" />
+<col style="width: 83%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>ISO</p></th>
+<th class="head"><p>Name of region</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>UA-71</p></td>
+<td><p>Cherkasy</p></td>
+</tr>
+<tr class="row-odd"><td><p>UA-74</p></td>
+<td><p>Chernihiv</p></td>
+</tr>
+<tr class="row-even"><td><p>UA-77</p></td>
+<td><p>Chernivtsi</p></td>
+</tr>
+<tr class="row-odd"><td><p>UA-43</p></td>
+<td><p>Crimea</p></td>
+</tr>
+<tr class="row-even"><td><p>UA-12</p></td>
+<td><p>Dnipropetrovs’k</p></td>
+</tr>
+<tr class="row-odd"><td><p>UA-14</p></td>
+<td><p>Donets’k</p></td>
+</tr>
+<tr class="row-even"><td><p>UA-26</p></td>
+<td><p>Ivano-Frankivs’k</p></td>
+</tr>
+<tr class="row-odd"><td><p>UA-63</p></td>
+<td><p>Kharkiv</p></td>
+</tr>
+<tr class="row-even"><td><p>UA-65</p></td>
+<td><p>Kherson</p></td>
+</tr>
+<tr class="row-odd"><td><p>UA-68</p></td>
+<td><p>Khmel’nyts’kyy</p></td>
+</tr>
+<tr class="row-even"><td><p>UA-30</p></td>
+<td><p>Kiev City</p></td>
+</tr>
+<tr class="row-odd"><td><p>UA-32</p></td>
+<td><p>Kiev</p></td>
+</tr>
+<tr class="row-even"><td><p>UA-35</p></td>
+<td><p>Kirovohrad</p></td>
+</tr>
+<tr class="row-odd"><td><p>UA-46</p></td>
+<td><p>L’viv</p></td>
+</tr>
+<tr class="row-even"><td><p>UA-09</p></td>
+<td><p>Luhans’k</p></td>
+</tr>
+<tr class="row-odd"><td><p>UA-48</p></td>
+<td><p>Mykolayiv</p></td>
+</tr>
+<tr class="row-even"><td><p>UA-51</p></td>
+<td><p>Odessa</p></td>
+</tr>
+<tr class="row-odd"><td><p>UA-53</p></td>
+<td><p>Poltava</p></td>
+</tr>
+<tr class="row-even"><td><p>UA-56</p></td>
+<td><p>Rivne</p></td>
+</tr>
+<tr class="row-odd"><td><p>UA-40</p></td>
+<td><p>Sevastopol’</p></td>
+</tr>
+<tr class="row-even"><td><p>UA-59</p></td>
+<td><p>Sumy</p></td>
+</tr>
+<tr class="row-odd"><td><p>UA-61</p></td>
+<td><p>Ternopil’</p></td>
+</tr>
+<tr class="row-even"><td><p>UA-21</p></td>
+<td><p>Transcarpathia</p></td>
+</tr>
+<tr class="row-odd"><td><p>UA-05</p></td>
+<td><p>Vinnytsya</p></td>
+</tr>
+<tr class="row-even"><td><p>UA-07</p></td>
+<td><p>Volyn</p></td>
+</tr>
+<tr class="row-odd"><td><p>UA-23</p></td>
+<td><p>Zaporizhzhya</p></td>
+</tr>
+<tr class="row-even"><td><p>UA-18</p></td>
+<td><p>Zhytomyr</p></td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li><p>Usa</p></li>
+</ul>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 17%" />
+<col style="width: 83%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>ISO</p></th>
+<th class="head"><p>Name of region</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>US-AL</p></td>
+<td><p>Alabama</p></td>
+</tr>
+<tr class="row-odd"><td><p>US-AK</p></td>
+<td><p>Alaska</p></td>
+</tr>
+<tr class="row-even"><td><p>US-AK</p></td>
+<td><p>Alaska</p></td>
+</tr>
+<tr class="row-odd"><td><p>US-AZ</p></td>
+<td><p>Arizona</p></td>
+</tr>
+<tr class="row-even"><td><p>US-AR</p></td>
+<td><p>Arkansas</p></td>
+</tr>
+<tr class="row-odd"><td><p>US-CA</p></td>
+<td><p>California</p></td>
+</tr>
+<tr class="row-even"><td><p>US-CO</p></td>
+<td><p>Colorado</p></td>
+</tr>
+<tr class="row-odd"><td><p>US-CT</p></td>
+<td><p>Connecticut</p></td>
+</tr>
+<tr class="row-even"><td><p>US-DE</p></td>
+<td><p>Delaware</p></td>
+</tr>
+<tr class="row-odd"><td><p>US-DC</p></td>
+<td><p>District of Columbia</p></td>
+</tr>
+<tr class="row-even"><td><p>US-FL</p></td>
+<td><p>Florida</p></td>
+</tr>
+<tr class="row-odd"><td><p>US-GA</p></td>
+<td><p>Georgia</p></td>
+</tr>
+<tr class="row-even"><td><p>US-HI</p></td>
+<td><p>Hawaii</p></td>
+</tr>
+<tr class="row-odd"><td><p>US-ID</p></td>
+<td><p>Idaho</p></td>
+</tr>
+<tr class="row-even"><td><p>US-IL</p></td>
+<td><p>Illinois</p></td>
+</tr>
+<tr class="row-odd"><td><p>US-IN</p></td>
+<td><p>Indiana</p></td>
+</tr>
+<tr class="row-even"><td><p>US-IA</p></td>
+<td><p>Iowa</p></td>
+</tr>
+<tr class="row-odd"><td><p>US-KS</p></td>
+<td><p>Kansas</p></td>
+</tr>
+<tr class="row-even"><td><p>US-KY</p></td>
+<td><p>Kentucky</p></td>
+</tr>
+<tr class="row-odd"><td><p>US-LA</p></td>
+<td><p>Louisiana</p></td>
+</tr>
+<tr class="row-even"><td><p>US-ME</p></td>
+<td><p>Maine</p></td>
+</tr>
+<tr class="row-odd"><td><p>US-MD</p></td>
+<td><p>Maryland</p></td>
+</tr>
+<tr class="row-even"><td><p>US-MA</p></td>
+<td><p>Massachusetts</p></td>
+</tr>
+<tr class="row-odd"><td><p>US-MI</p></td>
+<td><p>Michigan</p></td>
+</tr>
+<tr class="row-even"><td><p>US-MN</p></td>
+<td><p>Minnesota</p></td>
+</tr>
+<tr class="row-odd"><td><p>US-MS</p></td>
+<td><p>Mississippi</p></td>
+</tr>
+<tr class="row-even"><td><p>US-MO</p></td>
+<td><p>Missouri</p></td>
+</tr>
+<tr class="row-odd"><td><p>US-MT</p></td>
+<td><p>Montana</p></td>
+</tr>
+<tr class="row-even"><td><p>US-NE</p></td>
+<td><p>Nebraska</p></td>
+</tr>
+<tr class="row-odd"><td><p>US-NV</p></td>
+<td><p>Nevada</p></td>
+</tr>
+<tr class="row-even"><td><p>US-NH</p></td>
+<td><p>New Hampshire</p></td>
+</tr>
+<tr class="row-odd"><td><p>US-NJ</p></td>
+<td><p>New Jersey</p></td>
+</tr>
+<tr class="row-even"><td><p>US-NM</p></td>
+<td><p>New Mexico</p></td>
+</tr>
+<tr class="row-odd"><td><p>US-NY</p></td>
+<td><p>New York</p></td>
+</tr>
+<tr class="row-even"><td><p>US-NC</p></td>
+<td><p>North Carolina</p></td>
+</tr>
+<tr class="row-odd"><td><p>US-ND</p></td>
+<td><p>North Dakota</p></td>
+</tr>
+<tr class="row-even"><td><p>US-OH</p></td>
+<td><p>Ohio</p></td>
+</tr>
+<tr class="row-odd"><td><p>US-OK</p></td>
+<td><p>Oklahoma</p></td>
+</tr>
+<tr class="row-even"><td><p>US-OR</p></td>
+<td><p>Oregon</p></td>
+</tr>
+<tr class="row-odd"><td><p>US-PA</p></td>
+<td><p>Pennsylvania</p></td>
+</tr>
+<tr class="row-even"><td><p>US-RI</p></td>
+<td><p>Rhode Island</p></td>
+</tr>
+<tr class="row-odd"><td><p>US-SC</p></td>
+<td><p>South Carolina</p></td>
+</tr>
+<tr class="row-even"><td><p>US-SD</p></td>
+<td><p>South Dakota</p></td>
+</tr>
+<tr class="row-odd"><td><p>US-TN</p></td>
+<td><p>Tennessee</p></td>
+</tr>
+<tr class="row-even"><td><p>US-TX</p></td>
+<td><p>Texas</p></td>
+</tr>
+<tr class="row-odd"><td><p>US-UT</p></td>
+<td><p>Utah</p></td>
+</tr>
+<tr class="row-even"><td><p>US-VT</p></td>
+<td><p>Vermont</p></td>
+</tr>
+<tr class="row-odd"><td><p>US-VA</p></td>
+<td><p>Virginia</p></td>
+</tr>
+<tr class="row-even"><td><p>US-WA</p></td>
+<td><p>Washington</p></td>
+</tr>
+<tr class="row-odd"><td><p>US-WV</p></td>
+<td><p>West Virginia</p></td>
+</tr>
+<tr class="row-even"><td><p>US-WI</p></td>
+<td><p>Wisconsin</p></td>
+</tr>
+<tr class="row-odd"><td><p>US-WY</p></td>
+<td><p>Wyoming</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="need-to-add-a-new-country">
+<h2>Need to add a new Country?<a class="headerlink" href="#need-to-add-a-new-country" title="Permalink to this headline">¶</a></h2>
+<p>To add a new country in country map tools, we need to follow the following steps :</p>
+<ol class="arabic simple">
+<li><p>You need shapefiles which contain data of your map.
+You can get this file on this site: <a class="reference external" href="https://www.diva-gis.org/gdata">https://www.diva-gis.org/gdata</a></p></li>
+<li><p>You need to add ISO 3166-2 with column name ISO for all record in your file.
+It’s important because it’s a norm for mapping your data with geojson file</p></li>
+<li><p>You need to convert shapefile to geojson file.
+This action can make with ogr2ogr tools: <a class="reference external" href="https://www.gdal.org/ogr2ogr.html">https://www.gdal.org/ogr2ogr.html</a></p></li>
+<li><p>Put your geojson file in next folder : superset-frontend/src/visualizations/CountryMap/countries with the next name : nameofyourcountries.geojson</p></li>
+<li><p>You can to reduce size of geojson file on this site: <a class="reference external" href="https://mapshaper.org/">https://mapshaper.org/</a></p></li>
+<li><p>Go in file superset-frontend/src/explore/controls.jsx</p></li>
+<li><p>Add your country in component ‘select_country’
+Example :</p></li>
+</ol>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">select_country</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;SelectControl&#39;</span><span class="p">,</span>
+    <span class="nx">label</span><span class="o">:</span> <span class="s1">&#39;Country Name Type&#39;</span><span class="p">,</span>
+    <span class="k">default</span><span class="o">:</span> <span class="s1">&#39;France&#39;</span><span class="p">,</span>
+    <span class="nx">choices</span><span class="o">:</span> <span class="p">[</span>
+    <span class="s1">&#39;Belgium&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Brazil&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;China&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Egypt&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;France&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Germany&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Italy&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Japan&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Korea&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Morocco&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Netherlands&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Russia&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Singapore&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Spain&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Uk&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Usa&#39;</span><span class="p">,</span>
+    <span class="p">].</span><span class="nx">map</span><span class="p">(</span><span class="nx">s</span> <span class="p">=&gt;</span> <span class="p">[</span><span class="nx">s</span><span class="p">,</span> <span class="nx">s</span><span class="p">]),</span>
+    <span class="nx">description</span><span class="o">:</span> <span class="s1">&#39;The name of country that Superset should display&#39;</span><span class="p">,</span>
+<span class="p">},</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="videos.html" class="btn btn-neutral float-right" title="Videos" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="misc.html" class="btn btn-neutral float-left" title="Misc" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright Copyright © 2020 The Apache Software Foundation, Licensed under the Apache License, Version 2.0.
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
