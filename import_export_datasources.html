@@ -1,0 +1,317 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Importing and Exporting Datasources &mdash; Apache Superset  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="FAQ" href="faq.html" />
+    <link rel="prev" title="Videos" href="videos.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Apache Superset
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation &amp; Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="security.html">Security</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sqllab.html">SQL Lab</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gallery.html">Visualizations Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="druid.html">Druid</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="misc.html">Misc</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="visualization.html">Visualization Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="videos.html">Videos</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Importing and Exporting Datasources</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#exporting-datasources-to-yaml">Exporting Datasources to YAML</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#exporting-the-complete-supported-yaml-schema">Exporting the complete supported YAML schema</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#importing-datasources-from-yaml">Importing Datasources from YAML</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Apache Superset</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="misc.html">Misc</a> &raquo;</li>
+        
+      <li>Importing and Exporting Datasources</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="importing-and-exporting-datasources">
+<h1>Importing and Exporting Datasources<a class="headerlink" href="#importing-and-exporting-datasources" title="Permalink to this headline">¶</a></h1>
+<p>The superset cli allows you to import and export datasources from and to YAML.
+Datasources include both databases and druid clusters. The data is expected to be organized in the following hierarchy:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>.
+├──databases
+|  ├──database_1
+|  |  ├──table_1
+|  |  |  ├──columns
+|  |  |  |  ├──column_1
+|  |  |  |  ├──column_2
+|  |  |  |  └──... (more columns)
+|  |  |  └──metrics
+|  |  |     ├──metric_1
+|  |  |     ├──metric_2
+|  |  |     └──... (more metrics)
+|  |  └── ... (more tables)
+|  └── ... (more databases)
+└──druid_clusters
+   ├──cluster_1
+   |  ├──datasource_1
+   |  |  ├──columns
+   |  |  |  ├──column_1
+   |  |  |  ├──column_2
+   |  |  |  └──... (more columns)
+   |  |  └──metrics
+   |  |     ├──metric_1
+   |  |     ├──metric_2
+   |  |     └──... (more metrics)
+   |  └── ... (more datasources)
+   └── ... (more clusters)
+</pre></div>
+</div>
+<div class="section" id="exporting-datasources-to-yaml">
+<h2>Exporting Datasources to YAML<a class="headerlink" href="#exporting-datasources-to-yaml" title="Permalink to this headline">¶</a></h2>
+<p>You can print your current datasources to stdout by running:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">superset</span> <span class="n">export_datasources</span>
+</pre></div>
+</div>
+<p>To save your datasources to a file run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">superset</span> <span class="n">export_datasources</span> <span class="o">-</span><span class="n">f</span> <span class="o">&lt;</span><span class="n">filename</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>By default, default (null) values will be omitted. Use the <code class="docutils literal notranslate"><span class="pre">-d</span></code> flag to include them.
+If you want back references to be included (e.g. a column to include the table id
+it belongs to) use the <code class="docutils literal notranslate"><span class="pre">-b</span></code> flag.</p>
+<p>Alternatively, you can export datasources using the UI:</p>
+<ol class="arabic simple">
+<li><p>Open <strong>Sources</strong> -&gt; <strong>Databases</strong> to export all tables associated to a
+single or multiple databases. (<strong>Tables</strong> for one or more tables,
+<strong>Druid Clusters</strong> for clusters, <strong>Druid Datasources</strong> for datasources)</p></li>
+<li><p>Select the items you would like to export</p></li>
+<li><p>Click <strong>Actions</strong> -&gt; <strong>Export to YAML</strong></p></li>
+<li><p>If you want to import an item that you exported through the UI, you
+will need to nest it inside its parent element, e.g. a <cite>database</cite>
+needs to be nested under <cite>databases</cite> a <cite>table</cite> needs to be
+nested inside a <cite>database</cite> element.</p></li>
+</ol>
+</div>
+<div class="section" id="exporting-the-complete-supported-yaml-schema">
+<h2>Exporting the complete supported YAML schema<a class="headerlink" href="#exporting-the-complete-supported-yaml-schema" title="Permalink to this headline">¶</a></h2>
+<p>In order to obtain an exhaustive list of all fields you can import using the YAML import run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">superset</span> <span class="n">export_datasource_schema</span>
+</pre></div>
+</div>
+<p>Again, you can use the <code class="docutils literal notranslate"><span class="pre">-b</span></code> flag to include back references.</p>
+</div>
+<div class="section" id="importing-datasources-from-yaml">
+<h2>Importing Datasources from YAML<a class="headerlink" href="#importing-datasources-from-yaml" title="Permalink to this headline">¶</a></h2>
+<p>In order to import datasources from a YAML file(s), run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">superset</span> <span class="n">import_datasources</span> <span class="o">-</span><span class="n">p</span> <span class="o">&lt;</span><span class="n">path</span> <span class="ow">or</span> <span class="n">filename</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>If you supply a path all files ending with <code class="docutils literal notranslate"><span class="pre">*.yaml</span></code> or <code class="docutils literal notranslate"><span class="pre">*.yml</span></code> will be parsed.
+You can apply additional flags e.g.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">superset</span> <span class="n">import_datasources</span> <span class="o">-</span><span class="n">p</span> <span class="o">&lt;</span><span class="n">path</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">r</span>
+</pre></div>
+</div>
+<p>Will search the supplied path recursively.</p>
+<p>The sync flag <code class="docutils literal notranslate"><span class="pre">-s</span></code> takes parameters in order to sync the supplied elements with
+your file. Be careful this can delete the contents of your meta database. Example:</p>
+<blockquote>
+<div><p>superset import_datasources -p &lt;path / filename&gt; -s columns,metrics</p>
+</div></blockquote>
+<p>This will sync all <code class="docutils literal notranslate"><span class="pre">metrics</span></code> and <code class="docutils literal notranslate"><span class="pre">columns</span></code> for all datasources found in the
+<code class="docutils literal notranslate"><span class="pre">&lt;path</span> <span class="pre">/</span> <span class="pre">filename&gt;</span></code> in the Superset meta database. This means columns and metrics
+not specified in YAML will be deleted. If you would add <code class="docutils literal notranslate"><span class="pre">tables</span></code> to <code class="docutils literal notranslate"><span class="pre">columns,metrics</span></code>
+those would be synchronised as well.</p>
+<p>If you don’t supply the sync flag (<code class="docutils literal notranslate"><span class="pre">-s</span></code>) importing will only add and update (override) fields.
+E.g. you can add a <code class="docutils literal notranslate"><span class="pre">verbose_name</span></code> to the column <code class="docutils literal notranslate"><span class="pre">ds</span></code> in the table <code class="docutils literal notranslate"><span class="pre">random_time_series</span></code> from the example datasets
+by saving the following YAML to file and then running the <code class="docutils literal notranslate"><span class="pre">import_datasources</span></code> command.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">databases</span><span class="p">:</span>
+<span class="o">-</span> <span class="n">database_name</span><span class="p">:</span> <span class="n">main</span>
+  <span class="n">tables</span><span class="p">:</span>
+  <span class="o">-</span> <span class="n">table_name</span><span class="p">:</span> <span class="n">random_time_series</span>
+    <span class="n">columns</span><span class="p">:</span>
+    <span class="o">-</span> <span class="n">column_name</span><span class="p">:</span> <span class="n">ds</span>
+      <span class="n">verbose_name</span><span class="p">:</span> <span class="n">datetime</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="faq.html" class="btn btn-neutral float-right" title="FAQ" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="videos.html" class="btn btn-neutral float-left" title="Videos" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright Copyright © 2020 The Apache Software Foundation, Licensed under the Apache License, Version 2.0.
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

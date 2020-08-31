@@ -1,0 +1,436 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Apache Superset (incubating) &mdash; Apache Superset  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Installation &amp; Configuration" href="installation.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="#" class="icon icon-home"> Apache Superset
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation &amp; Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="security.html">Security</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sqllab.html">SQL Lab</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gallery.html">Visualizations Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="druid.html">Druid</a></li>
+<li class="toctree-l1"><a class="reference internal" href="misc.html">Misc</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">Apache Superset</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="#">Docs</a> &raquo;</li>
+        
+      <li>Apache Superset (incubating)</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <p><a class="reference external" href="http://www.apache.org/"><img alt="The Apache Software Foundation" src="_images/apache_feather.png" style="width: 7%;" /></a> <a class="reference internal" href="_images/s.png"><img alt="superset_img" src="_images/s.png" style="width: 25%;" /></a></p>
+<div class="section" id="apache-superset-incubating">
+<h1>Apache Superset (incubating)<a class="headerlink" href="#apache-superset-incubating" title="Permalink to this headline">¶</a></h1>
+<p>Apache Superset (incubating) is a modern, enterprise-ready business
+intelligence web application</p>
+<hr class="docutils" />
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p><strong>Disclaimer</strong>: Apache Superset is an effort undergoing incubation at The
+Apache Software Foundation (ASF), sponsored by the Apache Incubator.
+Incubation is required of all newly accepted projects until a further
+review indicates that the infrastructure, communications, and
+decision making process have stabilized in a manner consistent with
+other successful ASF projects. While incubation status is not
+necessarily a reflection of the completeness or stability of
+the code, it does indicate that the project has yet to be fully
+endorsed by the ASF.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Apache Superset, Superset, Apache, the Apache feather logo, and
+the Apache Superset project logo are either registered trademarks or
+trademarks of The Apache Software Foundation in the United States
+and other countries.</p>
+</div>
+<div class="section" id="superset-resources">
+<h2>Superset Resources<a class="headerlink" href="#superset-resources" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Versioned versions of this documentation: <a class="reference external" href="https://readthedocs.org/projects/apache-superset/">https://readthedocs.org/projects/apache-superset/</a></p></li>
+<li><p><a class="reference external" href="https://github.com/apache/incubator-superset">Superset’s Github</a>, note
+that <a class="reference external" href="https://github.com/apache/incubator-superset/issues">we use Github for issue tracking</a></p></li>
+<li><p>Superset’s
+<a class="reference external" href="https://github.com/apache/incubator-superset/blob/master/CONTRIBUTING.md">contribution guidelines</a>
+and
+<a class="reference external" href="https://github.com/apache/incubator-superset/blob/master/CODE_OF_CONDUCT.md">code of conduct</a>
+on Github.</p></li>
+<li><p>Our <a class="reference external" href="https://lists.apache.org/list.html?dev&#64;superset.apache.org">mailing list archives</a>.
+To subscribe, send an email to <code class="docutils literal notranslate"><span class="pre">dev-subscribe&#64;superset.apache.org</span></code></p></li>
+<li><p><a class="reference external" href="https://join.slack.com/t/apache-superset/shared_invite/enQtNDMxMDY5NjM4MDU0LWJmOTcxYjlhZTRhYmEyYTMzOWYxOWEwMjcwZDZiNWRiNDY2NDUwNzcwMDFhNzE1ZmMxZTZlZWY0ZTQ2MzMyNTU">Join our Slack</a></p></li>
+</ul>
+</div>
+<div class="section" id="apache-software-foundation-resources">
+<h2>Apache Software Foundation Resources<a class="headerlink" href="#apache-software-foundation-resources" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="http://www.apache.org">The Apache Software Foundation Website</a></p></li>
+<li><p><a class="reference external" href="http://www.apache.org/events/current-event">Current Events</a></p></li>
+<li><p><a class="reference external" href="https://www.apache.org/licenses/">License</a></p></li>
+<li><p><a class="reference external" href="https://www.apache.org/foundation/thanks.html">Thanks</a> to the ASF’s sponsors</p></li>
+<li><p><a class="reference external" href="http://www.apache.org/foundation/sponsorship.html">Sponsor Apache!</a></p></li>
+</ul>
+</div>
+<div class="section" id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="features">
+<h3>Features<a class="headerlink" href="#features" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>A rich set of data visualizations</p></li>
+<li><p>An easy-to-use interface for exploring and visualizing data</p></li>
+<li><p>Create and share dashboards</p></li>
+<li><p>Enterprise-ready authentication with integration with major authentication
+providers (database, OpenID, LDAP, OAuth &amp; REMOTE_USER through
+Flask AppBuilder)</p></li>
+<li><p>An extensible, high-granularity security/permission model allowing
+intricate rules on who can access individual features and the dataset</p></li>
+<li><p>A simple semantic layer, allowing users to control how data sources are
+displayed in the UI by defining which fields should show up in which
+drop-down and which aggregation and function metrics are made available
+to the user</p></li>
+<li><p>Integration with most SQL-speaking RDBMS through SQLAlchemy</p></li>
+<li><p>Deep integration with Druid.io</p></li>
+</ul>
+</div>
+<div class="section" id="databases">
+<h3>Databases<a class="headerlink" href="#databases" title="Permalink to this headline">¶</a></h3>
+<p>The following RDBMS are currently supported:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://aws.amazon.com/athena/">Amazon Athena</a></p></li>
+<li><p><a class="reference external" href="https://aws.amazon.com/redshift/">Amazon Redshift</a></p></li>
+<li><p><a class="reference external" href="https://drill.apache.org/">Apache Drill</a></p></li>
+<li><p><a class="reference external" href="http://druid.io/">Apache Druid</a></p></li>
+<li><p><a class="reference external" href="https://hive.apache.org/">Apache Hive</a></p></li>
+<li><p><a class="reference external" href="https://impala.apache.org/">Apache Impala</a></p></li>
+<li><p><a class="reference external" href="http://kylin.apache.org/">Apache Kylin</a></p></li>
+<li><p><a class="reference external" href="https://pinot.incubator.apache.org/">Apache Pinot</a></p></li>
+<li><p><a class="reference external" href="https://spark.apache.org/sql/">Apache Spark SQL</a></p></li>
+<li><p><a class="reference external" href="https://cloud.google.com/bigquery/">BigQuery</a></p></li>
+<li><p><a class="reference external" href="https://clickhouse.tech/">ClickHouse</a></p></li>
+<li><p><a class="reference external" href="https://www.cockroachlabs.com/">CockroachDB</a></p></li>
+<li><p><a class="reference external" href="https://dremio.com/">Dremio</a></p></li>
+<li><p><a class="reference external" href="https://www.elastic.co/elasticsearch/">Elasticsearch</a></p></li>
+<li><p><a class="reference external" href="https://www.exasol.com/">Exasol</a></p></li>
+<li><p><a class="reference external" href="https://www.google.com/sheets/about/">Google Sheets</a></p></li>
+<li><p><a class="reference external" href="https://greenplum.org/">Greenplum</a></p></li>
+<li><p><a class="reference external" href="https://www.ibm.com/analytics/db2/">IBM Db2</a></p></li>
+<li><p><a class="reference external" href="https://www.mysql.com/">MySQL</a></p></li>
+<li><p><a class="reference external" href="https://www.oracle.com/database/">Oracle</a></p></li>
+<li><p><a class="reference external" href="https://www.postgresql.org/">PostgreSQL</a></p></li>
+<li><p><a class="reference external" href="http://prestodb.github.io/">Presto</a></p></li>
+<li><p><a class="reference external" href="https://www.snowflake.com/">Snowflake</a></p></li>
+<li><p><a class="reference external" href="https://www.sqlite.org/">SQLite</a></p></li>
+<li><p><a class="reference external" href="https://www.microsoft.com/en-us/sql-server/">SQL Server</a></p></li>
+<li><p><a class="reference external" href="https://www.teradata.com/">Teradata</a></p></li>
+<li><p><a class="reference external" href="https://www.vertica.com/">Vertica</a></p></li>
+<li><p><a class="reference external" href="https://www.sap.com/products/hana.html">Hana</a></p></li>
+</ul>
+<p>Other database engines with a proper DB-API driver and SQLAlchemy dialect should
+be supported as well.</p>
+</div>
+<div class="section" id="screenshots">
+<h3>Screenshots<a class="headerlink" href="#screenshots" title="Permalink to this headline">¶</a></h3>
+<img alt="_images/bank_dash.png" src="_images/bank_dash.png" />
+<hr class="docutils" />
+<img alt="_images/explore.png" src="_images/explore.png" />
+<hr class="docutils" />
+<img alt="_images/sqllab.png" src="_images/sqllab.png" />
+<hr class="docutils" />
+<img alt="_images/deckgl_dash.png" src="_images/deckgl_dash.png" />
+</div>
+<hr class="docutils" />
+<div class="section" id="contents">
+<h3>Contents<a class="headerlink" href="#contents" title="Permalink to this headline">¶</a></h3>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation &amp; Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#getting-started">Getting Started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#cloud-native">Cloud-native!</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#start-with-docker">Start with Docker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#os-dependencies">OS dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#python-virtualenv">Python virtualenv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#python-s-setup-tools-and-pip">Python’s setup tools and pip</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#superset-installation-and-initialization">Superset installation and initialization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#a-proper-wsgi-http-server">A proper WSGI HTTP Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#flask-appbuilder-permissions">Flask-AppBuilder Permissions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#configuration-behind-a-load-balancer">Configuration behind a load balancer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#configuration">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#caching">Caching</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#caching-thumbnails">Caching Thumbnails</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#database-dependencies">Database dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#postgresql">PostgreSQL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#hana">Hana</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#aws-athena">(AWS) Athena</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#google-bigquery">(Google) BigQuery</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#elasticsearch">Elasticsearch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#snowflake">Snowflake</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#teradata">Teradata</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#apache-drill">Apache Drill</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#deeper-sqlalchemy-integration">Deeper SQLAlchemy integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#schemas-postgres-redshift">Schemas (Postgres &amp; Redshift)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#external-password-store-for-sqlalchemy-connections">External Password store for SQLAlchemy connections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#ssl-access-to-databases">SSL Access to databases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#druid">Druid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#dremio">Dremio</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#presto">Presto</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#exasol">Exasol</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#cors">CORS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#domain-sharding">Domain Sharding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#middleware">Middleware</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#event-logging">Event Logging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#upgrading">Upgrading</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#celery-tasks">Celery Tasks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#email-reports">Email Reports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#sql-lab">SQL Lab</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#celery-flower">Celery Flower</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#building-from-source">Building from source</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#blueprints">Blueprints</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#statsd-logging">StatsD logging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#install-superset-with-helm-in-kubernetes">Install Superset with helm in Kubernetes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#custom-oauth2-configuration">Custom OAuth2 configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#feature-flags">Feature Flags</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#sip-15">SIP-15</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="admintutorial.html">Creating your first dashboard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usertutorial.html">Exploring data with Apache Superset</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="security.html">Security</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="security.html#provided-roles">Provided Roles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="security.html#managing-gamma-per-data-source-access">Managing Gamma per data source access</a></li>
+<li class="toctree-l2"><a class="reference internal" href="security.html#customizing">Customizing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="sqllab.html">SQL Lab</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="sqllab.html#feature-overview">Feature Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sqllab.html#extra-features">Extra features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sqllab.html#templating-with-jinja">Templating with Jinja</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="gallery.html">Visualizations Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="druid.html">Druid</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="druid.html#aggregations">Aggregations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="druid.html#post-aggregations">Post-Aggregations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="druid.html#unsupported-features">Unsupported Features</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="misc.html">Misc</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="visualization.html">Visualization Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="videos.html">Videos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="import_export_datasources.html">Importing and Exporting Datasources</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#can-i-query-join-multiple-tables-at-one-time">Can I query/join multiple tables at one time?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#how-big-can-my-data-source-be">How BIG can my data source be?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#how-do-i-create-my-own-visualization">How do I create my own visualization?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#can-i-upload-and-visualize-csv-data">Can I upload and visualize csv data?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#why-are-my-queries-timing-out">Why are my queries timing out?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#why-is-the-map-not-visible-in-the-mapbox-visualization">Why is the map not visible in the mapbox visualization?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#how-to-add-dynamic-filters-to-a-dashboard">How to add dynamic filters to a dashboard?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#how-to-limit-the-timed-refresh-on-a-dashboard">How to limit the timed refresh on a dashboard?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#why-does-flask-fab-or-superset-freezed-hung-not-responding-when-started-my-home-directory-is-nfs-mounted">Why does ‘flask fab’ or superset freezed/hung/not responding when started (my home directory is NFS mounted)?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#what-if-the-table-schema-changed">What if the table schema changed?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#how-do-i-go-about-developing-a-new-visualization-type">How do I go about developing a new visualization type?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#what-database-engine-can-i-use-as-a-backend-for-superset">What database engine can I use as a backend for Superset?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#how-can-i-configure-oauth-authentication-and-authorization">How can i configure OAuth authentication and authorization?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#how-can-i-set-a-default-filter-on-my-dashboard">How can I set a default filter on my dashboard?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#how-do-i-get-superset-to-refresh-the-schema-of-my-table">How do I get Superset to refresh the schema of my table?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#is-there-a-way-to-force-the-use-specific-colors">Is there a way to force the use specific colors?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#does-superset-work-with-insert-database-engine-here">Does Superset work with [insert database engine here]?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#does-superset-offer-a-public-api">Does Superset offer a public API?</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="indices-and-tables">
+<h3>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="installation.html" class="btn btn-neutral float-right" title="Installation &amp; Configuration" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright Copyright © 2020 The Apache Software Foundation, Licensed under the Apache License, Version 2.0.
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
