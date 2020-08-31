@@ -1,0 +1,100 @@
+---
+name: Creating Your First Chart
+menu: Installation
+index: 3
+version: 1
+---
+
+Creating Your First Chart
+-------------
+
+The most important part of a chart is to understand your data and what you would like to convey. Think about a chart as an answer to your questions. For example, a familiar topic is Covid-19 cases in the U.S. — [this blog](https://preset.io/blog/2020-03-12-corona-virus/) will help you to use this specific source data and process it to create an effective visualization.
+
+The data available in my datasource for Covid-19 cases includes the following:
+
+<img src="/images/first-chart-fields.png" />
+
+
+You can use this data to formulate questions that you would like to answer — Superset provides the ability to answer those questions in graphical or text form. Some examples of questions based on U.S. data are:
+
+  
+-   What are the top 10 states with the most confirmed cases?
+    
+-   What are the top 10 states with the most confirmed deaths?
+    
+-   Has the number of confirmed cases declined?
+    
+-   Has the number of deaths declined?
+    
+-   Is there a correlation between confirmed cases and deaths?
+    
+-   I would like to see geographical cases reported in my State to see if any are reported in my town.
+    
+-   Can I see the details of the latest reported cases?
+    
+-   And more..
+    
+  
+
+Once you know the questions, then you can categorize them in order to determine the best chart to use to answer the questions.
+
+
+### Data Composition Questions
+
+ Let’s take, for example, questions 1 and 2: “What are the 10 states with the most confirmed cases?” and “What are the 10 states with the most confirmed deaths?”  These are composition questions that are designed to show how data is distributed.
+
+In Superset, examples of charts used to answer composition questions include: Bar Chart, Word Cloud, Pie Chart, and Treemaps (just to name a few). Once you build one chart, you can change the visualization type to see which one fits your goal specifically.
+
+Let’s answer the question: What are the top 10 states with the most confirmed cases?
+
+Start by selecting New and then select Chart.
+
+<img src="/images/first-chart-newChart.png" />
+
+In the Create a new chart screen, select a data source and a visualization type.
+
+<img src="/images/first-chart-dataSource.png" />
+
+<div class="ui info message">This information can be changed in the Chart screen too. </div>
+
+In the Chart screen select things that you would like in your chart. For example:
+
+<img src="/images/first-chart-chartOption.png" />
+
+
+With this information, the chart that Superset will process looks like this:
+
+<img src="/images/first-chart-plainChart.png" />
+
+This chart is difficult to read because there are too many values in the series. To reduce the series to a Top 10—as the question suggests—change the Row Limit to 10.
+
+In the Customize tab you can work on your chart’s appearance. For example:
+
+<img src="/images/first-chart-customizeChart.png" />
+
+After the above customizations are applied, the chart looks as follows:
+
+<img src="/images/first-chart-barComplete.png" />
+
+To try a different visualization type, just change the type and all the common fields will be preserved. For example, change the Visualization Type to Pie Chart — if this is the only change we make, the chart looks like this:
+
+<img src="/images/first-chart-pie.png" />
+
+Or you can try a Treemap as your visualization type:
+
+<img src="/images/first-chart-tree.png" />
+
+Or simply select a Table for your visualization type:
+
+<img src="/images/first-chart-table.png" />
+  
+After you find a visualization that satisfies your needs, save the chart by selecting Save at the top of the Chart screen and then select the most appropriate saving option.
+
+<img src="/images/first-chart-save.png" />
+  
+
+The Chart Name is the same as the Chart Title, so if you save your chart with a different name it will change the Chart Title accordingly. You have the option to add the chart to an existing dashboard or adding it to a new dashboard.
+
+Click 'Next' to explore how to share a chart or dashboard. 
+
+   
