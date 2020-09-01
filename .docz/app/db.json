@@ -1,0 +1,759 @@
+{
+  "config": {
+    "title": "superset doc",
+    "description": "The landing page and doc size for getting started with Apache Superset",
+    "menu": [
+      "Installation",
+      "Database Connectors",
+      "Build Your Own Viz Plugins",
+      "Best Practices"
+    ],
+    "version": "0.1.0",
+    "repository": "https://github.com/gatsbyjs/gatsby-starter-default",
+    "native": false,
+    "themeConfig": {},
+    "separator": "-",
+    "base": "/docs",
+    "ignore": [
+      "**/blog/**",
+      "readme.md"
+    ],
+    "files": [
+      "src/**/*.{md,markdown,mdx}"
+    ]
+  },
+  "entries": [
+    {
+      "key": "src/pages/docs/contributing.mdx",
+      "value": {
+        "title": "Contribution Guide",
+        "id": "4324b01362559c9ce63b90fcc468df54",
+        "filepath": "src/pages/docs/contributing.mdx",
+        "fullpath": "/Users/pkd/Desktop/incubator-superset-site/src/pages/docs/contributing.mdx",
+        "link": "https://github.com/gatsbyjs/gatsby-starter-default/edit/master/src/pages/docs/contributing.mdx",
+        "hidden": false,
+        "slug": "src-pages-docs-contributing",
+        "route": "/src-pages-docs-contributing",
+        "name": "Contributing",
+        "menu": "",
+        "headings": [
+          {
+            "slug": "contributing-to-superset",
+            "depth": 2,
+            "value": "Contributing to Superset"
+          }
+        ]
+      }
+    },
+    {
+      "key": "src/pages/docs/learning-resources.mdx",
+      "value": {
+        "title": "Learning Resources",
+        "id": "39428cd604a1487944b169f31d163061",
+        "filepath": "src/pages/docs/learning-resources.mdx",
+        "fullpath": "/Users/pkd/Desktop/incubator-superset-site/src/pages/docs/learning-resources.mdx",
+        "link": "https://github.com/gatsbyjs/gatsby-starter-default/edit/master/src/pages/docs/learning-resources.mdx",
+        "hidden": false,
+        "slug": "src-pages-docs-learning-resources",
+        "route": "/src-pages-docs-learning-resources",
+        "name": "Learning resources",
+        "menu": "",
+        "headings": [
+          {
+            "slug": "learning-resources-from-around-the-internet",
+            "depth": 2,
+            "value": "Learning Resources from around the Internet"
+          },
+          {
+            "slug": "resources",
+            "depth": 3,
+            "value": "Resources"
+          },
+          {
+            "slug": "visualization-plugins",
+            "depth": 3,
+            "value": "Visualization Plugins"
+          }
+        ]
+      }
+    },
+    {
+      "key": "src/pages/docs/roadmap.mdx",
+      "value": {
+        "title": "Roadmap",
+        "id": "20cb264ffdc3a0cf5d61e1c792fc95f2",
+        "filepath": "src/pages/docs/roadmap.mdx",
+        "fullpath": "/Users/pkd/Desktop/incubator-superset-site/src/pages/docs/roadmap.mdx",
+        "link": "https://github.com/gatsbyjs/gatsby-starter-default/edit/master/src/pages/docs/roadmap.mdx",
+        "hidden": false,
+        "slug": "src-pages-docs-roadmap",
+        "route": "/src-pages-docs-roadmap",
+        "name": "Roadmap",
+        "menu": "",
+        "headings": [
+          {
+            "slug": "roadmap",
+            "depth": 2,
+            "value": "Roadmap"
+          }
+        ]
+      }
+    },
+    {
+      "key": "src/pages/docs/security.mdx",
+      "value": {
+        "title": "Security",
+        "id": "eb7f8af9d5ebbeeeb1b1477d4fe41f02",
+        "filepath": "src/pages/docs/security.mdx",
+        "fullpath": "/Users/pkd/Desktop/incubator-superset-site/src/pages/docs/security.mdx",
+        "link": "https://github.com/gatsbyjs/gatsby-starter-default/edit/master/src/pages/docs/security.mdx",
+        "hidden": false,
+        "slug": "src-pages-docs-security",
+        "route": "/src-pages-docs-security",
+        "name": "Security",
+        "menu": "",
+        "headings": [
+          {
+            "slug": "security",
+            "depth": 2,
+            "value": "Security"
+          }
+        ]
+      }
+    },
+    {
+      "key": "src/pages/docs/Best Practices/index.mdx",
+      "value": {
+        "name": "Tips and Tricks",
+        "menu": "Best Practices",
+        "index": 0,
+        "version": 1,
+        "id": "44e82914388cdfe6cc17669b41508ef6",
+        "filepath": "src/pages/docs/Best Practices/index.mdx",
+        "fullpath": "/Users/pkd/Desktop/incubator-superset-site/src/pages/docs/Best Practices/index.mdx",
+        "link": "https://github.com/gatsbyjs/gatsby-starter-default/edit/master/src/pages/docs/Best Practices/index.mdx",
+        "hidden": false,
+        "slug": "src-pages-docs-best-practices-index",
+        "route": "/src-pages-docs-best-practices-index",
+        "headings": [
+          {
+            "slug": "tips-and-tricks",
+            "depth": 2,
+            "value": "Tips and Tricks"
+          },
+          {
+            "slug": "prevent-applying-filters-in-some-of-the-charts",
+            "depth": 2,
+            "value": "Prevent applying filters in some of the charts."
+          }
+        ]
+      }
+    },
+    {
+      "key": "src/pages/docs/Build Your Own Viz Plugins/index.mdx",
+      "value": {
+        "name": "Tutorial",
+        "menu": "Build Your Own Viz Plugins",
+        "index": 0,
+        "version": 1,
+        "id": "c9a9370e95be42ddc6b1211882b96bb7",
+        "filepath": "src/pages/docs/Build Your Own Viz Plugins/index.mdx",
+        "fullpath": "/Users/pkd/Desktop/incubator-superset-site/src/pages/docs/Build Your Own Viz Plugins/index.mdx",
+        "link": "https://github.com/gatsbyjs/gatsby-starter-default/edit/master/src/pages/docs/Build Your Own Viz Plugins/index.mdx",
+        "hidden": false,
+        "slug": "src-pages-docs-build-your-own-viz-plugins-index",
+        "route": "/src-pages-docs-build-your-own-viz-plugins-index",
+        "headings": [
+          {
+            "slug": "build-your-own-viz-plugins",
+            "depth": 2,
+            "value": "Build Your Own Viz Plugins"
+          },
+          {
+            "slug": "getting-set-up",
+            "depth": 2,
+            "value": "Getting Set Up"
+          },
+          {
+            "slug": "install-yeoman-and-the-superset-package-generator",
+            "depth": 3,
+            "value": "Install Yeoman and the Superset Package Generator"
+          },
+          {
+            "slug": "install-superset",
+            "depth": 3,
+            "value": "Install Superset"
+          },
+          {
+            "slug": "install-superset-ui",
+            "depth": 3,
+            "value": "Install Superset-UI"
+          },
+          {
+            "slug": "build-your-hello-world",
+            "depth": 2,
+            "value": "Build Your \"Hello, World\""
+          },
+          {
+            "slug": "write-generate-some-code",
+            "depth": 3,
+            "value": "Write   generate  some code!"
+          },
+          {
+            "slug": "add-your-plugin-to-superset-with-npm-link",
+            "depth": 3,
+            "value": "Add your Plugin to Superset (with NPM Link)"
+          },
+          {
+            "slug": "see-it-with-your-own-eyes",
+            "depth": 3,
+            "value": "See it with your own eyes!"
+          },
+          {
+            "slug": "make-it-your-own",
+            "depth": 2,
+            "value": "Make it Your Own"
+          },
+          {
+            "slug": "read-the-comments-and-docs",
+            "depth": 3,
+            "value": "Read the comments and docs"
+          },
+          {
+            "slug": "take-control",
+            "depth": 3,
+            "value": "Take control!"
+          },
+          {
+            "slug": "build-the-perfect-query",
+            "depth": 3,
+            "value": "Build the perfect query"
+          },
+          {
+            "slug": "style-with-emotion",
+            "depth": 3,
+            "value": "Style with Emotion"
+          },
+          {
+            "slug": "give-it-a-thumbnail",
+            "depth": 3,
+            "value": "Give it a thumbnail"
+          },
+          {
+            "slug": "build-it",
+            "depth": 3,
+            "value": "Build it!"
+          },
+          {
+            "slug": "test-early-test-often",
+            "depth": 3,
+            "value": "Test early, test often!"
+          }
+        ]
+      }
+    },
+    {
+      "key": "src/pages/docs/Database Connectors/dremio.mdx",
+      "value": {
+        "name": "Dremio",
+        "menu": "Database Connectors",
+        "index": 6,
+        "version": 1,
+        "id": "0b9a3620c5b9893a7200cedefeff73a1",
+        "filepath": "src/pages/docs/Database Connectors/dremio.mdx",
+        "fullpath": "/Users/pkd/Desktop/incubator-superset-site/src/pages/docs/Database Connectors/dremio.mdx",
+        "link": "https://github.com/gatsbyjs/gatsby-starter-default/edit/master/src/pages/docs/Database Connectors/dremio.mdx",
+        "hidden": false,
+        "slug": "src-pages-docs-database-connectors-dremio",
+        "route": "/src-pages-docs-database-connectors-dremio",
+        "headings": [
+          {
+            "slug": "dremio",
+            "depth": 2,
+            "value": "Dremio"
+          }
+        ]
+      }
+    },
+    {
+      "key": "src/pages/docs/Database Connectors/drill.mdx",
+      "value": {
+        "name": "Apache Drill",
+        "menu": "Database Connectors",
+        "index": 5,
+        "version": 1,
+        "id": "9e64397c8d3b7bb935c9d063b305af0c",
+        "filepath": "src/pages/docs/Database Connectors/drill.mdx",
+        "fullpath": "/Users/pkd/Desktop/incubator-superset-site/src/pages/docs/Database Connectors/drill.mdx",
+        "link": "https://github.com/gatsbyjs/gatsby-starter-default/edit/master/src/pages/docs/Database Connectors/drill.mdx",
+        "hidden": false,
+        "slug": "src-pages-docs-database-connectors-drill",
+        "route": "/src-pages-docs-database-connectors-drill",
+        "headings": [
+          {
+            "slug": "apache-drill",
+            "depth": 2,
+            "value": "Apache Drill"
+          }
+        ]
+      }
+    },
+    {
+      "key": "src/pages/docs/Database Connectors/druid.mdx",
+      "value": {
+        "name": "Apache Druid",
+        "menu": "Database Connectors",
+        "index": 7,
+        "version": 1,
+        "id": "5c2d772f9efe603b643c383289ee39e8",
+        "filepath": "src/pages/docs/Database Connectors/druid.mdx",
+        "fullpath": "/Users/pkd/Desktop/incubator-superset-site/src/pages/docs/Database Connectors/druid.mdx",
+        "link": "https://github.com/gatsbyjs/gatsby-starter-default/edit/master/src/pages/docs/Database Connectors/druid.mdx",
+        "hidden": false,
+        "slug": "src-pages-docs-database-connectors-druid",
+        "route": "/src-pages-docs-database-connectors-druid",
+        "headings": [
+          {
+            "slug": "apache-druid",
+            "depth": 2,
+            "value": "Apache Druid"
+          }
+        ]
+      }
+    },
+    {
+      "key": "src/pages/docs/Database Connectors/elasticsearch.mdx",
+      "value": {
+        "name": "Elasticsearch",
+        "menu": "Database Connectors",
+        "index": 2,
+        "version": 1,
+        "id": "f55544fc08f21df7d04749a6c62fb2e5",
+        "filepath": "src/pages/docs/Database Connectors/elasticsearch.mdx",
+        "fullpath": "/Users/pkd/Desktop/incubator-superset-site/src/pages/docs/Database Connectors/elasticsearch.mdx",
+        "link": "https://github.com/gatsbyjs/gatsby-starter-default/edit/master/src/pages/docs/Database Connectors/elasticsearch.mdx",
+        "hidden": false,
+        "slug": "src-pages-docs-database-connectors-elasticsearch",
+        "route": "/src-pages-docs-database-connectors-elasticsearch",
+        "headings": [
+          {
+            "slug": "elasticsearch",
+            "depth": 2,
+            "value": "Elasticsearch"
+          }
+        ]
+      }
+    },
+    {
+      "key": "src/pages/docs/Database Connectors/google-bigquery.mdx",
+      "value": {
+        "name": "Google BigQuery",
+        "menu": "Database Connectors",
+        "index": 1,
+        "version": 1,
+        "id": "df0f4e082081abc120d648180a690678",
+        "filepath": "src/pages/docs/Database Connectors/google-bigquery.mdx",
+        "fullpath": "/Users/pkd/Desktop/incubator-superset-site/src/pages/docs/Database Connectors/google-bigquery.mdx",
+        "link": "https://github.com/gatsbyjs/gatsby-starter-default/edit/master/src/pages/docs/Database Connectors/google-bigquery.mdx",
+        "hidden": false,
+        "slug": "src-pages-docs-database-connectors-google-bigquery",
+        "route": "/src-pages-docs-database-connectors-google-bigquery",
+        "headings": [
+          {
+            "slug": "google-bigquery",
+            "depth": 2,
+            "value": "Google BigQuery"
+          }
+        ]
+      }
+    },
+    {
+      "key": "src/pages/docs/Database Connectors/index.mdx",
+      "value": {
+        "name": "AWS Athena",
+        "menu": "Database Connectors",
+        "index": 0,
+        "version": 1,
+        "id": "1ca2db3a50f8c3196267a746c82c0045",
+        "filepath": "src/pages/docs/Database Connectors/index.mdx",
+        "fullpath": "/Users/pkd/Desktop/incubator-superset-site/src/pages/docs/Database Connectors/index.mdx",
+        "link": "https://github.com/gatsbyjs/gatsby-starter-default/edit/master/src/pages/docs/Database Connectors/index.mdx",
+        "hidden": false,
+        "slug": "src-pages-docs-database-connectors-index",
+        "route": "/src-pages-docs-database-connectors-index",
+        "headings": [
+          {
+            "slug": "aws-athena",
+            "depth": 2,
+            "value": "AWS Athena"
+          }
+        ]
+      }
+    },
+    {
+      "key": "src/pages/docs/Database Connectors/mysql.mdx",
+      "value": {
+        "name": "MySQL",
+        "menu": "Database Connectors",
+        "index": 8,
+        "version": 1,
+        "id": "d4ce90d5a9f3716ed7aef2d081ba368e",
+        "filepath": "src/pages/docs/Database Connectors/mysql.mdx",
+        "fullpath": "/Users/pkd/Desktop/incubator-superset-site/src/pages/docs/Database Connectors/mysql.mdx",
+        "link": "https://github.com/gatsbyjs/gatsby-starter-default/edit/master/src/pages/docs/Database Connectors/mysql.mdx",
+        "hidden": false,
+        "slug": "src-pages-docs-database-connectors-mysql",
+        "route": "/src-pages-docs-database-connectors-mysql",
+        "headings": [
+          {
+            "slug": "mysql",
+            "depth": 2,
+            "value": "MySQL"
+          }
+        ]
+      }
+    },
+    {
+      "key": "src/pages/docs/Database Connectors/postgres.mdx",
+      "value": {
+        "name": "Postgres",
+        "menu": "Database Connectors",
+        "index": 9,
+        "version": 1,
+        "id": "bfb1e84a6913df13c028ddcaf90f0d5e",
+        "filepath": "src/pages/docs/Database Connectors/postgres.mdx",
+        "fullpath": "/Users/pkd/Desktop/incubator-superset-site/src/pages/docs/Database Connectors/postgres.mdx",
+        "link": "https://github.com/gatsbyjs/gatsby-starter-default/edit/master/src/pages/docs/Database Connectors/postgres.mdx",
+        "hidden": false,
+        "slug": "src-pages-docs-database-connectors-postgres",
+        "route": "/src-pages-docs-database-connectors-postgres",
+        "headings": [
+          {
+            "slug": "postgres",
+            "depth": 2,
+            "value": "Postgres"
+          }
+        ]
+      }
+    },
+    {
+      "key": "src/pages/docs/Database Connectors/presto.mdx",
+      "value": {
+        "name": "Presto",
+        "menu": "Database Connectors",
+        "index": 12,
+        "version": 1,
+        "id": "afae48a19fc29d284f08f5ff5972487d",
+        "filepath": "src/pages/docs/Database Connectors/presto.mdx",
+        "fullpath": "/Users/pkd/Desktop/incubator-superset-site/src/pages/docs/Database Connectors/presto.mdx",
+        "link": "https://github.com/gatsbyjs/gatsby-starter-default/edit/master/src/pages/docs/Database Connectors/presto.mdx",
+        "hidden": false,
+        "slug": "src-pages-docs-database-connectors-presto",
+        "route": "/src-pages-docs-database-connectors-presto",
+        "headings": [
+          {
+            "slug": "presto",
+            "depth": 2,
+            "value": "Presto"
+          }
+        ]
+      }
+    },
+    {
+      "key": "src/pages/docs/Database Connectors/redshift.mdx",
+      "value": {
+        "name": "AWS Redshift",
+        "menu": "Database Connectors",
+        "index": 10,
+        "version": 1,
+        "id": "fe0a3b334b63477cb9c7081ce09db475",
+        "filepath": "src/pages/docs/Database Connectors/redshift.mdx",
+        "fullpath": "/Users/pkd/Desktop/incubator-superset-site/src/pages/docs/Database Connectors/redshift.mdx",
+        "link": "https://github.com/gatsbyjs/gatsby-starter-default/edit/master/src/pages/docs/Database Connectors/redshift.mdx",
+        "hidden": false,
+        "slug": "src-pages-docs-database-connectors-redshift",
+        "route": "/src-pages-docs-database-connectors-redshift",
+        "headings": [
+          {
+            "slug": "aws-redshift",
+            "depth": 2,
+            "value": "AWS Redshift"
+          }
+        ]
+      }
+    },
+    {
+      "key": "src/pages/docs/Database Connectors/snowflake.mdx",
+      "value": {
+        "name": "Snowflake",
+        "menu": "Database Connectors",
+        "index": 3,
+        "version": 1,
+        "id": "13dc586d183914b76b97ef9574b77eb8",
+        "filepath": "src/pages/docs/Database Connectors/snowflake.mdx",
+        "fullpath": "/Users/pkd/Desktop/incubator-superset-site/src/pages/docs/Database Connectors/snowflake.mdx",
+        "link": "https://github.com/gatsbyjs/gatsby-starter-default/edit/master/src/pages/docs/Database Connectors/snowflake.mdx",
+        "hidden": false,
+        "slug": "src-pages-docs-database-connectors-snowflake",
+        "route": "/src-pages-docs-database-connectors-snowflake",
+        "headings": [
+          {
+            "slug": "snowflake",
+            "depth": 2,
+            "value": "Snowflake"
+          }
+        ]
+      }
+    },
+    {
+      "key": "src/pages/docs/Database Connectors/teradata.mdx",
+      "value": {
+        "name": "Teradata",
+        "menu": "Database Connectors",
+        "index": 4,
+        "version": 1,
+        "id": "5e114d680ae018894c12b91bb0d473f3",
+        "filepath": "src/pages/docs/Database Connectors/teradata.mdx",
+        "fullpath": "/Users/pkd/Desktop/incubator-superset-site/src/pages/docs/Database Connectors/teradata.mdx",
+        "link": "https://github.com/gatsbyjs/gatsby-starter-default/edit/master/src/pages/docs/Database Connectors/teradata.mdx",
+        "hidden": false,
+        "slug": "src-pages-docs-database-connectors-teradata",
+        "route": "/src-pages-docs-database-connectors-teradata",
+        "headings": [
+          {
+            "slug": "teradata",
+            "depth": 2,
+            "value": "Teradata"
+          }
+        ]
+      }
+    },
+    {
+      "key": "src/pages/docs/Database Connectors/vertica.mdx",
+      "value": {
+        "name": "Vertica",
+        "menu": "Database Connectors",
+        "index": 11,
+        "version": 1,
+        "id": "dbaf4f27784230c675f3b00aeaf6c525",
+        "filepath": "src/pages/docs/Database Connectors/vertica.mdx",
+        "fullpath": "/Users/pkd/Desktop/incubator-superset-site/src/pages/docs/Database Connectors/vertica.mdx",
+        "link": "https://github.com/gatsbyjs/gatsby-starter-default/edit/master/src/pages/docs/Database Connectors/vertica.mdx",
+        "hidden": false,
+        "slug": "src-pages-docs-database-connectors-vertica",
+        "route": "/src-pages-docs-database-connectors-vertica",
+        "headings": [
+          {
+            "slug": "vertica",
+            "depth": 2,
+            "value": "Vertica"
+          }
+        ]
+      }
+    },
+    {
+      "key": "src/pages/docs/installation/create-your-first-chart.mdx",
+      "value": {
+        "name": "Creating Your First Chart",
+        "menu": "Installation",
+        "index": 3,
+        "version": 1,
+        "id": "05b4969fdf3a916b64385f37ab57d9b1",
+        "filepath": "src/pages/docs/installation/create-your-first-chart.mdx",
+        "fullpath": "/Users/pkd/Desktop/incubator-superset-site/src/pages/docs/installation/create-your-first-chart.mdx",
+        "link": "https://github.com/gatsbyjs/gatsby-starter-default/edit/master/src/pages/docs/installation/create-your-first-chart.mdx",
+        "hidden": false,
+        "slug": "src-pages-docs-installation-create-your-first-chart",
+        "route": "/src-pages-docs-installation-create-your-first-chart",
+        "headings": [
+          {
+            "slug": "creating-your-first-chart",
+            "depth": 2,
+            "value": "Creating Your First Chart"
+          },
+          {
+            "slug": "data-composition-questions",
+            "depth": 3,
+            "value": "Data Composition Questions"
+          }
+        ]
+      }
+    },
+    {
+      "key": "src/pages/docs/installation/docker-local-deploy.mdx",
+      "value": {
+        "name": "Docker Local Deploy",
+        "menu": "Installation",
+        "index": 1,
+        "version": 1,
+        "id": "d3843932d378947f5d8fa8e668ae1b7d",
+        "filepath": "src/pages/docs/installation/docker-local-deploy.mdx",
+        "fullpath": "/Users/pkd/Desktop/incubator-superset-site/src/pages/docs/installation/docker-local-deploy.mdx",
+        "link": "https://github.com/gatsbyjs/gatsby-starter-default/edit/master/src/pages/docs/installation/docker-local-deploy.mdx",
+        "hidden": false,
+        "slug": "src-pages-docs-installation-docker-local-deploy",
+        "route": "/src-pages-docs-installation-docker-local-deploy",
+        "headings": [
+          {
+            "slug": "deploy-locally-with-docker",
+            "depth": 2,
+            "value": "Deploy Locally with Docker"
+          },
+          {
+            "slug": "step-0---install-a-docker-engine-and-docker-compose",
+            "depth": 3,
+            "value": "Step 0 - Install a Docker Engine and Docker Compose"
+          },
+          {
+            "slug": "1-clone-supersets-github-repository",
+            "depth": 3,
+            "value": "1. Clone Superset's Github repository"
+          },
+          {
+            "slug": "2-launch-superset-via-docker-compose-up",
+            "depth": 3,
+            "value": "2. Launch Superset via  docker-compose up"
+          },
+          {
+            "slug": "3-log-in-to-superset",
+            "depth": 3,
+            "value": "3. Log In to Superset"
+          }
+        ]
+      }
+    },
+    {
+      "key": "src/pages/docs/installation/explore-data-sql-lab.mdx",
+      "value": {
+        "name": "Explore Data in SQL Lab",
+        "menu": "Installation",
+        "index": 5,
+        "version": 1,
+        "id": "c3776637a85d191517c4045e01b49a40",
+        "filepath": "src/pages/docs/installation/explore-data-sql-lab.mdx",
+        "fullpath": "/Users/pkd/Desktop/incubator-superset-site/src/pages/docs/installation/explore-data-sql-lab.mdx",
+        "link": "https://github.com/gatsbyjs/gatsby-starter-default/edit/master/src/pages/docs/installation/explore-data-sql-lab.mdx",
+        "hidden": false,
+        "slug": "src-pages-docs-installation-explore-data-sql-lab",
+        "route": "/src-pages-docs-installation-explore-data-sql-lab",
+        "headings": [
+          {
+            "slug": "explore-data-in-sql-lab",
+            "depth": 2,
+            "value": "Explore Data in SQL Lab"
+          },
+          {
+            "slug": "sql-editor",
+            "depth": 3,
+            "value": "SQL Editor:"
+          },
+          {
+            "slug": "saved-queries",
+            "depth": 3,
+            "value": "Saved Queries:"
+          },
+          {
+            "slug": "query-search",
+            "depth": 3,
+            "value": "Query Search:"
+          }
+        ]
+      }
+    },
+    {
+      "key": "src/pages/docs/installation/index.mdx",
+      "value": {
+        "name": "Introduction",
+        "menu": "Installation",
+        "index": 0,
+        "version": 1,
+        "id": "3ffcb784acd311d6500f1aceee70465f",
+        "filepath": "src/pages/docs/installation/index.mdx",
+        "fullpath": "/Users/pkd/Desktop/incubator-superset-site/src/pages/docs/installation/index.mdx",
+        "link": "https://github.com/gatsbyjs/gatsby-starter-default/edit/master/src/pages/docs/installation/index.mdx",
+        "hidden": false,
+        "slug": "src-pages-docs-installation-index",
+        "route": "/src-pages-docs-installation-index",
+        "headings": [
+          {
+            "slug": "what-is-apache-superset",
+            "depth": 2,
+            "value": "What is Apache Superset?"
+          }
+        ]
+      }
+    },
+    {
+      "key": "src/pages/docs/installation/install-database-drivers.mdx",
+      "value": {
+        "name": "Install Database Drivers",
+        "menu": "Installation",
+        "index": 2,
+        "version": 1,
+        "id": "6ac5433a19e2fa06b6e44d608b2dfcb0",
+        "filepath": "src/pages/docs/installation/install-database-drivers.mdx",
+        "fullpath": "/Users/pkd/Desktop/incubator-superset-site/src/pages/docs/installation/install-database-drivers.mdx",
+        "link": "https://github.com/gatsbyjs/gatsby-starter-default/edit/master/src/pages/docs/installation/install-database-drivers.mdx",
+        "hidden": false,
+        "slug": "src-pages-docs-installation-install-database-drivers",
+        "route": "/src-pages-docs-installation-install-database-drivers",
+        "headings": [
+          {
+            "slug": "install-database-drivers",
+            "depth": 2,
+            "value": "Install Database Drivers"
+          },
+          {
+            "slug": "1-determine-the-driver-you-need",
+            "depth": 3,
+            "value": "1. Determine the driver you need"
+          },
+          {
+            "slug": "2-install-mysql-driver",
+            "depth": 3,
+            "value": "2. Install MySQL Driver"
+          },
+          {
+            "slug": "3-connect-to-mysql",
+            "depth": 3,
+            "value": "3. Connect to MySQL"
+          }
+        ]
+      }
+    },
+    {
+      "key": "src/pages/docs/installation/share-chart-dashboard.mdx",
+      "value": {
+        "name": "Share Chart or Dashboard",
+        "menu": "Installation",
+        "index": 4,
+        "version": 1,
+        "id": "2205bb21047407cf665140d3b9f0dac2",
+        "filepath": "src/pages/docs/installation/share-chart-dashboard.mdx",
+        "fullpath": "/Users/pkd/Desktop/incubator-superset-site/src/pages/docs/installation/share-chart-dashboard.mdx",
+        "link": "https://github.com/gatsbyjs/gatsby-starter-default/edit/master/src/pages/docs/installation/share-chart-dashboard.mdx",
+        "hidden": false,
+        "slug": "src-pages-docs-installation-share-chart-dashboard",
+        "route": "/src-pages-docs-installation-share-chart-dashboard",
+        "headings": [
+          {
+            "slug": "share-your-chart-or-dashboard",
+            "depth": 2,
+            "value": "Share Your Chart or Dashboard"
+          },
+          {
+            "slug": "share-a-dashboard",
+            "depth": 3,
+            "value": "Share a Dashboard"
+          },
+          {
+            "slug": "share-a-chart",
+            "depth": 3,
+            "value": "Share a Chart"
+          }
+        ]
+      }
+    }
+  ],
+  "props": []
+}
