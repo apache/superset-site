@@ -58,6 +58,12 @@ function angelscript(hljs) {
         relevance: 0
       },
 
+      // """heredoc strings"""
+      {
+        className: 'string',
+        begin: '"""', end: '"""'
+      },
+
       { // "strings"
         className: 'string',
         begin: '"', end: '"',
@@ -66,14 +72,13 @@ function angelscript(hljs) {
         relevance: 0
       },
 
-      // """heredoc strings"""
-      {
-        className: 'string',
-        begin: '"""', end: '"""'
-      },
-
       hljs.C_LINE_COMMENT_MODE, // single-line comments
       hljs.C_BLOCK_COMMENT_MODE, // comment blocks
+
+      { // metadata
+        className: 'string',
+        begin: '^\\s*\\[', end: '\\]',
+      },
 
       { // interface or namespace declaration
         beginKeywords: 'interface namespace', end: '{',
@@ -118,7 +123,7 @@ function angelscript(hljs) {
 
       { // numbers
         className: 'number',
-        begin: '(-?)(\\b0[xX][a-fA-F0-9]+|(\\b\\d+(\\.\\d*)?f?|\\.\\d+f?)([eE][-+]?\\d+f?)?)'
+        begin: '(-?)(\\b0[xXbBoOdD][a-fA-F0-9]+|(\\b\\d+(\\.\\d*)?f?|\\.\\d+f?)([eE][-+]?\\d+f?)?)'
       }
     ]
   };
