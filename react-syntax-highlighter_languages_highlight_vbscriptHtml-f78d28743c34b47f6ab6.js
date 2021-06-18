@@ -1,2 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[256],{YdEo:function(n,e){n.exports=function(n){return{name:"VBScript in HTML",subLanguage:"xml",contains:[{begin:"<%",end:"%>",subLanguage:"vbscript"}]}}}}]);
-//# sourceMappingURL=react-syntax-highlighter_languages_highlight_vbscriptHtml-f78d28743c34b47f6ab6.js.map

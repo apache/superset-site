@@ -1,2 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[130],{MiL3:function(n,e){n.exports=function(n){return{name:"ERB",subLanguage:"xml",contains:[n.COMMENT("<%#","%>"),{begin:"<%[%=-]?",end:"[%-]?%>",subLanguage:"ruby",excludeBegin:!0,excludeEnd:!0}]}}}}]);
-//# sourceMappingURL=react-syntax-highlighter_languages_highlight_erb-585f6cbe5b1ff2da3811.js.map
