@@ -1,0 +1,2 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[250],{"9/u+":function(n,e){n.exports=function(n){return{name:"Tagger Script",contains:[{className:"comment",begin:/\$noop\(/,end:/\)/,contains:[{begin:/\(/,end:/\)/,contains:["self",{begin:/\\./}]}],relevance:10},{className:"keyword",begin:/\$(?!noop)[a-zA-Z][_a-zA-Z0-9]*/,end:/\(/,excludeEnd:!0},{className:"variable",begin:/%[_a-zA-Z0-9:]*/,end:"%"},{className:"symbol",begin:/\\./}]}}}}]);
+//# sourceMappingURL=react-syntax-highlighter_languages_highlight_taggerscript-a6a5d6a908882ed97652.js.map
