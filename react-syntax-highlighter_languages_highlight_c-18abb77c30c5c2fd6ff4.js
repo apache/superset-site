@@ -1,2 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[102],{kJFa:function(n,e){n.exports=function(n){var e=n.requireLanguage("c-like").rawDefinition();return e.name="C",e.aliases=["c","h"],e}}}]);
-//# sourceMappingURL=react-syntax-highlighter_languages_highlight_c-18abb77c30c5c2fd6ff4.js.map
