@@ -15,7 +15,7 @@ exports.modules = {
  Website: https://cucumber.io/docs/gherkin/
  */
 
-function gherkin (hljs) {
+function gherkin(hljs) {
   return {
     name: 'Gherkin',
     aliases: ['feature'],
@@ -31,7 +31,8 @@ function gherkin (hljs) {
         begin: '@[^@\\s]+'
       },
       {
-        begin: '\\|', end: '\\|\\w*$',
+        begin: '\\|',
+        end: '\\|\\w*$',
         contains: [
           {
             className: 'string',
@@ -41,12 +42,14 @@ function gherkin (hljs) {
       },
       {
         className: 'variable',
-        begin: '<', end: '>'
+        begin: '<',
+        end: '>'
       },
       hljs.HASH_COMMENT_MODE,
       {
         className: 'string',
-        begin: '"""', end: '"""'
+        begin: '"""',
+        end: '"""'
       },
       hljs.QUOTE_STRING_MODE
     ]

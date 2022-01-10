@@ -47,7 +47,7 @@ function angelscript(hljs) {
       'abstract|0 try catch protected explicit property',
 
     // avoid close detection with C# and JS
-    illegal: '(^using\\s+[A-Za-z0-9_\\.]+;$|\\bfunction\s*[^\\(])',
+    illegal: '(^using\\s+[A-Za-z0-9_\\.]+;$|\\bfunction\\s*[^\\(])',
 
     contains: [
       { // 'strings'
@@ -81,7 +81,7 @@ function angelscript(hljs) {
       },
 
       { // interface or namespace declaration
-        beginKeywords: 'interface namespace', end: '{',
+        beginKeywords: 'interface namespace', end: /\{/,
         illegal: '[;.\\-]',
         contains: [
           { // interface or namespace name
@@ -92,7 +92,7 @@ function angelscript(hljs) {
       },
 
       { // class declaration
-        beginKeywords: 'class', end: '{',
+        beginKeywords: 'class', end: /\{/,
         illegal: '[;.\\-]',
         contains: [
           { // class name
@@ -123,6 +123,7 @@ function angelscript(hljs) {
 
       { // numbers
         className: 'number',
+        relevance: 0,
         begin: '(-?)(\\b0[xXbBoOdD][a-fA-F0-9]+|(\\b\\d+(\\.\\d*)?f?|\\.\\d+f?)([eE][-+]?\\d+f?)?)'
       }
     ]

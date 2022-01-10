@@ -31,7 +31,7 @@ function clojureRepl(hljs) {
         }
       }
     ]
-  }
+  };
 }
 
 module.exports = clojureRepl;

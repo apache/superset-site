@@ -18,7 +18,7 @@ Category: common, system
 */
 
 function go(hljs) {
-  var GO_KEYWORDS = {
+  const GO_KEYWORDS = {
     keyword:
       'break default func interface select case map struct chan else goto package switch ' +
       'const fallthrough if range type continue for import return var go defer ' +
@@ -42,13 +42,19 @@ function go(hljs) {
         variants: [
           hljs.QUOTE_STRING_MODE,
           hljs.APOS_STRING_MODE,
-          {begin: '`', end: '`'},
+          {
+            begin: '`',
+            end: '`'
+          }
         ]
       },
       {
         className: 'number',
         variants: [
-          {begin: hljs.C_NUMBER_RE + '[i]', relevance: 1},
+          {
+            begin: hljs.C_NUMBER_RE + '[i]',
+            relevance: 1
+          },
           hljs.C_NUMBER_MODE
         ]
       },
@@ -57,12 +63,15 @@ function go(hljs) {
       },
       {
         className: 'function',
-        beginKeywords: 'func', end: '\\s*(\\{|$)', excludeEnd: true,
+        beginKeywords: 'func',
+        end: '\\s*(\\{|$)',
+        excludeEnd: true,
         contains: [
           hljs.TITLE_MODE,
           {
             className: 'params',
-            begin: /\(/, end: /\)/,
+            begin: /\(/,
+            end: /\)/,
             keywords: GO_KEYWORDS,
             illegal: /["']/
           }

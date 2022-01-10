@@ -79,7 +79,9 @@ function coq(hljs) {
         begin: '\\|\\s*',
         end: '\\w+'
       },
-      {begin: /[-=]>/} // relevance booster
+      { // relevance booster
+        begin: /[-=]>/
+      }
     ]
   };
 }

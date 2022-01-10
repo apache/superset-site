@@ -92,7 +92,10 @@ const TYPES = [
   "Array",
   "Uint8Array",
   "Uint8ClampedArray",
-  "ArrayBuffer"
+  "ArrayBuffer",
+  "BigInt64Array",
+  "BigUint64Array",
+  "BigInt"
 ];
 
 const ERROR_TYPES = [
@@ -171,14 +174,6 @@ function lookahead(re) {
 }
 
 /**
- * @param {RegExp | string } re
- * @returns {string}
- */
-function optional(re) {
-  return concat('(', re, ')?');
-}
-
-/**
  * @param {...(RegExp | string) } args
  * @returns {string}
  */
@@ -204,7 +199,7 @@ function javascript(hljs) {
    * @param {{after:number}} param1
    */
   const hasClosingTag = (match, { after }) => {
-    const tag = match[0].replace("<", "</");
+    const tag = "</" + match[0].slice(1);
     const pos = match.input.indexOf(tag, after);
     return pos !== -1;
   };
@@ -244,33 +239,40 @@ function javascript(hljs) {
   };
   const KEYWORDS$1 = {
     $pattern: IDENT_RE,
-    keyword: KEYWORDS.join(" "),
-    literal: LITERALS.join(" "),
-    built_in: BUILT_INS.join(" ")
+    keyword: KEYWORDS,
+    literal: LITERALS,
+    built_in: BUILT_INS
   };
-  const nonDecimalLiterals = (prefixLetters, validChars) =>
-    `\\b0[${prefixLetters}][${validChars}]([${validChars}_]*[${validChars}])?n?`;
-  const noLeadingZeroDecimalDigits = /[1-9]([0-9_]*\d)?/;
-  const decimalDigits = /\d([0-9_]*\d)?/;
-  const exponentPart = concat(/[eE][+-]?/, decimalDigits);
+
+  // https://tc39.es/ecma262/#sec-literals-numeric-literals
+  const decimalDigits = '[0-9](_?[0-9])*';
+  const frac = `\\.(${decimalDigits})`;
+  // DecimalIntegerLiteral, including Annex B NonOctalDecimalIntegerLiteral
+  // https://tc39.es/ecma262/#sec-additional-syntax-numeric-literals
+  const decimalInteger = `0|[1-9](_?[0-9])*|0[0-7]*[89][0-9]*`;
   const NUMBER = {
     className: 'number',
     variants: [
-      { begin: nonDecimalLiterals('bB', '01') }, // Binary literals
-      { begin: nonDecimalLiterals('oO', '0-7') }, // Octal literals
-      { begin: nonDecimalLiterals('xX', '0-9a-fA-F') }, // Hexadecimal literals
-      { begin: concat(/\b/, noLeadingZeroDecimalDigits, 'n') }, // Non-zero BigInt literals
-      { begin: concat(/(\b0)?\./, decimalDigits, optional(exponentPart)) }, // Decimal literals between 0 and 1
-      { begin: concat(
-        /\b/,
-        noLeadingZeroDecimalDigits,
-        optional(concat(/\./, optional(decimalDigits))), // fractional part
-        optional(exponentPart)
-        ) }, // Decimal literals >= 1
-      { begin: /\b0[\.n]?/ }, // Zero literals (`0`, `0.`, `0n`)
+      // DecimalLiteral
+      { begin: `(\\b(${decimalInteger})((${frac})|\\.)?|(${frac}))` +
+        `[eE][+-]?(${decimalDigits})\\b` },
+      { begin: `\\b(${decimalInteger})\\b((${frac})\\b|\\.)?|(${frac})\\b` },
+
+      // DecimalBigIntegerLiteral
+      { begin: `\\b(0|[1-9](_?[0-9])*)n\\b` },
+
+      // NonDecimalIntegerLiteral
+      { begin: "\\b0[xX][0-9a-fA-F](_?[0-9a-fA-F])*n?\\b" },
+      { begin: "\\b0[bB][0-1](_?[0-1])*n?\\b" },
+      { begin: "\\b0[oO][0-7](_?[0-7])*n?\\b" },
+
+      // LegacyOctalIntegerLiteral (does not include underscore separators)
+      // https://tc39.es/ecma262/#sec-additional-syntax-numeric-literals
+      { begin: "\\b0[0-7]+n?\\b" },
     ],
     relevance: 0
   };
+
   const SUBST = {
     className: 'subst',
     begin: '\\$\\{',
@@ -314,7 +316,7 @@ function javascript(hljs) {
     ]
   };
   const JSDOC_COMMENT = hljs.COMMENT(
-    '/\\*\\*',
+    /\/\*\*(?!\/)/,
     '\\*/',
     {
       relevance: 0,
@@ -367,8 +369,8 @@ function javascript(hljs) {
     .concat({
       // we need to pair up {} inside our subst to prevent
       // it from ending too early by matching another }
-      begin: /{/,
-      end: /}/,
+      begin: /\{/,
+      end: /\}/,
       keywords: KEYWORDS$1,
       contains: [
         "self"
@@ -435,9 +437,7 @@ function javascript(hljs) {
           lookahead(concat(
             // we also need to allow for multiple possible comments inbetween
             // the first key:value pairing
-            /(\/\/.*$)*/,
-            /(\/\*(.|\n)*\*\/)*/,
-            /\s*/,
+            /(((\/\/.*$)|(\/\*(\*[^/]|[^*])*\*\/))\s*)*/,
             IDENT_RE$1 + '\\s*:'))),
         relevance: 0,
         contains: [
@@ -463,8 +463,8 @@ function javascript(hljs) {
             '[^()]*(\\(' +
             '[^()]*(\\(' +
             '[^()]*' +
-            '\\))*[^()]*' +
-            '\\))*[^()]*' +
+            '\\)[^()]*)*' +
+            '\\)[^()]*)*' +
             '\\)|' + hljs.UNDERSCORE_IDENT_RE + ')\\s*=>',
             returnBegin: true,
             end: '\\s*=>',
@@ -473,7 +473,8 @@ function javascript(hljs) {
                 className: 'params',
                 variants: [
                   {
-                    begin: hljs.UNDERSCORE_IDENT_RE
+                    begin: hljs.UNDERSCORE_IDENT_RE,
+                    relevance: 0
                   },
                   {
                     className: null,
@@ -539,6 +540,11 @@ function javascript(hljs) {
         illegal: /%/
       },
       {
+        // prevent this from getting swallowed up by function
+        // since they appear "function like"
+        beginKeywords: "while if switch catch for"
+      },
+      {
         className: 'function',
         // we have to count the parens to make sure we actually have the correct
         // bounding ( ).  There could be any number of sub-expressions inside
@@ -548,9 +554,9 @@ function javascript(hljs) {
           '[^()]*(\\(' +
             '[^()]*(\\(' +
               '[^()]*' +
-            '\\))*[^()]*' +
-          '\\))*[^()]*' +
-          '\\)\\s*{', // end parens
+            '\\)[^()]*)*' +
+          '\\)[^()]*)*' +
+          '\\)\\s*\\{', // end parens
         returnBegin:true,
         contains: [
           PARAMS,
@@ -572,7 +578,7 @@ function javascript(hljs) {
         beginKeywords: 'class',
         end: /[{;=]/,
         excludeEnd: true,
-        illegal: /[:"\[\]]/,
+        illegal: /[:"[\]]/,
         contains: [
           { beginKeywords: 'extends' },
           hljs.UNDERSCORE_TITLE_MODE
@@ -580,7 +586,7 @@ function javascript(hljs) {
       },
       {
         begin: /\b(?=constructor)/,
-        end: /[\{;]/,
+        end: /[{;]/,
         excludeEnd: true,
         contains: [
           hljs.inherit(hljs.TITLE_MODE, { begin: IDENT_RE$1 }),
@@ -590,7 +596,7 @@ function javascript(hljs) {
       },
       {
         begin: '(get|set)\\s+(?=' + IDENT_RE$1 + '\\()',
-        end: /{/,
+        end: /\{/,
         keywords: "get set",
         contains: [
           hljs.inherit(hljs.TITLE_MODE, { begin: IDENT_RE$1 }),

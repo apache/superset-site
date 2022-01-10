@@ -18,7 +18,7 @@ Category: scripting
 */
 
 function moonscript(hljs) {
-  var KEYWORDS = {
+  const KEYWORDS = {
     keyword:
       // Moonscript keywords
       'if then not for in while do return else elseif break continue switch and or ' +
@@ -31,25 +31,36 @@ function moonscript(hljs) {
       'select setfenv setmetatable tonumber tostring type unpack xpcall coroutine debug ' +
       'io math os package string table'
   };
-  var JS_IDENT_RE = '[A-Za-z$_][0-9A-Za-z$_]*';
-  var SUBST = {
+  const JS_IDENT_RE = '[A-Za-z$_][0-9A-Za-z$_]*';
+  const SUBST = {
     className: 'subst',
-    begin: /#\{/, end: /}/,
+    begin: /#\{/,
+    end: /\}/,
     keywords: KEYWORDS
   };
-  var EXPRESSIONS = [
+  const EXPRESSIONS = [
     hljs.inherit(hljs.C_NUMBER_MODE,
-      {starts: {end: '(\\s*/)?', relevance: 0}}), // a number tries to eat the following slash to prevent treating it as a regexp
+      {
+        starts: {
+          end: '(\\s*/)?',
+          relevance: 0
+        }
+      }), // a number tries to eat the following slash to prevent treating it as a regexp
     {
       className: 'string',
       variants: [
         {
-          begin: /'/, end: /'/,
-          contains: [hljs.BACKSLASH_ESCAPE]
+          begin: /'/,
+          end: /'/,
+          contains: [ hljs.BACKSLASH_ESCAPE ]
         },
         {
-          begin: /"/, end: /"/,
-          contains: [hljs.BACKSLASH_ESCAPE, SUBST]
+          begin: /"/,
+          end: /"/,
+          contains: [
+            hljs.BACKSLASH_ESCAPE,
+            SUBST
+          ]
         }
       ]
     },
@@ -66,32 +77,42 @@ function moonscript(hljs) {
   ];
   SUBST.contains = EXPRESSIONS;
 
-  var TITLE = hljs.inherit(hljs.TITLE_MODE, {begin: JS_IDENT_RE});
-  var PARAMS_RE = '(\\(.*\\))?\\s*\\B[-=]>';
-  var PARAMS = {
+  const TITLE = hljs.inherit(hljs.TITLE_MODE, {
+    begin: JS_IDENT_RE
+  });
+  const POSSIBLE_PARAMS_RE = '(\\(.*\\)\\s*)?\\B[-=]>';
+  const PARAMS = {
     className: 'params',
-    begin: '\\([^\\(]', returnBegin: true,
+    begin: '\\([^\\(]',
+    returnBegin: true,
     /* We need another contained nameless mode to not have every nested
     pair of parens to be called "params" */
-    contains: [{
-      begin: /\(/, end: /\)/,
-      keywords: KEYWORDS,
-      contains: ['self'].concat(EXPRESSIONS)
-    }]
+    contains: [
+      {
+        begin: /\(/,
+        end: /\)/,
+        keywords: KEYWORDS,
+        contains: [ 'self' ].concat(EXPRESSIONS)
+      }
+    ]
   };
 
   return {
     name: 'MoonScript',
-    aliases: ['moon'],
+    aliases: [ 'moon' ],
     keywords: KEYWORDS,
     illegal: /\/\*/,
     contains: EXPRESSIONS.concat([
       hljs.COMMENT('--', '$'),
       {
-        className: 'function',  // function: -> =>
-        begin: '^\\s*' + JS_IDENT_RE + '\\s*=\\s*' + PARAMS_RE, end: '[-=]>',
+        className: 'function', // function: -> =>
+        begin: '^\\s*' + JS_IDENT_RE + '\\s*=\\s*' + POSSIBLE_PARAMS_RE,
+        end: '[-=]>',
         returnBegin: true,
-        contains: [TITLE, PARAMS]
+        contains: [
+          TITLE,
+          PARAMS
+        ]
       },
       {
         begin: /[\(,:=]\s*/, // anonymous function start
@@ -99,9 +120,10 @@ function moonscript(hljs) {
         contains: [
           {
             className: 'function',
-            begin: PARAMS_RE, end: '[-=]>',
+            begin: POSSIBLE_PARAMS_RE,
+            end: '[-=]>',
             returnBegin: true,
-            contains: [PARAMS]
+            contains: [ PARAMS ]
           }
         ]
       },
@@ -115,15 +137,17 @@ function moonscript(hljs) {
             beginKeywords: 'extends',
             endsWithParent: true,
             illegal: /[:="\[\]]/,
-            contains: [TITLE]
+            contains: [ TITLE ]
           },
           TITLE
         ]
       },
       {
-        className: 'name',    // table
-        begin: JS_IDENT_RE + ':', end: ':',
-        returnBegin: true, returnEnd: true,
+        className: 'name', // table
+        begin: JS_IDENT_RE + ':',
+        end: ':',
+        returnBegin: true,
+        returnEnd: true,
         relevance: 0
       }
     ])

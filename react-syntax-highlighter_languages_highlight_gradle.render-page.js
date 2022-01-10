@@ -48,7 +48,7 @@ function gradle(hljs) {
       hljs.REGEXP_MODE
 
     ]
-  }
+  };
 }
 
 module.exports = gradle;
