@@ -1,2 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[114],{pHkR:function(e,n){e.exports=function(e){var n=e.requireLanguage("c-like").rawDefinition();return n.disableAutodetect=!1,n.name="C++",n.aliases=["cc","c++","h++","hpp","hh","hxx","cxx"],n}}}]);
-//# sourceMappingURL=react-syntax-highlighter_languages_highlight_cpp-7813d5fb321f1b03f47d.js.map
