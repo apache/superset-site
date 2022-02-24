@@ -7,8 +7,8 @@
 <link rel="preconnect" href="https://www.google-analytics.com">
 <script>window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","G-133LHD3B3N","auto"),ga("set","anonymizeIp",!0),ga("send","pageview")</script>
 <script async src="https://www.google-analytics.com/analytics.js"></script><title data-react-helmet="true">Frequently Asked Questions | Superset</title><meta data-react-helmet="true" name="twitter:card" content="summary_large_image"><meta data-react-helmet="true" property="og:url" content="https://superset.apache.org/docs/frequently-asked-questions"><meta data-react-helmet="true" name="docusaurus_locale" content="en"><meta data-react-helmet="true" name="docusaurus_version" content="current"><meta data-react-helmet="true" name="docusaurus_tag" content="docs-default-current"><meta data-react-helmet="true" property="og:title" content="Frequently Asked Questions | Superset"><meta data-react-helmet="true" name="description" content="Frequently Asked Questions"><meta data-react-helmet="true" property="og:description" content="Frequently Asked Questions"><link data-react-helmet="true" rel="icon" href="/img/favicon.ico"><link data-react-helmet="true" rel="canonical" href="https://superset.apache.org/docs/frequently-asked-questions"><link data-react-helmet="true" rel="alternate" href="https://superset.apache.org/docs/frequently-asked-questions" hreflang="en"><link data-react-helmet="true" rel="alternate" href="https://superset.apache.org/docs/frequently-asked-questions" hreflang="x-default"><link rel="stylesheet" href="/assets/css/styles.f64e49f2.css">
-<link rel="preload" href="/assets/js/runtime~main.52126a4e.js" as="script">
-<link rel="preload" href="/assets/js/main.a563d187.js" as="script">
+<link rel="preload" href="/assets/js/runtime~main.c21f34ae.js" as="script">
+<link rel="preload" href="/assets/js/main.a5bfbb47.js" as="script">
 </head>
 <body>
 <script>!function(){function t(t){document.documentElement.setAttribute("data-theme",t)}var e=function(){var t=null;try{t=localStorage.getItem("theme")}catch(t){}return t}();t(null!==e?e:"light")}()</script><div id="__docusaurus">
@@ -24,7 +24,7 @@ serve it in an interactive fashion to provide a good user experience in Superset
 multiple tables as long as your db account has access to the tables.</p><h3 class="anchor anchorWithStickyNavbar_mojV" id="how-big-can-my-datasource-be">How BIG can my datasource be?<a class="hash-link" href="#how-big-can-my-datasource-be" title="Direct link to heading">​</a></h3><p>It can be gigantic! Superset acts as a thin layer above your underlying databases or data engines.</p><p>As mentioned above, the main criteria is whether your database can execute queries and return
 results in a time frame that is acceptable to your users. Many distributed databases out there can
 execute queries that scan through terabytes in an interactive fashion.</p><h3 class="anchor anchorWithStickyNavbar_mojV" id="how-do-i-create-my-own-visualization">How do I create my own visualization?<a class="hash-link" href="#how-do-i-create-my-own-visualization" title="Direct link to heading">​</a></h3><p>We recommend reading the instructions in
-<a href="/docs/installation/building-custom-viz-plugins">Building Custom Viz Plugins</a>.</p><h3 class="anchor anchorWithStickyNavbar_mojV" id="can-i-upload-and-visualize-csv-data">Can I upload and visualize CSV data?<a class="hash-link" href="#can-i-upload-and-visualize-csv-data" title="Direct link to heading">​</a></h3><p>Absolutely! Read the instructions <a href="/docs/creating-charts-dashboards/exploring-data">here</a> to learn
+<a href="/docs/contributing/creating-viz-plugins">Creating Visualization Plugins</a>.</p><h3 class="anchor anchorWithStickyNavbar_mojV" id="can-i-upload-and-visualize-csv-data">Can I upload and visualize CSV data?<a class="hash-link" href="#can-i-upload-and-visualize-csv-data" title="Direct link to heading">​</a></h3><p>Absolutely! Read the instructions <a href="/docs/creating-charts-dashboards/exploring-data">here</a> to learn
 how to enable and use CSV upload.</p><h3 class="anchor anchorWithStickyNavbar_mojV" id="why-are-my-queries-timing-out">Why are my queries timing out?<a class="hash-link" href="#why-are-my-queries-timing-out" title="Direct link to heading">​</a></h3><p>There are many reasons may cause long query timing out.</p><p>For running long query from Sql Lab, by default Superset allows it run as long as 6 hours before it
 being killed by celery. If you want to increase the time for running query, you can specify the
 timeout in configuration. For example:</p><div class="codeBlockContainer_I0IT theme-code-block"><div class="codeBlockContent_wNvx"><pre tabindex="0" class="prism-code language-text codeBlock_jd64 thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_mRuA"><span class="token-line" style="color:#393A34"><span class="token plain">SQLLAB_ASYNC_TIME_LIMIT_SEC = 60 * 60 * 6</span><br></span></code></pre><button type="button" aria-label="Copy code to clipboard" class="copyButton_wuS7 clean-btn">Copy</button></div></div><p>Superset is running on gunicorn web server, which may time out web requests. If you want to increase
@@ -109,7 +109,7 @@ This can be used, for example, to convert UTC time to local time.</p></div><foot
         <a href="https://apache.org/events/current-event" target="_blank" rel="noreferrer">Events</a>&nbsp;|&nbsp;
         <a href="https://apache.org/licenses/" target="_blank" rel="noreferrer">License</a>
         </small></div></div></div></footer></div>
-<script src="/assets/js/runtime~main.52126a4e.js"></script>
-<script src="/assets/js/main.a563d187.js"></script>
+<script src="/assets/js/runtime~main.c21f34ae.js"></script>
+<script src="/assets/js/main.a5bfbb47.js"></script>
 </body>
 </html>
