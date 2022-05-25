@@ -12,7 +12,7 @@
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-133LHD3B3N"></script>
 <script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","G-133LHD3B3N",{anonymize_ip:!0})</script>
 <link rel="search" type="application/opensearchdescription+xml" title="Superset" href="/opensearch.xml"><title data-rh="true">Security | Superset</title><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:url" content="https://superset.apache.org/docs/security"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="Security | Superset"><meta data-rh="true" name="description" content="Roles"><meta data-rh="true" property="og:description" content="Roles"><link data-rh="true" rel="icon" href="/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://superset.apache.org/docs/security"><link data-rh="true" rel="alternate" href="https://superset.apache.org/docs/security" hreflang="en"><link data-rh="true" rel="alternate" href="https://superset.apache.org/docs/security" hreflang="x-default"><link data-rh="true" rel="preconnect" href="https://WR5FASX5ED-dsn.algolia.net" crossorigin="anonymous"><link rel="stylesheet" href="/assets/css/styles.73424326.css">
-<link rel="preload" href="/assets/js/runtime~main.d3ad54a3.js" as="script">
+<link rel="preload" href="/assets/js/runtime~main.fb4767f2.js" as="script">
 <link rel="preload" href="/assets/js/main.a9e8a738.js" as="script">
 </head>
 <body class="navigation-with-keyboard">
@@ -30,7 +30,7 @@ they have been given access to through another complementary role. They only hav
 view the slices and dashboards made from data sources that they have access to. Currently Gamma
 users are not able to alter or add data sources. We assume that they are mostly content consumers, though they can create slices and dashboards.</p><p>Also note that when Gamma users look at the dashboards and slices list view, they will
 only see the objects that they have access to.</p><h3 class="anchor anchorWithStickyNavbar_mojV" id="sql_lab">sql_lab<a class="hash-link" href="#sql_lab" title="Direct link to heading">​</a></h3><p>The <strong>sql_lab</strong> role grants access to SQL Lab. Note that while <strong>Admin</strong> users have access
-to all databases by default, both <strong>Alpha</strong> and <strong>Gamma</strong> users need to be given access on a per database basis.</p><h3 class="anchor anchorWithStickyNavbar_mojV" id="public">Public<a class="hash-link" href="#public" title="Direct link to heading">​</a></h3><p>To allow logged-out users to access some Superset features, you can use the <code>PUBLIC_ROLE_LIKE</code> config setting and assign it to another role whose permissions you want passed to this role.</p><p>For example, by setting <code>PUBLIC_ROLE_LIKE = Gamma</code> in your <code>superset_config.py</code> file, you grant
+to all databases by default, both <strong>Alpha</strong> and <strong>Gamma</strong> users need to be given access on a per database basis.</p><h3 class="anchor anchorWithStickyNavbar_mojV" id="public">Public<a class="hash-link" href="#public" title="Direct link to heading">​</a></h3><p>To allow logged-out users to access some Superset features, you can use the <code>PUBLIC_ROLE_LIKE</code> config setting and assign it to another role whose permissions you want passed to this role.</p><p>For example, by setting <code>PUBLIC_ROLE_LIKE = &quot;Gamma&quot;</code> in your <code>superset_config.py</code> file, you grant
 public role the same set of permissions as for the <strong>Gamma</strong> role. This is useful if one
 wants to enable anonymous users to view dashboards. Explicit grant on specific datasets is
 still required, meaning that you need to edit the <strong>Public</strong> role and add the public data sources to the role manually.</p><h3 class="anchor anchorWithStickyNavbar_mojV" id="managing-data-source-access-for-gamma-roles">Managing Data Source Access for Gamma Roles<a class="hash-link" href="#managing-data-source-access-for-gamma-roles" title="Direct link to heading">​</a></h3><p>Here’s how to provide users access to only specific datasets. First make sure the users with
@@ -89,7 +89,7 @@ and potential threats are handled, check their web page for more details.</p></d
         <a href="https://apache.org/events/current-event" target="_blank" rel="noreferrer">Events</a>&nbsp;|&nbsp;
         <a href="https://apache.org/licenses/" target="_blank" rel="noreferrer">License</a>
         </small></div></div></div></footer></div>
-<script src="/assets/js/runtime~main.d3ad54a3.js"></script>
+<script src="/assets/js/runtime~main.fb4767f2.js"></script>
 <script src="/assets/js/main.a9e8a738.js"></script>
 </body>
 </html>
