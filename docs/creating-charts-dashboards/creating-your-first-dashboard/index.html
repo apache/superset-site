@@ -18,7 +18,7 @@
 
 <script src="/script/matomo.js"></script>
 <script src="https://www.bugherd.com/sidebarv2.js?apikey=enilpiu7bgexxsnoqfjtxa" async></script><link rel="stylesheet" href="/assets/css/styles.574a8f44.css">
-<link rel="preload" href="/assets/js/runtime~main.ec52fdb5.js" as="script">
+<link rel="preload" href="/assets/js/runtime~main.a059f64a.js" as="script">
 <link rel="preload" href="/assets/js/main.633857fa.js" as="script">
 </head>
 <body class="navigation-with-keyboard">
@@ -35,12 +35,11 @@ your existing SQL-speaking database or data store.</p><p>First things first, we 
 to query and visualize data from it. If you&#x27;re using Superset locally via
 <a href="/docs/installation/installing-superset-using-docker-compose">Docker compose</a>, you can
 skip this step because a Postgres database, named <strong>examples</strong>, is included and
-pre-configured in Superset for you.</p><p>Under the <strong>Data</strong> menu, select the <em>Databases</em> option:</p><img loading="lazy" src="/img/tutorial/tutorial_01_sources_database.png" class="img_ev3q"> <!-- --> <br><br><p>Next, click the green <strong>+ Database</strong> button in the top right corner:</p><img loading="lazy" src="/img/tutorial/tutorial_02_add_database.png" class="img_ev3q"> <!-- --> <br><br><p>You can configure a number of advanced options in this window, but for this walkthrough you only
-need to specify two things (the database name and SQLAlchemy URI):</p><img loading="lazy" src="/img/tutorial/tutorial_03_database_name.png" class="img_ev3q"><p>As noted in the text below
-the URI, you should refer to the SQLAlchemy documentation on
+pre-configured in Superset for you.</p><p>Under the <strong>+</strong> menu in the top right, select Data, and then the <em>Connect Database</em> option:</p><img loading="lazy" src="/img/tutorial/tutorial_01_add_database_connection.png" width="600" class="img_ev3q"> <!-- --> <br><br><p>Then select your database type in the resulting modal:</p><img loading="lazy" src="/img/tutorial/tutorial_02_select_database.png" width="600" class="img_ev3q"> <!-- --> <br><br><p>Once you&#x27;ve selected a database, you can configure a number of advanced options in this window,
+or for the purposes of this this walkthrough, you can click the link below all these fields:</p><img loading="lazy" src="/img/tutorial/tutorial_03a_database_connection_string_link.png" width="600" class="img_ev3q"> <!-- --> <br><br><p>Once you&#x27;ve clicked that link you only need to specify two things (the database name and SQLAlchemy URI):</p><img loading="lazy" src="/img/tutorial/tutorial_03b_connection_string_details.png" width="600" class="img_ev3q"> <!-- --> <br><br><p>As noted in the text below the form, you should refer to the SQLAlchemy documentation on
 <a href="https://docs.sqlalchemy.org/en/12/core/engines.html#database-urls" target="_blank" rel="noopener noreferrer">creating new connection URIs</a>
 for your target database.</p><p>Click the <strong>Test Connection</strong> button to confirm things work end to end. If the connection looks good, save the configuration
-by clicking the <strong>Add</strong> button in the bottom right corner of the modal window:</p><img loading="lazy" src="/img/tutorial/tutorial_04_add_button.png" class="img_ev3q"><p>Congratulations, you&#x27;ve just added a new data source in Superset!</p><h3 class="anchor anchorWithStickyNavbar_LWe7" id="registering-a-new-table">Registering a new table<a href="#registering-a-new-table" class="hash-link" aria-label="Direct link to Registering a new table" title="Direct link to Registering a new table">​</a></h3><p>Now that you’ve configured a data source, you can select specific tables (called <strong>Datasets</strong> in Superset)
+by clicking the <strong>Connect</strong> button in the bottom right corner of the modal window:</p><p>Congratulations, you&#x27;ve just added a new data source in Superset!</p><h3 class="anchor anchorWithStickyNavbar_LWe7" id="registering-a-new-table">Registering a new table<a href="#registering-a-new-table" class="hash-link" aria-label="Direct link to Registering a new table" title="Direct link to Registering a new table">​</a></h3><p>Now that you’ve configured a data source, you can select specific tables (called <strong>Datasets</strong> in Superset)
 that you want exposed in Superset for querying.</p><p>Navigate to <strong>Data ‣ Datasets</strong> and select the <strong>+ Dataset</strong> button in the top right corner.</p><img loading="lazy" src="/img/tutorial/tutorial_08_sources_tables.png" class="img_ev3q"><p>A modal window should pop up in front of you. Select your <strong>Database</strong>,
 <strong>Schema</strong>, and <strong>Table</strong> using the drop downs that appear. In the following example,
 we register the <strong>cleaned_sales_data</strong> table from the <strong>examples</strong> database.</p><img loading="lazy" src="/img/tutorial/tutorial_09_add_new_table.png" class="img_ev3q"><p>To finish, click the <strong>Add</strong> button in the bottom right corner. You should now see your dataset in the list of datasets.</p><h3 class="anchor anchorWithStickyNavbar_LWe7" id="customizing-column-properties">Customizing column properties<a href="#customizing-column-properties" class="hash-link" aria-label="Direct link to Customizing column properties" title="Direct link to Customizing column properties">​</a></h3><p>Now that you&#x27;ve registered your dataset, you can configure column properties
@@ -79,7 +78,7 @@ Top Nav and remove the Filter Bar:
         <a href="https://apache.org/events/current-event" target="_blank" rel="noreferrer">Events</a>&nbsp;|&nbsp;
         <a href="https://apache.org/licenses/" target="_blank" rel="noreferrer">License</a>
         </small></div></div></div></footer></div>
-<script src="/assets/js/runtime~main.ec52fdb5.js"></script>
+<script src="/assets/js/runtime~main.a059f64a.js"></script>
 <script src="/assets/js/main.633857fa.js"></script>
 </body>
 </html>
