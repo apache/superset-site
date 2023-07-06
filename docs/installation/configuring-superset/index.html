@@ -18,7 +18,7 @@
 
 <script src="/script/matomo.js"></script>
 <script src="https://www.bugherd.com/sidebarv2.js?apikey=enilpiu7bgexxsnoqfjtxa" async></script><link rel="stylesheet" href="/assets/css/styles.f448a7ff.css">
-<link rel="preload" href="/assets/js/runtime~main.4bb69955.js" as="script">
+<link rel="preload" href="/assets/js/runtime~main.6634aa78.js" as="script">
 <link rel="preload" href="/assets/js/main.caeb4d05.js" as="script">
 </head>
 <body class="navigation-with-keyboard">
@@ -46,7 +46,8 @@ documentation of your preferred technology to set up this Flask WSGI application
 well in your environment. Here’s an async setup known to work well in production:</p><div class="codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_biex"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">      -w 10 \</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">      -k gevent \</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">      --worker-connections 1000 \</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">      --timeout 120 \</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">      -b  0.0.0.0:6666 \</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">      --limit-request-line 0 \</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">      --limit-request-field_size 0 \</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">      --statsd-host localhost:8125 \</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">      &quot;superset.app:create_app()&quot;</span><br></span></code></pre><div class="buttonGroup__atx"><button type="button" aria-label="Copy code to clipboard" title="Copy" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div><p>Refer to the <a href="https://docs.gunicorn.org/en/stable/design.html" target="_blank" rel="noopener noreferrer">Gunicorn documentation</a> for more
 information. <em>Note that the development web server (<code>superset run</code> or <code>flask run</code>) is not intended
 for production use.</em></p><p>If you&#x27;re not using Gunicorn, you may want to disable the use of <code>flask-compress</code> by setting
-<code>COMPRESS_REGISTER = False</code> in your <code>superset_config.py</code>.</p><h3 class="anchor anchorWithStickyNavbar_LWe7" id="configuration-behind-a-load-balancer">Configuration Behind a Load Balancer<a href="#configuration-behind-a-load-balancer" class="hash-link" aria-label="Direct link to Configuration Behind a Load Balancer" title="Direct link to Configuration Behind a Load Balancer">​</a></h3><p>If you are running superset behind a load balancer or reverse proxy (e.g. NGINX or ELB on AWS), you
+<code>COMPRESS_REGISTER = False</code> in your <code>superset_config.py</code>.</p><p>Currently, Google BigQuery python sdk is not compatible with <code>gevent</code>, due to some dynamic monkeypatching on python core library by <code>gevent</code>.
+So, when you use <code>BigQuery</code> datasource on Superset, you have to use <code>gunicorn</code> worker type except <code>gevent</code>.</p><h3 class="anchor anchorWithStickyNavbar_LWe7" id="configuration-behind-a-load-balancer">Configuration Behind a Load Balancer<a href="#configuration-behind-a-load-balancer" class="hash-link" aria-label="Direct link to Configuration Behind a Load Balancer" title="Direct link to Configuration Behind a Load Balancer">​</a></h3><p>If you are running superset behind a load balancer or reverse proxy (e.g. NGINX or ELB on AWS), you
 may need to utilize a healthcheck endpoint so that your load balancer knows if your superset
 instance is running. This is provided at <code>/health</code> which will return a 200 response containing “OK”
 if the webserver is running.</p><p>If the load balancer is inserting <code>X-Forwarded-For/X-Forwarded-Proto</code> headers, you should set
@@ -83,7 +84,7 @@ functionalities in Superset, but will be only affected by a subset of users.</p>
               <a href="https://apache.org/licenses/" target="_blank" rel="noreferrer">License</a>
             </small>
           </p></div></div></div></footer></div>
-<script src="/assets/js/runtime~main.4bb69955.js"></script>
+<script src="/assets/js/runtime~main.6634aa78.js"></script>
 <script src="/assets/js/main.caeb4d05.js"></script>
 </body>
 </html>
