@@ -18,7 +18,7 @@
 
 <script src="/script/matomo.js"></script>
 <script src="https://www.bugherd.com/sidebarv2.js?apikey=enilpiu7bgexxsnoqfjtxa" async></script><link rel="stylesheet" href="/assets/css/styles.f448a7ff.css">
-<link rel="preload" href="/assets/js/runtime~main.e2bf1be7.js" as="script">
+<link rel="preload" href="/assets/js/runtime~main.803693e2.js" as="script">
 <link rel="preload" href="/assets/js/main.caeb4d05.js" as="script">
 </head>
 <body class="navigation-with-keyboard">
@@ -29,7 +29,7 @@ can be found under the <code>superset-frontend/plugins</code> directory. Viz plu
 the application in the <code>superset-frontend/src/visualizations/presets/MainPreset.js</code>.
 The Superset project is always happy to review proposals for new high quality viz
 plugins. However, for highly custom viz types it is recommended to maintain a fork
-of Superset, and add the custom built viz plugins by hand.</p><h3 class="anchor anchorWithStickyNavbar_LWe7" id="prerequisites">Prerequisites<a href="#prerequisites" class="hash-link" aria-label="Direct link to Prerequisites" title="Direct link to Prerequisites">​</a></h3><p>In order to create a new viz plugin, you need the following:</p><ul><li>Run MacOS or Linux (Windows is not officially supported, but may work)</li><li>Node.js 16</li><li>npm 7 or 8</li></ul><p>A general familiarity with <a href="https://reactjs.org/" target="_blank" rel="noopener noreferrer">React</a> and the npm/Node system is
+of Superset, and add the custom built viz plugins by hand.</p><p><strong>Note:</strong> Additional community-generated resources about creating and deploying custom visualization plugins can be found on the <a href="https://github.com/apache/superset/wiki/Community-Resource-Library#creating-custom-data-visualizations" target="_blank" rel="noopener noreferrer">Superset Wiki</a></p><h3 class="anchor anchorWithStickyNavbar_LWe7" id="prerequisites">Prerequisites<a href="#prerequisites" class="hash-link" aria-label="Direct link to Prerequisites" title="Direct link to Prerequisites">​</a></h3><p>In order to create a new viz plugin, you need the following:</p><ul><li>Run MacOS or Linux (Windows is not officially supported, but may work)</li><li>Node.js 16</li><li>npm 7 or 8</li></ul><p>A general familiarity with <a href="https://reactjs.org/" target="_blank" rel="noopener noreferrer">React</a> and the npm/Node system is
 also recommended.</p><h3 class="anchor anchorWithStickyNavbar_LWe7" id="creating-a-simple-hello-world-viz-plugin">Creating a simple Hello World viz plugin<a href="#creating-a-simple-hello-world-viz-plugin" class="hash-link" aria-label="Direct link to Creating a simple Hello World viz plugin" title="Direct link to Creating a simple Hello World viz plugin">​</a></h3><p>To get started, you need the Superset Yeoman Generator. It is recommended to use the
 version of the template that ships with the version of Superset you are using. This
 can be installed by doing the following:</p><div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_biex"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token function" style="color:#d73a49">npm</span><span class="token plain"> i -g yo</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token builtin class-name">cd</span><span class="token plain"> superset-frontend/packages/generator-superset</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token function" style="color:#d73a49">npm</span><span class="token plain"> i</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token function" style="color:#d73a49">npm</span><span class="token plain"> </span><span class="token function" style="color:#d73a49">link</span><br></span></code></pre><div class="buttonGroup__atx"><button type="button" aria-label="Copy code to clipboard" title="Copy" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div><p>After this you can proceed to create your viz plugin. Create a new directory for your
@@ -58,7 +58,7 @@ server:</p><div class="language-bash codeBlockContainer_Ckt0 theme-code-block" s
               <a href="https://apache.org/licenses/" target="_blank" rel="noreferrer">License</a>
             </small>
           </p></div></div></div></footer></div>
-<script src="/assets/js/runtime~main.e2bf1be7.js"></script>
+<script src="/assets/js/runtime~main.803693e2.js"></script>
 <script src="/assets/js/main.caeb4d05.js"></script>
 </body>
 </html>
