@@ -18,7 +18,7 @@
 
 <script src="/script/matomo.js"></script>
 <script src="https://www.bugherd.com/sidebarv2.js?apikey=enilpiu7bgexxsnoqfjtxa" async></script><link rel="stylesheet" href="/assets/css/styles.f448a7ff.css">
-<link rel="preload" href="/assets/js/runtime~main.ae697124.js" as="script">
+<link rel="preload" href="/assets/js/runtime~main.64f3097d.js" as="script">
 <link rel="preload" href="/assets/js/main.ba56a541.js" as="script">
 </head>
 <body class="navigation-with-keyboard">
@@ -44,7 +44,7 @@ For example, to run the 2.1.0 version, run the following commands:</p><div class
 The default installation with docker-compose will store that data in a PostgreSQL database contained in a Docker <a href="https://docs.docker.com/storage/volumes/" target="_blank" rel="noopener noreferrer">volume</a>,
 which is not backed up.  To avoid risking data loss, either use a managed database for your metadata (recommended) or perform your own regular backups by extracting
 and storing the contents of the default PostgreSQL database from its volume (here&#x27;s an
-<a href="https://stackoverflow.com/questions/24718706/backup-restore-a-dockerized-postgresql-database" target="_blank" rel="noopener noreferrer">example of how to dump and restore</a>.</p></div></div><p>You should see a wall of logging output from the containers being launched on your machine. Once
+<a href="https://stackoverflow.com/questions/24718706/backup-restore-a-dockerized-postgresql-database" target="_blank" rel="noopener noreferrer">example of how to dump and restore</a>).</p></div></div><p>You should see a wall of logging output from the containers being launched on your machine. Once
 this output slows, you should have a running instance of Superset on your local machine!  To
 avoid the wall of text on future runs, add the <code>-d</code> option to the end of the <code>docker-compose up</code> command.</p><p><strong>Note:</strong> This will bring up superset in a non-dev mode, changes to the codebase will not be reflected.
 If you would like to run superset in dev mode to test local changes, simply replace the previous command with: <code>docker-compose up</code>,
@@ -73,7 +73,7 @@ yours is one of them, please make sure it uses <code>http</code>.</p><p>Log in w
           <!-- telemetry/analytics pixel: -->
           <img referrerpolicy="no-referrer-when-downgrade" src="https://static.scarf.sh/a.png?x-pxid=39ae6855-95fc-4566-86e5-360d542b0a68">
           </div></div></div></footer></div>
-<script src="/assets/js/runtime~main.ae697124.js"></script>
+<script src="/assets/js/runtime~main.64f3097d.js"></script>
 <script src="/assets/js/main.ba56a541.js"></script>
 </body>
 </html>
