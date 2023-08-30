@@ -18,7 +18,7 @@
 
 <script src="/script/matomo.js"></script>
 <script src="https://www.bugherd.com/sidebarv2.js?apikey=enilpiu7bgexxsnoqfjtxa" async></script><link rel="stylesheet" href="/assets/css/styles.f448a7ff.css">
-<link rel="preload" href="/assets/js/runtime~main.91f8ed5a.js" as="script">
+<link rel="preload" href="/assets/js/runtime~main.cfd989ca.js" as="script">
 <link rel="preload" href="/assets/js/main.ba56a541.js" as="script">
 </head>
 <body class="navigation-with-keyboard">
@@ -39,7 +39,7 @@ commands - if running Superset with Docker, execute from within the Superset app
 (without requiring any installation). However, for production environments,
 using SQLite is highly discouraged due to security, scalability, and data integrity reasons.
 It&#x27;s important to use only the supported database engines and consider using a different
-database engine on a separate host or container.</p><p>Superset supports the following database engines/versions:</p><table><thead><tr><th>Database Engine</th><th>Supported Versions</th></tr></thead><tbody><tr><td><a href="https://www.postgresql.org/" target="_blank" rel="noopener noreferrer">PostgreSQL</a></td><td>10.X, 11.X, 12.X, 13.X, 14.X, 15.X</td></tr><tr><td><a href="https://www.mysql.com/" target="_blank" rel="noopener noreferrer">MySQL</a></td><td>5.X</td></tr></tbody></table><p>Use the following database drivers and connection strings:</p><table><thead><tr><th>Database</th><th>PyPI package</th><th>Connection String</th></tr></thead><tbody><tr><td><a href="https://www.postgresql.org/" target="_blank" rel="noopener noreferrer">PostgreSQL</a></td><td><code>pip install psycopg2</code></td><td><code>postgresql://&lt;UserName&gt;:&lt;DBPassword&gt;@&lt;Database Host&gt;/&lt;Database Name&gt;</code></td></tr><tr><td><a href="https://www.mysql.com/" target="_blank" rel="noopener noreferrer">MySQL</a></td><td><code>pip install mysqlclient</code></td><td><code>mysql://&lt;UserName&gt;:&lt;DBPassword&gt;@&lt;Database Host&gt;/&lt;Database Name&gt;</code></td></tr></tbody></table><p>To configure Superset metastore set <code>SQLALCHEMY_DATABASE_URI</code> config key on <code>superset_config</code>
+database engine on a separate host or container.</p><p>Superset supports the following database engines/versions:</p><table><thead><tr><th>Database Engine</th><th>Supported Versions</th></tr></thead><tbody><tr><td><a href="https://www.postgresql.org/" target="_blank" rel="noopener noreferrer">PostgreSQL</a></td><td>10.X, 11.X, 12.X, 13.X, 14.X, 15.X</td></tr><tr><td><a href="https://www.mysql.com/" target="_blank" rel="noopener noreferrer">MySQL</a></td><td>5.7, 8.X</td></tr></tbody></table><p>Use the following database drivers and connection strings:</p><table><thead><tr><th>Database</th><th>PyPI package</th><th>Connection String</th></tr></thead><tbody><tr><td><a href="https://www.postgresql.org/" target="_blank" rel="noopener noreferrer">PostgreSQL</a></td><td><code>pip install psycopg2</code></td><td><code>postgresql://&lt;UserName&gt;:&lt;DBPassword&gt;@&lt;Database Host&gt;/&lt;Database Name&gt;</code></td></tr><tr><td><a href="https://www.mysql.com/" target="_blank" rel="noopener noreferrer">MySQL</a></td><td><code>pip install mysqlclient</code></td><td><code>mysql://&lt;UserName&gt;:&lt;DBPassword&gt;@&lt;Database Host&gt;/&lt;Database Name&gt;</code></td></tr></tbody></table><p>To configure Superset metastore set <code>SQLALCHEMY_DATABASE_URI</code> config key on <code>superset_config</code>
 to the appropriate connection string.</p><h3 class="anchor anchorWithStickyNavbar_LWe7" id="running-on-a-wsgi-http-server">Running on a WSGI HTTP Server<a href="#running-on-a-wsgi-http-server" class="hash-link" aria-label="Direct link to Running on a WSGI HTTP Server" title="Direct link to Running on a WSGI HTTP Server">​</a></h3><p>While you can run Superset on NGINX or Apache, we recommend using Gunicorn in async mode. This
 enables impressive concurrency even and is fairly easy to install and configure. Please refer to the
 documentation of your preferred technology to set up this Flask WSGI application in a way that works
@@ -87,7 +87,7 @@ functionalities in Superset, but will be only affected by a subset of users.</p>
           <!-- telemetry/analytics pixel: -->
           <img referrerpolicy="no-referrer-when-downgrade" src="https://static.scarf.sh/a.png?x-pxid=39ae6855-95fc-4566-86e5-360d542b0a68">
           </div></div></div></footer></div>
-<script src="/assets/js/runtime~main.91f8ed5a.js"></script>
+<script src="/assets/js/runtime~main.cfd989ca.js"></script>
 <script src="/assets/js/main.ba56a541.js"></script>
 </body>
 </html>
