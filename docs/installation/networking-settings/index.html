@@ -18,7 +18,7 @@
 
 <script src="/script/matomo.js"></script>
 <script src="https://www.bugherd.com/sidebarv2.js?apikey=enilpiu7bgexxsnoqfjtxa" async></script><link rel="stylesheet" href="/assets/css/styles.f448a7ff.css">
-<link rel="preload" href="/assets/js/runtime~main.d9995b82.js" as="script">
+<link rel="preload" href="/assets/js/runtime~main.e9d6579c.js" as="script">
 <link rel="preload" href="/assets/js/main.ba56a541.js" as="script">
 </head>
 <body class="navigation-with-keyboard">
@@ -28,7 +28,8 @@
 dashboard, a lot of time fetch requests are queued up and wait for next available socket.
 <a href="https://github.com/apache/superset/pull/5039" target="_blank" rel="noopener noreferrer">PR 5039</a> adds domain sharding to Superset,
 and this feature will be enabled by configuration only (by default Superset doesn’t allow
-cross-domain request).</p><p>Add the following setting in your <code>superset_config.py</code> file:</p><ul><li><code>SUPERSET_WEBSERVER_DOMAINS</code>: list of allowed hostnames for domain sharding feature.</li></ul><h3 class="anchor anchorWithStickyNavbar_LWe7" id="middleware">Middleware<a href="#middleware" class="hash-link" aria-label="Direct link to Middleware" title="Direct link to Middleware">​</a></h3><p>Superset allows you to add your own middleware. To add your own middleware, update the
+cross-domain request).</p><p>Add the following setting in your <code>superset_config.py</code> file:</p><ul><li><code>SUPERSET_WEBSERVER_DOMAINS</code>: list of allowed hostnames for domain sharding feature.</li></ul><p>Please create your domain shards as subdomains of your main domain for authorization to
+work properly on new domains. For Example:</p><ul><li><code>SUPERSET_WEBSERVER_DOMAINS=[&#x27;superset-1.mydomain.com&#x27;,&#x27;superset-2.mydomain.com&#x27;,&#x27;superset-3.mydomain.com&#x27;,&#x27;superset-4.mydomain.com&#x27;]</code></li></ul><p>or add the following setting in your <code>superset_config.py</code> file if domain shards are not subdomains of main domain.</p><ul><li><code>SESSION_COOKIE_DOMAIN = &#x27;.mydomain.com&#x27;</code></li></ul><h3 class="anchor anchorWithStickyNavbar_LWe7" id="middleware">Middleware<a href="#middleware" class="hash-link" aria-label="Direct link to Middleware" title="Direct link to Middleware">​</a></h3><p>Superset allows you to add your own middleware. To add your own middleware, update the
 <code>ADDITIONAL_MIDDLEWARE</code> key in your <code>superset_config.py</code>. <code>ADDITIONAL_MIDDLEWARE</code> should be a list
 of your additional middleware classes.</p><p>For example, to use <code>AUTH_REMOTE_USER</code> from behind a proxy server like nginx, you have to add a
 simple middleware class to add the value of <code>HTTP_X_PROXY_REMOTE_USER</code> (or any other custom header
@@ -54,7 +55,7 @@ from the proxy) to Gunicorn’s <code>REMOTE_USER</code> environment variable:</
           <!-- telemetry/analytics pixel: -->
           <img referrerpolicy="no-referrer-when-downgrade" src="https://static.scarf.sh/a.png?x-pxid=39ae6855-95fc-4566-86e5-360d542b0a68">
           </div></div></div></footer></div>
-<script src="/assets/js/runtime~main.d9995b82.js"></script>
+<script src="/assets/js/runtime~main.e9d6579c.js"></script>
 <script src="/assets/js/main.ba56a541.js"></script>
 </body>
 </html>
