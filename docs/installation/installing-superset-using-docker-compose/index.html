@@ -9,7 +9,7 @@
 
 <script src="/script/matomo.js"></script>
 <script src="https://www.bugherd.com/sidebarv2.js?apikey=enilpiu7bgexxsnoqfjtxa" async></script><link rel="stylesheet" href="/assets/css/styles.0bab7dfe.css">
-<link rel="preload" href="/assets/js/runtime~main.eac039ac.js" as="script">
+<link rel="preload" href="/assets/js/runtime~main.0edb939f.js" as="script">
 <link rel="preload" href="/assets/js/main.ec2aff2b.js" as="script">
 </head>
 <body class="navigation-with-keyboard">
@@ -54,10 +54,10 @@ with docker compose will store that data in a PostgreSQL database contained in a
 this output slows, you should have a running instance of Superset on your local machine!  To avoid
 the wall of text on future runs, add the <code>-d</code> option to the end of the <code>docker compose up</code> command.</p><h4 class="anchor anchorWithStickyNavbar_LWe7" id="configuring-further">Configuring Further<a href="#configuring-further" class="hash-link" aria-label="Direct link to Configuring Further" title="Direct link to Configuring Further">​</a></h4><p>The following is for users who want to configure how Superset runs in Docker Compose; otherwise, you
 can skip to the next section.</p><p>You can install additional python packages and apply config overrides by following the steps
-mentioned in <a href="https://github.com/apache/superset/tree/master/docker#configuration" target="_blank" rel="noopener noreferrer">docker/README.md</a></p><p>You can configure the Docker Compose environment variables for dev and non-dev mode with
-<code>docker/.env</code>. This environment file sets the environment
-for most containers in the Docker Compose setup, and some variables affect multiple containers and
-others only single ones.</p><p>One important variable is <code>SUPERSET_LOAD_EXAMPLES</code> which determines whether the <code>superset_init</code>
+mentioned in <a href="https://github.com/apache/superset/tree/master/docker#configuration" target="_blank" rel="noopener noreferrer">docker/README.md</a></p><p>Note that <code>docker/.env</code> sets the default environment variables for all the docker images
+used by <code>docker-compose</code>, and that <code>docker/.env-local</code> can be used to override those defaults.
+Also note that <code>docker/.env-local</code> is referenced in our <code>.gitignore</code>,
+preventing developers from risking committing potentially sensitive configuration to the repository.</p><p>One important variable is <code>SUPERSET_LOAD_EXAMPLES</code> which determines whether the <code>superset_init</code>
 container will populate example data and visualizations into the metadata database. These examples
 are helpful for learning and testing out Superset but unnecessary for experienced users and
 production deployments. The loading process can sometimes take a few minutes and a good amount of
@@ -123,7 +123,7 @@ see if there is an entry for <code>&quot;Gateway&quot;</code> and note the IP ad
           <!-- telemetry/analytics pixel: -->
           <img referrerpolicy="no-referrer-when-downgrade" src="https://static.scarf.sh/a.png?x-pxid=39ae6855-95fc-4566-86e5-360d542b0a68">
           </div></div></div></footer></div>
-<script src="/assets/js/runtime~main.eac039ac.js"></script>
+<script src="/assets/js/runtime~main.0edb939f.js"></script>
 <script src="/assets/js/main.ec2aff2b.js"></script>
 </body>
 </html>
