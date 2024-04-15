@@ -9,7 +9,7 @@
 
 <script src="/script/matomo.js"></script>
 <script src="https://www.bugherd.com/sidebarv2.js?apikey=enilpiu7bgexxsnoqfjtxa" async></script><link rel="stylesheet" href="/assets/css/styles.0bab7dfe.css">
-<link rel="preload" href="/assets/js/runtime~main.0edb939f.js" as="script">
+<link rel="preload" href="/assets/js/runtime~main.6798ba20.js" as="script">
 <link rel="preload" href="/assets/js/main.ec2aff2b.js" as="script">
 </head>
 <body class="navigation-with-keyboard">
@@ -61,7 +61,12 @@ preventing developers from risking committing potentially sensitive configuratio
 container will populate example data and visualizations into the metadata database. These examples
 are helpful for learning and testing out Superset but unnecessary for experienced users and
 production deployments. The loading process can sometimes take a few minutes and a good amount of
-CPU, so you may want to disable it on a resource-constrained device.</p><div class="theme-admonition theme-admonition-note alert alert--secondary admonition_LlT9"><div class="admonitionHeading_tbUL"><span class="admonitionIcon_kALy"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M6.3 5.69a.942.942 0 0 1-.28-.7c0-.28.09-.52.28-.7.19-.18.42-.28.7-.28.28 0 .52.09.7.28.18.19.28.42.28.7 0 .28-.09.52-.28.7a1 1 0 0 1-.7.3c-.28 0-.52-.11-.7-.3zM8 7.99c-.02-.25-.11-.48-.31-.69-.2-.19-.42-.3-.69-.31H6c-.27.02-.48.13-.69.31-.2.2-.3.44-.31.69h1v3c.02.27.11.5.31.69.2.2.42.31.69.31h1c.27 0 .48-.11.69-.31.2-.19.3-.42.31-.69H8V7.98v.01zM7 2.3c-3.14 0-5.7 2.54-5.7 5.68 0 3.14 2.56 5.7 5.7 5.7s5.7-2.55 5.7-5.7c0-3.15-2.56-5.69-5.7-5.69v.01zM7 .98c3.86 0 7 3.14 7 7s-3.14 7-7 7-7-3.12-7-7 3.14-7 7-7z"></path></svg></span>note</div><div class="admonitionContent_S0QG"><p>Users often want to connect to other databases from Superset. Currently, the easiest way to
+CPU, so you may want to disable it on a resource-constrained device.</p><p>For more advanced or dynamic configurations that are typically managed in a <code>superset_config.py</code> file
+located in your <code>PYTHONPATH</code>, note that it can be done by providing a
+<code>docker/pythonpath_dev/superset_config_docker.py</code> that will be ignored by git
+(preventing you to commit/push your local configuration back to the repository).
+The mechanics of this are in <code>docker/pythonpath_dev/superset_config.py</code> where you can see
+that the logic runs a <code>from superset_config_docker import *</code></p><div class="theme-admonition theme-admonition-note alert alert--secondary admonition_LlT9"><div class="admonitionHeading_tbUL"><span class="admonitionIcon_kALy"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M6.3 5.69a.942.942 0 0 1-.28-.7c0-.28.09-.52.28-.7.19-.18.42-.28.7-.28.28 0 .52.09.7.28.18.19.28.42.28.7 0 .28-.09.52-.28.7a1 1 0 0 1-.7.3c-.28 0-.52-.11-.7-.3zM8 7.99c-.02-.25-.11-.48-.31-.69-.2-.19-.42-.3-.69-.31H6c-.27.02-.48.13-.69.31-.2.2-.3.44-.31.69h1v3c.02.27.11.5.31.69.2.2.42.31.69.31h1c.27 0 .48-.11.69-.31.2-.19.3-.42.31-.69H8V7.98v.01zM7 2.3c-3.14 0-5.7 2.54-5.7 5.68 0 3.14 2.56 5.7 5.7 5.7s5.7-2.55 5.7-5.7c0-3.15-2.56-5.69-5.7-5.69v.01zM7 .98c3.86 0 7 3.14 7 7s-3.14 7-7 7-7-3.12-7-7 3.14-7 7-7z"></path></svg></span>note</div><div class="admonitionContent_S0QG"><p>Users often want to connect to other databases from Superset. Currently, the easiest way to
 do this is to modify the <code>docker-compose-non-dev.yml</code> file and add your database as a service that
 the other services depend on (via <code>x-superset-depends-on</code>). Others have attempted to set
 <code>network_mode: host</code> on the Superset services, but these generally break the installation,
@@ -123,7 +128,7 @@ see if there is an entry for <code>&quot;Gateway&quot;</code> and note the IP ad
           <!-- telemetry/analytics pixel: -->
           <img referrerpolicy="no-referrer-when-downgrade" src="https://static.scarf.sh/a.png?x-pxid=39ae6855-95fc-4566-86e5-360d542b0a68">
           </div></div></div></footer></div>
-<script src="/assets/js/runtime~main.0edb939f.js"></script>
+<script src="/assets/js/runtime~main.6798ba20.js"></script>
 <script src="/assets/js/main.ec2aff2b.js"></script>
 </body>
 </html>
