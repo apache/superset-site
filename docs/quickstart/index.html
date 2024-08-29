@@ -8,7 +8,7 @@
 
 
 <script src="/script/matomo.js"></script><link rel="stylesheet" href="/assets/css/styles.970abb13.css">
-<script src="/assets/js/runtime~main.c38ea49c.js" defer="defer"></script>
+<script src="/assets/js/runtime~main.2580118f.js" defer="defer"></script>
 <script src="/assets/js/main.7ea39ccc.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
@@ -30,7 +30,8 @@ page.</p></div></div>
 <p>This may take a moment as Docker Compose will fetch the underlying
 container images and will load up some examples. Once all containers
 are downloaded and the output settles, you&#x27;re ready to log in.</p>
-<p>⚠️ If you get an error message like <code>validating superset\docker-compose-image-tag.yml: services.superset-worker-beat.env_file.0 must be a string</code>, you need to update your version of <code>docker-compose</code>.</p>
+<p>⚠️ If you get an error message like <code>validating superset\docker-compose-image-tag.yml: services.superset-worker-beat.env_file.0 must be a string</code>, you need to update your version of <code>docker-compose</code>.
+Note that <code>docker-compose</code> is on the path to deprecation and you should now use <code>docker compose</code> instead.</p>
 <h3 class="anchor anchorWithStickyNavbar_LWe7" id="3-log-into-superset">3. Log into Superset<a class="hash-link" aria-label="Direct link to 3. Log into Superset" title="Direct link to 3. Log into Superset" href="/docs/quickstart#3-log-into-superset">​</a></h3>
 <p>Now head over to <a href="http://localhost:8088" target="_blank" rel="noopener noreferrer">http://localhost:8088</a> and log in with the default created account:</p>
 <div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_biex"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">username: admin</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">password: admin</span><br></span></code></pre><div class="buttonGroup__atx"><button type="button" aria-label="Copy code to clipboard" title="Copy" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
