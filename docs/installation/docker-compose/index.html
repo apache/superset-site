@@ -8,7 +8,7 @@
 
 
 <script src="/script/matomo.js"></script><link rel="stylesheet" href="/assets/css/styles.970abb13.css">
-<script src="/assets/js/runtime~main.b4d9db6a.js" defer="defer"></script>
+<script src="/assets/js/runtime~main.c8d7e8db.js" defer="defer"></script>
 <script src="/assets/js/main.7ea39ccc.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
@@ -38,7 +38,12 @@ while <code>up</code> won&#x27;t be reflected in the app</li>
 <li><strong>docker-compose-image-tag.yml</strong> where we fetch an image from docker-hub say for the
 <code>3.0.0</code> release for instance, and fire it up so you can try it. Here what&#x27;s in
 the local branch has no effects on what&#x27;s running, we just fetch and run
-pre-built images from docker-hub</li>
+pre-built images from docker-hub. For <code>docker compose</code> to work along with the
+Postgres image it boots up, you&#x27;ll want to point to a <code>-dev</code>-suffixed TAG, as in
+<code>export TAG=4.0.0-dev</code> or <code>export TAG=3.0.0-dev</code>, with <code>latest-dev</code> being the default.
+That&#x27;s because The <code>dev</code> builds happen to package the <code>psycopg2-binary</code> required to connect
+to the Postgres database launched as part of the <code>docker compose</code> builds.
+``</li>
 </ol>
 <p>More on these two approaches after setting up the requirements for either.</p>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="requirements">Requirements<a class="hash-link" aria-label="Direct link to Requirements" title="Direct link to Requirements" href="/docs/installation/docker-compose#requirements">​</a></h2>

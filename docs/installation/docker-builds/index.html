@@ -8,7 +8,7 @@
 
 
 <script src="/script/matomo.js"></script><link rel="stylesheet" href="/assets/css/styles.970abb13.css">
-<script src="/assets/js/runtime~main.b4d9db6a.js" defer="defer"></script>
+<script src="/assets/js/runtime~main.c8d7e8db.js" defer="defer"></script>
 <script src="/assets/js/main.7ea39ccc.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
@@ -34,8 +34,15 @@ for the build, and/or base image.</p>
 <p>Here are the build presets that are exposed through the <code>build_docker.py</code> script:</p>
 <ul>
 <li><code>lean</code>: The default Docker image, including both frontend and backend. Tags
-without a build_preset are lean builds, e.g., <code>latest</code>.</li>
-<li><code>dev</code>: For development, with a headless browser, dev-related utilities and root access.</li>
+without a build_preset are lean builds (ie: <code>latest</code>, <code>4.0.0</code>, <code>3.0.0</code>, ...). <code>lean</code>
+builds do not contain database
+drivers, meaning you need to install your own. That applies to analytics databases <strong>AND
+the metadata database</strong>. You&#x27;ll likely want to layer either <code>mysqlclient</code> or <code>psycopg2-binary</code>
+depending on the metadata database you choose for your installation, plus the required
+drivers to connect to your analytics database(s).</li>
+<li><code>dev</code>: For development, with a headless browser, dev-related utilities and root access. This
+includes some commonly used database drivers like <code>mysqlclient</code>, <code>psycopg2-binary</code> and
+some other used for development/CI</li>
 <li><code>py311</code>, e.g., Py311: Similar to lean but with a different Python version (in this example, 3.11).</li>
 <li><code>ci</code>: For certain CI workloads.</li>
 <li><code>websocket</code>: For Superset clusters supporting advanced features.</li>
