@@ -8,7 +8,7 @@
 
 
 <script src="/script/matomo.js"></script><link rel="stylesheet" href="/assets/css/styles.6bf60d00.css">
-<script src="/assets/js/runtime~main.9c1206df.js" defer="defer"></script>
+<script src="/assets/js/runtime~main.5b260c4c.js" defer="defer"></script>
 <script src="/assets/js/main.56468116.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
@@ -67,6 +67,10 @@ script and the <a href="https://github.com/apache/superset/blob/master/.github/w
 GitHub action.</p>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="key-args-in-dockerfile">Key ARGs in Dockerfile<a href="#key-args-in-dockerfile" class="hash-link" aria-label="Direct link to Key ARGs in Dockerfile" title="Direct link to Key ARGs in Dockerfile">​</a></h2>
 <ul>
+<li><code>BUILD_TRANSLATIONS</code>: whether to build the translations into the image. For the
+frontend build this tells webpack to strip out all locales other than <code>en</code> from
+the <code>moment-timezone</code> library. For the backendthis skips compiling the
+<code>*.po</code> translation files</li>
 <li><code>DEV_MODE</code>: whether to skip the frontend build, this is used by our <code>docker-compose</code> dev setup
 where we mount the local volume and build using <code>webpack</code> in <code>--watch</code> mode, meaning as you
 alter the code in the local file system, webpack, from within a docker image used for this
