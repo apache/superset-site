@@ -8,7 +8,7 @@
 
 
 <script src="/script/matomo.js"></script><link rel="stylesheet" href="/assets/css/styles.6bf60d00.css">
-<script src="/assets/js/runtime~main.5b260c4c.js" defer="defer"></script>
+<script src="/assets/js/runtime~main.381f48e3.js" defer="defer"></script>
 <script src="/assets/js/main.56468116.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
@@ -160,6 +160,9 @@ filter (when present).</li>
 <li><code>target_type</code>: The target temporal type as recognized by the target  database (e.g. <code>TIMESTAMP</code>, <code>DATE</code> or
 <code>DATETIME</code>). If <code>column</code> is defined, the format will default to the type of the column. This is used to produce
 the format of the <code>from_expr</code> and <code>to_expr</code> properties of the returned <code>TimeFilter</code> object.</li>
+<li><code>strftime</code>: format using the <code>strftime</code> method of <code>datetime</code> for custom time formatting.
+(<a href="https://docs.python.org/3/library/datetime.html#strftime-and-strptime-format-codes" target="_blank" rel="noopener noreferrer">see docs for valid format codes</a>).
+When defined <code>target_type</code> will be ignored.</li>
 <li><code>remove_filter</code>: When set to true, mark the filter as processed, removing it from the outer query. Useful when a
 filter should only apply to the inner query.</li>
 </ul>
