@@ -8,7 +8,7 @@
 
 
 <script src="/script/matomo.js"></script><link rel="stylesheet" href="/assets/css/styles.e95abbd7.css">
-<script src="/assets/js/runtime~main.c3a63b26.js" defer="defer"></script>
+<script src="/assets/js/runtime~main.210c4531.js" defer="defer"></script>
 <script src="/assets/js/main.47de1c48.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
@@ -29,22 +29,23 @@ Orange, Yellow and Purple.</li>
 <h3 class="anchor anchorWithStickyNavbar_LWe7" id="enabling-data-upload-functionality">Enabling Data Upload Functionality<a href="#enabling-data-upload-functionality" class="hash-link" aria-label="Direct link to Enabling Data Upload Functionality" title="Direct link to Enabling Data Upload Functionality">​</a></h3>
 <p>You may need to enable the functionality to upload a CSV or Excel file to your database. The following section
 explains how to enable this functionality for the examples database.</p>
-<p>In the top menu, select <strong>Data ‣ Databases</strong>. Find the <strong>examples</strong> database in the list and
+<p>In the top menu, select <strong>Settings ‣ Data ‣ Database Connections</strong>. Find the <strong>examples</strong> database in the list and
 select the <strong>Edit</strong> button.</p>
 <img src="/img/tutorial/edit-record.png">
-<p>In the resulting modal window, switch to the <strong>Extra</strong> tab and
-tick the checkbox for <strong>Allow Data Upload</strong>. End by clicking the <strong>Save</strong> button.</p>
-<img src="/img/tutorial/add-data-upload.png">
+<p>In the resulting modal window, switch to the <strong>Advanced</strong> tab and open <strong>Security</strong> section.
+Then, tick the checkbox for <strong>Allow file uploads to database</strong>. End by clicking the <strong>Finish</strong> button.</p>
+<img src="/img/tutorial/allow-file-uploads.png">
 <h3 class="anchor anchorWithStickyNavbar_LWe7" id="loading-csv-data">Loading CSV Data<a href="#loading-csv-data" class="hash-link" aria-label="Direct link to Loading CSV Data" title="Direct link to Loading CSV Data">​</a></h3>
 <p>Download the CSV dataset to your computer from
 <a href="https://raw.githubusercontent.com/apache-superset/examples-data/master/tutorial_flights.csv" target="_blank" rel="noopener noreferrer">GitHub</a>.
-In the Superset menu, select <strong>Data ‣ Upload a CSV</strong>.</p>
+In the top menu, select <strong>Settings ‣ Data ‣ Database Connections</strong>. Then, <strong>Upload file to database ‣ Upload CSV</strong>.</p>
 <img src="/img/tutorial/upload_a_csv.png">
-<p>Then, enter the <strong>Table Name</strong> as <em>tutorial_flights</em> and select the CSV file from your computer.</p>
+<p>Then, select select the CSV file from your computer, select <strong>Database</strong> and <strong>Schema</strong>, and enter the <strong>Table Name</strong>
+as <em>tutorial_flights</em>.</p>
 <img src="/img/tutorial/csv_to_database_configuration.png">
-<p>Next enter the text <em>Travel Date</em> into the <strong>Parse Dates</strong> field.</p>
+<p>Next enter the text <em>Travel Date</em> into the <strong>File settings ‣ Columns to be parsed as dates</strong> field.</p>
 <img src="/img/tutorial/parse_dates_column.png">
-<p>Leaving all the other options in their default settings, select <strong>Save</strong> at the bottom of the page.</p>
+<p>Leaving all the other options in their default settings, select <strong>Upload</strong> at the bottom of the page.</p>
 <h3 class="anchor anchorWithStickyNavbar_LWe7" id="table-visualization">Table Visualization<a href="#table-visualization" class="hash-link" aria-label="Direct link to Table Visualization" title="Direct link to Table Visualization">​</a></h3>
 <p>You should now see <em>tutorial_flights</em> as a dataset in the <strong>Datasets</strong> tab. Click on the entry to
 launch an Explore workflow using this dataset.</p>
