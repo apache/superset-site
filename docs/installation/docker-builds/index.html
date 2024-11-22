@@ -8,7 +8,7 @@
 
 
 <script src="/script/matomo.js"></script><link rel="stylesheet" href="/assets/css/styles.e95abbd7.css">
-<script src="/assets/js/runtime~main.210c4531.js" defer="defer"></script>
+<script src="/assets/js/runtime~main.0144e1d4.js" defer="defer"></script>
 <script src="/assets/js/main.47de1c48.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
@@ -31,7 +31,7 @@ prefixed with <code>master</code> for the latest <code>master</code> version.</l
 <p>We have a set of build &quot;presets&quot; that each represent a combination of
 parameters for the build, mostly pointing to either different target layer
 for the build, and/or base image.</p>
-<p>Here are the build presets that are exposed through the <code>build_docker.py</code> script:</p>
+<p>Here are the build presets that are exposed through the <code>supersetbot docker</code> utility:</p>
 <ul>
 <li><code>lean</code>: The default Docker image, including both frontend and backend. Tags
 without a build_preset are lean builds (ie: <code>latest</code>, <code>4.0.0</code>, <code>3.0.0</code>, ...). <code>lean</code>
@@ -62,8 +62,8 @@ this specific SHA, which could be from a <code>master</code> merge, or release.<
 <li><code>websocket-latest</code>: The WebSocket image for use in a Superset cluster.</li>
 </ul>
 <p>For insights or modifications to the build matrix and tagging conventions,
-check the <a href="https://github.com/apache/superset/blob/master/scripts/build_docker.py" target="_blank" rel="noopener noreferrer">build_docker.py</a>
-script and the <a href="https://github.com/apache/superset/blob/master/.github/workflows/docker.yml" target="_blank" rel="noopener noreferrer">docker.yml</a>
+check the <a href="https://github.com/apache-superset/supersetbot" target="_blank" rel="noopener noreferrer">supersetbot docker</a>
+subcommand and the <a href="https://github.com/apache/superset/blob/master/.github/workflows/docker.yml" target="_blank" rel="noopener noreferrer">docker.yml</a>
 GitHub action.</p>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="key-args-in-dockerfile">Key ARGs in Dockerfile<a href="#key-args-in-dockerfile" class="hash-link" aria-label="Direct link to Key ARGs in Dockerfile" title="Direct link to Key ARGs in Dockerfile">​</a></h2>
 <ul>
