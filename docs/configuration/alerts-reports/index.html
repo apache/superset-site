@@ -8,7 +8,7 @@
 
 
 <script src="/script/matomo.js"></script><link rel="stylesheet" href="/assets/css/styles.e95abbd7.css">
-<script src="/assets/js/runtime~main.5dd8889c.js" defer="defer"></script>
+<script src="/assets/js/runtime~main.dd1fb0ce.js" defer="defer"></script>
 <script src="/assets/js/main.47de1c48.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
@@ -57,12 +57,15 @@ You can either install and configure the headless browser - see &quot;Custom Doc
 <li><code>incoming-webhook</code></li>
 <li><code>files:write</code></li>
 <li><code>chat:write</code></li>
+<li><code>channels:read</code></li>
+<li><code>groups:read</code></li>
 </ul>
 </li>
 <li>At the top of the &quot;OAuth and Permissions&quot; section, click &quot;install to workspace&quot;.</li>
 <li>Select a default channel for your app and continue.
 (You can post to any channel by inviting your Superset app into that channel).</li>
 <li>The app should now be installed in your workspace, and a &quot;Bot User OAuth Access Token&quot; should have been created. Copy that token in the <code>SLACK_API_TOKEN</code> variable of your <code>superset_config.py</code>.</li>
+<li>Ensure the feature flag <code>ALERT_REPORT_SLACK_V2</code> is set to True in <code>superset_config.py</code></li>
 <li>Restart the service (or run <code>superset init</code>) to pull in the new configuration.</li>
 </ol>
 <p>Note: when you configure an alert or a report, the Slack channel list takes channel names without the leading &#x27;#&#x27; e.g. use <code>alerts</code> instead of <code>#alerts</code>.</p>
