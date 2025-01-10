@@ -8,7 +8,7 @@
 
 
 <script src="/script/matomo.js"></script><link rel="stylesheet" href="/assets/css/styles.1c228b7a.css">
-<script src="/assets/js/runtime~main.1f717f47.js" defer="defer"></script>
+<script src="/assets/js/runtime~main.b5934c42.js" defer="defer"></script>
 <script src="/assets/js/main.0e4d11f5.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
@@ -66,6 +66,10 @@ configured to be secure.</p></div></div>
 <li><strong>INCLUDE_FIREFOX (default=false):</strong> whether to include the Firefox headless browser in the build</li>
 <li><strong>INCLUDE_CHROMIUM (default=false):</strong> whether to include the Firefox headless browser in the build</li>
 <li><strong>BUILD_TRANSLATIONS(default=false):</strong> whether to compile the translations from the .po files available</li>
+<li><strong>SUPERSET_LOAD_EXAMPLES (default=yes):</strong> whether to load the examples into the database upon startup,
+save some precious time on startup by <code>SUPERSET_LOAD_EXAMPLES=no docker compose up</code></li>
+<li><strong>SUPERSET_LOG_LEVEL (default=info)</strong>: Can be set to debug, info, warning, error, critical
+for more verbose logging</li>
 </ul>
 <p>For more env vars that affect your configuration, see this
 <a href="https://github.com/apache/superset/blob/master/docker/pythonpath_dev/superset_config.py" target="_blank" rel="noopener noreferrer">superset_config.py</a>
@@ -236,7 +240,7 @@ in combined feature flags of <code>{ &#x27;FOO&#x27;: True, &#x27;BAR&#x27;: Tru
 <p>A series of checks will now run when you make a git commit.</p>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="linting">Linting<a href="#linting" class="hash-link" aria-label="Direct link to Linting" title="Direct link to Linting">​</a></h2>
 <p>See <a href="/docs/contributing/howtos#linting">how tos</a></p>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="github-actions-and-act">GitHub Actions and <code>act</code><a href="#github-actions-and-act" class="hash-link" aria-label="Direct link to github-actions-and-act" title="Direct link to github-actions-and-act">​</a></h2>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="github-actions-and-act">GitHub Actions and <code>act</code><a href="#github-actions-and-act" class="hash-link" aria-label="Direct link to github-actions-and-act" title="Direct link to github-actions-and-act"> ​</a></h2>
 <div class="theme-admonition theme-admonition-tip admonition_xJq3 alert alert--success"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 12 16"><path fill-rule="evenodd" d="M6.5 0C3.48 0 1 2.19 1 5c0 .92.55 2.25 1 3 1.34 2.25 1.78 2.78 2 4v1h5v-1c.22-1.22.66-1.75 2-4 .45-.75 1-2.08 1-3 0-2.81-2.48-5-5.5-5zm3.64 7.48c-.25.44-.47.8-.67 1.11-.86 1.41-1.25 2.06-1.45 3.23-.02.05-.02.11-.02.17H5c0-.06 0-.13-.02-.17-.2-1.17-.59-1.83-1.45-3.23-.2-.31-.42-.67-.67-1.11C2.44 6.78 2 5.65 2 5c0-2.2 2.02-4 4.5-4 1.22 0 2.36.42 3.22 1.19C10.55 2.94 11 3.94 11 5c0 .66-.44 1.78-.86 2.48zM4 14h5c-.23 1.14-1.3 2-2.5 2s-2.27-.86-2.5-2z"></path></svg></span>tip</div><div class="admonitionContent_BuS1"><p><code>act</code> compatibility of Superset&#x27;s GHAs is not fully tested. Running <code>act</code> locally may or may not
 work for different actions, and may require fine tunning and local secret-handling.
 For those more intricate GHAs that are tricky to run locally, we recommend iterating
