@@ -8,7 +8,7 @@
 
 
 <script src="/script/matomo.js"></script><link rel="stylesheet" href="/assets/css/styles.1c228b7a.css">
-<script src="/assets/js/runtime~main.13f8c83c.js" defer="defer"></script>
+<script src="/assets/js/runtime~main.41f38ed1.js" defer="defer"></script>
 <script src="/assets/js/main.0e4d11f5.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
@@ -29,6 +29,12 @@
 <ul>
 <li>emails: <code>SMTP_*</code> settings</li>
 <li>Slack messages: <code>SLACK_API_TOKEN</code></li>
+</ul>
+</li>
+<li>Users can customize the email subject by including date code placeholders, which will automatically be replaced with the corresponding UTC date when the email is sent. To enable this functionality, activate the <code>&quot;DATE_FORMAT_IN_EMAIL_SUBJECT&quot;</code> <a href="/docs/configuration/configuring-superset#feature-flags">feature flag</a>. This enables date formatting in email subjects, preventing all reporting emails from being grouped into the same thread (optional for the reporting feature).<!-- -->
+<ul>
+<li>Use date codes from <a href="https://strftime.org/" target="_blank" rel="noopener noreferrer">strftime.org</a> to create the email subject.</li>
+<li>If no date code is provided, the original string will be used as the email subject.</li>
 </ul>
 </li>
 </ul>
