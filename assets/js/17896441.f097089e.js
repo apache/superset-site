@@ -12,14 +12,14 @@
   background-position: 1rem center;
   background-repeat: no-repeat;
   transition: background-color 0.3s; /* Smooth transition for hover effect */
-  bpx-shadow: 0 0 0 0 rgba(0,0,0,0); /* Smooth transition for hover effect */
-  scale: .9;
+  bpx-shadow: 0 0 0 0 rgba(0, 0, 0, 0); /* Smooth transition for hover effect */
+  scale: 0.9;
   transition: all 0.3s;
   transform-origin: bottom right;
 
   &:hover {
     background-color: #333;
-    box-shadow: 5px 5px 10px 0 rgba(0,0,0,0.3);
+    box-shadow: 5px 5px 10px 0 rgba(0, 0, 0, 0.3);
     scale: 1;
   }
 `;function de(e){return(0,r.jsxs)(r.Fragment,{children:[(0,r.jsx)(ce,{href:e.content.metadata.editUrl,target:"_blank",rel:"noopener noreferrer",children:"Edit this page on GitHub"}),(0,r.jsx)(le,{...e})]})}},64467:(e,t,n)=>{n.d(t,{A:()=>a});var o=n(98406);function a(e,t,n){return(t=(0,o.A)(t))in e?Object.defineProperty(e,t,{value:n,enumerable:!0,configurable:!0,writable:!0}):e[t]=n,e}},98406:(e,t,n)=>{n.d(t,{A:()=>a});var o=n(82284);function a(e){var t=function(e,t){if("object"!=(0,o.A)(e)||!e)return e;var n=e[Symbol.toPrimitive];if(void 0!==n){var a=n.call(e,t||"default");if("object"!=(0,o.A)(a))return a;throw new TypeError("@@toPrimitive must return a primitive value.")}return("string"===t?String:Number)(e)}(e,"string");return"symbol"==(0,o.A)(t)?t:t+""}},82284:(e,t,n)=>{function o(e){return o="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e},o(e)}n.d(t,{A:()=>o})}}]);
