@@ -12,8 +12,8 @@
 
 
 <script src="https://widget.kapa.ai/kapa-widget.bundle.js" async data-website-id="c6a8a8b8-3127-48f9-97a7-51e9e10d20d0" data-project-name="Apache Superset" data-project-color="#FFFFFF" data-project-logo="https://superset.apache.org/img/superset-logo-icon-only.png" data-modal-override-open-id="ask-ai-input" data-modal-override-open-class="search-input" data-modal-disclaimer="This is a custom LLM for Apache Superset with access to all [documentation](superset.apache.org/docs/intro/), [GitHub Open Issues, PRs and READMEs](github.com/apache/superset).&amp;#10;&amp;#10;Companies deploy assistants like this ([built by kapa.ai](https://kapa.ai)) on docs via [website widget](https://docs.kapa.ai/integrations/website-widget) (Docker, Reddit), in [support forms](https://docs.kapa.ai/integrations/support-form-deflector) for ticket deflection (Monday.com, Mapbox), or as [Slack bots](https://docs.kapa.ai/integrations/slack-bot) with private sources." data-modal-example-questions="How do I install Superset?,How can I contribute to Superset?" data-button-text-color="rgb(81,166,197)" data-modal-header-bg-color="#ffffff" data-modal-title-color="rgb(81,166,197)" data-modal-title="Apache Superset AI" data-modal-disclaimer-text-color="#000000" data-consent-required="true" data-consent-screen-disclaimer="By clicking &quot;I agree, let&#39;s chat&quot;, you consent to the use of the AI assistant in accordance with kapa.ai&#39;s [Privacy Policy](https://www.kapa.ai/content/privacy-policy). This service uses reCAPTCHA, which requires your consent to Google&#39;s [Privacy Policy](https://policies.google.com/privacy) and [Terms of Service](https://policies.google.com/terms). By proceeding, you explicitly agree to both kapa.ai&#39;s and Google&#39;s privacy policies."></script><link rel="stylesheet" href="/assets/css/styles.0b341bd4.css">
-<script src="/assets/js/runtime~main.35958366.js" defer="defer"></script>
-<script src="/assets/js/main.5c5ec522.js" defer="defer"></script>
+<script src="/assets/js/runtime~main.cdfc65e2.js" defer="defer"></script>
+<script src="/assets/js/main.4c1f22aa.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
 <svg style="display: none;"><defs>
@@ -47,11 +47,64 @@ only see the objects that they have access to.</p>
 <p>The <strong>sql_lab</strong> role grants access to SQL Lab. Note that while <strong>Admin</strong> users have access
 to all databases by default, both <strong>Alpha</strong> and <strong>Gamma</strong> users need to be given access on a per database basis.</p>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="public">Public<a href="#public" class="hash-link" aria-label="Direct link to Public" title="Direct link to Public" translate="no">​</a></h3>
-<p>To allow logged-out users to access some Superset features, you can use the <code>PUBLIC_ROLE_LIKE</code> config setting and assign it to another role whose permissions you want passed to this role.</p>
-<p>For example, by setting <code>PUBLIC_ROLE_LIKE = &quot;Gamma&quot;</code> in your <code>superset_config.py</code> file, you grant
-public role the same set of permissions as for the <strong>Gamma</strong> role. This is useful if one
-wants to enable anonymous users to view dashboards. Explicit grant on specific datasets is
-still required, meaning that you need to edit the <strong>Public</strong> role and add the public data sources to the role manually.</p>
+<p>The <strong>Public</strong> role is the most restrictive built-in role, designed specifically for anonymous/unauthenticated
+users who need to view dashboards. It provides minimal read-only access for:</p>
+<ul>
+<li class="">Viewing dashboards and charts</li>
+<li class="">Using interactive dashboard filters</li>
+<li class="">Accessing dashboard and chart permalinks</li>
+<li class="">Reading embedded dashboards</li>
+<li class="">Viewing annotations on charts</li>
+</ul>
+<p>The Public role explicitly excludes:</p>
+<ul>
+<li class="">Any write permissions on dashboards, charts, or datasets</li>
+<li class="">SQL Lab access</li>
+<li class="">Share functionality</li>
+<li class="">User profile or admin features</li>
+<li class="">Menu access to most Superset features</li>
+</ul>
+<p>Anonymous users are automatically assigned the Public role when <code>AUTH_ROLE_PUBLIC</code> is configured
+(a Flask-AppBuilder setting). The <code>PUBLIC_ROLE_LIKE</code> setting is <strong>optional</strong> and controls what
+permissions are synced to the Public role when you run <code>superset init</code>:</p>
+<div class="language-python codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#9CDCFE;--prism-background-color:#1E1E1E"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-python codeBlock_bY9V thin-scrollbar" style="color:#9CDCFE;background-color:#1E1E1E"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#9CDCFE"><span class="token comment" style="color:rgb(106, 153, 85)"># Optional: Sync sensible default permissions to the Public role</span><span class="token plain"></span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain">PUBLIC_ROLE_LIKE </span><span class="token operator" style="color:rgb(212, 212, 212)">=</span><span class="token plain"> </span><span class="token string" style="color:rgb(206, 145, 120)">&quot;Public&quot;</span><span class="token plain"></span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain"></span><span class="token comment" style="color:rgb(106, 153, 85)"># Alternative: Copy permissions from Gamma for broader access</span><span class="token plain"></span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain"></span><span class="token comment" style="color:rgb(106, 153, 85)"># PUBLIC_ROLE_LIKE = &quot;Gamma&quot;</span><br></span></code></pre></div></div>
+<p>If you prefer to manually configure the Public role&#x27;s permissions (or use <code>DASHBOARD_RBAC</code> to
+grant access at the dashboard level), you do not need to set <code>PUBLIC_ROLE_LIKE</code>.</p>
+<p><strong>Important notes:</strong></p>
+<ul>
+<li class="">
+<p><strong>Data access is still required:</strong> The Public role only grants UI/API permissions. You must
+also grant access to specific datasets necessary to view a dashboard. As with other roles,
+this can be done in two ways:</p>
+<ul>
+<li class="">
+<p><strong>Without <code>DASHBOARD_RBAC</code>:</strong> Dashboards only appear in the list and are accessible if
+the user has permission to at least one of their datasets. Grant dataset access by editing
+the Public role in the Superset UI (Menu → Security → List Roles → Public) and adding the
+relevant data sources. All published dashboards using those datasets become visible.</p>
+</li>
+<li class="">
+<p><strong>With <code>DASHBOARD_RBAC</code> enabled:</strong> Anonymous users will only see dashboards where the
+&quot;Public&quot; role has been explicitly added in the dashboard&#x27;s properties. Dataset permissions
+are not required—DASHBOARD_RBAC handles the cascading permissions check. This provides
+fine-grained control over which dashboards are publicly visible.</p>
+</li>
+</ul>
+</li>
+<li class="">
+<p><strong>Role synchronization:</strong> Built-in role permissions (Admin, Alpha, Gamma, sql_lab, and Public
+when <code>PUBLIC_ROLE_LIKE = &quot;Public&quot;</code>) are synchronized when you run <code>superset init</code>. Any manual
+permission edits to these roles may be overwritten during upgrades. To customize the Public
+role permissions, you can either:</p>
+<ul>
+<li class="">Edit the Public role directly and avoid setting <code>PUBLIC_ROLE_LIKE</code> (permissions won&#x27;t be
+overwritten by <code>superset init</code>)</li>
+<li class="">Copy the Public role via &quot;Copy Role&quot; in the Superset web UI, save it under a different name
+(e.g., &quot;Public_Custom&quot;), customize the permissions, then update <strong>both</strong> configs:
+<code>PUBLIC_ROLE_LIKE = &quot;Public_Custom&quot;</code> and <code>AUTH_ROLE_PUBLIC = &quot;Public_Custom&quot;</code></li>
+</ul>
+</li>
+</ul>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="managing-data-source-access-for-gamma-roles">Managing Data Source Access for Gamma Roles<a href="#managing-data-source-access-for-gamma-roles" class="hash-link" aria-label="Direct link to Managing Data Source Access for Gamma Roles" title="Direct link to Managing Data Source Access for Gamma Roles" translate="no">​</a></h3>
 <p>Here’s how to provide users access to only specific datasets. First make sure the users with
 limited access have [only] the Gamma role assigned to them. Second, create a new role (Menu -&gt; Security -&gt; List Roles) and click the + sign.</p>
@@ -59,6 +112,35 @@ limited access have [only] the Gamma role assigned to them. Second, create a new
 tables in the <strong>Permissions</strong> dropdown. To select the data sources you want to associate with this role, simply click on the dropdown and use the typeahead to search for your table names.</p>
 <p>You can then confirm with users assigned to the <strong>Gamma</strong> role that they see the
 objects (dashboards and slices) associated with the tables you just extended them.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="dashboard-access-control">Dashboard Access Control<a href="#dashboard-access-control" class="hash-link" aria-label="Direct link to Dashboard Access Control" title="Direct link to Dashboard Access Control" translate="no">​</a></h3>
+<p>Access to dashboards is managed via owners (users that have edit permissions to the dashboard).
+Non-owner user access can be managed in two ways. Note that dashboards must be published to be
+visible to other users.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="dataset-based-access-default">Dataset-Based Access (Default)<a href="#dataset-based-access-default" class="hash-link" aria-label="Direct link to Dataset-Based Access (Default)" title="Direct link to Dataset-Based Access (Default)" translate="no">​</a></h4>
+<p>By default, users can view published dashboards if they have access to at least one dataset
+used in that dashboard. Grant dataset access by adding the relevant data source permissions
+to a role (Menu → Security → List Roles).</p>
+<p>This is the simplest approach but provides all-or-nothing access based on dataset permissions—
+if a user has access to a dataset, they can see all published dashboards using that dataset.</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="dashboard-level-access-dashboard_rbac">Dashboard-Level Access (DASHBOARD_RBAC)<a href="#dashboard-level-access-dashboard_rbac" class="hash-link" aria-label="Direct link to Dashboard-Level Access (DASHBOARD_RBAC)" title="Direct link to Dashboard-Level Access (DASHBOARD_RBAC)" translate="no">​</a></h4>
+<p>For fine-grained control over which dashboards specific roles can access, enable the
+<code>DASHBOARD_RBAC</code> feature flag:</p>
+<div class="language-python codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#9CDCFE;--prism-background-color:#1E1E1E"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-python codeBlock_bY9V thin-scrollbar" style="color:#9CDCFE;background-color:#1E1E1E"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#9CDCFE"><span class="token plain">FEATURE_FLAGS </span><span class="token operator" style="color:rgb(212, 212, 212)">=</span><span class="token plain"> </span><span class="token punctuation" style="color:rgb(212, 212, 212)">{</span><span class="token plain"></span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain">    </span><span class="token string" style="color:rgb(206, 145, 120)">&quot;DASHBOARD_RBAC&quot;</span><span class="token punctuation" style="color:rgb(212, 212, 212)">:</span><span class="token plain"> </span><span class="token boolean">True</span><span class="token punctuation" style="color:rgb(212, 212, 212)">,</span><span class="token plain"></span><br></span><span class="token-line" style="color:#9CDCFE"><span class="token plain"></span><span class="token punctuation" style="color:rgb(212, 212, 212)">}</span><br></span></code></pre></div></div>
+<p>With this enabled, you can assign specific roles to each dashboard in its properties. Users
+will only see dashboards where their role is explicitly added.</p>
+<p><strong>Important considerations:</strong></p>
+<ul>
+<li class="">Dashboard access <strong>bypasses</strong> dataset-level checks—granting a role access to a dashboard
+implicitly grants read access to all charts and datasets in that dashboard</li>
+<li class="">Dashboards without any assigned roles fall back to dataset-based access</li>
+<li class="">The dashboard must still be published to be visible</li>
+</ul>
+<p>This feature is particularly useful for:</p>
+<ul>
+<li class="">Making specific dashboards public while keeping others private</li>
+<li class="">Granting access to dashboards without exposing the underlying datasets for other uses</li>
+<li class="">Creating dashboard-specific access patterns that don&#x27;t align with dataset ownership</li>
+</ul>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="sql-execution-security-considerations">SQL Execution Security Considerations<a href="#sql-execution-security-considerations" class="hash-link" aria-label="Direct link to SQL Execution Security Considerations" title="Direct link to SQL Execution Security Considerations" translate="no">​</a></h3>
 <p>Apache Superset includes features designed to provide safeguards when interacting with connected databases, such as the <code>DISALLOWED_SQL_FUNCTIONS</code> configuration setting. This aims to prevent the execution of potentially harmful database functions or system variables directly from Superset interfaces like SQL Lab.</p>
 <p>However, it is crucial to understand the following:</p>
@@ -247,7 +329,7 @@ analysing the findings.</p>
 <p>PLEASE PAY ATTENTION to report the security issue on the security email before disclosing it on
 public domain. The ASF Security Team maintains a page with the description of how vulnerabilities
 and potential threats are handled, check <a href="https://apache.org/security/committers.html" target="_blank" rel="noopener noreferrer" class="">their web page</a>
-for more details.</p></div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="row margin-top--sm theme-doc-footer-edit-meta-row"><div class="col noPrint_WFHX"><a href="https://github.com/apache/superset/edit/master/docs/docs/security/security.mdx" target="_blank" rel="noopener noreferrer" class="theme-edit-this-page"><svg fill="currentColor" height="20" width="20" viewBox="0 0 40 40" class="iconEdit_Z9Sw" aria-hidden="true"><g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"></path></g></svg>Edit this page</a></div><div class="col lastUpdated_JAkA"><span class="theme-last-updated">Last updated<!-- --> on <b><time datetime="2026-01-03T07:28:44.000Z" itemprop="dateModified">Jan 3, 2026</time></b> by <b>Đỗ Trọng Hải</b></span></div></div></footer></article><nav class="docusaurus-mt-lg pagination-nav" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--prev" href="/docs/contributing/pkg-resources-migration"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">pkg-resources-migration</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/docs/security/cves"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">CVEs fixed by release</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#provided-roles" class="table-of-contents__link toc-highlight">Provided Roles</a></li><li><a href="#admin" class="table-of-contents__link toc-highlight">Admin</a></li><li><a href="#alpha" class="table-of-contents__link toc-highlight">Alpha</a></li><li><a href="#gamma" class="table-of-contents__link toc-highlight">Gamma</a></li><li><a href="#sql_lab" class="table-of-contents__link toc-highlight">sql_lab</a></li><li><a href="#public" class="table-of-contents__link toc-highlight">Public</a></li><li><a href="#managing-data-source-access-for-gamma-roles" class="table-of-contents__link toc-highlight">Managing Data Source Access for Gamma Roles</a></li><li><a href="#sql-execution-security-considerations" class="table-of-contents__link toc-highlight">SQL Execution Security Considerations</a></li><li><a href="#rest-api-for-user--role-management" class="table-of-contents__link toc-highlight">REST API for user &amp; role management</a></li><li><a href="#customizing-permissions" class="table-of-contents__link toc-highlight">Customizing Permissions</a></li><li><a href="#permissions" class="table-of-contents__link toc-highlight">Permissions</a></li><li><a href="#restricting-access-to-a-subset-of-data-sources" class="table-of-contents__link toc-highlight">Restricting Access to a Subset of Data Sources</a></li><li><a href="#row-level-security" class="table-of-contents__link toc-highlight">Row Level Security</a></li><li><a href="#user-sessions" class="table-of-contents__link toc-highlight">User Sessions</a></li><li><a href="#content-security-policy-csp" class="table-of-contents__link toc-highlight">Content Security Policy (CSP)</a></li><li><a href="#reporting-security-vulnerabilities" class="table-of-contents__link toc-highlight">Reporting Security Vulnerabilities</a></li></ul></div></div></div></div></main></div></div></div><footer class="theme-layout-footer footer"><div class="container container-fluid"><div class="footer__bottom text--center"><div class="footer__copyright">
+for more details.</p></div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="row margin-top--sm theme-doc-footer-edit-meta-row"><div class="col noPrint_WFHX"><a href="https://github.com/apache/superset/edit/master/docs/docs/security/security.mdx" target="_blank" rel="noopener noreferrer" class="theme-edit-this-page"><svg fill="currentColor" height="20" width="20" viewBox="0 0 40 40" class="iconEdit_Z9Sw" aria-hidden="true"><g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"></path></g></svg>Edit this page</a></div><div class="col lastUpdated_JAkA"><span class="theme-last-updated">Last updated<!-- --> on <b><time datetime="2026-01-05T18:27:10.000Z" itemprop="dateModified">Jan 5, 2026</time></b> by <b>Evan Rusackas</b></span></div></div></footer></article><nav class="docusaurus-mt-lg pagination-nav" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--prev" href="/docs/contributing/pkg-resources-migration"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">pkg-resources-migration</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/docs/security/cves"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">CVEs fixed by release</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#provided-roles" class="table-of-contents__link toc-highlight">Provided Roles</a></li><li><a href="#admin" class="table-of-contents__link toc-highlight">Admin</a></li><li><a href="#alpha" class="table-of-contents__link toc-highlight">Alpha</a></li><li><a href="#gamma" class="table-of-contents__link toc-highlight">Gamma</a></li><li><a href="#sql_lab" class="table-of-contents__link toc-highlight">sql_lab</a></li><li><a href="#public" class="table-of-contents__link toc-highlight">Public</a></li><li><a href="#managing-data-source-access-for-gamma-roles" class="table-of-contents__link toc-highlight">Managing Data Source Access for Gamma Roles</a></li><li><a href="#dashboard-access-control" class="table-of-contents__link toc-highlight">Dashboard Access Control</a></li><li><a href="#sql-execution-security-considerations" class="table-of-contents__link toc-highlight">SQL Execution Security Considerations</a></li><li><a href="#rest-api-for-user--role-management" class="table-of-contents__link toc-highlight">REST API for user &amp; role management</a></li><li><a href="#customizing-permissions" class="table-of-contents__link toc-highlight">Customizing Permissions</a></li><li><a href="#permissions" class="table-of-contents__link toc-highlight">Permissions</a></li><li><a href="#restricting-access-to-a-subset-of-data-sources" class="table-of-contents__link toc-highlight">Restricting Access to a Subset of Data Sources</a></li><li><a href="#row-level-security" class="table-of-contents__link toc-highlight">Row Level Security</a></li><li><a href="#user-sessions" class="table-of-contents__link toc-highlight">User Sessions</a></li><li><a href="#content-security-policy-csp" class="table-of-contents__link toc-highlight">Content Security Policy (CSP)</a></li><li><a href="#reporting-security-vulnerabilities" class="table-of-contents__link toc-highlight">Reporting Security Vulnerabilities</a></li></ul></div></div></div></div></main></div></div></div><footer class="theme-layout-footer footer"><div class="container container-fluid"><div class="footer__bottom text--center"><div class="footer__copyright">
           <div class="footer__applitools">
             We use &nbsp;<a href="https://applitools.com/" target="_blank" rel="nofollow"><img src="/img/applitools.png" title="Applitools"></a>
           </div>
