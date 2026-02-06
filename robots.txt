@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /api/v1/
+Disallow: /_next/
+Disallow: /static/js/*.map
+
+Sitemap: https://superset.apache.org/sitemap.xml
