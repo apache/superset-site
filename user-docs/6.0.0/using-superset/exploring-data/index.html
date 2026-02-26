@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="en" dir="ltr" class="docs-wrapper plugin-docs plugin-id-default docs-version-6.0.0 docs-doc-page docs-doc-id-using-superset/exploring-data" data-has-hydrated="false">
+<head>
+<meta charset="UTF-8">
+<meta name="generator" content="Docusaurus v3.9.2">
+<title data-rh="true">Exploring Data in Superset | Superset</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" property="og:url" content="https://superset.apache.org/user-docs/6.0.0/using-superset/exploring-data"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="keywords" content="data visualization, business intelligence, BI, dashboards, SQL, analytics, open source, Apache, charts, reporting"><meta data-rh="true" property="og:type" content="website"><meta data-rh="true" property="og:site_name" content="Apache Superset"><meta data-rh="true" property="og:image" content="https://superset.apache.org/img/superset-og-image.png"><meta data-rh="true" property="og:image:width" content="1200"><meta data-rh="true" property="og:image:height" content="630"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" name="twitter:image" content="https://superset.apache.org/img/superset-og-image.png"><meta data-rh="true" name="twitter:site" content="@ApacheSuperset"><meta data-rh="true" name="docusaurus_version" content="6.0.0"><meta data-rh="true" name="docusaurus_tag" content="docs-default-6.0.0"><meta data-rh="true" name="docsearch:version" content="6.0.0"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-6.0.0"><meta data-rh="true" property="og:title" content="Exploring Data in Superset | Superset"><meta data-rh="true" name="description" content="Exploring Data in Superset"><meta data-rh="true" property="og:description" content="Exploring Data in Superset"><link data-rh="true" rel="icon" href="/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://superset.apache.org/user-docs/6.0.0/using-superset/exploring-data"><link data-rh="true" rel="alternate" href="https://superset.apache.org/user-docs/6.0.0/using-superset/exploring-data" hreflang="en"><link data-rh="true" rel="alternate" href="https://superset.apache.org/user-docs/6.0.0/using-superset/exploring-data" hreflang="x-default"><link data-rh="true" rel="preconnect" href="https://WR5FASX5ED-dsn.algolia.net" crossorigin="anonymous"><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Exploring Data in Superset","item":"https://superset.apache.org/user-docs/6.0.0/using-superset/exploring-data"}]}</script><link rel="search" type="application/opensearchdescription+xml" title="Superset" href="/opensearch.xml">
+
+
+
+
+
+
+
+
+
+
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Apache Superset","applicationCategory":"BusinessApplication","operatingSystem":"Cross-platform","description":"Apache Superset is a modern, enterprise-ready business intelligence web application for data exploration and visualization.","url":"https://superset.apache.org","license":"https://www.apache.org/licenses/LICENSE-2.0","author":{"@type":"Organization","name":"Apache Software Foundation","url":"https://www.apache.org/","logo":"https://www.apache.org/foundation/press/kit/asf_logo.png"},"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"featureList":["Interactive dashboards","SQL IDE","40+ visualization types","Semantic layer","Role-based access control","REST API"]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Apache Superset","url":"https://superset.apache.org","potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://superset.apache.org/search?q={search_term_string}"},"query-input":"required name=search_term_string"}}</script>
+<link rel="preconnect" href="https://WR5FASX5ED-dsn.algolia.net" crossorigin="anonymous">
+<link rel="preconnect" href="https://analytics.apache.org">
+<script src="https://widget.kapa.ai/kapa-widget.bundle.js" async data-website-id="c6a8a8b8-3127-48f9-97a7-51e9e10d20d0" data-project-name="Apache Superset" data-project-color="#FFFFFF" data-project-logo="https://superset.apache.org/img/superset-logo-icon-only.png" data-modal-override-open-id="ask-ai-input" data-modal-override-open-class="search-input" data-modal-disclaimer="This is a custom LLM for Apache Superset with access to all [documentation](superset.apache.org/docs/intro/), [GitHub Open Issues, PRs and READMEs](github.com/apache/superset).&amp;#10;&amp;#10;Companies deploy assistants like this ([built by kapa.ai](https://kapa.ai)) on docs via [website widget](https://docs.kapa.ai/integrations/website-widget) (Docker, Reddit), in [support forms](https://docs.kapa.ai/integrations/support-form-deflector) for ticket deflection (Monday.com, Mapbox), or as [Slack bots](https://docs.kapa.ai/integrations/slack-bot) with private sources." data-modal-example-questions="How do I install Superset?,How can I contribute to Superset?" data-button-text-color="rgb(81,166,197)" data-modal-header-bg-color="#ffffff" data-modal-title-color="rgb(81,166,197)" data-modal-title="Apache Superset AI" data-modal-disclaimer-text-color="#000000" data-consent-required="true" data-consent-screen-disclaimer="By clicking &quot;I agree, let&#39;s chat&quot;, you consent to the use of the AI assistant in accordance with kapa.ai&#39;s [Privacy Policy](https://www.kapa.ai/content/privacy-policy). This service uses reCAPTCHA, which requires your consent to Google&#39;s [Privacy Policy](https://policies.google.com/privacy) and [Terms of Service](https://policies.google.com/terms). By proceeding, you explicitly agree to both kapa.ai&#39;s and Google&#39;s privacy policies."></script><link rel="stylesheet" href="/assets/css/styles.00b8a6f2.css">
+<script src="/assets/js/runtime~main.09ec2be9.js" defer="defer"></script>
+<script src="/assets/js/main.3129de7a.js" defer="defer"></script>
+</head>
+<body class="navigation-with-keyboard">
+<svg style="display: none;"><defs>
+<symbol id="theme-svg-external-link" viewBox="0 0 24 24"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"/></symbol>
+</defs></svg>
+<script>!function(){var t=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return window.localStorage.getItem("theme")}catch(t){}}();document.documentElement.setAttribute("data-theme",t||(window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")),document.documentElement.setAttribute("data-theme-choice",t||"system")}(),function(){try{const c=new URLSearchParams(window.location.search).entries();for(var[t,e]of c)if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script><div id="__docusaurus"><div role="region" aria-label="Skip to main content"><a class="skipToContent_fXgn" href="#__docusaurus_skipToContent_fallback">Skip to main content</a></div><nav aria-label="Main" class="theme-layout-navbar navbar navbar--fixed-top"><div class="navbar__inner"><div class="theme-layout-navbar-left navbar__items"><button aria-label="Toggle navigation bar" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/"><div class="navbar__logo"><img src="/img/superset-logo-horiz.svg" alt="Superset Logo" class="themedComponent_mlkZ themedComponent--light_NVdE"><img src="/img/superset-logo-horiz-dark.svg" alt="Superset Logo" class="themedComponent_mlkZ themedComponent--dark_xIcU"></div></a><div class="navbar__item dropdown dropdown--hoverable"><a aria-current="page" class="navbar__link active" aria-haspopup="true" aria-expanded="false" role="button" href="/user-docs/">Users</a><ul class="dropdown__menu"><li><a class="dropdown__link" href="/user-docs/">Overview</a></li><li><a class="dropdown__link" href="/user-docs/quickstart">Quickstart</a></li><li><a class="dropdown__link" href="/user-docs/using-superset/creating-your-first-dashboard">Using Superset</a></li><li><a class="dropdown__link" href="/user-docs/databases/">Connecting to Databases</a></li><li><a class="dropdown__link" href="/user-docs/faq">FAQ</a></li></ul></div><div class="navbar__item dropdown dropdown--hoverable"><a class="navbar__link" aria-haspopup="true" aria-expanded="false" role="button" href="/admin-docs/">Admins</a><ul class="dropdown__menu"><li><a class="dropdown__link" href="/admin-docs/">Overview</a></li><li><a class="dropdown__link" href="/admin-docs/installation/installation-methods">Installation</a></li><li><a class="dropdown__link" href="/admin-docs/configuration/configuring-superset">Configuration</a></li><li><a class="dropdown__link" href="/user-docs/databases/">Database Drivers</a></li><li><a class="dropdown__link" href="/admin-docs/security/security">Security</a></li></ul></div><div class="navbar__item dropdown dropdown--hoverable"><a class="navbar__link" aria-haspopup="true" aria-expanded="false" role="button" href="/developer-docs/">Developers</a><ul class="dropdown__menu"><li><a class="dropdown__link" href="/developer-docs/">Overview</a></li><li><a class="dropdown__link" href="/developer-docs/contributing/overview">Contributing</a></li><li><a class="dropdown__link" href="/developer-docs/extensions/overview">Extensions</a></li><li><a class="dropdown__link" href="/developer-docs/testing/overview">Testing</a></li><li><a class="dropdown__link" href="/developer-docs/components/">UI Components</a></li><li><a class="dropdown__link" href="/developer-docs/api">API Reference</a></li></ul></div><div class="navbar__item dropdown dropdown--hoverable"><a class="navbar__link" aria-haspopup="true" aria-expanded="false" role="button" href="/community">Community</a><ul class="dropdown__menu"><li><a class="dropdown__link" href="/community">Resources</a></li><li><a href="https://github.com/apache/superset" target="_blank" rel="noopener noreferrer" class="dropdown__link">GitHub<svg width="12" height="12" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li><a href="http://bit.ly/join-superset-slack" target="_blank" rel="noopener noreferrer" class="dropdown__link">Slack<svg width="12" height="12" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li><a href="https://lists.apache.org/list.html?dev@superset.apache.org" target="_blank" rel="noopener noreferrer" class="dropdown__link">Mailing List<svg width="12" height="12" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li><a href="https://stackoverflow.com/questions/tagged/apache-superset" target="_blank" rel="noopener noreferrer" class="dropdown__link">Stack Overflow<svg width="12" height="12" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li><a class="dropdown__link" href="/community#superset-community-calendar">Community Calendar</a></li><li><a class="dropdown__link" href="/inTheWild">In the Wild</a></li></ul></div></div><div class="theme-layout-navbar-right navbar__items navbar__items--right"><a class="navbar__item navbar__link default-button-theme get-started-button" href="/user-docs/">Get Started</a><a href="https://github.com/apache/superset" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link github-button"></a><div class="toggle_vylO colorModeToggle_DEke"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type="button" disabled="" title="system mode" aria-label="Switch between dark and light mode (currently system mode)"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP systemToggleIcon_QzmC"><path fill="currentColor" d="m12 21c4.971 0 9-4.029 9-9s-4.029-9-9-9-9 4.029-9 9 4.029 9 9 9zm4.95-13.95c1.313 1.313 2.05 3.093 2.05 4.95s-0.738 3.637-2.05 4.95c-1.313 1.313-3.093 2.05-4.95 2.05v-14c1.857 0 3.637 0.737 4.95 2.05z"></path></svg></button></div><div class="navbarSearchContainer_Bca1"><button type="button" class="DocSearch DocSearch-Button" aria-label="Search (Meta+k)" aria-keyshortcuts="Meta+k"><span class="DocSearch-Button-Container"><svg width="20" height="20" class="DocSearch-Search-Icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="8" stroke="currentColor" fill="none" stroke-width="1.4"></circle><path d="m21 21-4.3-4.3" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg><span class="DocSearch-Button-Placeholder">Search</span></span><span class="DocSearch-Button-Keys"></span></button></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="__docusaurus_skipToContent_fallback" class="theme-layout-main main-wrapper mainWrapper_z2l0"><div class="docsWrapper_hBAB"><button aria-label="Scroll back to top" class="clean-btn theme-back-to-top-button backToTopButton_sjWU" type="button"></button><div class="docRoot_UBD9"><aside class="theme-doc-sidebar-container docSidebarContainer_YfHR"><div class="sidebarViewport_aRkj"><div class="sidebar_njMd"><nav aria-label="Docs sidebar" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/user-docs/6.0.0/intro"><span title="Introduction" class="linkLabel_WmDU">Introduction</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/user-docs/6.0.0/quickstart"><span title="Quickstart" class="linkLabel_WmDU">Quickstart</span></a></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/user-docs/6.0.0/installation/architecture"><span title="Installation" class="categoryLinkLabel_W154">Installation</span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/user-docs/6.0.0/configuration/configuring-superset"><span title="Configuration" class="categoryLinkLabel_W154">Configuration</span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret menu__link--active" role="button" aria-expanded="true" href="/user-docs/6.0.0/using-superset/creating-your-first-dashboard"><span title="Using Superset" class="categoryLinkLabel_W154">Using Superset</span></a></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/user-docs/6.0.0/using-superset/creating-your-first-dashboard"><span title="Creating Your First Dashboard" class="linkLabel_WmDU">Creating Your First Dashboard</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link menu__link--active" aria-current="page" tabindex="0" href="/user-docs/6.0.0/using-superset/exploring-data"><span title="Exploring Data in Superset" class="linkLabel_WmDU">Exploring Data in Superset</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/user-docs/6.0.0/using-superset/issue-codes"><span title="Issue Codes" class="linkLabel_WmDU">Issue Codes</span></a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/user-docs/6.0.0/contributing/"><span title="Contributing" class="categoryLinkLabel_W154">Contributing</span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/user-docs/6.0.0/security/"><span title="Security" class="categoryLinkLabel_W154">Security</span></a></div></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/user-docs/6.0.0/faq"><span title="FAQ" class="linkLabel_WmDU">FAQ</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/user-docs/6.0.0/api"><span title="API" class="linkLabel_WmDU">API</span></a></li></ul></nav><button type="button" title="Collapse sidebar" aria-label="Collapse sidebar" class="button button--secondary button--outline collapseSidebarButton_PEFL"><svg width="20" height="20" aria-hidden="true" class="collapseSidebarButtonIcon_kv0_"><g fill="#7a7a7a"><path d="M9.992 10.023c0 .2-.062.399-.172.547l-4.996 7.492a.982.982 0 01-.828.454H1c-.55 0-1-.453-1-1 0-.2.059-.403.168-.551l4.629-6.942L.168 3.078A.939.939 0 010 2.528c0-.548.45-.997 1-.997h2.996c.352 0 .649.18.828.45L9.82 9.472c.11.148.172.347.172.55zm0 0"></path><path d="M19.98 10.023c0 .2-.058.399-.168.547l-4.996 7.492a.987.987 0 01-.828.454h-3c-.547 0-.996-.453-.996-1 0-.2.059-.403.168-.551l4.625-6.942-4.625-6.945a.939.939 0 01-.168-.55 1 1 0 01.996-.997h3c.348 0 .649.18.828.45l4.996 7.492c.11.148.168.347.168.55zm0 0"></path></g></svg></button></div></div></aside><main class="docMainContainer_TBSr"><div class="container padding-top--md padding-bottom--lg"><div class="row"><div class="col docItemCol_VOVn"><div class="docItemContainer_Djhp"><article><nav class="theme-doc-breadcrumbs breadcrumbsContainer_Z_bl" aria-label="Breadcrumbs"><ul class="breadcrumbs"><li class="breadcrumbs__item"><a aria-label="Home page" class="breadcrumbs__link" href="/"><svg viewBox="0 0 24 24" class="breadcrumbHomeIcon_YNFT"><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill="currentColor"></path></svg></a></li><li class="breadcrumbs__item"><span class="breadcrumbs__link">Using Superset</span></li><li class="breadcrumbs__item breadcrumbs__item--active"><span class="breadcrumbs__link">Exploring Data in Superset</span></li></ul></nav><span class="versionBadge_QOso">Version:<!-- --> <a class="ant-dropdown-trigger versionSelector_oOvN">6.0.0<!-- --> <span role="img" aria-label="down" class="anticon anticon-down"><svg viewBox="64 64 896 896" focusable="false" data-icon="down" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"></path></svg></span></a></span><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_ITEo"><button type="button" class="clean-btn tocCollapsibleButton_TO0P">On this page</button></div><div class="theme-doc-markdown markdown"><h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="exploring-data-in-superset">Exploring Data in Superset<a href="#exploring-data-in-superset" class="hash-link" aria-label="Direct link to Exploring Data in Superset" title="Direct link to Exploring Data in Superset" translate="no">​</a></h2>
+<p>In this tutorial, we will introduce key concepts in Apache Superset through the exploration of a
+real dataset which contains the flights made by employees of a UK-based organization in 2011. The
+following information about each flight is given:</p>
+<ul>
+<li class="">The traveler’s department. For the purposes of this tutorial the departments have been renamed
+Orange, Yellow and Purple.</li>
+<li class="">The cost of the ticket.</li>
+<li class="">The travel class (Economy, Premium Economy, Business and First Class).</li>
+<li class="">Whether the ticket was a single or return.</li>
+<li class="">The date of travel.</li>
+<li class="">Information about the origin and destination.</li>
+<li class="">The distance between the origin and destination, in kilometers (km).</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="enabling-data-upload-functionality">Enabling Data Upload Functionality<a href="#enabling-data-upload-functionality" class="hash-link" aria-label="Direct link to Enabling Data Upload Functionality" title="Direct link to Enabling Data Upload Functionality" translate="no">​</a></h3>
+<p>You may need to enable the functionality to upload a CSV or Excel file to your database. The following section
+explains how to enable this functionality for the examples database.</p>
+<p>In the top menu, select <strong>Settings ‣ Data ‣ Database Connections</strong>. Find the <strong>examples</strong> database in the list and
+select the <strong>Edit</strong> button.</p>
+<img src="/img/tutorial/edit-record.png">
+<p>In the resulting modal window, switch to the <strong>Advanced</strong> tab and open <strong>Security</strong> section.
+Then, tick the checkbox for <strong>Allow file uploads to database</strong>. End by clicking the <strong>Finish</strong> button.</p>
+<img src="/img/tutorial/allow-file-uploads.png">
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="loading-csv-data">Loading CSV Data<a href="#loading-csv-data" class="hash-link" aria-label="Direct link to Loading CSV Data" title="Direct link to Loading CSV Data" translate="no">​</a></h3>
+<p>Download the CSV dataset to your computer from
+<a href="https://raw.githubusercontent.com/apache-superset/examples-data/master/tutorial_flights.csv" target="_blank" rel="noopener noreferrer" class="">GitHub</a>.
+In the top menu, select <strong>Settings ‣ Data ‣ Database Connections</strong>. Then, <strong>Upload file to database ‣ Upload CSV</strong>.</p>
+<img src="/img/tutorial/upload_a_csv.png">
+<p>Then, select select the CSV file from your computer, select <strong>Database</strong> and <strong>Schema</strong>, and enter the <strong>Table Name</strong>
+as <em>tutorial_flights</em>.</p>
+<img src="/img/tutorial/csv_to_database_configuration.png">
+<p>Next enter the text <em>Travel Date</em> into the <strong>File settings ‣ Columns to be parsed as dates</strong> field.</p>
+<img src="/img/tutorial/parse_dates_column.png">
+<p>Leaving all the other options in their default settings, select <strong>Upload</strong> at the bottom of the page.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="table-visualization">Table Visualization<a href="#table-visualization" class="hash-link" aria-label="Direct link to Table Visualization" title="Direct link to Table Visualization" translate="no">​</a></h3>
+<p>You should now see <em>tutorial_flights</em> as a dataset in the <strong>Datasets</strong> tab. Click on the entry to
+launch an Explore workflow using this dataset.</p>
+<p>In this section, we&#x27;ll create a table visualization
+to show the number of flights and cost per travel class.</p>
+<p>By default, Apache Superset only shows the last week of data. In our example, we want to visualize all
+of the data in the dataset. Click the <strong>Time ‣ Time Range</strong> section and change
+the <strong>Range Type</strong> to <strong>No Filter</strong>.</p>
+<img src="/img/tutorial/no_filter_on_time_filter.png">
+<p>Click <strong>Apply</strong> to save.</p>
+<p>Now, we want to specify the rows in our table by using the <strong>Group by</strong> option. Since in this
+example, we want to understand different Travel Classes, we select <strong>Travel Class</strong> in this menu.</p>
+<p>Next, we can specify the metrics we would like to see in our table with the <strong>Metrics</strong> option.</p>
+<ul>
+<li class=""><code>COUNT(*)</code>, which represents the number of rows in the table
+(in this case, quantity of flights in each Travel Class)</li>
+<li class=""><code>SUM(Cost)</code>, which represents the total cost spent by each Travel Class</li>
+</ul>
+<img src="/img/tutorial/sum_cost_column.png">
+<p>Finally, select <strong>Run Query</strong> to see the results of the table.</p>
+<img src="/img/tutorial/tutorial_table.png">
+<p>To save the visualization, click on <strong>Save</strong> in the top left of the screen. In the following modal,</p>
+<ul>
+<li class="">Select the <strong>Save as</strong>
+option and enter the chart name as Tutorial Table (you will be able to find it again through the
+<strong>Charts</strong> screen, accessible in the top menu).</li>
+<li class="">Select <strong>Add To Dashboard</strong> and enter
+Tutorial Dashboard. Finally, select <strong>Save &amp; Go To Dashboard</strong>.</li>
+</ul>
+<img src="/img/tutorial/save_tutorial_table.png">
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="dashboard-basics">Dashboard Basics<a href="#dashboard-basics" class="hash-link" aria-label="Direct link to Dashboard Basics" title="Direct link to Dashboard Basics" translate="no">​</a></h3>
+<p>Next, we are going to explore the dashboard interface. If you’ve followed the previous section, you
+should already have the dashboard open. Otherwise, you can navigate to the dashboard by selecting
+Dashboards on the top menu, then Tutorial dashboard from the list of dashboards.</p>
+<p>On this dashboard you should see the table you created in the previous section. Select <strong>Edit
+dashboard</strong> and then hover over the table. By selecting the bottom right hand corner of the table
+(the cursor will change too), you can resize it by dragging and dropping.</p>
+<img src="/img/tutorial/resize_tutorial_table_on_dashboard.png">
+<p>Finally, save your changes by selecting Save changes in the top right.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="pivot-table">Pivot Table<a href="#pivot-table" class="hash-link" aria-label="Direct link to Pivot Table" title="Direct link to Pivot Table" translate="no">​</a></h3>
+<p>In this section, we will extend our analysis using a more complex visualization, Pivot Table. By the
+end of this section, you will have created a table that shows the monthly spend on flights for the
+first six months, by department, by travel class.</p>
+<p>Create a new chart by selecting <strong>+ ‣ Chart</strong> from the top right corner. Choose
+tutorial_flights again as a datasource, then click on the visualization type to get to the
+visualization menu. Select the <strong>Pivot Table</strong> visualization (you can filter by entering text in the
+search box) and then <strong>Create New Chart</strong>.</p>
+<img src="/img/tutorial/create_pivot.png">
+<p>In the <strong>Time</strong> section, keep the Time Column as Travel Date (this is selected automatically as we
+only have one time column in our dataset). Then select Time Grain to be month as having daily data
+would be too granular to see patterns from. Then select the time range to be the first six months of
+2011 by click on Last week in the Time Range section, then in Custom selecting a Start / end of 1st
+January 2011 and 30th June 2011 respectively by either entering directly the dates or using the
+calendar widget (by selecting the month name and then the year, you can move more quickly to far
+away dates).</p>
+<img src="/img/tutorial/select_dates_pivot_table.png">
+<p>Next, within the <strong>Query</strong> section, remove the default COUNT(*) and add Cost, keeping the default
+SUM aggregate. Note that Apache Superset will indicate the type of the metric by the symbol on the
+left hand column of the list (ABC for string, # for number, a clock face for time, etc.).</p>
+<p>In <strong>Group by</strong>, select <strong>Time</strong>: this will automatically use the Time Column and Time Grain
+selections we defined in the Time section.</p>
+<p>Within <strong>Columns</strong>, first select Department and then Travel Class. All set – let’s <strong>Run Query</strong> to
+see some data!</p>
+<img src="/img/tutorial/tutorial_pivot_table.png">
+<p>You should see months in the rows and Department and Travel Class in the columns. Publish this chart
+to your existing Tutorial Dashboard you created earlier.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="line-chart">Line Chart<a href="#line-chart" class="hash-link" aria-label="Direct link to Line Chart" title="Direct link to Line Chart" translate="no">​</a></h3>
+<p>In this section, we are going to create a line chart to understand the average price of a ticket by
+month across the entire dataset.</p>
+<p>In the Time section, as before, keep the Time Column as Travel Date and Time Grain as month but this
+time for the Time range select No filter as we want to look at entire dataset.</p>
+<p>Within Metrics, remove the default <code>COUNT(*)</code> metric and instead add <code>AVG(Cost)</code>, to show the mean value.</p>
+<img src="/img/tutorial/average_aggregate_for_cost.png">
+<p>Next, select <strong>Run Query</strong> to show the data on the chart.</p>
+<p>How does this look? Well, we can see that the average cost goes up in December. However, perhaps it
+doesn’t make sense to combine both single and return tickets, but rather show two separate lines for
+each ticket type.</p>
+<p>Let’s do this by selecting Ticket Single or Return in the Group by box, and the selecting <strong>Run
+Query</strong> again. Nice! We can see that on average single tickets are cheaper than returns and that the
+big spike in December is caused by return tickets.</p>
+<p>Our chart is looking pretty good already, but let’s customize some more by going to the Customize
+tab on the left hand pane. Within this pane, try changing the Color Scheme, removing the range
+filter by selecting No in the Show Range Filter drop down and adding some labels using X Axis Label
+and Y Axis Label.</p>
+<img src="/img/tutorial/tutorial_line_chart.png">
+<p>Once you’re done, publish the chart in your Tutorial Dashboard.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="markup">Markup<a href="#markup" class="hash-link" aria-label="Direct link to Markup" title="Direct link to Markup" translate="no">​</a></h3>
+<p>In this section, we will add some text to our dashboard. If you’re there already, you can navigate
+to the dashboard by selecting Dashboards on the top menu, then Tutorial dashboard from the list of
+dashboards. Got into edit mode by selecting <strong>Edit dashboard</strong>.</p>
+<p>Within the Insert components pane, drag and drop a Markdown box on the dashboard. Look for the blue
+lines which indicate the anchor where the box will go.</p>
+<img src="/img/tutorial/blue_bar_insert_component.png">
+<p>Now, to edit the text, select the box. You can enter text, in markdown format (see
+<a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet" target="_blank" rel="noopener noreferrer" class="">this Markdown Cheatsheet</a> for
+more information about this format). You can toggle between Edit and Preview using the menu on the
+top of the box.</p>
+<img src="/img/tutorial/markdown.png">
+<p>To exit, select any other part of the dashboard. Finally, don’t forget to keep your changes using
+<strong>Save changes</strong>.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="publishing-your-dashboard">Publishing Your Dashboard<a href="#publishing-your-dashboard" class="hash-link" aria-label="Direct link to Publishing Your Dashboard" title="Direct link to Publishing Your Dashboard" translate="no">​</a></h3>
+<p>If you have followed all of the steps outlined in the previous section, you should have a dashboard
+that looks like the below. If you would like, you can rearrange the elements of the dashboard by
+selecting <strong>Edit dashboard</strong> and dragging and dropping.</p>
+<p>If you would like to make your dashboard available to other users, simply select Draft next to the
+title of your dashboard on the top left to change your dashboard to be in Published state. You can
+also favorite this dashboard by selecting the star.</p>
+<img src="/img/tutorial/publish_dashboard.png">
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="annotations">Annotations<a href="#annotations" class="hash-link" aria-label="Direct link to Annotations" title="Direct link to Annotations" translate="no">​</a></h3>
+<p>Annotations allow you to add additional context to your chart. In this section, we will add an
+annotation to the Tutorial Line Chart we made in a previous section. Specifically, we will add the
+dates when some flights were cancelled by the UK’s Civil Aviation Authority in response to the
+eruption of the Grímsvötn volcano in Iceland (23-25 May 2011).</p>
+<p>First, add an annotation layer by navigating to Manage ‣ Annotation Layers. Add a new annotation
+layer by selecting the green plus sign to add a new record. Enter the name Volcanic Eruptions and
+save. We can use this layer to refer to a number of different annotations.</p>
+<p>Next, add an annotation by navigating to Manage ‣ Annotations and then create a new annotation by
+selecting the green plus sign. Then, select the Volcanic Eruptions layer, add a short description
+Grímsvötn and the eruption dates (23-25 May 2011) before finally saving.</p>
+<img src="/img/tutorial/edit_annotation.png">
+<p>Then, navigate to the line chart by going to Charts then selecting Tutorial Line Chart from the
+list. Next, go to the Annotations and Layers section and select Add Annotation Layer. Within this
+dialogue:</p>
+<ul>
+<li class="">Name the layer as Volcanic Eruptions</li>
+<li class="">Change the Annotation Layer Type to Event</li>
+<li class="">Set the Annotation Source as Superset annotation</li>
+<li class="">Specify the Annotation Layer as Volcanic Eruptions</li>
+</ul>
+<img src="/img/tutorial/annotation_settings.png">
+<p>Select <strong>Apply</strong> to see your annotation shown on the chart.</p>
+<img src="/img/tutorial/annotation.png">
+<p>If you wish, you can change how your annotation looks by changing the settings in the Display
+configuration section. Otherwise, select <strong>OK</strong> and finally <strong>Save</strong> to save your chart. If you keep
+the default selection to overwrite the chart, your annotation will be saved to the chart and also
+appear automatically in the Tutorial Dashboard.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="advanced-analytics">Advanced Analytics<a href="#advanced-analytics" class="hash-link" aria-label="Direct link to Advanced Analytics" title="Direct link to Advanced Analytics" translate="no">​</a></h3>
+<p>In this section, we are going to explore the Advanced Analytics feature of Apache Superset that
+allows you to apply additional transformations to your data. The three types of transformation are:</p>
+<p><strong>Setting up the base chart</strong></p>
+<p>In this section, we’re going to set up a base chart which we can then apply the different <strong>Advanced
+Analytics</strong> features to. Start off by creating a new chart using the same <em>tutorial_flights</em>
+datasource and the <strong>Line Chart</strong> visualization type. Within the Time section, set the Time Range as
+1st October 2011 and 31st October 2011.</p>
+<p>Next, in the query section, change the Metrics to the sum of Cost. Select <strong>Run Query</strong> to show the
+chart. You should see the total cost per day for each month in October 2011.</p>
+<img src="/img/tutorial/advanced_analytics_base.png">
+<p>Finally, save the visualization as Tutorial Advanced Analytics Base, adding it to the Tutorial
+Dashboard.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="rolling-mean">Rolling Mean<a href="#rolling-mean" class="hash-link" aria-label="Direct link to Rolling Mean" title="Direct link to Rolling Mean" translate="no">​</a></h3>
+<p>There is quite a lot of variation in the data, which makes it difficult to identify any trend. One
+approach we can take is to show instead a rolling average of the time series. To do this, in the
+<strong>Moving Average</strong> subsection of <strong>Advanced Analytics</strong>, select mean in the <strong>Rolling</strong> box and
+enter 7 into both Periods and Min Periods. The period is the length of the rolling period expressed
+as a multiple of the Time Grain. In our example, the Time Grain is day, so the rolling period is 7
+days, such that on the 7th October 2011 the value shown would correspond to the first seven days of
+October 2011. Lastly, by specifying Min Periods as 7, we ensure that our mean is always calculated
+on 7 days and we avoid any ramp up period.</p>
+<p>After displaying the chart by selecting <strong>Run Query</strong> you will see that the data is less variable
+and that the series starts later as the ramp up period is excluded.</p>
+<img src="/img/tutorial/rolling_mean.png">
+<p>Save the chart as Tutorial Rolling Mean and add it to the Tutorial Dashboard.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="time-comparison">Time Comparison<a href="#time-comparison" class="hash-link" aria-label="Direct link to Time Comparison" title="Direct link to Time Comparison" translate="no">​</a></h3>
+<p>In this section, we will compare values in our time series to the value a week before. Start off by
+opening the Tutorial Advanced Analytics Base chart, by going to <strong>Charts</strong> in the top menu and then
+selecting the visualization name in the list (alternatively, find the chart in the Tutorial
+Dashboard and select Explore chart from the menu for that visualization).</p>
+<p>Next, in the Time Comparison subsection of <strong>Advanced Analytics</strong>, enter the Time Shift by typing in
+“minus 1 week” (note this box accepts input in natural language). Run Query to see the new chart,
+which has an additional series with the same values, shifted a week back in time.</p>
+<img src="/img/tutorial/time_comparison_two_series.png">
+<p>Then, change the <strong>Calculation type</strong> to Absolute difference and select <strong>Run Query</strong>. We can now
+see only one series again, this time showing the difference between the two series we saw
+previously.</p>
+<img src="/img/tutorial/time_comparison_absolute_difference.png">
+<p>Save the chart as Tutorial Time Comparison and add it to the Tutorial Dashboard.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="resampling-the-data">Resampling the data<a href="#resampling-the-data" class="hash-link" aria-label="Direct link to Resampling the data" title="Direct link to Resampling the data" translate="no">​</a></h3>
+<p>In this section, we’ll resample the data so that rather than having daily data we have weekly data.
+As in the previous section, reopen the Tutorial Advanced Analytics Base chart.</p>
+<p>Next, in the Python Functions subsection of <strong>Advanced Analytics</strong>, enter 7D, corresponding to seven
+days, in the Rule and median as the Method and show the chart by selecting <strong>Run Query</strong>.</p>
+<img src="/img/tutorial/resample.png">
+<p>Note that now we have a single data point every 7 days. In our case, the value showed corresponds to
+the median value within the seven daily data points. For more information on the meaning of the
+various options in this section, refer to the
+<a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.resample.html" target="_blank" rel="noopener noreferrer" class="">Pandas documentation</a>.</p>
+<p>Lastly, save your chart as Tutorial Resample and add it to the Tutorial Dashboard. Go to the
+tutorial dashboard to see the four charts side by side and compare the different outputs.</p></div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="row margin-top--sm theme-doc-footer-edit-meta-row"><div class="col noPrint_WFHX"><a href="https://github.com/apache/superset/edit/master/docs/versioned_docs/version-6.0.0/using-superset/exploring-data.mdx" target="_blank" rel="noopener noreferrer" class="theme-edit-this-page"><svg fill="currentColor" height="20" width="20" viewBox="0 0 40 40" class="iconEdit_Z9Sw" aria-hidden="true"><g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"></path></g></svg>Edit this page</a></div><div class="col lastUpdated_JAkA"><span class="theme-last-updated">Last updated<!-- --> on <b><time datetime="2026-02-26T21:29:08.000Z" itemprop="dateModified">Feb 26, 2026</time></b> by <b>Evan Rusackas</b></span></div></div></footer></article><nav class="docusaurus-mt-lg pagination-nav" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--prev" href="/user-docs/6.0.0/using-superset/creating-your-first-dashboard"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">Creating Your First Dashboard</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/user-docs/6.0.0/using-superset/issue-codes"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">Issue Codes</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#exploring-data-in-superset" class="table-of-contents__link toc-highlight">Exploring Data in Superset</a><ul><li><a href="#enabling-data-upload-functionality" class="table-of-contents__link toc-highlight">Enabling Data Upload Functionality</a></li><li><a href="#loading-csv-data" class="table-of-contents__link toc-highlight">Loading CSV Data</a></li><li><a href="#table-visualization" class="table-of-contents__link toc-highlight">Table Visualization</a></li><li><a href="#dashboard-basics" class="table-of-contents__link toc-highlight">Dashboard Basics</a></li><li><a href="#pivot-table" class="table-of-contents__link toc-highlight">Pivot Table</a></li><li><a href="#line-chart" class="table-of-contents__link toc-highlight">Line Chart</a></li><li><a href="#markup" class="table-of-contents__link toc-highlight">Markup</a></li><li><a href="#publishing-your-dashboard" class="table-of-contents__link toc-highlight">Publishing Your Dashboard</a></li><li><a href="#annotations" class="table-of-contents__link toc-highlight">Annotations</a></li><li><a href="#advanced-analytics" class="table-of-contents__link toc-highlight">Advanced Analytics</a></li><li><a href="#rolling-mean" class="table-of-contents__link toc-highlight">Rolling Mean</a></li><li><a href="#time-comparison" class="table-of-contents__link toc-highlight">Time Comparison</a></li><li><a href="#resampling-the-data" class="table-of-contents__link toc-highlight">Resampling the data</a></li></ul></li></ul></div></div></div></div></main></div></div></div><footer class="theme-layout-footer footer"><div class="container container-fluid"><div class="footer__bottom text--center"><div class="footer__copyright">
+          <div class="footer__ci-services">
+            <span>CI powered by</span>
+            <a href="https://www.netlify.com/" target="_blank" rel="nofollow noopener noreferrer"><img src="/img/netlify.png" alt="Netlify" title="Netlify - Deploy Previews"></a>
+          </div>
+          <p>Copyright © 2026,
+          The <a href="https://www.apache.org/" target="_blank" rel="noreferrer">Apache Software Foundation</a>,
+          Licensed under the Apache <a href="https://apache.org/licenses/LICENSE-2.0" target="_blank" rel="noreferrer">License</a>.</p>
+          <p><small>Apache Superset, Apache, Superset, the Superset logo, and the Apache feather logo are either registered trademarks or trademarks of The Apache Software Foundation. All other products or name brands are trademarks of their respective holders, including The Apache Software Foundation.
+          <a href="https://www.apache.org/" target="_blank">Apache Software Foundation</a> resources</small></p>
+          <img class="footer__divider" src="/img/community/line.png" alt="Divider">
+          <p>
+            <small>
+              <a href="/docs/security/" target="_blank" rel="noreferrer">Security</a>&nbsp;|&nbsp;
+              <a href="https://www.apache.org/foundation/sponsorship.html" target="_blank" rel="noreferrer">Donate</a>&nbsp;|&nbsp;
+              <a href="https://www.apache.org/foundation/thanks.html" target="_blank" rel="noreferrer">Thanks</a>&nbsp;|&nbsp;
+              <a href="https://apache.org/events/current-event" target="_blank" rel="noreferrer">Events</a>&nbsp;|&nbsp;
+              <a href="https://apache.org/licenses/" target="_blank" rel="noreferrer">License</a>&nbsp;|&nbsp;
+              <a href="https://privacy.apache.org/policies/privacy-policy-public.html" target="_blank" rel="noreferrer">Privacy</a>
+            </small>
+          </p>
+          <!-- telemetry/analytics pixel: -->
+          <img referrerpolicy="no-referrer-when-downgrade" src="https://static.scarf.sh/a.png?x-pxid=39ae6855-95fc-4566-86e5-360d542b0a68">
+          </div></div></div></footer></div>
+</body>
+</html>
