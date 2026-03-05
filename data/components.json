@@ -1,5 +1,5 @@
 {
-  "generated": "2026-03-05T20:10:17.371Z",
+  "generated": "2026-03-05T20:46:07.852Z",
   "statistics": {
     "totalComponents": 54,
     "byCategory": {
@@ -812,7 +812,7 @@
       "category": "extension",
       "categoryLabel": "Extension Components",
       "description": "Alert component for displaying important messages to users. Wraps Ant Design Alert with sensible defaults and improved accessibility.",
-      "importPath": "packages/superset-core/src/ui/components/Alert",
+      "importPath": "packages/superset-core/src/components/Alert",
       "package": "@apache-superset/core/ui",
       "extensionCompatible": true,
       "propsCount": 5,
@@ -820,7 +820,7 @@
       "hasGallery": false,
       "hasLiveExample": false,
       "docPath": "developer-docs/components/extension/alert",
-      "storyFile": "superset-frontend/packages/superset-core/src/ui/components/Alert/Alert.stories.tsx"
+      "storyFile": "superset-frontend/packages/superset-core/src/components/Alert/Alert.stories.tsx"
     }
   ]
 }
