@@ -1,1 +1,0 @@
-"use strict";(globalThis.webpackChunkdocs_v_2=globalThis.webpackChunkdocs_v_2||[]).push([[567],{80567(a,o,s){s.r(o),s.d(o,{MarkdownAsync:()=>r.a,MarkdownHooks:()=>r.cj,default:()=>r.oz,defaultUrlTransform:()=>r.Lv});var r=s(66897)}}]);

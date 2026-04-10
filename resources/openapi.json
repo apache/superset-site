@@ -1760,14 +1760,6 @@
       },
       "ChartDataResponseSchema": {
         "properties": {
-          "dashboard_filters": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/DashboardFiltersResponseSchema"
-              }
-            ],
-            "description": "Metadata about dashboard native filters applied to the query. Only present when filters_dashboard_id is provided."
-          },
           "result": {
             "description": "A list of results for each corresponding query in the request.",
             "items": {
@@ -2021,10 +2013,6 @@
       },
       "ChartDataRestApi.get_list.User3": {
         "properties": {
-          "email": {
-            "maxLength": 320,
-            "type": "string"
-          },
           "first_name": {
             "maxLength": 64,
             "type": "string"
@@ -2038,7 +2026,6 @@
           }
         },
         "required": [
-          "email",
           "first_name",
           "last_name"
         ],
@@ -2832,10 +2819,6 @@
       },
       "ChartRestApi.get_list.User3": {
         "properties": {
-          "email": {
-            "maxLength": 320,
-            "type": "string"
-          },
           "first_name": {
             "maxLength": 64,
             "type": "string"
@@ -2849,7 +2832,6 @@
           }
         },
         "required": [
-          "email",
           "first_name",
           "last_name"
         ],
@@ -3476,45 +3458,6 @@
         },
         "type": "object"
       },
-      "DashboardFilterInfo": {
-        "properties": {
-          "column": {
-            "description": "Target column name for the filter",
-            "nullable": true,
-            "type": "string"
-          },
-          "id": {
-            "description": "The native filter ID",
-            "type": "string"
-          },
-          "name": {
-            "description": "The native filter name",
-            "type": "string"
-          },
-          "status": {
-            "description": "Filter status: 'applied' (default value was included in the query), 'not_applied' (filter had no default value and was omitted, matching dashboard initial-load behavior), or 'not_applied_uses_default_to_first_item_prequery' (filter uses defaultToFirstItem which requires a pre-query to resolve and cannot be applied server-side)",
-            "type": "string"
-          }
-        },
-        "required": [
-          "id",
-          "name",
-          "status"
-        ],
-        "type": "object"
-      },
-      "DashboardFiltersResponseSchema": {
-        "properties": {
-          "filters": {
-            "description": "Metadata about each in-scope dashboard native filter and whether its default value was applied to the query",
-            "items": {
-              "$ref": "#/components/schemas/DashboardFilterInfo"
-            },
-            "type": "array"
-          }
-        },
-        "type": "object"
-      },
       "DashboardGetResponseSchema": {
         "properties": {
           "certification_details": {
@@ -3824,10 +3767,6 @@
       },
       "DashboardRestApi.get_list.User2": {
         "properties": {
-          "email": {
-            "maxLength": 320,
-            "type": "string"
-          },
           "first_name": {
             "maxLength": 64,
             "type": "string"
@@ -3841,7 +3780,6 @@
           }
         },
         "required": [
-          "email",
           "first_name",
           "last_name"
         ],
@@ -6420,11 +6358,6 @@
       },
       "ExplorePermalinkStateSchema": {
         "properties": {
-          "chartState": {
-            "description": "Chart-level state for stateful tables (column filters, sorting, column order)",
-            "nullable": true,
-            "type": "object"
-          },
           "formData": {
             "description": "Chart form data",
             "type": "object"
@@ -6989,9 +6922,6 @@
           "is_managed_externally": {
             "nullable": true,
             "type": "boolean"
-          },
-          "masked_encrypted_extra": {
-            "type": "string"
           },
           "password": {
             "nullable": true,
@@ -8332,10 +8262,6 @@
       },
       "ReportScheduleRestApi.get.User": {
         "properties": {
-          "email": {
-            "maxLength": 320,
-            "type": "string"
-          },
           "first_name": {
             "maxLength": 64,
             "type": "string"
@@ -8349,7 +8275,6 @@
           }
         },
         "required": [
-          "email",
           "first_name",
           "last_name"
         ],
@@ -8492,10 +8417,6 @@
       },
       "ReportScheduleRestApi.get_list.User2": {
         "properties": {
-          "email": {
-            "maxLength": 320,
-            "type": "string"
-          },
           "first_name": {
             "maxLength": 64,
             "type": "string"
@@ -8509,7 +8430,6 @@
           }
         },
         "required": [
-          "email",
           "first_name",
           "last_name"
         ],
@@ -9305,7 +9225,6 @@
             "type": "integer"
           },
           "database": {
-            "nullable": true,
             "type": "integer"
           },
           "description": {
@@ -12085,9 +12004,6 @@
       },
       "User": {
         "properties": {
-          "email": {
-            "type": "string"
-          },
           "first_name": {
             "type": "string"
           },
@@ -12783,6 +12699,32 @@
           "exact_match": {
             "type": "boolean",
             "description": "Whether to match channel names exactly."
+          }
+        }
+      },
+      "DashboardChartCustomizationsConfigUpdateSchema": {
+        "type": "object",
+        "properties": {
+          "deleted": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of deleted chart customization IDs."
+          },
+          "modified": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            },
+            "description": "List of modified chart customization configurations."
+          },
+          "reordered": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of chart customization IDs in new order."
           }
         }
       }
@@ -14398,10 +14340,6 @@
                     "format": "binary",
                     "type": "string"
                   },
-                  "encrypted_extra_secrets": {
-                    "description": "JSON map of secret values for masked encrypted_extra fields. Each key is a database file path and the value is a map of JSONPath expressions to secret values. For example: `{\"databases/db.yaml\": {\"$.credentials_info.secret\": \"foo\"}}`.",
-                    "type": "string"
-                  },
                   "passwords": {
                     "description": "JSON map of passwords for each featured database in the ZIP file. If the ZIP includes a database config in the path `databases/MyDatabase.yaml`, the password should be provided in the following format: `{\"databases/MyDatabase.yaml\": \"my_password\"}`.",
                     "type": "string"
@@ -15218,7 +15156,6 @@
                   "$ref": "#/components/schemas/ChartDataResponseSchema"
                 },
                 "example": {
-                  "dashboard_filters": {},
                   "result": []
                 }
               }
@@ -15301,7 +15238,6 @@
                   "$ref": "#/components/schemas/ChartDataResponseSchema"
                 },
                 "example": {
-                  "dashboard_filters": {},
                   "result": []
                 }
               }
@@ -16155,7 +16091,7 @@
     },
     "/api/v1/chart/{pk}/data/": {
       "get": {
-        "description": "Takes a chart ID and uses the query context stored when the chart was saved to return payload data response. When filters_dashboard_id is provided, the chart's compiled SQL includes in scope dashboard filter default values.",
+        "description": "Takes a chart ID and uses the query context stored when the chart was saved to return payload data response.",
         "parameters": [
           {
             "description": "The chart ID",
@@ -16189,14 +16125,6 @@
             "schema": {
               "type": "boolean"
             }
-          },
-          {
-            "description": "Dashboard ID whose filter defaults should be applied to the chart's query context. The chart must belong to the specified dashboard. Only in scope filters with static default values are applied; filters that require a database query (I.E. defaultToFirstItem) or have no default are reported in the dashboard_filters response metadata.",
-            "in": "query",
-            "name": "filters_dashboard_id",
-            "schema": {
-              "type": "integer"
-            }
           }
         ],
         "responses": {
@@ -16207,7 +16135,6 @@
                   "$ref": "#/components/schemas/ChartDataResponseSchema"
                 },
                 "example": {
-                  "dashboard_filters": {},
                   "result": []
                 }
               }
@@ -16236,12 +16163,6 @@
           },
           "401": {
             "$ref": "#/components/responses/401"
-          },
-          "403": {
-            "$ref": "#/components/responses/403"
-          },
-          "404": {
-            "$ref": "#/components/responses/404"
           },
           "500": {
             "$ref": "#/components/responses/500"
@@ -18160,17 +18081,6 @@
             "schema": {
               "type": "string"
             }
-          },
-          {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/get_item_schema"
-                }
-              }
-            },
-            "in": "query",
-            "name": "q"
           }
         ],
         "responses": {
@@ -19211,6 +19121,17 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/DashboardChartCustomizationsConfigUpdateSchema"
+              },
+              "example": {
+                "deleted": [
+                  "string"
+                ],
+                "modified": [
+                  {}
+                ],
+                "reordered": [
+                  "string"
+                ]
               }
             }
           },
@@ -21138,10 +21059,6 @@
             "multipart/form-data": {
               "schema": {
                 "properties": {
-                  "encrypted_extra_secrets": {
-                    "description": "JSON map of sensitive values for masked_encrypted_extra fields. Keys are file paths (e.g., \"databases/db.yaml\") and values are JSON objects mapping JSONPath expressions to secrets. (e.g., `{\"databases/MyDatabase.yaml\": {\"$.credentials_info.private_key\": \"actual_key\"}}`).",
-                    "type": "string"
-                  },
                   "formData": {
                     "description": "upload file (ZIP)",
                     "format": "binary",
@@ -25886,7 +25803,6 @@
                 "$ref": "#/components/schemas/ExplorePermalinkStateSchema"
               },
               "example": {
-                "chartState": {},
                 "formData": {},
                 "urlParams": [
                   {}
@@ -36384,7 +36300,6 @@
                 "$ref": "#/components/schemas/ExplorePermalinkStateSchema"
               },
               "example": {
-                "chartState": {},
                 "formData": {},
                 "urlParams": [
                   {}
@@ -39529,7 +39444,7 @@
     },
     {
       "name": "Themes",
-      "description": "Endpoints related to Themes."
+      "description": "Manage UI themes for customizing Superset's appearance."
     },
     {
       "name": "User",
