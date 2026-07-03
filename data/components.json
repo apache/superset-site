@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-03T00:58:47.714Z",
+  "generated": "2026-07-03T01:17:57.888Z",
   "statistics": {
     "totalComponents": 54,
     "byCategory": {
@@ -81,7 +81,7 @@
       "package": "@superset-ui/core/components",
       "extensionCompatible": false,
       "propsCount": 3,
-      "controlsCount": 7,
+      "controlsCount": 8,
       "hasGallery": true,
       "hasLiveExample": false,
       "docPath": "developer-docs/components/ui/button",
