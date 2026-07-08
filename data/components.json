@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-08T17:10:39.285Z",
+  "generated": "2026-07-08T18:05:55.428Z",
   "statistics": {
     "totalComponents": 54,
     "byCategory": {
@@ -451,7 +451,7 @@
       "name": "MetadataBar",
       "category": "design-system",
       "categoryLabel": "Layout Components",
-      "description": "MetadataBar displays a row of metadata items (SQL info, owners, last modified, tags, dashboards, etc.) that collapse responsively based on available width.",
+      "description": "MetadataBar displays a row of metadata items (SQL info, editors, last modified, tags, dashboards, etc.) that collapse responsively based on available width.",
       "importPath": "@superset/components",
       "package": "@superset-ui/core/components",
       "extensionCompatible": false,
