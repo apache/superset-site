@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-07T22:54:11.155Z",
+  "generated": "2026-07-08T00:32:27.751Z",
   "statistics": {
     "totalComponents": 54,
     "byCategory": {
@@ -560,7 +560,7 @@
       "importPath": "@superset/components",
       "package": "@superset-ui/core/components",
       "extensionCompatible": false,
-      "propsCount": 10,
+      "propsCount": 9,
       "controlsCount": 10,
       "hasGallery": false,
       "hasLiveExample": true,
