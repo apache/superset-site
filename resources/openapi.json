@@ -1071,26 +1071,21 @@
       },
       "ChartDataAsyncResponseSchema": {
         "properties": {
-          "channel_id": {
-            "description": "Unique session async channel ID",
+          "cursor": {
+            "description": "Status-changes recovery cursor captured before any task was created. The client polls `/api/v1/task/status_changes` from it and is guaranteed to observe each task's completion.",
             "type": "string"
           },
-          "job_id": {
-            "description": "Unique async job ID",
-            "type": "string"
-          },
-          "result_url": {
-            "description": "Unique result URL for fetching async query data",
-            "type": "string"
-          },
-          "status": {
-            "description": "Status value for async job",
-            "type": "string"
-          },
-          "user_id": {
-            "description": "Requesting user ID",
+          "tab_id": {
+            "description": "The per-client (e.g. browser-tab) id echoed back when the caller advertised one, so a later cancel detaches exactly that client. Absent when the caller supplied none.",
             "nullable": true,
             "type": "string"
+          },
+          "task_ids": {
+            "description": "UUIDs of the scheduled GTF tasks (one per QueryObject that missed the cache), in query order. The client polls `/api/v1/task/status_changes`, aggregates these tasks' statuses, and re-issues this request once they all succeed.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
           }
         },
         "type": "object"
@@ -1541,6 +1536,11 @@
       },
       "ChartDataQueryContextSchema": {
         "properties": {
+          "async_mode": {
+            "description": "Opt this request into asynchronous execution on the Global Task Framework (requires the GLOBAL_ASYNC_QUERIES feature flag). When true the response is HTTP 202 with the query task ids to poll; when absent or false the query runs synchronously (HTTP 200). Default: `false`.",
+            "nullable": true,
+            "type": "boolean"
+          },
           "custom_cache_timeout": {
             "description": "Override the default cache timeout",
             "nullable": true,
@@ -1553,6 +1553,11 @@
             "description": "Should the queries be forced to load from the source. Default: `false`",
             "nullable": true,
             "type": "boolean"
+          },
+          "force_nonce": {
+            "description": "Forced-refresh idempotency token for a single-query request: the async task's UUID (as returned in the 202 `task_ids`). Sent on the synchronous read-back of a forced refresh so it reads the result the task warmed instead of recomputing; concurrent refreshes joining the same shared task read back under the same token. Multi-query requests set the per-query `force_nonce` on each query instead. Ignored when `force` is false.",
+            "nullable": true,
+            "type": "string"
           },
           "form_data": {
             "nullable": true
@@ -1582,6 +1587,11 @@
               "post_processed",
               "drill_detail"
             ]
+          },
+          "tab_id": {
+            "description": "Opaque per-browser-tab id (see the frontend `getTabId`). On an async request it ref-counts this tab as a consumer of the shared chart-data task so a cancel/navigate-away from one tab doesn't abort a task another tab still awaits. Read by the API as a request-level routing hint; not part of the query context.",
+            "nullable": true,
+            "type": "string"
           }
         },
         "type": "object"
@@ -1638,6 +1648,11 @@
             },
             "nullable": true,
             "type": "array"
+          },
+          "force_nonce": {
+            "description": "Per-query forced-refresh idempotency token: the async task's UUID (as returned in the 202 `task_ids`, in query order). Sent on the synchronous read-back of a forced refresh so it reads the result the task warmed instead of recomputing. Because the token is the task's identity, concurrent refreshes joining the same shared task read back under the same token. Ignored when `force` is false.",
+            "nullable": true,
+            "type": "string"
           },
           "granularity": {
             "description": "Name of temporal column used for time filtering. ",
@@ -15984,206 +15999,6 @@
         ]
       }
     },
-    "/api/v1/async_event/": {
-      "get": {
-        "description": "Reads off of the Redis events stream, using the user's JWT token and optional query params for last event received.",
-        "parameters": [
-          {
-            "description": "Last ID received by the client",
-            "in": "query",
-            "name": "last_id",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "result": {
-                      "items": {
-                        "properties": {
-                          "channel_id": {
-                            "type": "string"
-                          },
-                          "errors": {
-                            "items": {
-                              "type": "object"
-                            },
-                            "type": "array"
-                          },
-                          "id": {
-                            "type": "string"
-                          },
-                          "job_id": {
-                            "type": "string"
-                          },
-                          "result_url": {
-                            "type": "string"
-                          },
-                          "status": {
-                            "type": "string"
-                          },
-                          "user_id": {
-                            "type": "integer"
-                          }
-                        },
-                        "type": "object"
-                      },
-                      "type": "array"
-                    }
-                  },
-                  "type": "object"
-                },
-                "example": {
-                  "result": [
-                    {
-                      "channel_id": "string",
-                      "errors": [],
-                      "id": "string",
-                      "job_id": "string",
-                      "result_url": "string",
-                      "status": "string",
-                      "user_id": 1
-                    }
-                  ]
-                }
-              }
-            },
-            "description": "Async event results"
-          },
-          "401": {
-            "$ref": "#/components/responses/401"
-          },
-          "500": {
-            "$ref": "#/components/responses/500"
-          }
-        },
-        "security": [
-          {
-            "jwt": []
-          },
-          {
-            "api_key": []
-          }
-        ],
-        "summary": "Read off of the Redis events stream",
-        "tags": [
-          "AsyncEventsRestApi"
-        ],
-        "x-codeSamples": [
-          {
-            "lang": "cURL",
-            "label": "cURL",
-            "source": "curl -X GET \"http://localhost:8088/api/v1/async_event/\" \\\n  -H \"Authorization: Bearer $ACCESS_TOKEN\""
-          },
-          {
-            "lang": "Python",
-            "label": "Python",
-            "source": "import requests\n\nresponse = requests.get(\n    \"http://localhost:8088/api/v1/async_event/\",\n    headers={\"Authorization\": \"Bearer \" + access_token}\n)\nprint(response.json())"
-          },
-          {
-            "lang": "JavaScript",
-            "label": "JavaScript",
-            "source": "const response = await fetch(\n  \"http://localhost:8088/api/v1/async_event/\",\n  {\n    headers: {\n      \"Authorization\": `Bearer ${accessToken}`\n    }\n  }\n);\nconst data = await response.json();\nconsole.log(data);"
-          }
-        ]
-      }
-    },
-    "/api/v1/async_event/{job_id}/cancel": {
-      "post": {
-        "description": "Revokes the Celery task backing an in-flight async query. The caller is authorized against the job's original owner (channel and user), both resolved server-side from the request, so a client cannot cancel a job it did not submit.",
-        "parameters": [
-          {
-            "description": "The job ID returned when the async query was submitted",
-            "in": "path",
-            "name": "job_id",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "result": {
-                      "properties": {
-                        "job_id": {
-                          "type": "string"
-                        },
-                        "status": {
-                          "type": "string"
-                        }
-                      },
-                      "type": "object"
-                    }
-                  },
-                  "type": "object"
-                },
-                "example": {
-                  "result": {
-                    "job_id": "string",
-                    "status": "string"
-                  }
-                }
-              }
-            },
-            "description": "Job cancelled"
-          },
-          "400": {
-            "$ref": "#/components/responses/400"
-          },
-          "401": {
-            "$ref": "#/components/responses/401"
-          },
-          "403": {
-            "$ref": "#/components/responses/403"
-          },
-          "404": {
-            "$ref": "#/components/responses/404"
-          },
-          "500": {
-            "$ref": "#/components/responses/500"
-          }
-        },
-        "security": [
-          {
-            "jwt": []
-          },
-          {
-            "api_key": []
-          }
-        ],
-        "summary": "Cancel a running async query job",
-        "tags": [
-          "AsyncEventsRestApi"
-        ],
-        "x-codeSamples": [
-          {
-            "lang": "cURL",
-            "label": "cURL",
-            "source": "curl -X POST \"http://localhost:8088/api/v1/async_event/{job_id}/cancel\" \\\n  -H \"Authorization: Bearer $ACCESS_TOKEN\""
-          },
-          {
-            "lang": "Python",
-            "label": "Python",
-            "source": "import requests\n\nresponse = requests.post(\n    \"http://localhost:8088/api/v1/async_event/{job_id}/cancel\",\n    headers={\"Authorization\": \"Bearer \" + access_token},\n    json={\"key\": \"value\"}\n)\nprint(response.json())"
-          },
-          {
-            "lang": "JavaScript",
-            "label": "JavaScript",
-            "source": "const response = await fetch(\n  \"http://localhost:8088/api/v1/async_event/{job_id}/cancel\",\n  {\n    method: \"POST\",\n    headers: {\n      \"Authorization\": `Bearer ${accessToken}`,\n      \"Content-Type\": \"application/json\"\n    },\n    body: JSON.stringify({ key: \"value\" })\n  }\n);\nconst data = await response.json();\nconsole.log(data);"
-          }
-        ]
-      }
-    },
     "/api/v1/available_domains/": {
       "get": {
         "responses": {
@@ -16749,18 +16564,21 @@
                 "$ref": "#/components/schemas/ChartDataQueryContextSchema"
               },
               "example": {
+                "async_mode": true,
                 "custom_cache_timeout": 1,
                 "datasource": {
                   "id": {},
                   "type": "table"
                 },
                 "force": true,
+                "force_nonce": "string",
                 "form_data": {},
                 "queries": [
                   {}
                 ],
                 "result_format": {},
-                "result_type": {}
+                "result_type": {},
+                "tab_id": "string"
               }
             }
           },
@@ -16789,11 +16607,11 @@
                   "$ref": "#/components/schemas/ChartDataAsyncResponseSchema"
                 },
                 "example": {
-                  "channel_id": "string",
-                  "job_id": "string",
-                  "result_url": "string",
-                  "status": "string",
-                  "user_id": "string"
+                  "cursor": "string",
+                  "tab_id": "string",
+                  "task_ids": [
+                    "string"
+                  ]
                 }
               }
             },
@@ -16820,7 +16638,7 @@
             "api_key": []
           }
         ],
-        "summary": "Return payload data response for the given query (chart-data)",
+        "summary": "Return payload data response for the given query",
         "tags": [
           "Charts"
         ],
@@ -16839,84 +16657,6 @@
             "lang": "JavaScript",
             "label": "JavaScript",
             "source": "const response = await fetch(\n  \"http://localhost:8088/api/v1/chart/data\",\n  {\n    method: \"POST\",\n    headers: {\n      \"Authorization\": `Bearer ${accessToken}`,\n      \"Content-Type\": \"application/json\"\n    },\n    body: JSON.stringify({ key: \"value\" })\n  }\n);\nconst data = await response.json();\nconsole.log(data);"
-          }
-        ]
-      }
-    },
-    "/api/v1/chart/data/{cache_key}": {
-      "get": {
-        "description": "Takes a query context cache key and returns payload data response for the given query.",
-        "parameters": [
-          {
-            "in": "path",
-            "name": "cache_key",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ChartDataResponseSchema"
-                },
-                "example": {
-                  "dashboard_filters": {},
-                  "result": []
-                }
-              }
-            },
-            "description": "Query result"
-          },
-          "400": {
-            "$ref": "#/components/responses/400"
-          },
-          "401": {
-            "$ref": "#/components/responses/401"
-          },
-          "403": {
-            "$ref": "#/components/responses/403"
-          },
-          "404": {
-            "$ref": "#/components/responses/404"
-          },
-          "422": {
-            "$ref": "#/components/responses/422"
-          },
-          "500": {
-            "$ref": "#/components/responses/500"
-          }
-        },
-        "security": [
-          {
-            "jwt": []
-          },
-          {
-            "api_key": []
-          }
-        ],
-        "summary": "Return payload data response for the given query (chart-data-cache-key)",
-        "tags": [
-          "Charts"
-        ],
-        "x-codeSamples": [
-          {
-            "lang": "cURL",
-            "label": "cURL",
-            "source": "curl -X GET \"http://localhost:8088/api/v1/chart/data/{cache_key}\" \\\n  -H \"Authorization: Bearer $ACCESS_TOKEN\""
-          },
-          {
-            "lang": "Python",
-            "label": "Python",
-            "source": "import requests\n\nresponse = requests.get(\n    \"http://localhost:8088/api/v1/chart/data/{cache_key}\",\n    headers={\"Authorization\": \"Bearer \" + access_token}\n)\nprint(response.json())"
-          },
-          {
-            "lang": "JavaScript",
-            "label": "JavaScript",
-            "source": "const response = await fetch(\n  \"http://localhost:8088/api/v1/chart/data/{cache_key}\",\n  {\n    headers: {\n      \"Authorization\": `Bearer ${accessToken}`\n    }\n  }\n);\nconst data = await response.json();\nconsole.log(data);"
           }
         ]
       }
@@ -17873,11 +17613,11 @@
                   "$ref": "#/components/schemas/ChartDataAsyncResponseSchema"
                 },
                 "example": {
-                  "channel_id": "string",
-                  "job_id": "string",
-                  "result_url": "string",
-                  "status": "string",
-                  "user_id": "string"
+                  "cursor": "string",
+                  "tab_id": "string",
+                  "task_ids": [
+                    "string"
+                  ]
                 }
               }
             },
@@ -44624,10 +44364,6 @@
     {
       "name": "Annotation Layers",
       "description": "Manage annotation layers and annotations for charts."
-    },
-    {
-      "name": "AsyncEventsRestApi",
-      "description": "Real-time event streaming via Server-Sent Events (SSE)."
     },
     {
       "name": "Available Domains",
