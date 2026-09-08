@@ -1,10 +1,10 @@
 {
-  "generated": "2026-09-08T14:49:44.822Z",
+  "generated": "2026-09-08T16:48:47.295Z",
   "statistics": {
-    "totalComponents": 54,
+    "totalComponents": 55,
     "byCategory": {
       "ui": 46,
-      "design-system": 7,
+      "design-system": 8,
       "extension": 1
     },
     "extensionCompatible": 1,
@@ -491,6 +491,21 @@
       "hasLiveExample": true,
       "docPath": "developer-docs/components/ui/modaltrigger",
       "storyFile": "superset-frontend/packages/superset-ui-core/src/components/ModalTrigger/ModalTrigger.stories.tsx"
+    },
+    {
+      "name": "PageHeaderWithActions",
+      "category": "design-system",
+      "categoryLabel": "Layout Components",
+      "description": "Header used on entity pages (e.g. the dashboard page) combining an editable title with badges, a metadata bar, and page-level actions.",
+      "importPath": "@superset/components",
+      "package": "@superset-ui/core/components",
+      "extensionCompatible": false,
+      "propsCount": 0,
+      "controlsCount": 0,
+      "hasGallery": false,
+      "hasLiveExample": false,
+      "docPath": "developer-docs/components/design-system/pageheaderwithactions",
+      "storyFile": "superset-frontend/packages/superset-ui-core/src/components/PageHeaderWithActions/PageHeaderWithActions.stories.tsx"
     },
     {
       "name": "Popover",
