@@ -6068,6 +6068,10 @@
             "description": "Chart count",
             "type": "integer"
           },
+          "restricted_count": {
+            "description": "Charts the current user cannot access",
+            "type": "integer"
+          },
           "result": {
             "description": "A list of dashboards",
             "items": {
@@ -6099,6 +6103,10 @@
         "properties": {
           "count": {
             "description": "Dashboard count",
+            "type": "integer"
+          },
+          "restricted_count": {
+            "description": "Dashboards the current user cannot access",
             "type": "integer"
           },
           "result": {
@@ -14106,6 +14114,17 @@
           }
         },
         "type": "object"
+      },
+      "get_related_objects_ids_schema": {
+        "example": [
+          1,
+          2,
+          3
+        ],
+        "items": {
+          "type": "integer"
+        },
+        "type": "array"
       },
       "get_related_schema": {
         "properties": {
@@ -27274,6 +27293,81 @@
             "lang": "JavaScript",
             "label": "JavaScript",
             "source": "const response = await fetch(\n  \"http://localhost:8088/api/v1/dataset/related/{column_name}\",\n  {\n    headers: {\n      \"Authorization\": `Bearer ${accessToken}`\n    }\n  }\n);\nconst data = await response.json();\nconsole.log(data);"
+          }
+        ]
+      }
+    },
+    "/api/v1/dataset/related_objects/": {
+      "get": {
+        "description": "Aggregates the charts built on any of the requested datasets and the dashboards those charts appear on. Each chart and dashboard is listed once even if it depends on several of the datasets. Requested datasets the user cannot see are ignored; the response is 404 only when none of them are visible.",
+        "parameters": [
+          {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/get_related_objects_ids_schema"
+                }
+              }
+            },
+            "in": "query",
+            "name": "q"
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DatasetRelatedObjectsResponse"
+                },
+                "example": {
+                  "charts": {},
+                  "dashboards": {}
+                }
+              }
+            },
+            "description": "Query result"
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          },
+          {
+            "api_key": []
+          }
+        ],
+        "summary": "Get charts and dashboards associated to multiple datasets",
+        "tags": [
+          "Datasets"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "cURL",
+            "label": "cURL",
+            "source": "curl -X GET \"http://localhost:8088/api/v1/dataset/related_objects/\" \\\n  -H \"Authorization: Bearer $ACCESS_TOKEN\""
+          },
+          {
+            "lang": "Python",
+            "label": "Python",
+            "source": "import requests\n\nresponse = requests.get(\n    \"http://localhost:8088/api/v1/dataset/related_objects/\",\n    headers={\"Authorization\": \"Bearer \" + access_token}\n)\nprint(response.json())"
+          },
+          {
+            "lang": "JavaScript",
+            "label": "JavaScript",
+            "source": "const response = await fetch(\n  \"http://localhost:8088/api/v1/dataset/related_objects/\",\n  {\n    headers: {\n      \"Authorization\": `Bearer ${accessToken}`\n    }\n  }\n);\nconst data = await response.json();\nconsole.log(data);"
           }
         ]
       }
