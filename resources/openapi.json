@@ -13030,6 +13030,12 @@
           "created_by": {
             "$ref": "#/components/schemas/ThemeRestApi.get.User1"
           },
+          "editors": {
+            "items": {
+              "$ref": "#/components/schemas/ThemeRestApi.get.Subject"
+            },
+            "type": "array"
+          },
           "id": {
             "type": "integer"
           },
@@ -13057,6 +13063,25 @@
             "type": "string"
           }
         },
+        "type": "object"
+      },
+      "ThemeRestApi.get.Subject": {
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "label": {
+            "maxLength": 255,
+            "type": "string"
+          },
+          "type": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "label",
+          "type"
+        ],
         "type": "object"
       },
       "ThemeRestApi.get.User": {
@@ -13118,6 +13143,12 @@
             "nullable": true,
             "type": "string"
           },
+          "editors": {
+            "items": {
+              "$ref": "#/components/schemas/ThemeRestApi.get_list.Subject"
+            },
+            "type": "array"
+          },
           "id": {
             "type": "integer"
           },
@@ -13145,6 +13176,25 @@
             "type": "string"
           }
         },
+        "type": "object"
+      },
+      "ThemeRestApi.get_list.Subject": {
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "label": {
+            "maxLength": 255,
+            "type": "string"
+          },
+          "type": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "label",
+          "type"
+        ],
         "type": "object"
       },
       "ThemeRestApi.get_list.User": {
@@ -13189,6 +13239,13 @@
       },
       "ThemeRestApi.post": {
         "properties": {
+          "editors": {
+            "items": {
+              "description": "A list of subject IDs (users, roles, or groups) that are allowed to edit this theme.",
+              "type": "integer"
+            },
+            "type": "array"
+          },
           "json_data": {
             "type": "string"
           },
@@ -13204,6 +13261,13 @@
       },
       "ThemeRestApi.put": {
         "properties": {
+          "editors": {
+            "items": {
+              "description": "A list of subject IDs (users, roles, or groups) that are allowed to edit this theme.",
+              "type": "integer"
+            },
+            "type": "array"
+          },
           "json_data": {
             "type": "string"
           },
@@ -43031,6 +43095,9 @@
           "401": {
             "$ref": "#/components/responses/401"
           },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
           "404": {
             "$ref": "#/components/responses/404"
           },
@@ -43229,6 +43296,9 @@
                 "$ref": "#/components/schemas/ThemeRestApi.post"
               },
               "example": {
+                "editors": [
+                  1
+                ],
                 "json_data": "string",
                 "theme_name": "string"
               }
@@ -43255,6 +43325,7 @@
                 "example": {
                   "id": 1.0,
                   "result": {
+                    "editors": [],
                     "json_data": "string",
                     "theme_name": "string"
                   }
@@ -44033,6 +44104,7 @@
                   },
                   "result": {
                     "changed_on_delta_humanized": {},
+                    "editors": [],
                     "id": 1,
                     "is_system": true,
                     "is_system_dark": true,
@@ -44114,6 +44186,9 @@
                 "$ref": "#/components/schemas/ThemeRestApi.put"
               },
               "example": {
+                "editors": [
+                  1
+                ],
                 "json_data": "string",
                 "theme_name": "string"
               }
@@ -44140,6 +44215,7 @@
                 "example": {
                   "id": 1.0,
                   "result": {
+                    "editors": [],
                     "json_data": "string",
                     "theme_name": "string"
                   }
