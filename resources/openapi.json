@@ -22288,6 +22288,13 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "in": "query",
+            "name": "tab_id",
+            "schema": {
+              "type": "integer"
+            }
           }
         ],
         "responses": {
@@ -30150,6 +30157,13 @@
             "required": true,
             "schema": {
               "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "tab_id",
+            "schema": {
+              "type": "integer"
             }
           }
         ],
