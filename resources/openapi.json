@@ -11557,6 +11557,43 @@
         },
         "type": "object"
       },
+      "SemanticViewRestApi.get": {
+        "properties": {
+          "id": {
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "SemanticViewRestApi.get_list": {
+        "properties": {
+          "id": {
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "SemanticViewRestApi.post": {
+        "properties": {
+          "id": {
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "SemanticViewRestApi.put": {
+        "properties": {
+          "cache_timeout": {
+            "nullable": true,
+            "type": "integer"
+          },
+          "description": {
+            "nullable": true,
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
       "Slice": {
         "properties": {
           "cache_timeout": {
@@ -21064,6 +21101,9 @@
           },
           "404": {
             "$ref": "#/components/responses/404"
+          },
+          "422": {
+            "$ref": "#/components/responses/422"
           },
           "500": {
             "$ref": "#/components/responses/500"
@@ -41563,6 +41603,1111 @@
         ]
       }
     },
+    "/api/v1/semantic_layer/": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "A list of semantic layers"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          },
+          {
+            "api_key": []
+          }
+        ],
+        "summary": "List all semantic layers",
+        "tags": [
+          "Semantic Layers"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "cURL",
+            "label": "cURL",
+            "source": "curl -X GET \"http://localhost:8088/api/v1/semantic_layer/\" \\\n  -H \"Authorization: Bearer $ACCESS_TOKEN\""
+          },
+          {
+            "lang": "Python",
+            "label": "Python",
+            "source": "import requests\n\nresponse = requests.get(\n    \"http://localhost:8088/api/v1/semantic_layer/\",\n    headers={\"Authorization\": \"Bearer \" + access_token}\n)\nprint(response.json())"
+          },
+          {
+            "lang": "JavaScript",
+            "label": "JavaScript",
+            "source": "const response = await fetch(\n  \"http://localhost:8088/api/v1/semantic_layer/\",\n  {\n    headers: {\n      \"Authorization\": `Bearer ${accessToken}`\n    }\n  }\n);\nconst data = await response.json();\nconsole.log(data);"
+          }
+        ]
+      },
+      "post": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "cache_timeout": {
+                    "type": "integer"
+                  },
+                  "configuration": {
+                    "type": "object"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              },
+              "example": {
+                "cache_timeout": 1,
+                "configuration": {},
+                "description": "string",
+                "name": "string",
+                "type": "string"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Semantic layer created"
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "422": {
+            "$ref": "#/components/responses/422"
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          },
+          {
+            "api_key": []
+          }
+        ],
+        "summary": "Create a semantic layer",
+        "tags": [
+          "Semantic Layers"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "cURL",
+            "label": "cURL",
+            "source": "curl -X POST \"http://localhost:8088/api/v1/semantic_layer/\" \\\n  -H \"Authorization: Bearer $ACCESS_TOKEN\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"key\": \"value\"}'"
+          },
+          {
+            "lang": "Python",
+            "label": "Python",
+            "source": "import requests\n\nresponse = requests.post(\n    \"http://localhost:8088/api/v1/semantic_layer/\",\n    headers={\"Authorization\": \"Bearer \" + access_token},\n    json={\"key\": \"value\"}\n)\nprint(response.json())"
+          },
+          {
+            "lang": "JavaScript",
+            "label": "JavaScript",
+            "source": "const response = await fetch(\n  \"http://localhost:8088/api/v1/semantic_layer/\",\n  {\n    method: \"POST\",\n    headers: {\n      \"Authorization\": `Bearer ${accessToken}`,\n      \"Content-Type\": \"application/json\"\n    },\n    body: JSON.stringify({ key: \"value\" })\n  }\n);\nconst data = await response.json();\nconsole.log(data);"
+          }
+        ]
+      }
+    },
+    "/api/v1/semantic_layer/connections/": {
+      "get": {
+        "parameters": [
+          {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/get_list_schema"
+                }
+              }
+            },
+            "in": "query",
+            "name": "q"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Combined list of databases and semantic layers"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          },
+          {
+            "api_key": []
+          }
+        ],
+        "summary": "List databases and semantic layers combined",
+        "tags": [
+          "Semantic Layers"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "cURL",
+            "label": "cURL",
+            "source": "curl -X GET \"http://localhost:8088/api/v1/semantic_layer/connections/\" \\\n  -H \"Authorization: Bearer $ACCESS_TOKEN\""
+          },
+          {
+            "lang": "Python",
+            "label": "Python",
+            "source": "import requests\n\nresponse = requests.get(\n    \"http://localhost:8088/api/v1/semantic_layer/connections/\",\n    headers={\"Authorization\": \"Bearer \" + access_token}\n)\nprint(response.json())"
+          },
+          {
+            "lang": "JavaScript",
+            "label": "JavaScript",
+            "source": "const response = await fetch(\n  \"http://localhost:8088/api/v1/semantic_layer/connections/\",\n  {\n    headers: {\n      \"Authorization\": `Bearer ${accessToken}`\n    }\n  }\n);\nconst data = await response.json();\nconsole.log(data);"
+          }
+        ]
+      }
+    },
+    "/api/v1/semantic_layer/schema/configuration": {
+      "post": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "configuration": {
+                    "type": "object"
+                  },
+                  "type": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              },
+              "example": {
+                "configuration": {},
+                "type": "string"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Configuration JSON Schema"
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          },
+          {
+            "api_key": []
+          }
+        ],
+        "summary": "Get configuration schema for a semantic layer type",
+        "tags": [
+          "Semantic Layers"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "cURL",
+            "label": "cURL",
+            "source": "curl -X POST \"http://localhost:8088/api/v1/semantic_layer/schema/configuration\" \\\n  -H \"Authorization: Bearer $ACCESS_TOKEN\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"key\": \"value\"}'"
+          },
+          {
+            "lang": "Python",
+            "label": "Python",
+            "source": "import requests\n\nresponse = requests.post(\n    \"http://localhost:8088/api/v1/semantic_layer/schema/configuration\",\n    headers={\"Authorization\": \"Bearer \" + access_token},\n    json={\"key\": \"value\"}\n)\nprint(response.json())"
+          },
+          {
+            "lang": "JavaScript",
+            "label": "JavaScript",
+            "source": "const response = await fetch(\n  \"http://localhost:8088/api/v1/semantic_layer/schema/configuration\",\n  {\n    method: \"POST\",\n    headers: {\n      \"Authorization\": `Bearer ${accessToken}`,\n      \"Content-Type\": \"application/json\"\n    },\n    body: JSON.stringify({ key: \"value\" })\n  }\n);\nconst data = await response.json();\nconsole.log(data);"
+          }
+        ]
+      }
+    },
+    "/api/v1/semantic_layer/types": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "A list of semantic layer types"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          },
+          {
+            "api_key": []
+          }
+        ],
+        "summary": "List available semantic layer types",
+        "tags": [
+          "Semantic Layers"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "cURL",
+            "label": "cURL",
+            "source": "curl -X GET \"http://localhost:8088/api/v1/semantic_layer/types\" \\\n  -H \"Authorization: Bearer $ACCESS_TOKEN\""
+          },
+          {
+            "lang": "Python",
+            "label": "Python",
+            "source": "import requests\n\nresponse = requests.get(\n    \"http://localhost:8088/api/v1/semantic_layer/types\",\n    headers={\"Authorization\": \"Bearer \" + access_token}\n)\nprint(response.json())"
+          },
+          {
+            "lang": "JavaScript",
+            "label": "JavaScript",
+            "source": "const response = await fetch(\n  \"http://localhost:8088/api/v1/semantic_layer/types\",\n  {\n    headers: {\n      \"Authorization\": `Bearer ${accessToken}`\n    }\n  }\n);\nconst data = await response.json();\nconsole.log(data);"
+          }
+        ]
+      }
+    },
+    "/api/v1/semantic_layer/{uuid}": {
+      "delete": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "uuid",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Semantic layer deleted"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "422": {
+            "$ref": "#/components/responses/422"
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          },
+          {
+            "api_key": []
+          }
+        ],
+        "summary": "Delete a semantic layer",
+        "tags": [
+          "Semantic Layers"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "cURL",
+            "label": "cURL",
+            "source": "curl -X DELETE \"http://localhost:8088/api/v1/semantic_layer/{uuid}\" \\\n  -H \"Authorization: Bearer $ACCESS_TOKEN\""
+          },
+          {
+            "lang": "Python",
+            "label": "Python",
+            "source": "import requests\n\nresponse = requests.delete(\n    \"http://localhost:8088/api/v1/semantic_layer/{uuid}\",\n    headers={\"Authorization\": \"Bearer \" + access_token}\n)\nprint(response.status_code)"
+          },
+          {
+            "lang": "JavaScript",
+            "label": "JavaScript",
+            "source": "const response = await fetch(\n  \"http://localhost:8088/api/v1/semantic_layer/{uuid}\",\n  {\n    method: \"DELETE\",\n    headers: {\n      \"Authorization\": `Bearer ${accessToken}`\n    }\n  }\n);\nconsole.log(response.status);"
+          }
+        ]
+      },
+      "get": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "uuid",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A semantic layer"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          },
+          {
+            "api_key": []
+          }
+        ],
+        "summary": "Get a semantic layer by UUID",
+        "tags": [
+          "Semantic Layers"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "cURL",
+            "label": "cURL",
+            "source": "curl -X GET \"http://localhost:8088/api/v1/semantic_layer/{uuid}\" \\\n  -H \"Authorization: Bearer $ACCESS_TOKEN\""
+          },
+          {
+            "lang": "Python",
+            "label": "Python",
+            "source": "import requests\n\nresponse = requests.get(\n    \"http://localhost:8088/api/v1/semantic_layer/{uuid}\",\n    headers={\"Authorization\": \"Bearer \" + access_token}\n)\nprint(response.json())"
+          },
+          {
+            "lang": "JavaScript",
+            "label": "JavaScript",
+            "source": "const response = await fetch(\n  \"http://localhost:8088/api/v1/semantic_layer/{uuid}\",\n  {\n    headers: {\n      \"Authorization\": `Bearer ${accessToken}`\n    }\n  }\n);\nconst data = await response.json();\nconsole.log(data);"
+          }
+        ]
+      },
+      "put": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "uuid",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "cache_timeout": {
+                    "type": "integer"
+                  },
+                  "configuration": {
+                    "type": "object"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              },
+              "example": {
+                "cache_timeout": 1,
+                "configuration": {},
+                "description": "string",
+                "name": "string"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Semantic layer updated"
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "422": {
+            "$ref": "#/components/responses/422"
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          },
+          {
+            "api_key": []
+          }
+        ],
+        "summary": "Update a semantic layer",
+        "tags": [
+          "Semantic Layers"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "cURL",
+            "label": "cURL",
+            "source": "curl -X PUT \"http://localhost:8088/api/v1/semantic_layer/{uuid}\" \\\n  -H \"Authorization: Bearer $ACCESS_TOKEN\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"key\": \"value\"}'"
+          },
+          {
+            "lang": "Python",
+            "label": "Python",
+            "source": "import requests\n\nresponse = requests.put(\n    \"http://localhost:8088/api/v1/semantic_layer/{uuid}\",\n    headers={\"Authorization\": \"Bearer \" + access_token},\n    json={\"key\": \"value\"}\n)\nprint(response.json())"
+          },
+          {
+            "lang": "JavaScript",
+            "label": "JavaScript",
+            "source": "const response = await fetch(\n  \"http://localhost:8088/api/v1/semantic_layer/{uuid}\",\n  {\n    method: \"PUT\",\n    headers: {\n      \"Authorization\": `Bearer ${accessToken}`,\n      \"Content-Type\": \"application/json\"\n    },\n    body: JSON.stringify({ key: \"value\" })\n  }\n);\nconst data = await response.json();\nconsole.log(data);"
+          }
+        ]
+      }
+    },
+    "/api/v1/semantic_layer/{uuid}/clear_cache": {
+      "post": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "uuid",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "additionalProperties": false,
+                "type": "object"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Cache cleared; reload to fetch metadata"
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "422": {
+            "$ref": "#/components/responses/422"
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          },
+          {
+            "api_key": []
+          }
+        ],
+        "summary": "Clear a semantic layer's cache",
+        "tags": [
+          "Semantic Layers"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "cURL",
+            "label": "cURL",
+            "source": "curl -X POST \"http://localhost:8088/api/v1/semantic_layer/{uuid}/clear_cache\" \\\n  -H \"Authorization: Bearer $ACCESS_TOKEN\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"key\": \"value\"}'"
+          },
+          {
+            "lang": "Python",
+            "label": "Python",
+            "source": "import requests\n\nresponse = requests.post(\n    \"http://localhost:8088/api/v1/semantic_layer/{uuid}/clear_cache\",\n    headers={\"Authorization\": \"Bearer \" + access_token},\n    json={\"key\": \"value\"}\n)\nprint(response.json())"
+          },
+          {
+            "lang": "JavaScript",
+            "label": "JavaScript",
+            "source": "const response = await fetch(\n  \"http://localhost:8088/api/v1/semantic_layer/{uuid}/clear_cache\",\n  {\n    method: \"POST\",\n    headers: {\n      \"Authorization\": `Bearer ${accessToken}`,\n      \"Content-Type\": \"application/json\"\n    },\n    body: JSON.stringify({ key: \"value\" })\n  }\n);\nconst data = await response.json();\nconsole.log(data);"
+          }
+        ]
+      }
+    },
+    "/api/v1/semantic_layer/{uuid}/schema/runtime": {
+      "post": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "uuid",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "runtime_data": {
+                    "type": "object"
+                  }
+                },
+                "type": "object"
+              },
+              "example": {
+                "runtime_data": {}
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Runtime JSON Schema"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          },
+          {
+            "api_key": []
+          }
+        ],
+        "summary": "Get runtime schema for a semantic layer",
+        "tags": [
+          "Semantic Layers"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "cURL",
+            "label": "cURL",
+            "source": "curl -X POST \"http://localhost:8088/api/v1/semantic_layer/{uuid}/schema/runtime\" \\\n  -H \"Authorization: Bearer $ACCESS_TOKEN\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"key\": \"value\"}'"
+          },
+          {
+            "lang": "Python",
+            "label": "Python",
+            "source": "import requests\n\nresponse = requests.post(\n    \"http://localhost:8088/api/v1/semantic_layer/{uuid}/schema/runtime\",\n    headers={\"Authorization\": \"Bearer \" + access_token},\n    json={\"key\": \"value\"}\n)\nprint(response.json())"
+          },
+          {
+            "lang": "JavaScript",
+            "label": "JavaScript",
+            "source": "const response = await fetch(\n  \"http://localhost:8088/api/v1/semantic_layer/{uuid}/schema/runtime\",\n  {\n    method: \"POST\",\n    headers: {\n      \"Authorization\": `Bearer ${accessToken}`,\n      \"Content-Type\": \"application/json\"\n    },\n    body: JSON.stringify({ key: \"value\" })\n  }\n);\nconst data = await response.json();\nconsole.log(data);"
+          }
+        ]
+      }
+    },
+    "/api/v1/semantic_layer/{uuid}/views": {
+      "post": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "uuid",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "runtime_data": {
+                    "type": "object"
+                  }
+                },
+                "type": "object"
+              },
+              "example": {
+                "runtime_data": {}
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Available views"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          },
+          {
+            "api_key": []
+          }
+        ],
+        "summary": "List available views from a semantic layer",
+        "tags": [
+          "Semantic Layers"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "cURL",
+            "label": "cURL",
+            "source": "curl -X POST \"http://localhost:8088/api/v1/semantic_layer/{uuid}/views\" \\\n  -H \"Authorization: Bearer $ACCESS_TOKEN\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"key\": \"value\"}'"
+          },
+          {
+            "lang": "Python",
+            "label": "Python",
+            "source": "import requests\n\nresponse = requests.post(\n    \"http://localhost:8088/api/v1/semantic_layer/{uuid}/views\",\n    headers={\"Authorization\": \"Bearer \" + access_token},\n    json={\"key\": \"value\"}\n)\nprint(response.json())"
+          },
+          {
+            "lang": "JavaScript",
+            "label": "JavaScript",
+            "source": "const response = await fetch(\n  \"http://localhost:8088/api/v1/semantic_layer/{uuid}/views\",\n  {\n    method: \"POST\",\n    headers: {\n      \"Authorization\": `Bearer ${accessToken}`,\n      \"Content-Type\": \"application/json\"\n    },\n    body: JSON.stringify({ key: \"value\" })\n  }\n);\nconst data = await response.json();\nconsole.log(data);"
+          }
+        ]
+      }
+    },
+    "/api/v1/semantic_view/": {
+      "delete": {
+        "parameters": [
+          {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/get_delete_ids_schema"
+                }
+              }
+            },
+            "in": "query",
+            "name": "q"
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "example": {
+                  "message": "string"
+                }
+              }
+            },
+            "description": "Semantic views deleted"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "422": {
+            "$ref": "#/components/responses/422"
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          },
+          {
+            "api_key": []
+          }
+        ],
+        "summary": "Bulk delete semantic views",
+        "tags": [
+          "SemanticViewRestApi"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "cURL",
+            "label": "cURL",
+            "source": "curl -X DELETE \"http://localhost:8088/api/v1/semantic_view/\" \\\n  -H \"Authorization: Bearer $ACCESS_TOKEN\""
+          },
+          {
+            "lang": "Python",
+            "label": "Python",
+            "source": "import requests\n\nresponse = requests.delete(\n    \"http://localhost:8088/api/v1/semantic_view/\",\n    headers={\"Authorization\": \"Bearer \" + access_token}\n)\nprint(response.status_code)"
+          },
+          {
+            "lang": "JavaScript",
+            "label": "JavaScript",
+            "source": "const response = await fetch(\n  \"http://localhost:8088/api/v1/semantic_view/\",\n  {\n    method: \"DELETE\",\n    headers: {\n      \"Authorization\": `Bearer ${accessToken}`\n    }\n  }\n);\nconsole.log(response.status);"
+          }
+        ]
+      },
+      "post": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "views": {
+                    "items": {
+                      "properties": {
+                        "cache_timeout": {
+                          "type": "integer"
+                        },
+                        "configuration": {
+                          "type": "object"
+                        },
+                        "description": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "semantic_layer_uuid": {
+                          "type": "string"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "type": "array"
+                  }
+                },
+                "type": "object"
+              },
+              "example": {
+                "views": [
+                  {
+                    "cache_timeout": 1,
+                    "configuration": {},
+                    "description": "string",
+                    "name": "string",
+                    "semantic_layer_uuid": "string"
+                  }
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Semantic views created"
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "422": {
+            "$ref": "#/components/responses/422"
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          },
+          {
+            "api_key": []
+          }
+        ],
+        "summary": "Create semantic views",
+        "tags": [
+          "SemanticViewRestApi"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "cURL",
+            "label": "cURL",
+            "source": "curl -X POST \"http://localhost:8088/api/v1/semantic_view/\" \\\n  -H \"Authorization: Bearer $ACCESS_TOKEN\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"key\": \"value\"}'"
+          },
+          {
+            "lang": "Python",
+            "label": "Python",
+            "source": "import requests\n\nresponse = requests.post(\n    \"http://localhost:8088/api/v1/semantic_view/\",\n    headers={\"Authorization\": \"Bearer \" + access_token},\n    json={\"key\": \"value\"}\n)\nprint(response.json())"
+          },
+          {
+            "lang": "JavaScript",
+            "label": "JavaScript",
+            "source": "const response = await fetch(\n  \"http://localhost:8088/api/v1/semantic_view/\",\n  {\n    method: \"POST\",\n    headers: {\n      \"Authorization\": `Bearer ${accessToken}`,\n      \"Content-Type\": \"application/json\"\n    },\n    body: JSON.stringify({ key: \"value\" })\n  }\n);\nconst data = await response.json();\nconsole.log(data);"
+          }
+        ]
+      }
+    },
+    "/api/v1/semantic_view/{pk}": {
+      "delete": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "pk",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Semantic view deleted"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "422": {
+            "$ref": "#/components/responses/422"
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          },
+          {
+            "api_key": []
+          }
+        ],
+        "summary": "Delete a semantic view",
+        "tags": [
+          "SemanticViewRestApi"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "cURL",
+            "label": "cURL",
+            "source": "curl -X DELETE \"http://localhost:8088/api/v1/semantic_view/1\" \\\n  -H \"Authorization: Bearer $ACCESS_TOKEN\""
+          },
+          {
+            "lang": "Python",
+            "label": "Python",
+            "source": "import requests\n\nresponse = requests.delete(\n    \"http://localhost:8088/api/v1/semantic_view/1\",\n    headers={\"Authorization\": \"Bearer \" + access_token}\n)\nprint(response.status_code)"
+          },
+          {
+            "lang": "JavaScript",
+            "label": "JavaScript",
+            "source": "const response = await fetch(\n  \"http://localhost:8088/api/v1/semantic_view/1\",\n  {\n    method: \"DELETE\",\n    headers: {\n      \"Authorization\": `Bearer ${accessToken}`\n    }\n  }\n);\nconsole.log(response.status);"
+          }
+        ]
+      },
+      "put": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "pk",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SemanticViewRestApi.put"
+              },
+              "example": {
+                "cache_timeout": 1,
+                "description": "string"
+              }
+            }
+          },
+          "description": "Semantic view schema",
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "id": {
+                      "type": "number"
+                    },
+                    "result": {
+                      "$ref": "#/components/schemas/SemanticViewRestApi.put"
+                    }
+                  },
+                  "type": "object"
+                },
+                "example": {
+                  "id": 1.0,
+                  "result": {
+                    "cache_timeout": 1,
+                    "description": "string"
+                  }
+                }
+              }
+            },
+            "description": "Semantic view changed"
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "422": {
+            "$ref": "#/components/responses/422"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          },
+          {
+            "api_key": []
+          }
+        ],
+        "summary": "Update a semantic view",
+        "tags": [
+          "SemanticViewRestApi"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "cURL",
+            "label": "cURL",
+            "source": "curl -X PUT \"http://localhost:8088/api/v1/semantic_view/1\" \\\n  -H \"Authorization: Bearer $ACCESS_TOKEN\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"key\": \"value\"}'"
+          },
+          {
+            "lang": "Python",
+            "label": "Python",
+            "source": "import requests\n\nresponse = requests.put(\n    \"http://localhost:8088/api/v1/semantic_view/1\",\n    headers={\"Authorization\": \"Bearer \" + access_token},\n    json={\"key\": \"value\"}\n)\nprint(response.json())"
+          },
+          {
+            "lang": "JavaScript",
+            "label": "JavaScript",
+            "source": "const response = await fetch(\n  \"http://localhost:8088/api/v1/semantic_view/1\",\n  {\n    method: \"PUT\",\n    headers: {\n      \"Authorization\": `Bearer ${accessToken}`,\n      \"Content-Type\": \"application/json\"\n    },\n    body: JSON.stringify({ key: \"value\" })\n  }\n);\nconst data = await response.json();\nconsole.log(data);"
+          }
+        ]
+      }
+    },
+    "/api/v1/semantic_view/{pk}/structure": {
+      "get": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "pk",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Semantic view structure"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "422": {
+            "$ref": "#/components/responses/422"
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          },
+          {
+            "api_key": []
+          }
+        ],
+        "summary": "Get semantic view structure",
+        "tags": [
+          "SemanticViewRestApi"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "cURL",
+            "label": "cURL",
+            "source": "curl -X GET \"http://localhost:8088/api/v1/semantic_view/1/structure\" \\\n  -H \"Authorization: Bearer $ACCESS_TOKEN\""
+          },
+          {
+            "lang": "Python",
+            "label": "Python",
+            "source": "import requests\n\nresponse = requests.get(\n    \"http://localhost:8088/api/v1/semantic_view/1/structure\",\n    headers={\"Authorization\": \"Bearer \" + access_token}\n)\nprint(response.json())"
+          },
+          {
+            "lang": "JavaScript",
+            "label": "JavaScript",
+            "source": "const response = await fetch(\n  \"http://localhost:8088/api/v1/semantic_view/1/structure\",\n  {\n    headers: {\n      \"Authorization\": `Bearer ${accessToken}`\n    }\n  }\n);\nconst data = await response.json();\nconsole.log(data);"
+          }
+        ]
+      }
+    },
     "/api/v1/sqllab/": {
       "get": {
         "description": "Assembles SQLLab bootstrap data (active_tab, databases, queries, tab_state_ids) in a single endpoint. The data can be assembled from the current user's id.",
@@ -45402,6 +46547,14 @@
     {
       "name": "Security Users",
       "description": "Manage user accounts."
+    },
+    {
+      "name": "Semantic Layers",
+      "description": "Endpoints related to Semantic Layers."
+    },
+    {
+      "name": "SemanticViewRestApi",
+      "description": "Endpoints related to SemanticViewRestApi."
     },
     {
       "name": "Tags",
