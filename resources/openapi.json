@@ -7936,6 +7936,38 @@
         },
         "type": "object"
       },
+      "PasswordRecoveryRequestSchema": {
+        "properties": {
+          "email": {
+            "format": "email",
+            "maxLength": 320,
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "required": [
+          "email"
+        ],
+        "type": "object"
+      },
+      "PasswordRecoveryResetSchema": {
+        "properties": {
+          "password": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "token": {
+            "maxLength": 256,
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "required": [
+          "password",
+          "token"
+        ],
+        "type": "object"
+      },
       "PermissionApi.get": {
         "properties": {
           "id": {
@@ -37082,6 +37114,160 @@
             "lang": "JavaScript",
             "label": "JavaScript",
             "source": "const response = await fetch(\n  \"http://localhost:8088/api/v1/security/login\",\n  {\n    method: \"POST\",\n    headers: {\n      \"Authorization\": `Bearer ${accessToken}`,\n      \"Content-Type\": \"application/json\"\n    },\n    body: JSON.stringify({ key: \"value\" })\n  }\n);\nconst data = await response.json();\nconsole.log(data);"
+          }
+        ]
+      }
+    },
+    "/api/v1/security/password_recovery/": {
+      "post": {
+        "description": "Emails a single-use password reset link if the address belongs to an active account with a local password. The response is the same whether or not it does.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PasswordRecoveryRequestSchema"
+              },
+              "example": {
+                "email": "user@example.com"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "example": {
+                  "message": "string"
+                }
+              }
+            },
+            "description": "Request accepted"
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "429": {
+            "description": "Too many requests"
+          }
+        },
+        "security": [],
+        "summary": "Request a password reset link",
+        "tags": [
+          "Security"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "cURL",
+            "label": "cURL",
+            "source": "curl -X POST \"http://localhost:8088/api/v1/security/password_recovery/\" \\\n  -H \"Authorization: Bearer $ACCESS_TOKEN\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"key\": \"value\"}'"
+          },
+          {
+            "lang": "Python",
+            "label": "Python",
+            "source": "import requests\n\nresponse = requests.post(\n    \"http://localhost:8088/api/v1/security/password_recovery/\",\n    headers={\"Authorization\": \"Bearer \" + access_token},\n    json={\"key\": \"value\"}\n)\nprint(response.json())"
+          },
+          {
+            "lang": "JavaScript",
+            "label": "JavaScript",
+            "source": "const response = await fetch(\n  \"http://localhost:8088/api/v1/security/password_recovery/\",\n  {\n    method: \"POST\",\n    headers: {\n      \"Authorization\": `Bearer ${accessToken}`,\n      \"Content-Type\": \"application/json\"\n    },\n    body: JSON.stringify({ key: \"value\" })\n  }\n);\nconst data = await response.json();\nconsole.log(data);"
+          }
+        ]
+      }
+    },
+    "/api/v1/security/password_recovery/reset/": {
+      "post": {
+        "description": "Consumes the single-use token from a password reset link and sets the account's new password. Every existing browser session for the account is signed out.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PasswordRecoveryResetSchema"
+              },
+              "example": {
+                "password": "string",
+                "token": "string"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "example": {
+                  "message": "string"
+                }
+              }
+            },
+            "description": "Password reset"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "message": {
+                      "type": "object"
+                    }
+                  },
+                  "type": "object"
+                },
+                "example": {
+                  "message": {}
+                }
+              }
+            },
+            "description": "The new password was rejected (``message.password``) or the token is invalid, expired or already used (``message.token``)"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "429": {
+            "description": "Too many requests"
+          }
+        },
+        "security": [],
+        "summary": "Reset a password with a recovery token",
+        "tags": [
+          "Security"
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "cURL",
+            "label": "cURL",
+            "source": "curl -X POST \"http://localhost:8088/api/v1/security/password_recovery/reset/\" \\\n  -H \"Authorization: Bearer $ACCESS_TOKEN\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"key\": \"value\"}'"
+          },
+          {
+            "lang": "Python",
+            "label": "Python",
+            "source": "import requests\n\nresponse = requests.post(\n    \"http://localhost:8088/api/v1/security/password_recovery/reset/\",\n    headers={\"Authorization\": \"Bearer \" + access_token},\n    json={\"key\": \"value\"}\n)\nprint(response.json())"
+          },
+          {
+            "lang": "JavaScript",
+            "label": "JavaScript",
+            "source": "const response = await fetch(\n  \"http://localhost:8088/api/v1/security/password_recovery/reset/\",\n  {\n    method: \"POST\",\n    headers: {\n      \"Authorization\": `Bearer ${accessToken}`,\n      \"Content-Type\": \"application/json\"\n    },\n    body: JSON.stringify({ key: \"value\" })\n  }\n);\nconst data = await response.json();\nconsole.log(data);"
           }
         ]
       }
