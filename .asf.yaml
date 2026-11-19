@@ -15,6 +15,16 @@
 # specific language governing permissions and limitations
 # under the License.
 
+github:
+  description: "Apache Superset Website"
+  homepage: https://superset.apache.org/
+  features:
+    issues: true
+
+notifications:
+  commits: commits@superset.apache.org
+  issues: notifications@superset.apache.org
+
 publish:
   whoami: asf-site
 
